@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table of Contents — Scientific Methodology for Measuring AI Carbon Footprint</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        :root {
+            --purple: #667eea;
+            --purple-dark: #764ba2;
+            --blue: #3498db;
+            --green: #27ae60;
+            --red: #e74c3c;
+            --orange: #f39c12;
+            --teal: #1abc9c;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d1a;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            background: #12121f;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* TOP RAINBOW BAR */
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--purple), var(--blue), var(--teal), var(--green), var(--orange), var(--red));
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 55px 50px 45px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+        }
+
+        /* Particle grid background */
+        .header::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(102,126,234,0.12) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .header-inner { position: relative; z-index: 2; }
+
+        .doc-type {
+            display: inline-block;
+            background: rgba(102,126,234,0.15);
+            border: 1px solid rgba(102,126,234,0.35);
+            color: #a8b8f8;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase;
+            padding: 7px 22px; border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        .paper-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 30px; font-weight: 700;
+            color: #e8eaf6; line-height: 1.4;
+            margin-bottom: 10px;
+            max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+
+        .paper-subtitle {
+            font-size: 14px; color: #7986a8;
+            margin-bottom: 30px; line-height: 1.6;
+        }
+
+        .paper-meta {
+            display: flex; justify-content: center;
+            gap: 30px; flex-wrap: wrap;
+        }
+
+        .meta-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 7px 16px; border-radius: 20px;
+            font-size: 12px; color: #a0aec0;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .meta-pill span { font-weight: 700; color: #c6d0e8; }
+
+        /* TOC BODY */
+        .toc-body { padding: 50px 50px 40px; }
+
+        /* SECTION LABEL */
+        .toc-group-label {
+            font-size: 10px; font-weight: 800;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #4a5568; margin-bottom: 14px; margin-top: 36px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .toc-group-label:first-of-type { margin-top: 0; }
+
+        /* TOC ITEMS */
+        .toc-item {
+            display: grid;
+            grid-template-columns: 44px 1fr auto;
+            align-items: center;
+            gap: 0;
+            padding: 0;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .toc-item::before {
+            content: '';
+            position: absolute; left: 0; top: 0;
+            width: 3px; height: 100%;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .toc-item:hover { background: rgba(255,255,255,0.04); }
+        .toc-item:hover::before { opacity: 1; }
+
+        /* Accent colors per section */
+        .toc-item.prelim::before { background: var(--purple); }
+        .toc-item.methodology::before { background: var(--blue); }
+        .toc-item.results::before { background: var(--red); }
+        .toc-item.water::before { background: var(--blue); }
+        .toc-item.ewaste::before { background: var(--orange); }
+        .toc-item.minerals::before { background: var(--green); }
+        .toc-item.discussion::before { background: #e67e22; }
+        .toc-item.recommendations::before { background: var(--teal); }
+        .toc-item.conclusions::before { background: var(--purple); }
+        .toc-item.references::before { background: var(--gray); }
+
+        /* Number circle */
+        .toc-num {
+            width: 44px; height: 54px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .toc-num-inner {
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+        }
+
+        .prelim .toc-num-inner { background: rgba(102,126,234,0.15); color: var(--purple); }
+        .methodology .toc-num-inner { background: rgba(52,152,219,0.15); color: var(--blue); }
+        .results .toc-num-inner { background: rgba(231,76,60,0.15); color: var(--red); }
+        .water .toc-num-inner { background: rgba(26,107,168,0.15); color: #2980b9; }
+        .ewaste .toc-num-inner { background: rgba(211,84,0,0.15); color: var(--orange); }
+        .minerals .toc-num-inner { background: rgba(39,174,96,0.15); color: var(--green); }
+        .discussion .toc-num-inner { background: rgba(230,126,34,0.15); color: #e67e22; }
+        .recommendations .toc-num-inner { background: rgba(26,188,156,0.15); color: var(--teal); }
+        .conclusions .toc-num-inner { background: rgba(102,126,234,0.15); color: var(--purple); }
+        .references .toc-num-inner { background: rgba(149,165,166,0.15); color: var(--gray); }
+
+        /* Title area */
+        .toc-title-area {
+            padding: 14px 14px 14px 4px;
+            min-width: 0;
+        }
+
+        .toc-title {
+            font-size: 15px; font-weight: 600;
+            color: #d0d8f0; line-height: 1.3;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .toc-item:hover .toc-title { color: white; }
+
+        .toc-desc {
+            font-size: 12px; color: #4a5568;
+            margin-top: 3px; line-height: 1.4;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .toc-item:hover .toc-desc { color: #718096; }
+
+        /* Tags */
+        .toc-tags {
+            display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap;
+        }
+
+        .toc-tag {
+            font-size: 10px; font-weight: 700;
+            padding: 2px 7px; border-radius: 6px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .tag-new { background: rgba(26,188,156,0.15); color: #1abc9c; }
+        .tag-updated { background: rgba(243,156,18,0.15); color: #f39c12; }
+        .tag-core { background: rgba(102,126,234,0.15); color: #667eea; }
+
+        /* Page / arrow */
+        .toc-arrow {
+            padding: 14px 20px 14px 10px;
+            color: #2d3748;
+            font-size: 16px;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .toc-item:hover .toc-arrow { color: #667eea; transform: translateX(3px); }
+
+        /* Subsections */
+        .toc-subsections {
+            margin: 4px 0 10px 44px;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .toc-sub {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px 0;
+            font-size: 13px; color: #4a5568;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .toc-sub:hover { color: #a0aec0; }
+
+        .toc-sub-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .prelim-sub .toc-sub-dot { background: rgba(102,126,234,0.5); }
+        .water-sub .toc-sub-dot { background: rgba(52,152,219,0.5); }
+        .ewaste-sub .toc-sub-dot { background: rgba(243,156,18,0.5); }
+        .minerals-sub .toc-sub-dot { background: rgba(39,174,96,0.5); }
+        .results-sub .toc-sub-dot { background: rgba(231,76,60,0.5); }
+        .discussion-sub .toc-sub-dot { background: rgba(230,126,34,0.5); }
+        .recommendations-sub .toc-sub-dot { background: rgba(26,188,156,0.5); }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1px;
+            background: rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin: 30px -50px;
+        }
+
+        .stat-cell {
+            background: #12121f;
+            padding: 18px 20px;
+            text-align: center;
+        }
+
+        .stat-cell-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px; font-weight: 700;
+            display: block; margin-bottom: 5px;
+        }
+
+        .stat-cell-label {
+            font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; color: #4a5568;
+        }
+
+        /* FOOTER */
+        .toc-footer {
+            background: linear-gradient(135deg, #0a0a15 0%, #12121f 100%);
+            padding: 30px 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-links {
+            display: flex; justify-content: center;
+            gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: #4a5568; text-decoration: none;
+            font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .footer-link:hover { background: rgba(255,255,255,0.05); color: #a0aec0; }
+        .footer-link.active { background: rgba(102,126,234,0.15); border-color: rgba(102,126,234,0.3); color: #a8b8f8; }
+
+        .footer-credit {
+            text-align: center; font-size: 13px; color: #4a5568;
+        }
+
+        .footer-credit strong { color: #7986a8; }
+
+        @media (max-width: 700px) {
+            .header { padding: 35px 25px; }
+            .toc-body { padding: 30px 20px 30px; }
+            .toc-footer { padding: 25px 20px; }
+            .paper-title { font-size: 22px; }
+            .stats-bar { margin: 20px -20px; }
+            .toc-title { font-size: 13px; white-space: normal; }
+            .toc-desc { white-space: normal; }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .container { background: white; box-shadow: none; max-width: 100%; }
+            .header { background: #f5f5f5; }
+            .toc-item:hover { background: none; }
+            .footer-links { display: none !important; }
+            .toc-footer { background: white !important; border-top: 2px solid #ddd; }
+            a { color: inherit; text-decoration: none; }
+        }
+    
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-inner">
+            <div class="doc-type">Table of Contents — Version 1.0.0</div>
+            <h1 class="paper-title">Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models</h1>
+            <p class="paper-subtitle">Comprehensive scientific framework: Carbon · Water · Waste · Minerals · Biodiversity</p>
+            <div class="paper-meta">
+                <div class="meta-pill">📅 <span>Version 1.0.0</span> · March 2026</div>
+                <div class="meta-pill">👩‍🔬 <span>Elizabeth Díaz Familia</span></div>
+                <div class="meta-pill">📄 <span>13 sections</span> · 47 references</div>
+                <div class="meta-pill">⚖️ CC BY 4.0 <span>International</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOC BODY -->
+    <div class="toc-body">
+
+        <!-- ESTADÍSTICAS -->
+        <div class="stats-bar">
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#667eea;">30+</span>
+                <span class="stat-cell-label">Models Analyzed</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#3498db;">R²=0.89</span>
+                <span class="stat-cell-label">Scientific Correlation</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#e74c3c;">&lt;6%</span>
+                <span class="stat-cell-label">Error vs Official Data</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#f39c12;">47</span>
+                <span class="stat-cell-label">Verified References</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#1abc9c;">5</span>
+                <span class="stat-cell-label">Impact Dimensions</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#27ae60;">2019–26</span>
+                <span class="stat-cell-label">Time Range</span>
+            </div>
+        </div>
+
+        <!-- SECCIONES PRELIMINARES -->
+        <div class="toc-group-label">Preliminary Sections</div>
+
+        <a href="portada_en.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Cover and Paper Presentation</div>
+                <div class="toc-desc">Author, affiliation, version, publication date, CC BY 4.0 license</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">Cover</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="resumen_en.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Abstract / Resumen</div>
+                <div class="toc-desc">Study synthesis, key findings, main statistics, and keywords</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">Abstract</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="introduccion_en.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Introduction</div>
+                <div class="toc-desc">Problem context, scientific justification, study objectives, and paper structure</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">Intro</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <!-- SECCIONES PRINCIPALES -->
+        <div class="toc-group-label">Paper Sections</div>
+
+        <a href="metodologia_en.html" class="toc-item methodology">
+            <div class="toc-num"><div class="toc-num-inner">1</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Carbon Footprint Measurement Methodology</div>
+                <div class="toc-desc">CO₂ formula, GPU specifications (V100/A100/H100), PUE, regional factors, and validation</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">Methodology</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="metodologia_en.html#formula" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.1 Main formula: CO₂(kg) = N_GPUs × P_GPU(kW) × T_h × PUE × C_factor
+            </a>
+            <a href="metodologia_en.html#hardware" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.2 Analyzed GPU hardware specifications
+            </a>
+            <a href="metodologia_en.html#pue" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.3 Power Usage Effectiveness (PUE) by region
+            </a>
+            <a href="metodologia_en.html#carbon" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.4 Carbon intensity factors by geography
+            </a>
+            <a href="metodologia_en.html#validation" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.5 Validation process with official data
+            </a>
+        </div>
+
+        <a href="resultados_en.html" class="toc-item results">
+            <div class="toc-num"><div class="toc-num-inner">2</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Results: Carbon Footprint by Model</div>
+                <div class="toc-desc">Analysis of 30+ models: LLMs, vision, specialized. GPT-4: 1.82M kg CO₂ vs Claude: 18,200 kg CO₂</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">Results</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="resultados_en.html#llms" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.1 Language Models (LLMs): GPT-4, Claude, LLaMA, BERT, Gemini
+            </a>
+            <a href="resultados_en.html#vision" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.2 Vision Models: DALL-E, Stable Diffusion, Midjourney
+            </a>
+            <a href="resultados_en.html#correlation" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.3 Size-emissions correlation (R² = 0.89) and power law
+            </a>
+            <a href="resultados_en.html#geographic" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.4 Geographic impact: variation up to 90% by location
+            </a>
+            <a href="resultados_en.html#validation" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.5 Cross-validation with OpenAI, Google, Meta AI reports
+            </a>
+        </div>
+
+        <a href="impacto_hidrico_en.html" class="toc-item water">
+            <div class="toc-num"><div class="toc-num-inner">3</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">💧 Water Impact of AI</div>
+                <div class="toc-desc">Water crisis: 700,000 L to train GPT-3. 2025 global projection: 312–764 billion liters</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">New Section</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="impacto_hidrico_en.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.1 Water consumption mechanisms in datacenters
+            </a>
+            <a href="impacto_hidrico_en.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.2 Consumption per query and model (comparative table)
+            </a>
+            <a href="impacto_hidrico_en.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.3 Geographic crises: Chile, Spain, Texas, UK
+            </a>
+            <a href="impacto_hidrico_en.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.4 2025–2030 projections and mitigation scenarios
+            </a>
+        </div>
+
+        <a href="residuos_electronicos_en.html" class="toc-item ewaste">
+            <div class="toc-num"><div class="toc-num-inner">4</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">🗑️ Electronic Waste (E-Waste) of AI</div>
+                <div class="toc-desc">1.2–5 Mt accumulated by 2030. Lead, mercury, arsenic. GPU lifespan: 2–3 years</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">New Section</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="residuos_electronicos_en.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.1 Hardware lifecycle: manufacturing → operation → obsolescence
+            </a>
+            <a href="residuos_electronicos_en.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.2 Toxic substances in AI e-waste (2030 projections table)
+            </a>
+            <a href="residuos_electronicos_en.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.3 Four e-waste scenarios 2023–2030
+            </a>
+            <a href="residuos_electronicos_en.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.4 Circular economy strategies
+            </a>
+        </div>
+
+        <a href="minerales_biodiversidad_en.html" class="toc-item minerals">
+            <div class="toc-num"><div class="toc-num-inner">5</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">⛏️ Critical Minerals and Biodiversity</div>
+                <div class="toc-desc">Cobalt, lithium, gallium, rare earths. Baotou toxic lake. Seabed mining</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">New Section</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="minerales_biodiversidad_en.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.1 Six critical minerals: environmental impact and geopolitical concentration
+            </a>
+            <a href="minerales_biodiversidad_en.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.2 Case study: Baotou, Inner Mongolia
+            </a>
+            <a href="minerales_biodiversidad_en.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.3 Biodiversity impacts: habitat, aquifers, microclimate
+            </a>
+            <a href="minerales_biodiversidad_en.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.4 Seabed mining risk (Clarion-Clipperton Zone)
+            </a>
+        </div>
+
+        <!-- SECCIONES FINALES -->
+        <div class="toc-group-label">Analysis, Recommendations, and Closing</div>
+
+        <a href="discusion_en.html" class="toc-item discussion">
+            <div class="toc-num"><div class="toc-num-inner">6</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Discussion</div>
+                <div class="toc-desc">Interpretation of findings, comparison with existing literature, industry implications, and study limitations</div>
+                <div class="toc-tags"><span class="toc-tag tag-updated">Updated</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="discusion_en.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.1 Implications for the global technology industry
+            </a>
+            <a href="discusion_en.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.2 Comparison with existing scientific literature
+            </a>
+            <a href="discusion_en.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.3 Regulatory framework and public policy
+            </a>
+            <a href="discusion_en.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.4 Study limitations and future research directions
+            </a>
+        </div>
+
+        <a href="recomendaciones_en.html" class="toc-item recommendations">
+            <div class="toc-num"><div class="toc-num-inner">7</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">✅ Recommendations</div>
+                <div class="toc-desc">Actionable guide for tech companies, governments, researchers, users, and developing countries</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">New Section</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="recomendaciones_en.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.1 For tech companies and datacenter operators
+            </a>
+            <a href="recomendaciones_en.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.2 For governments and regulatory bodies
+            </a>
+            <a href="recomendaciones_en.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.3 For researchers and the scientific community
+            </a>
+            <a href="recomendaciones_en.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.4 For individual users and organizations
+            </a>
+            <a href="recomendaciones_en.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.5 For the Global South and developing countries
+            </a>
+        </div>
+
+        <a href="conclusiones_en.html" class="toc-item conclusions">
+            <div class="toc-num"><div class="toc-num-inner">8</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Conclusions</div>
+                <div class="toc-desc">Definitive findings, original contributions to the field, paper impact, and call to action</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">New</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="referencias_en.html" class="toc-item references">
+            <div class="toc-num"><div class="toc-num-inner">📚</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">Bibliographic References</div>
+                <div class="toc-desc">47 verified references: peer-reviewed, institutional, official corporate — range 2019–2026</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">47 Sources</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+    </div><!-- /toc-body -->
+
+    <!-- FOOTER -->
+    <div class="toc-footer">
+        <div class="footer-links">
+            <a href="portada_en.html" class="footer-link">Cover</a>
+            <a href="resumen_en.html" class="footer-link">Abstract</a>
+            <a href="introduccion_en.html" class="footer-link">Intro</a>
+            <a href="metodologia_en.html" class="footer-link">§1 Methodology</a>
+            <a href="resultados_en.html" class="footer-link">§2 Results</a>
+            <a href="impacto_hidrico_en.html" class="footer-link">§3 Water</a>
+            <a href="residuos_electronicos_en.html" class="footer-link">§4 E-Waste</a>
+            <a href="minerales_biodiversidad_en.html" class="footer-link">§5 Minerals</a>
+            <a href="discusion_en.html" class="footer-link">§6 Discussion</a>
+            <a href="recomendaciones_en.html" class="footer-link">§7 Recom.</a>
+            <a href="conclusiones_en.html" class="footer-link">§8 Conclusions</a>
+            <a href="referencias_en.html" class="footer-link">References</a>
+            <a href="toc_en.html" class="footer-link active">↑ This page</a>
+        </div>
+        <p class="footer-credit">
+            <strong>Elizabeth Díaz Familia</strong> · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · lizzy0981.github.io · CC BY 4.0 · Version 1.0.0, March 2026
+        </p>
+    </div>
+
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%6*60); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.toc-item').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

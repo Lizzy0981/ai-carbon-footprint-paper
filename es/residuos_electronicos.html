@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección 4 — Residuos Electrónicos | Paper Científico</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #fef6e4 0%, #fde8cc 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #7d3c00 0%, #b7410e 50%, #d35400 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolygon fill='%23ffffff' fill-opacity='0.05' points='50,0 100,50 50,100 0,50'/%3E%3C/svg%3E") repeat;
+            animation: bgSlide 20s linear infinite;
+        }
+
+        @keyframes bgSlide {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: shake 4s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 700px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* CRISIS INTRO */
+        .crisis-callout {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe8d0 100%);
+            border-left: 6px solid #d35400;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #5d2e00; }
+        .crisis-callout strong { color: #b7410e; }
+
+        /* STATS */
+        .ewaste-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .ewaste-stat {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400;
+            border-radius: 16px; padding: 25px 20px;
+            text-align: center; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .ewaste-stat::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #d35400, #b7410e);
+        }
+
+        .ewaste-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(211,84,0,0.2);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif; font-size: 26px;
+            font-weight: 800; color: #b7410e;
+            display: block; margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; color: #7d4000;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+        }
+
+        .stat-source { font-size: 12px; color: #7f8c8d; font-style: italic; }
+
+        /* HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #b7410e;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #d35400;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* LIFECYCLE */
+        .lifecycle-steps {
+            counter-reset: lifecycle;
+            margin: 30px 0;
+        }
+
+        .lifecycle-step {
+            counter-increment: lifecycle;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px dashed #fcd3a1;
+            align-items: start;
+        }
+
+        .lifecycle-step:last-child { border-bottom: none; }
+
+        .lifecycle-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 22px; font-weight: 800;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-content {}
+
+        .lifecycle-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 8px;
+        }
+
+        .lifecycle-text { font-size: 16px; line-height: 1.7; color: #34495e; }
+
+        .lifecycle-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; color: #b7410e;
+            background: #fff5ec; padding: 6px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* TOXICS TABLE */
+        .toxics-wrap {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400; border-radius: 16px;
+            padding: 30px; margin: 30px 0; overflow-x: auto;
+        }
+
+        .toxics-title {
+            font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 20px;
+            text-align: center; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        table.toxics-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
+
+        table.toxics-table thead tr {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+        }
+
+        table.toxics-table th {
+            padding: 14px 16px; text-align: left;
+            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+        }
+
+        table.toxics-table td {
+            padding: 12px 16px; font-size: 14px;
+            border-bottom: 1px solid #fcd3a1; color: #2c3e50;
+        }
+
+        table.toxics-table tr:nth-child(even) td { background: rgba(211,84,0,0.05); }
+        table.toxics-table tr:hover td { background: rgba(211,84,0,0.1); }
+
+        .toxicity-high { color: #c0392b; font-weight: 700; }
+        .toxicity-medium { color: #d68910; font-weight: 700; }
+        .toxicity-low { color: #27ae60; font-weight: 700; }
+
+        /* SCENARIOS */
+        .scenarios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .scenario-card {
+            border-radius: 14px; padding: 22px;
+            border: 2px solid; text-align: center;
+        }
+
+        .scenario-card.s1 { background: #eafaf1; border-color: #27ae60; }
+        .scenario-card.s2 { background: #fef9e7; border-color: #f39c12; }
+        .scenario-card.s3 { background: #fdecea; border-color: #e74c3c; }
+        .scenario-card.s4 { background: #4a0000; border-color: #800000; }
+
+        .scenario-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 12px;
+        }
+
+        .scenario-card.s1 .scenario-label { color: #1e8449; }
+        .scenario-card.s2 .scenario-label { color: #d68910; }
+        .scenario-card.s3 .scenario-label { color: #c0392b; }
+        .scenario-card.s4 .scenario-label { color: #ff6b6b; }
+
+        .scenario-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px; font-weight: 700; display: block; margin-bottom: 8px;
+        }
+
+        .scenario-card.s1 .scenario-number { color: #27ae60; }
+        .scenario-card.s2 .scenario-number { color: #f39c12; }
+        .scenario-card.s3 .scenario-number { color: #e74c3c; }
+        .scenario-card.s4 .scenario-number { color: #ff6b6b; }
+
+        .scenario-desc { font-size: 14px; line-height: 1.6; color: #34495e; }
+        .scenario-card.s4 .scenario-desc { color: #ffa8a8; }
+
+        /* GLOBAL CONTEXT */
+        .global-context {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0;
+        }
+
+        .global-context-title {
+            font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700;
+            margin-bottom: 15px; color: #f39c12;
+        }
+
+        .global-context p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .global-context p:last-child { margin-bottom: 0; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white; border: 2px solid #fcd3a1;
+            border-radius: 16px; padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #d35400;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(211,84,0,0.15);
+        }
+
+        .solution-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif; font-size: 15px;
+            font-weight: 700; color: #b7410e; margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #3d1f00 0%, #5c2e00 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav {
+            text-align: center; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #d35400; border-color: #d35400; color: white; }
+
+        .author-note {
+            font-size: 13px; opacity: 0.8;
+            font-style: italic; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Sección 4 — Nueva</span>
+            <span class="section-icon">🗑️</span>
+            <h1 class="section-title">Residuos Electrónicos de la IA</h1>
+            <p class="section-subtitle">
+                La crisis invisible del hardware: millones de toneladas de GPUs, servidores
+                y componentes obsoletos cargados de toxinas que envenenan suelos y acuíferos
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <div class="crisis-callout">
+            <p>
+                Cuando un modelo de IA es entrenado, existe hardware físico detrás.
+                Cuando ese modelo es reemplazado por uno más nuevo — algo que ocurre
+                <strong>cada pocas semanas en la industria actual</strong> — el hardware
+                anterior se convierte en basura. No en basura ordinaria: en residuos
+                electrónicos cargados de <strong>plomo, mercurio, cadmio, arsénico y
+                dioxinas</strong> que pueden contaminar suelos y aguas subterráneas durante
+                décadas. La IA generativa podría añadir entre <strong>1.2 y 5 millones
+                de toneladas métricas de e-waste acumulado para 2030</strong>.
+            </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="ewaste-stats">
+            <div class="ewaste-stat">
+                <span class="stat-number">62 Mt</span>
+                <span class="stat-label">E-waste global total (2022)</span>
+                <span class="stat-source">ONU Global E-Waste Monitor (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">1.2 – 5 Mt</span>
+                <span class="stat-label">E-waste adicional por IA gen. 2023–2030</span>
+                <span class="stat-source">Wang et al., Nature Comp. Sci. (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2.5 Mt/año</span>
+                <span class="stat-label">Proyección anual IA — 2030 (escenario agresivo)</span>
+                <span class="stat-source">Tzachor et al., IEEE Spectrum (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2–3 años</span>
+                <span class="stat-label">Vida útil de GPU especializada en IA</span>
+                <span class="stat-source">vs 5–7 años de servidor tradicional</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">22%</span>
+                <span class="stat-label">E-waste con reciclaje formal hoy</span>
+                <span class="stat-source">Global E-Waste Monitor 2024</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">5×</span>
+                <span class="stat-label">Velocidad de crecimiento vs reciclaje</span>
+                <span class="stat-source">ONU (2022) — el e-waste crece 5x más rápido</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Proporción del E-Waste Global Atribuible a la IA (2030, escenario agresivo)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartGlobalShare"></canvas></div>
+        </div>
+
+        <!-- 4.1 CICLO DE VIDA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.1</span>
+            El Ciclo de Vida del Hardware de IA y sus Impactos
+        </h2>
+
+        <p class="body-text">
+            El hardware que soporta los modelos de IA tiene un ciclo de vida corto y
+            violento desde una perspectiva ambiental. La demanda de mayor rendimiento
+            computacional impulsa reemplazos continuos de infraestructura, generando
+            volúmenes crecientes de desechos que contienen materiales altamente tóxicos.
+        </p>
+
+        <div class="lifecycle-steps">
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">1</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Fabricación — Huella Antes de Encender</div>
+                    <p class="lifecycle-text">
+                        Fabricar una sola GPU de alto rendimiento produce aproximadamente
+                        200 kg de CO₂ — equivalente a conducir más de 800 millas en auto a gasolina.
+                        Los datacenters despliegan decenas de miles de estas unidades. Además,
+                        la producción de chips requiere agua ultrapura, gases especiales y productos
+                        químicos cuyo manejo genera residuos tóxicos en la fábrica.
+                    </p>
+                    <span class="lifecycle-data">~200 kg CO₂ por GPU H100 fabricado</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">2</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Operación — El Período Activo</div>
+                    <p class="lifecycle-text">
+                        La vida operativa de una GPU especializada en IA dura apenas 2–3 años,
+                        versus los 5–7 años de un servidor convencional. La razón: el ritmo de
+                        avance en arquitecturas de chips (Volta → Ampere → Hopper → Blackwell)
+                        hace obsoleto el hardware previo en ciclos cada vez más cortos. En 2023,
+                        NVIDIA, AMD e Intel enviaron 3.85 millones de GPUs a datacenters —
+                        la cifra aumentó significativamente en 2024.
+                    </p>
+                    <span class="lifecycle-data">3.85 M GPUs enviadas a datacenters solo en 2023 (TechInsights)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">3</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Obsolescencia Acelerada</div>
+                    <p class="lifecycle-text">
+                        Las empresas de IA lanzan modelos nuevos cada pocas semanas.
+                        Según investigadores del MIT, "la energía usada para entrenar versiones
+                        previas se desperdicia, y los nuevos modelos generalmente consumen
+                        más energía porque tienen más parámetros." Esta carrera tecnológica
+                        implica hardware que fue adquirido hace 18 meses puede ser ya
+                        insuficiente para competir.
+                    </p>
+                    <span class="lifecycle-data">Modelos nuevos cada pocas semanas — MIT News (2025)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">4</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Destino Final: La Crisis del Reciclaje</div>
+                    <p class="lifecycle-text">
+                        Solo el 22% del e-waste global recibe reciclaje formal (ONU, 2024).
+                        Una proporción estimada en hasta el 80% es exportada a países en
+                        desarrollo donde es procesada de forma informal, sin protecciones
+                        ambientales ni de salud laboral, liberando toxinas al suelo,
+                        agua y aire de comunidades vulnerables.
+                    </p>
+                    <span class="lifecycle-data">~80% del e-waste de EE.UU. exportado (E-waste Collective)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 SUSTANCIAS TÓXICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.2</span>
+            Sustancias Tóxicas en el E-Waste de IA
+        </h2>
+
+        <p class="body-text">
+            El estudio de Wang, Tzachor y Chen publicado en <em>Nature Computational Science</em>
+            (2024) cuantificó las sustancias tóxicas que podrían acumularse en el e-waste
+            de servidores de IA para 2030 bajo el escenario de extensión de vida útil
+            (que reduce el desperdicio). Los resultados son alarmantes aun en el
+            mejor escenario analizado:
+        </p>
+
+        <div class="toxics-wrap">
+            <div class="toxics-title">Proyección de Residuos Tóxicos del E-Waste de IA para 2030</div>
+            <table class="toxics-table">
+                <thead>
+                    <tr>
+                        <th>Sustancia</th>
+                        <th>Cantidad Proyectada (2030)</th>
+                        <th>Impacto en Ecosistemas</th>
+                        <th>Nivel de Riesgo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Plomo (Pb)</strong></td>
+                        <td>917,000 toneladas</td>
+                        <td>Contamina suelos y agua subterránea; daño neurológico en humanos</td>
+                        <td class="toxicity-high">⬛ CRÍTICO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cromo (Cr)</strong></td>
+                        <td>907 toneladas</td>
+                        <td>Cancerígeno; persiste en suelos por décadas</td>
+                        <td class="toxicity-high">⬛ CRÍTICO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bario (Ba)</strong></td>
+                        <td>6,000 toneladas</td>
+                        <td>Toxicidad cardiovascular; contaminación de acuíferos</td>
+                        <td class="toxicity-high">🔴 ALTO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arsénico (As)</strong></td>
+                        <td>34 toneladas</td>
+                        <td>Cancerígeno; daño permanente en ecosistemas acuáticos</td>
+                        <td class="toxicity-high">🔴 ALTO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cadmio (Cd)</strong></td>
+                        <td>30 toneladas</td>
+                        <td>Acumulación en cadena alimentaria; tóxico para flora y fauna</td>
+                        <td class="toxicity-high">🔴 ALTO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Antimonio (Sb)</strong></td>
+                        <td>7,000 toneladas</td>
+                        <td>Tóxico para organismos acuáticos; sospechoso cancerígeno</td>
+                        <td class="toxicity-medium">🟠 MODERADO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mercurio (Hg)</strong></td>
+                        <td>7 toneladas</td>
+                        <td>Bioacumulación en peces; daño neurológico severo en humanos</td>
+                        <td class="toxicity-high">⬛ CRÍTICO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Polímeros de PCB</strong></td>
+                        <td>~30% del peso de PCBs</td>
+                        <td>No biodegradables; dañan fertilidad del suelo permanentemente</td>
+                        <td class="toxicity-medium">🟠 MODERADO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dioxinas/Furanos</strong></td>
+                        <td>Subproducto de incineración incompleta</td>
+                        <td>Extremadamente cancerígenas; amenazan la salud pública</td>
+                        <td class="toxicity-high">⬛ CRÍTICO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>Fuente principal:</strong> Wang P., Tzachor A., Chen W-Q. (2024).
+            "E-waste Challenges of Generative Artificial Intelligence."
+            <em>Nature Computational Science</em>. DOI: 10.1038/s43588-024-00712-6.
+            Estos valores corresponden al escenario de extensión de vida útil (el más conservador analizado).
+        </div>
+
+        <!-- 4.3 ESCENARIOS 2030 -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.3</span>
+            Escenarios de E-Waste 2023–2030
+        </h2>
+
+        <p class="body-text">
+            El mismo estudio de Wang et al. modeló cuatro escenarios de adopción de IA generativa,
+            desde expansión limitada hasta crecimiento agresivo. Los resultados del e-waste
+            acumulado entre 2023 y 2030 varían dramáticamente según las decisiones de política
+            y adopción de economía circular:
+        </p>
+
+        <div class="scenarios-container">
+            <div class="scenario-card s1">
+                <div class="scenario-label">Expansión Limitada</div>
+                <span class="scenario-number">1.2 Mt</span>
+                <p class="scenario-desc">
+                    E-waste total acumulado 2023–2030. Adopción conservadora + políticas de extensión
+                    de vida útil + reciclaje robusto.
+                </p>
+            </div>
+            <div class="scenario-card s2">
+                <div class="scenario-label">Expansión Moderada</div>
+                <span class="scenario-number">2.6 Mt</span>
+                <p class="scenario-desc">
+                    Escenario intermedio con crecimiento sostenido similar a tendencias 2022–2024.
+                    Sin cambios significativos en gestión de residuos.
+                </p>
+            </div>
+            <div class="scenario-card s3">
+                <div class="scenario-label">Expansión Agresiva</div>
+                <span class="scenario-number">5.0 Mt</span>
+                <p class="scenario-desc">
+                    Adopción masiva con hardware intensivo y ciclos de reemplazo acelerados.
+                    E-waste anual llegando a 2.5 Mt/año hacia 2030.
+                </p>
+            </div>
+            <div class="scenario-card s4">
+                <div class="scenario-label">Sin Intervención</div>
+                <span class="scenario-number">16 Mt</span>
+                <p class="scenario-desc">
+                    E-waste acumulado si no se adoptan medidas de economía circular.
+                    Escenario sin políticas de extensión de vida útil ni reciclaje.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4.4 CONTEXTO GLOBAL -->
+        <div class="global-context">
+            <div class="global-context-title">📌 Contexto Global del E-Waste</div>
+            <p>
+                En 2022, el mundo produjo <strong>62 millones de toneladas de e-waste total</strong>,
+                según el Monitor Global de E-Waste de la ONU (2024). Este flujo de residuos crece
+                <strong>5 veces más rápido que los programas de reciclaje</strong>.
+            </p>
+            <p>
+                Los componentes del e-waste de IA incluyen: GPUs, CPUs, baterías de respaldo de
+                datacenters, módulos de memoria, y tarjetas de circuito impreso (PCBs). Los polímeros
+                que constituyen ~30% de las PCBs no son biodegradables y pueden dañar la fertilidad
+                del suelo. El enterramiento en vertederos (landfilling) contamina suelo y agua
+                subterránea. La incineración incompleta libera dioxinas y furanos, comprometiendo
+                la salud pública.
+            </p>
+            <p>
+                La preocupación por seguridad de datos es una barrera adicional al reciclaje:
+                las empresas destruyen hardware para evitar filtraciones de información, en lugar
+                de refaccionarlo o reciclarlo responsablemente.
+            </p>
+        </div>
+
+        <!-- 4.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.4</span>
+            Economía Circular para el E-Waste de IA
+        </h2>
+
+        <p class="body-text">
+            El mismo estudio de Nature Computational Science identificó que la estrategia
+            más efectiva para reducir el e-waste de IA es la <strong>extensión de vida útil
+            del hardware</strong>: extender en solo 1 año el ciclo de vida promedio de los
+            servidores podría reducir el e-waste acumulado en millones de toneladas.
+            La reutilización de módulos (GPU, CPU, baterías) reduce el e-waste en un 21%
+            adicional.
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🔧</span>
+                <div class="solution-title">Extensión de Vida Útil (C1)</div>
+                <p class="solution-text">
+                    Aumentar en 1 año la vida útil promedio de los servidores de IA es la
+                    medida individual más efectiva, actualmente implementada por algunos
+                    operadores globales de datacenters.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">Reutilización Modular (C3)</div>
+                <p class="solution-text">
+                    Desmontar, renovar y re-ensamblar módulos críticos (GPU, CPU, baterías)
+                    de servidores obsoletos para uso en computación de menor demanda.
+                    Reduce e-waste en un 21%.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🏭</span>
+                <div class="solution-title">Programas Take-Back</div>
+                <p class="solution-text">
+                    Programas de devolución obligatoria donde los fabricantes retoman
+                    hardware obsoleto y garantizan su reciclaje responsable. Requiere
+                    implementación regulatoria.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📋</span>
+                <div class="solution-title">Diseño para Reciclabilidad</div>
+                <p class="solution-text">
+                    Diseñar chips y placas con materiales de menor toxicidad y mayor
+                    separabilidad facilita la recuperación de metales valiosos sin
+                    exposición a tóxicos. Investigación activa en bio-semiconductores.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🔬</span>
+                <div class="solution-title">Borrado Seguro + Reutilización</div>
+                <p class="solution-text">
+                    Tecnologías certificadas de borrado seguro de datos (sin destrucción
+                    física) permitirían refaccionar y reutilizar hardware que hoy se
+                    destruye innecesariamente por razones de seguridad.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">⚖️</span>
+                <div class="solution-title">Marco Regulatorio Internacional</div>
+                <p class="solution-text">
+                    La UNEA-7 (Nairobi, diciembre 2025) colocó el e-waste de IA en la agenda
+                    global. Se necesitan políticas internacionales que obliguen reporte de
+                    residuos y estándares mínimos de reciclaje formal.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Sección</div>
+                <div class="footer-value">4 — Residuos Electrónicos (Nueva)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Datos cubren</div>
+                <div class="footer-value">2022 – 2025 (con proyecciones a 2030)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Fuentes primarias</div>
+                <div class="footer-value">Nature Computational Sci., ONU, MIT, IEEE Spectrum</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Próxima Sección</div>
+                <div class="footer-value">Sección 5 → Minerales y Biodiversidad</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">Portada</a>
+                <a href="toc.html" class="nav-link">Índice</a>
+                <a href="resumen.html" class="nav-link">Resumen</a>
+                <a href="introduccion.html" class="nav-link">Intro</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link active">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Refs</a>
+            </div>
+            <p class="author-note">
+                <strong>Author:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Internacional
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.ewaste-stat,.scenario-card,.lifecycle-card,.solution-card,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — 4 scenarios
+  new Chart(document.getElementById('chartScenarios'), {
+    type:'bar',
+    data:{
+      labels:['Expansión Limitada','Expansión Moderada','Expansión Agresiva','Sin Intervención'],
+      datasets:[{
+        label:'Mt acumuladas 2023–2030',
+        data:[1.2, 2.6, 5.0, 16],
+        backgroundColor:['#27ae60','#f39c12','#e74c3c','#800000'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de toneladas (Mt)'}} }
+    }
+  });
+
+  // Chart 2 — AI share of global e-waste (donut)
+  new Chart(document.getElementById('chartGlobalShare'), {
+    type:'doughnut',
+    data:{
+      labels:['E-waste global (otros sectores)','E-waste atribuible a IA generativa'],
+      datasets:[{
+        data:[59.5, 2.5],
+        backgroundColor:['#d4a373','#b7410e'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:12}}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f3d2e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#27ae60"/>
+      <stop offset="100%" stop-color="#1abc9c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+
+  <!-- Leaf shape -->
+  <path d="M32 12
+           C 20 12, 12 22, 12 34
+           C 12 44, 20 50, 28 51
+           C 27 40, 30 28, 40 20
+           C 34 26, 30 34, 29 42
+           C 40 40, 48 30, 48 18
+           C 44 14, 38 12, 32 12 Z"
+        fill="url(#leaf)"/>
+
+  <!-- Circuit nodes overlay (AI motif) -->
+  <circle cx="22" cy="30" r="1.8" fill="#eafff5"/>
+  <circle cx="30" cy="23" r="1.8" fill="#eafff5"/>
+  <circle cx="38" cy="30" r="1.8" fill="#eafff5"/>
+  <circle cx="28" cy="40" r="1.8" fill="#eafff5"/>
+  <line x1="22" y1="30" x2="30" y2="23" stroke="#eafff5" stroke-width="1" opacity="0.7"/>
+  <line x1="30" y1="23" x2="38" y2="30" stroke="#eafff5" stroke-width="1" opacity="0.7"/>
+  <line x1="22" y1="30" x2="28" y2="40" stroke="#eafff5" stroke-width="1" opacity="0.7"/>
+
+  <!-- Small CO2-reduction arrow -->
+  <path d="M46 46 L52 40 M52 40 L52 45 M52 40 L47 40"
+        stroke="#a8f0d8" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

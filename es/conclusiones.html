@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§8 Conclusiones — Huella de Carbono en Modelos de IA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#0d0d2e 0%,#1a1a4e 50%,#0d0d2e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c,#667eea);background-size:200%;animation:slide 4s linear infinite;}
+@keyframes slide{0%{background-position:0%}100%{background-position:200%}}
+
+/* HEADER — gradiente oscuro premium */
+.hdr{
+  background:linear-gradient(135deg,#0d0d2e 0%,#1a1a4e 40%,#2d2d6e 70%,#667eea 100%);
+  padding:60px 48px;color:white;text-align:center;position:relative;overflow:hidden;
+}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(102,126,234,0.15) 1px,transparent 1px);background-size:40px 40px;}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(102,126,234,0.6),transparent);}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(102,126,234,0.2);border:1px solid rgba(102,126,234,0.5);color:#c0c8ff;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:22px;}
+.hdr-icon{font-size:52px;display:block;margin-bottom:16px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:38px;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#c0c8ff,#a8d8ff,#c0ffe8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr-sub{font-size:17px;opacity:.8;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* BODY */
+.body{padding:56px 48px;}
+.body-text{font-size:18.5px;line-height:1.95;color:#2c3e50;margin-bottom:24px;text-align:justify;}
+
+/* CONCLUSIONS NUMBERED */
+.conc-list{list-style:none;margin:0 0 40px;}
+.conc-item{
+  display:grid;grid-template-columns:54px 1fr;gap:0;
+  margin-bottom:16px;border-radius:16px;overflow:hidden;
+  box-shadow:0 3px 16px rgba(102,126,234,0.1);
+  transition:all .3s ease;
+}
+.conc-item:hover{transform:translateX(5px);box-shadow:0 5px 24px rgba(102,126,234,0.2);}
+.conc-num{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;
+  padding:20px 12px;flex-shrink:0;
+}
+.conc-body{background:linear-gradient(135deg,#f4f7ff,#e8edff);padding:22px 24px;}
+.conc-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#4a235a;margin-bottom:8px;}
+.conc-text{font-size:17px;line-height:1.8;color:#2c3e50;}
+.conc-data{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(102,126,234,0.12);color:#4a5cbf;padding:4px 10px;border-radius:7px;display:inline-block;margin-top:8px;}
+
+/* CONTRIBUTIONS */
+.contrib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:28px 0;}
+.contrib{background:white;border:2px solid;border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden;}
+.contrib::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.contrib:hover{transform:translateY(-5px);}
+.contrib.c1{border-color:#667eea;} .contrib.c1::before{background:#667eea;} .contrib.c1:hover{box-shadow:0 12px 30px rgba(102,126,234,0.2);}
+.contrib.c2{border-color:#3498db;} .contrib.c2::before{background:#3498db;} .contrib.c2:hover{box-shadow:0 12px 30px rgba(52,152,219,0.2);}
+.contrib.c3{border-color:#1abc9c;} .contrib.c3::before{background:#1abc9c;} .contrib.c3:hover{box-shadow:0 12px 30px rgba(26,188,156,0.2);}
+.contrib.c4{border-color:#27ae60;} .contrib.c4::before{background:#27ae60;} .contrib.c4:hover{box-shadow:0 12px 30px rgba(39,174,96,0.2);}
+.contrib.c5{border-color:#e67e22;} .contrib.c5::before{background:#e67e22;} .contrib.c5:hover{box-shadow:0 12px 30px rgba(230,126,34,0.2);}
+.contrib-icon{font-size:28px;margin-bottom:10px;display:block;}
+.contrib-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;margin-bottom:7px;}
+.contrib.c1 .contrib-title{color:#4a5cbf;} .contrib.c2 .contrib-title{color:#1a6fa8;} .contrib.c3 .contrib-title{color:#0d7a5e;} .contrib.c4 .contrib-title{color:#1a8449;} .contrib.c5 .contrib-title{color:#b7410e;}
+.contrib-text{font-size:15px;line-height:1.7;color:#34495e;}
+
+/* SECTION HEADING */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#4a5cbf;margin:48px 0 20px;padding-bottom:12px;border-bottom:3px solid #667eea;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* IMPACT DASHBOARD */
+.impact-dashboard{
+  background:linear-gradient(135deg,#0d0d2e,#1a1a4e);
+  border-radius:20px;padding:36px;margin:40px 0;color:white;
+}
+.id-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:28px;}
+.id-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.id-cell{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 14px;text-align:center;transition:all .3s;}
+.id-cell:hover{background:rgba(255,255,255,0.1);transform:translateY(-3px);}
+.id-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;display:block;margin-bottom:5px;}
+.id-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:.6;}
+
+/* CALL TO ACTION */
+.cta-section{
+  background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#3498db 100%);
+  color:white;border-radius:22px;padding:48px;margin:40px 0;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:30px 30px;}
+.cta-inner{position:relative;z-index:2;}
+.cta-icon{font-size:48px;display:block;margin-bottom:16px;}
+.cta-title{font-family:'Inter',sans-serif;font-size:28px;font-weight:900;margin-bottom:16px;}
+.cta-text{font-size:18px;opacity:.9;max-width:680px;margin:0 auto 30px;line-height:1.7;}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-btn{
+  display:inline-block;padding:12px 24px;border-radius:30px;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:700;
+  text-decoration:none;transition:all .3s ease;
+}
+.cta-btn.primary{background:white;color:#4a5cbf;}
+.cta-btn.primary:hover{background:#f0f0ff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.cta-btn.secondary{background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.3);}
+.cta-btn.secondary:hover{background:rgba(255,255,255,0.22);transform:translateY(-2px);}
+
+/* FINAL QUOTE */
+.final-quote{
+  background:linear-gradient(135deg,#f4f7ff,#e8edff);
+  border-radius:18px;padding:40px;margin:32px 0;
+  border-left:6px solid #667eea;
+  text-align:center;
+}
+.fq-text{font-family:'Crimson Text',serif;font-size:26px;font-style:italic;color:#2c3e50;line-height:1.6;margin-bottom:16px;}
+.fq-author{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#667eea;letter-spacing:2px;text-transform:uppercase;}
+
+/* FOOTER */
+.pg-footer{background:linear-gradient(135deg,#0d0d2e,#1a1a4e);padding:36px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
+.nl{color:rgba(255,255,255,0.4);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.1);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(102,126,234,0.3);border-color:rgba(102,126,234,0.6);color:#c0c8ff;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.25);font-style:italic;margin-top:14px;}
+.final-seal{text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);}
+.seal-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:2px;}
+@media(max-width:700px){.hdr{padding:40px 24px;}.body{padding:32px 20px;}.pg-footer{padding:28px 20px;}.hdr h1{font-size:26px;}.cta-section{padding:32px 24px;}.conc-item{grid-template-columns:44px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #e0e0e0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a1a2e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:320px;}
+@media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Sección 8 — Conclusiones</div>
+    <span class="hdr-icon">🏁</span>
+    <h1>Conclusiones</h1>
+    <p class="hdr-sub">Síntesis de hallazgos, contribuciones originales al campo científico, y llamado a la acción para una IA ambientalmente responsable</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p class="body-text">
+    Este trabajo se propuso dos metas simultáneas: construir el primer marco metodológico validado para medir la huella de carbono de los modelos de IA, y ampliar ese marco hacia una visión integral del impacto ambiental que va más allá del CO₂. Ambas metas han sido alcanzadas. Las conclusiones que siguen sintetizan los hallazgos más significativos y su implicación para el futuro de la IA sostenible.
+  </p>
+
+  <div class="sh"><span class="sh-num">8.1</span>Conclusiones Principales</div>
+
+  <ul class="conc-list">
+    <li class="conc-item">
+      <div class="conc-num">C1</div>
+      <div class="conc-body">
+        <div class="conc-title">La escala del modelo es el predictor más confiable de emisiones de carbono</div>
+        <p class="conc-text">El análisis de 30+ modelos confirma una correlación estadísticamente significativa entre el número de parámetros y las emisiones de CO₂ (R²=0.89, p&lt;0.001), siguiendo una relación de ley de potencia. Este hallazgo establece que el tamaño del modelo, más que cualquier otro factor técnico, determina su impacto climático inicial.</p>
+        <span class="conc-data">R²=0.89 · p&lt;0.001 · 30+ modelos</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C2</div>
+      <div class="conc-body">
+        <div class="conc-title">La geografía puede reducir el impacto hasta 90× — la regulación de localización es urgente</div>
+        <p class="conc-text">La localización del datacenter es el factor individual de mayor impacto ambiental identificado en este estudio. Entrenar el mismo modelo en Islandia vs. Polonia produce una diferencia de 90× en emisiones de carbono, con variaciones comparables en consumo hídrico según la disponibilidad de agua y las tecnologías de enfriamiento disponibles.</p>
+        <span class="conc-data">Islandia 0.012 vs Polonia 1.085 kg CO₂/kWh</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C3</div>
+      <div class="conc-body">
+        <div class="conc-title">Modelos eficientes logran rendimiento comparable con una fracción del impacto</div>
+        <p class="conc-text">La diferencia de 100× en huella de carbono entre GPT-4 (1,820,000 kg CO₂) y Claude Sonnet (18,200 kg CO₂) para tareas equivalentes demuestra que la eficiencia ambiental es una elección de diseño, no un compromiso técnico. DeepSeek-R1 (enero 2025) reafirmó esta conclusión al lograr rendimiento comparable a GPT-4o con aproximadamente 96% menos recursos.</p>
+        <span class="conc-data">100× diferencia · mismas capacidades funcionales</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C4</div>
+      <div class="conc-body">
+        <div class="conc-title">El impacto hídrico es tan grave como el climático — y menos conocido</div>
+        <p class="conc-text">La expansión de datos hacia el impacto hídrico revela una crisis documentada pero subestimada: el entrenamiento de GPT-3 evaporó 700,000 litros de agua potable; la huella hídrica global de la IA alcanzó 312–764 billones de litros en 2025. Los conflictos sociales en Chile, España, Texas y el Reino Unido demuestran que esta no es una proyección futura — ya es una realidad presente.</p>
+        <span class="conc-data">700,000 L GPT-3 · 312–764 billion L globales (2025)</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C5</div>
+      <div class="conc-body">
+        <div class="conc-title">El e-waste de IA puede convertirse en una crisis tóxica sin precedentes para 2030</div>
+        <p class="conc-text">La vida útil de 2–3 años de las GPUs de IA, combinada con la velocidad de expansión de la industria, proyecta la generación de entre 1.2 y 5 millones de toneladas métricas de residuos electrónicos para 2030 — conteniendo plomo, mercurio, arsénico, cadmio y otros contaminantes persistentes. Con solo el 22% del e-waste global reciclado formalmente, el escenario sin intervención es severo.</p>
+        <span class="conc-data">1.2–5 Mt para 2030 · vida útil 2–3 años</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C6</div>
+      <div class="conc-body">
+        <div class="conc-title">La cadena de suministro mineral exterioriza costos ecológicos al Sur Global</div>
+        <p class="conc-text">Fabricar una computadora de 2 kg requiere 800 kg de materias primas. Los minerales críticos para la IA (cobalto, litio, tierras raras, galio) se extraen predominantemente en países del Sur Global bajo condiciones que incluyen trabajo infantil, destrucción de acuíferos y devastación de ecosistemas. Los beneficios de la IA se concentran en el Norte Global mientras los costos ecológicos se externalizan al Sur: esta asimetría es insostenible éticamente y documenta una deuda ambiental creciente.</p>
+        <span class="conc-data">800 kg materias primas por kg de hardware</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C7</div>
+      <div class="conc-body">
+        <div class="conc-title">La inferencia es el 80–90% del problema ambiental real — y sigue siendo poco medida</div>
+        <p class="conc-text">La literatura científica, incluyendo este trabajo, se ha centrado en el entrenamiento porque es la fase más medible. Sin embargo, la inferencia — el uso diario de los modelos por millones de personas — representa el 80–90% del cómputo total de la IA según los datos más recientes (LBNL 2024, IEA 2025). Medir y reportar el impacto de la inferencia es la principal agenda pendiente del campo.</p>
+        <span class="conc-data">80–90% del cómputo total es inferencia</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- IMPACT DASHBOARD -->
+  <div class="impact-dashboard">
+    <div class="id-title">Resumen Cuantitativo del Impacto — Datos Clave del Paper</div>
+    <div class="id-grid">
+      <div class="id-cell"><span class="id-val" style="color:#a8b8f8">30+</span><span class="id-label">Modelos Analizados</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#86efac">R²=0.89</span><span class="id-label">Correlación Científica</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#fca5a5">100×</span><span class="id-label">Dif. GPT-4 vs Claude</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#67e8f9">700K L</span><span class="id-label">Agua GPT-3 entrenamiento</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#fdba74">1.2–5 Mt</span><span class="id-label">E-waste IA para 2030</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#86efac">945 TWh</span><span class="id-label">Energía datacenters 2030</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#c4b5fd">90×</span><span class="id-label">Variación geográfica</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#f9a8d4">47</span><span class="id-label">Referencias verificadas</span></div>
+    </div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Los Dos Hallazgos de Mayor Magnitud — Verificados en Este Estudio</div>
+    <div class="chart-canvas-wrap"><canvas id="chartFinalSynthesis"></canvas></div>
+  </div>
+
+  <!-- CONTRIBUTIONS -->
+  <div class="sh"><span class="sh-num">8.2</span>Contribuciones Originales al Campo Científico</div>
+
+  <div class="contrib-grid">
+    <div class="contrib c1"><span class="contrib-icon">📐</span><div class="contrib-title">Metodología Validada y Pública</div><p class="contrib-text">Primera fórmula validada (R²=0.89, error &lt;6%) para estimar la huella de carbono de cualquier modelo de IA, disponible públicamente bajo CC BY 4.0.</p></div>
+    <div class="contrib c2"><span class="contrib-icon">🗄️</span><div class="contrib-title">Dataset de 30+ Modelos</div><p class="contrib-text">Primera base de datos comparativa de huella de carbono de modelos de IA que incluye LLMs, modelos de visión y modelos especializados con validación cruzada.</p></div>
+    <div class="contrib c3"><span class="contrib-icon">💧</span><div class="contrib-title">Integración del Impacto Hídrico</div><p class="contrib-text">Primera integración del impacto hídrico junto al carbono en un mismo marco metodológico con datos verificados de 2023–2025.</p></div>
+    <div class="contrib c4"><span class="contrib-icon">🔄</span><div class="contrib-title">Marco de 5 Dimensiones</div><p class="contrib-text">Primer paper que integra CO₂, agua, e-waste, minerales y biodiversidad en un único marco científico cohesivo con evidencia empírica para cada dimensión.</p></div>
+    <div class="contrib c5"><span class="contrib-icon">⚡</span><div class="contrib-title">Calculadora Interactiva Pública — 3 Módulos</div><p class="contrib-text">Herramienta accesible en https://lizzy0981.github.io/calculadora-huella-carbono-ia/ con módulos de Entrenamiento, Inferencia (Jegham et al. 2025) y Carbon ROI Calculator, en 11 idiomas, que permite a cualquier persona estimar el impacto ambiental y financiero de cualquier modelo de IA.</p></div>
+  </div>
+
+  <!-- CALL TO ACTION -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <span class="cta-icon">🌱</span>
+      <div class="cta-title">La IA Sostenible No es Opcional</div>
+      <p class="cta-text">Para 2030, la IA consumirá electricidad equivalente a toda la demanda de Japón, agua equivalente al consumo global de agua embotellada, y generará millones de toneladas de residuos electrónicos tóxicos. Este paper demuestra que el problema es cuantificable, los factores son identificables, y las soluciones existen. Lo que falta es transparencia, regulación y voluntad de actuar. La IA que eliges usar, diseñar y regular tiene un costo ambiental real. Es hora de medirlo, reportarlo y reducirlo.</p>
+      <div class="cta-buttons">
+        <a href="https://lizzy0981.github.io/calculadora-huella-carbono-ia/" class="cta-btn primary">⚡ Usar la Calculadora</a>
+        <a href="referencias.html" class="cta-btn secondary">📚 Ver Referencias</a>
+        <a href="recomendaciones.html" class="cta-btn secondary">✅ Ver Recomendaciones</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-quote">
+    <p class="fq-text">"Medir es el primer paso para mejorar. Un impacto ambiental no medido es un impacto que la sociedad asume en silencio. La ciencia tiene la responsabilidad de romper ese silencio."</p>
+    <div class="fq-author">Elizabeth Díaz Familia · Científica en IA Sostenible</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">Portada</a><a href="toc.html" class="nl">Índice</a>
+    <a href="resumen.html" class="nl">Resumen</a><a href="introduccion.html" class="nl">Intro</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a>
+    <a href="conclusiones.html" class="nl active">§8 Conclusiones</a>
+    <a href="referencias.html" class="nl">Referencias</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · lizzy0981.github.io · CC BY 4.0 · Versión 1.0.0, Marzo 2026</p>
+  <div class="final-seal">
+    <div class="seal-text">VERSIÓN 1.0 · PRIMERA PUBLICACIÓN · MARZO 2026 · CC BY 4.0 INTERNACIONAL</div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.id-cell,.contrib,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.color = 'rgba(255,255,255,0.7)';
+
+  // Bar chart — verified multiplier findings (only real documented values, no invented scores)
+  new Chart(document.getElementById('chartFinalSynthesis'), {
+    type:'bar',
+    data:{
+      labels:['Diferencia GPT-4 vs Claude Sonnet (carbono)','Variación geográfica (Islandia vs Polonia)'],
+      datasets:[{
+        label:'Factor de diferencia (×)',
+        data:[100, 90],
+        backgroundColor:['#f87171','#c4b5fd'],
+        borderRadius:10,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}× de diferencia`}} },
+      scales:{
+        x:{beginAtZero:true, ticks:{color:'rgba(255,255,255,0.6)', callback:v=>v+'×'}, grid:{color:'rgba(255,255,255,0.1)'}},
+        y:{ticks:{color:'rgba(255,255,255,0.8)', font:{size:12}}, grid:{display:false}}
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
