@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§7 Recommendations — Carbon Footprint in AI Models</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Section 7 — New</div>
+    <h1>✅ Recommendations</h1>
+    <p>Actionable guide based on scientific evidence to reduce AI's environmental impact — by actor type, time horizon, and impact level</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p class="body-text">The findings of this study have no full scientific value unless they translate into concrete actions. This section presents specific recommendations, verified in the literature, for the five types of actors who can accelerate the transition toward environmentally responsible AI. Recommendations are ordered by implementation horizon and expected impact level.</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 Tech Companies</div>
+    <div class="actor-pill ap2">🏛️ Governments and Regulators</div>
+    <div class="actor-pill ap3">🔬 Researchers and Academia</div>
+    <div class="actor-pill ap4">👤 Users and Organizations</div>
+    <div class="actor-pill ap5">🌍 Global South</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Distribution of the 21 Recommendations by Actor</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 For Tech Companies and Datacenter Operators</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">Publish complete environmental reports with standard methodology</div>
+        <p class="rec-text">Adopt the GHG Protocol Scope 1–2–3 framework specifically for AI systems, reporting carbon per training and inference session, water consumption (direct and indirect), and e-waste generated. Generic corporate environmental reporting is not enough: AI models must have their own environmental line item.</p>
+        <span class="rec-impact">⚡ Impact: Transparency + Regulation</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">Prioritize efficiency over scale as a success metric</div>
+        <p class="rec-text">DeepSeek-R1 (January 2025) demonstrated it is possible to achieve performance comparable to GPT-4 with approximately 96% fewer computational resources. Companies must reorient their success metrics from parameter count ("the biggest model") toward the performance/emissions ratio. Internal benchmarks should include an environmental dimension.</p>
+        <span class="rec-impact">🌫️ Impact: -90% CO₂ per task</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">Relocate datacenters to zones with clean energy and abundant water</div>
+        <p class="rec-text">This study's geographic analysis shows that the same infrastructure can have a carbon footprint up to 90× lower in Iceland or Norway than in Poland or India. Microsoft, Google, and Meta already operate centers in Northern Europe; the industry must expand this practice and avoid installing datacenters in water-stressed zones (AQUEDUCT score classification ≥4).</p>
+        <span class="rec-impact">⚡ Potential reduction: up to 90× CO₂</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">Implement waterless or closed-loop cooling technologies</div>
+        <p class="rec-text">Direct air cooling in cold climates (free-cooling), closed-loop water systems, and dielectric liquid immersion cooling can reduce water consumption by 95–99%. Microsoft launched its first "zero water" datacenter in August 2024. This technology must become the industry standard, not the exception.</p>
+        <span class="rec-impact">💧 Potential: -95% water consumption</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">Extend hardware lifespan and establish responsible recycling programs</div>
+        <p class="rec-text">AI GPUs have 2–3 year replacement cycles, versus 5–7 years for conventional servers. Companies must establish lifespan-extension programs (refurbishing, downgrading to lower-consumption inference), and ensure discontinued hardware is recycled under R2/e-Stewards certifications — not exported to third countries without adequate recycling capacity.</p>
+        <span class="rec-impact">🗑️ Impact: toxic e-waste reduction</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">Adopt model efficiency techniques: quantization, distillation, pruning</div>
+        <p class="rec-text">INT8/INT4 quantization, knowledge distillation, and pruning of inactive weights can reduce inference computational cost by 50–80% with minimal performance loss. Inference represents 80–90% of total AI compute; optimizing it has a greater environmental impact than optimizing training.</p>
+        <span class="rec-impact">⚡ Inference: -50–80% energy</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 For Governments and Regulatory Bodies</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">Make AI environmental reporting mandatory, not voluntary</div>
+        <p class="rec-text">The EU should expand the EU AI Act to include a mandatory environmental reporting section. The U.S. should reverse the weakening of environmental reviews for datacenters. A minimum international standard should require: CO₂ emissions per training session (Scope 1–3), Water Usage Effectiveness (WUE), and an e-waste management plan. Without mandatory requirements, self-reporting is insufficient.</p>
+        <span class="rec-impact">⚖️ Horizon: short-term (1–2 years)</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">Create tax incentives linked to real environmental efficiency</div>
+        <p class="rec-text">Subsidies and tax benefits for the AI industry should be conditioned on verifiable environmental metrics: PUE ≤1.2, 100% renewable energy within 5 years, WUE ≤0.5 L/kWh, and a certified e-waste management plan. Tax exemptions for datacenters without environmental conditions are wealth transfers that socialize ecological costs.</p>
+        <span class="rec-impact">💰 Instrument: green fiscal policy</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">Regulate critical mineral extraction in the AI supply chain</div>
+        <p class="rec-text">Consumer governments must implement supply-chain due-diligence laws for critical minerals (cobalt, lithium, rare earths, gallium) similar to the EU Corporate Sustainability Due Diligence Directive. Tech companies that purchase chips must be able to certify that minerals do not come from zones with child labor, aquifer destruction, or violations of indigenous communities' rights.</p>
+        <span class="rec-impact">⛏️ Impact: fair supply chain</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">Ban datacenter installation in severely water-stressed zones</div>
+        <p class="rec-text">Governments in water-scarce regions (Chile, inland Spain, India, the Middle East, southwestern U.S.) must establish moratoria or bans on AI datacenter installation until they have cooling technology with no net water consumption. The Los Angeles incidents (January 2025) — hydrants without pressure during active fires — illustrate the direct human cost of not doing so.</p>
+        <span class="rec-impact">💧 Urgent in: CA, Chile, Spain, India</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">Fund public research in efficient AI and standard metrics</div>
+        <p class="rec-text">Governments must fund research lines in standard AI environmental impact methodologies (which this paper contributes to developing), computational efficiency techniques, and next-generation chip design with reduced manufacturing impact. "Green AI" research should not depend exclusively on companies with direct commercial interests.</p>
+        <span class="rec-impact">🔬 Horizon: medium-term</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 For Researchers and the Scientific Community</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">Systematically report environmental cost in new model publications</div>
+        <p class="rec-text">Every scientific publication presenting a new AI model must include, as a mandatory peer-reviewed section, the report of its training carbon footprint, water consumption, and hardware used. PNAS, Nature, Science, and NeurIPS journals must adopt this policy. Without this norm, the scientific community perpetuates the opacity it criticizes in industry.</p>
+        <span class="rec-impact">📄 Immediate action for authors</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">Develop standard methodology for the environmental impact of inference</div>
+        <p class="rec-text">The largest scientific gap identified in this study is the absence of a validated methodology to quantify the environmental impact of inference (daily model use), which represents 80–90% of AI compute. <strong>Update:</strong> the public calculator accompanying this paper already incorporates an inference module based on real measurements from Jegham et al. (arXiv:2505.09598, 2025) — a first step toward closing this gap. However, broader systematic academic studies are needed covering: energy per query type at larger scale, water footprint per generated token, and geographic variation of impact from distributed inference.</p>
+        <span class="rec-impact">🔭 Critical research gap</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">Prioritize reproducibility and open access in environmental data</div>
+        <p class="rec-text">Measurement tools, per-model energy consumption datasets, and calculation frameworks must be published under open licenses (CC BY / Apache 2.0). The carbon footprint calculator developed alongside this paper is an example of commitment to open science. Publicly funded research in sustainable AI should be publicly accessible.</p>
+        <span class="rec-impact">🌐 Committed: this paper</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">Study differential impacts in the Global South</div>
+        <p class="rec-text">Current research on AI environmental impact concentrates in the Global North. Field studies are needed in mining communities in Congo, Bolivia, and Chile; in e-waste dumps in Ghana and Bangladesh; and in ecosystems affected by datacenters in India and Southeast Asia. Environmental justice requires that research include those who bear the costs of global AI.</p>
+        <span class="rec-impact">⚖️ Environmental and academic justice</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 For Individual Users and Organizations</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">Prefer efficient models for tasks that don't require the largest model</div>
+        <p class="rec-text">Using GPT-4 to draft a simple email has the same environmental cost as for a complex analysis — but the complex analysis is the only task that justifies that cost. Users should calibrate model power to task complexity: 7B–13B parameter models solve 80% of everyday use cases with a fraction of the environmental impact.</p>
+        <span class="rec-impact">⚡ Action: today</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">Demand environmental transparency as a vendor selection criterion</div>
+        <p class="rec-text">Organizations that contract AI services (APIs, platforms, consulting) should include environmental transparency as an evaluation criterion: does the provider publish its PUE? Does it report water consumption? Does it have a certified e-waste management plan? Market pressure — especially from large companies with ESG commitments — can accelerate changes that regulation takes time to implement.</p>
+        <span class="rec-impact">🏢 For procurement and ESG teams</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">Calculate and report AI carbon footprint in corporate sustainability reports</div>
+        <p class="rec-text">Companies using AI models in production must include Scope 3 emissions derived from AI use in their GHG Protocol reports. This paper's interactive calculator (lizzy0981.github.io/calculadora-huella-carbono-ia/) can be the starting point for this calculation. Carbon accounting that excludes AI use is incomplete and underestimates the real impact.</p>
+        <span class="rec-impact">📊 Resource: public calculator</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 For the Global South and Developing Countries</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">Establish sovereign terms for critical mineral extraction</div>
+        <p class="rec-text">Global South countries that hold deposits of cobalt (DRC), lithium (Bolivia, Chile, Argentina), and rare earths (China, Brazil) must negotiate extraction agreements that include: technology transfer, on-site processing (not exporting raw ore), verified environmental restoration funds, and indigenous community participation in exploitation decisions.</p>
+        <span class="rec-impact">⛏️ Natural resource sovereignty</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">Reject AI e-waste disguised as "donation" or "technological aid"</div>
+        <p class="rec-text">Dumping obsolete AI hardware in the form of "technological donations" to countries without adequate recycling capacity transfers toxic costs to the Global South. Recipient countries must establish certification requirements for importing used hardware and reject equipment whose end-of-life management is not funded by the exporter under international standards.</p>
+        <span class="rec-impact">🗑️ Environmental and health protection</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">Invest in efficient local AI, not dependence on Global North mass models</div>
+        <p class="rec-text">Global South countries must prioritize the development and deployment of small, efficient AI models (SLMs) adapted to their languages and realities, trained with local renewable energy. Dependence on massive model APIs externalized in the North implies constant currency transfer, without developing local capabilities. AI access should not reproduce dynamics of technological dependence.</p>
+        <span class="rec-impact">🌐 Technological sovereignty</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">Priority Matrix — Highest-Impact Recommendations</div>
+    <table class="prio">
+      <thead><tr><th>Action</th><th>Actor</th><th>Horizon</th><th>Environmental Impact</th><th>Feasibility</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — Relocate datacenters to clean energy zones</td><td>Companies</td><td>Medium</td><td><span class="im-high">Very High</span></td><td class="p-mid">Medium</td></tr>
+        <tr><td>R4 — Waterless / closed-loop cooling</td><td>Companies</td><td>Short</td><td><span class="im-high">Very High (water)</span></td><td class="p-hi">High</td></tr>
+        <tr><td>R2 — Efficiency over scale as metric</td><td>Companies</td><td>Immediate</td><td><span class="im-high">High</span></td><td class="p-mid">Medium</td></tr>
+        <tr><td>R7 — Mandatory environmental reporting (regulation)</td><td>Governments</td><td>Short</td><td><span class="im-mid">High (transparency)</span></td><td class="p-mid">Medium</td></tr>
+        <tr><td>R10 — Ban datacenters in water-stressed zones</td><td>Governments</td><td>Immediate</td><td><span class="im-high">Very High (water)</span></td><td class="p-hi">High (where regulation already exists)</td></tr>
+        <tr><td>R12 — Environmental reporting in scientific publications</td><td>Researchers</td><td>Immediate</td><td><span class="im-mid">Medium (culture)</span></td><td class="p-hi">High</td></tr>
+        <tr><td>R16 — Choose efficient models for simple tasks</td><td>Users</td><td>Immediate</td><td><span class="im-lo">Low-Medium</span></td><td class="p-hi">Very High</td></tr>
+        <tr><td>R6 — Quantization and efficient inference</td><td>Companies</td><td>Short</td><td><span class="im-high">High (inference 80–90%)</span></td><td class="p-hi">High</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">The Path Exists — Will Is the Variable</div>
+    <p class="closing-text">None of this paper's recommendations require sacrificing AI progress. Scientific evidence shows that efficient models like DeepSeek-R1 or Claude Sonnet can do the work of much larger systems at a fraction of the environmental cost. The challenge is not technological: it is one of incentives, transparency, and political will. AI can be the engine of 21st-century human development without needing to become one of its main ecological threats.</p>
+    <div class="closing-quote">"AI sustainability is not a constraint on progress — it is its long-term condition of possibility."</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada_en.html" class="nl">Cover</a><a href="toc_en.html" class="nl">Index</a>
+    <a href="resumen_en.html" class="nl">Abstract</a><a href="introduccion_en.html" class="nl">Intro</a>
+    <a href="metodologia_en.html" class="nl">§1</a><a href="resultados_en.html" class="nl">§2</a>
+    <a href="impacto_hidrico_en.html" class="nl">§3 💧</a><a href="residuos_electronicos_en.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad_en.html" class="nl">§5 ⛏️</a><a href="discusion_en.html" class="nl">§6</a>
+    <a href="recomendaciones_en.html" class="nl active">§7 ✅ Recom.</a>
+    <a href="conclusiones_en.html" class="nl">§8</a><a href="referencias_en.html" class="nl">Refs</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Version 1.0.0, March 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 Companies (R1-R6)','🏛️ Governments (R7-R11)','🔬 Researchers (R12-R15)','👤 Users (R16-R18)','🌍 Global South (R19-R21)'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} recommendations`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

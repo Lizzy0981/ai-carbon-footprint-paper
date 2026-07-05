@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Carbon Footprint Paper — Elizabeth Díaz Familia</title>
+<meta name="description" content="Scientific Methodology for Measuring the Carbon Footprint of AI Models — Elizabeth Díaz Familia, 2026">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',-apple-system,sans-serif;
+  background:linear-gradient(135deg,#060612 0%,#0f0c29 40%,#1a0840 70%,#060612 100%);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  color:white;padding:24px;
+}
+.wrap{max-width:480px;text-align:center;}
+.leaf{font-size:56px;margin-bottom:20px;display:block;}
+h1{font-size:22px;font-weight:800;margin-bottom:10px;line-height:1.35;}
+p{font-size:14px;opacity:.65;margin-bottom:32px;}
+.choices{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.choice{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);
+  border-radius:16px;padding:20px 28px;text-decoration:none;color:white;
+  transition:all .25s;min-width:140px;
+}
+.choice:hover{background:rgba(39,174,96,0.18);border-color:#27ae60;transform:translateY(-3px);}
+.flag{font-size:32px;}
+.lang-name{font-size:14px;font-weight:700;}
+.redirect-note{margin-top:28px;font-size:12px;opacity:.4;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="leaf">🌿</span>
+  <h1>Metodología Científica para Medición de Huella de Carbono en Modelos de IA</h1>
+  <p>Scientific Methodology for Measuring the Carbon Footprint of AI Models</p>
+  <div class="choices">
+    <a href="es/" class="choice"><span class="flag">🇪🇸</span><span class="lang-name">Español</span></a>
+    <a href="en/" class="choice"><span class="flag">🇺🇸</span><span class="lang-name">English</span></a>
+  </div>
+  <p class="redirect-note" id="redirectNote"></p>
+</div>
+
+<script>
+(function(){
+  var browserLang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+  var target = browserLang.indexOf('es') === 0 ? 'es/' : 'en/';
+  var note = document.getElementById('redirectNote');
+  var seconds = 3;
+  function label(t){ return t === 'es/' ? 'Español' : 'English'; }
+  note.textContent = 'Redirecting to ' + label(target) + ' in ' + seconds + 's…';
+  var timer = setInterval(function(){
+    seconds--;
+    if(seconds <= 0){
+      clearInterval(timer);
+      window.location.href = target;
+    } else {
+      note.textContent = 'Redirecting to ' + label(target) + ' in ' + seconds + 's…';
+    }
+  }, 1000);
+})();
+</script>
+</body>
+</html>

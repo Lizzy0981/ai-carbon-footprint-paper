@@ -1,0 +1,118 @@
+Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+Copyright (c) 2026 Elizabeth Díaz Familia
+
+This work is licensed under the Creative Commons Attribution 4.0 International License.
+
+You are free to:
+  - Share    — copy and redistribute the material in any medium or format
+  - Adapt    — remix, transform, and build upon the material for any purpose,
+               even commercially
+
+Under the following terms:
+  - Attribution — You must give appropriate credit, provide a link to the license,
+    and indicate if changes were made. You may do so in any reasonable manner,
+    but not in any way that suggests the licensor endorses you or your use.
+
+No additional restrictions — You may not apply legal terms or technological measures
+that legally restrict others from doing anything the license permits.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Attribution requirement (required citation format):
+
+  Díaz Familia, E. (2026). Scientific Methodology for Measuring the Carbon
+  Footprint of Artificial Intelligence Models (v1.0.0).
+  Bilingual edition (Spanish/English) — 13 sections, 47 verified references.
+  Investigación Independiente. Santo Domingo Este, República Dominicana.
+  ORCID: https://orcid.org/0009-0009-0274-5624
+  https://lizzy0981.github.io/ai-carbon-footprint-paper/
+
+Companion interactive tool (please also cite):
+
+  Díaz Familia, E. (2026). Calculadora de Huella de Carbono en Modelos de IA (v1.2).
+  Módulos: Entrenamiento · Inferencia · ROI Verde. CC BY 4.0.
+  https://lizzy0981.github.io/calculadora-huella-carbono-ia/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌍 Scientific Methodology for Measuring the Carbon Footprint of AI Models — v1.0.0
+
+Este trabajo representa una contribución científica original al campo de la
+inteligencia artificial sostenible, desarrollada de forma independiente y con
+el objetivo de democratizar el acceso a metodologías de medición ambiental.
+
+Contenido incluido en esta versión (v1.0.0):
+
+  📐 Metodología Validada
+     Fórmula CO₂(kg) = N_GPUs × P_GPU(kW) × T_h × PUE × C_factor.
+     Correlación R²=0.89 (p<0.001), error <6% vs datos oficiales publicados
+     por Google, Microsoft y Meta AI.
+
+  📊 Análisis de 30+ Modelos de IA
+     LLMs, modelos de visión y modelos especializados, con validación cruzada
+     y comparativa geográfica (variación de hasta 90× según ubicación).
+
+  💧 Impacto Hídrico (dimensión nueva 2025)
+     Consumo por consulta y por entrenamiento, crisis geográficas documentadas
+     (Chile, España, Texas, Reino Unido), proyecciones 2025–2030.
+
+  🗑️ Residuos Electrónicos (dimensión nueva 2025)
+     Ciclo de vida del hardware, sustancias tóxicas proyectadas para 2030,
+     cuatro escenarios de adopción, estrategias de economía circular.
+
+  ⛏️ Minerales Críticos y Biodiversidad (dimensión nueva 2025)
+     Cadena de suministro, caso de estudio Baotou, riesgo de minería oceánica,
+     concentración geopolítica de recursos.
+
+  🔬 Discusión, Recomendaciones y Conclusiones
+     Comparación con literatura científica existente, 21 recomendaciones
+     accionables para 5 tipos de actores, síntesis de contribuciones originales.
+
+  📚 47 Referencias Verificadas
+     Fuentes peer-reviewed, informes institucionales (IEA, ONU, IPCC) y
+     reportes corporativos oficiales, rango temporal 2019–2026.
+
+  🌍 Edición Bilingüe Completa
+     Español (idioma original) e English (traducción completa), 13 secciones
+     cada uno, con navegación cruzada y estructura idéntica.
+
+Desarrollado por Elizabeth Díaz Familia como investigación independiente,
+aplicando metodología científica rigurosa con validación empírica contra
+datos oficiales publicados (error <6%).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 Recursos relacionados:
+  Portfolio:      https://lizzy0981.github.io
+  Paper:          https://lizzy0981.github.io/ai-carbon-footprint-paper/
+  Calculadora:    https://lizzy0981.github.io/calculadora-huella-carbono-ia/
+  ORCID:          https://orcid.org/0009-0009-0274-5624
+  LinkedIn:       https://linkedin.com/in/eli-familia/
+  GitHub:         https://github.com/Lizzy0981
+  Email:          lizzyfamilia@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🙏 Agradecimientos a la comunidad científica cuya investigación hace posible
+este trabajo:
+
+  Strubell et al. (ACL 2019) — alarma inicial sobre costos energéticos en IA
+  Patterson et al. (Google Brain, 2021) — metodología y factor geográfico
+  Li et al. (UC Riverside, 2023) — impacto hídrico de modelos de IA
+  Luccioni et al. (HuggingFace, 2023) — auditoría de carbono BLOOM
+  Wang et al. (Nature Comp. Sci., 2024) — e-waste y proyecciones 2030
+  Jegham et al. (arXiv:2505.09598, 2025) — datos de inferencia en producción
+  IEA (2025) — factores de intensidad de carbono por región
+  de Vries-Gao (Cell Reports Sustainability, 2025) — water footprint de IA
+  Springer Nature Carbon Neutral Systems (2025) — marco de nexo de recursos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"La sostenibilidad de la IA no es una restricción al progreso —
+es su condición de posibilidad a largo plazo."
+— Elizabeth Díaz Familia, 2026

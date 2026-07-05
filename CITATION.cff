@@ -1,0 +1,109 @@
+cff-version: 1.2.0
+message: "If you use this scientific methodology, dataset, or public calculator, please cite it as below."
+type: dataset
+title: "Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models"
+abstract: >-
+  A comprehensive scientific framework for quantifying the environmental impact
+  of AI models across five dimensions: carbon emissions, water consumption,
+  electronic waste, critical minerals, and biodiversity. The methodology
+  introduces a validated formula (R²=0.89, error <6% vs. official data) applied
+  to 30+ AI models, alongside a public interactive calculator with three
+  modules — Training, Inference, and Carbon ROI — available in 11 languages.
+  Bilingual edition (Spanish/English), 47 verified references, published under
+  independent research.
+authors:
+  - family-names: "Díaz Familia"
+    given-names: "Elizabeth"
+    name-particle: ""
+    alias: "Lizzy Familia"
+    orcid: "https://orcid.org/0009-0009-0274-5624"
+    email: "lizzyfamilia@gmail.com"
+    affiliation: "Independent Research"
+    website: "https://lizzy0981.github.io"
+version: 1.0.0
+date-released: "2026-03-01"
+license: CC-BY-4.0
+repository-code: "https://github.com/Lizzy0981/ai-carbon-footprint-paper"
+url: "https://lizzy0981.github.io/ai-carbon-footprint-paper/"
+keywords:
+  - artificial intelligence
+  - carbon footprint
+  - sustainability
+  - green computing
+  - AI environmental impact
+  - water footprint
+  - electronic waste
+  - critical minerals
+  - biodiversity
+  - climate change
+  - data centers
+  - machine learning sustainability
+preferred-citation:
+  type: article
+  title: "Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models"
+  authors:
+    - family-names: "Díaz Familia"
+      given-names: "Elizabeth"
+      orcid: "https://orcid.org/0009-0009-0274-5624"
+      affiliation: "Independent Research"
+  version: 1.0.0
+  date-released: "2026-03-01"
+  license: CC-BY-4.0
+  url: "https://lizzy0981.github.io/ai-carbon-footprint-paper/"
+  abstract: >-
+    Comprehensive scientific framework covering carbon, water, e-waste,
+    critical minerals, and biodiversity impacts of AI models, with empirical
+    validation (R²=0.89) and a public interactive calculator.
+references:
+  - type: article
+    title: "Energy and Policy Considerations for Deep Learning in NLP"
+    authors:
+      - family-names: "Strubell"
+        given-names: "Emma"
+      - family-names: "Ganesh"
+        given-names: "Ananya"
+      - family-names: "McCallum"
+        given-names: "Andrew"
+    year: 2019
+    doi: "10.18653/v1/P19-1355"
+  - type: article
+    title: "Carbon Considerations for Large Language Model Development"
+    authors:
+      - family-names: "Patterson"
+        given-names: "David"
+      - family-names: "Gonzalez"
+        given-names: "Joseph"
+      - family-names: "Le"
+        given-names: "Quoc"
+    year: 2021
+    doi: "10.48550/arXiv.2104.10350"
+  - type: article
+    title: "Making AI Less \"Thirsty\": Uncovering and Addressing the Secret Water Footprint of AI Models"
+    authors:
+      - family-names: "Li"
+        given-names: "Pengfei"
+      - family-names: "Yang"
+        given-names: "Jianyi"
+      - family-names: "Islam"
+        given-names: "Mohammad A."
+      - family-names: "Ren"
+        given-names: "Shaolei"
+    year: 2023
+    doi: "10.48550/arXiv.2304.03271"
+  - type: article
+    title: "E-waste Challenges of Generative Artificial Intelligence"
+    authors:
+      - family-names: "Wang"
+        given-names: "Peng"
+      - family-names: "Tzachor"
+        given-names: "Asaf"
+      - family-names: "Chen"
+        given-names: "Wei-Qiang"
+    year: 2024
+    journal: "Nature Computational Science"
+    doi: "10.1038/s43588-024-00712-6"
+  - type: report
+    title: "Energy and AI"
+    authors:
+      - name: "International Energy Agency (IEA)"
+    year: 2025

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA & Huella de Carbono — Elizabeth Díaz Familia</title>
+<meta name="description" content="Metodología Científica para Medición de Huella de Carbono en Modelos de IA — Elizabeth Díaz Familia, 2026">
+<meta name="author" content="Elizabeth Díaz Familia">
+<style>
+body {
+  background: linear-gradient(135deg, #060612 0%, #0f0c29 40%, #1a0840 70%, #060612 100%);
+  min-height: 100vh; padding: 40px 20px 80px; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 80px 80px, 40px 40px;
+  background-position: 0 0, 20px 20px;
+  animation: starDrift 80s linear infinite; pointer-events: none;
+}
+@keyframes starDrift { 0%{transform:translateY(0)} 100%{transform:translateY(80px)} }
+body::after {
+  content:''; position:fixed; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(102,126,234,0.16), transparent),
+    radial-gradient(ellipse 50% 70% at 80% 70%, rgba(118,75,162,0.16), transparent),
+    radial-gradient(ellipse 40% 40% at 50% 5%,  rgba(0,242,254,0.09), transparent);
+  animation: nebula 16s ease-in-out infinite alternate; pointer-events: none;
+}
+@keyframes nebula { 0%{opacity:.8;transform:scale(1)} 100%{opacity:1;transform:scale(1.05)} }
+
+.hub { position:relative; z-index:2; max-width:1000px; margin:0 auto; }
+
+/* HERO */
+.hero {
+  text-align:center; padding:60px 40px 48px;
+  background:rgba(255,255,255,0.04); backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.09); border-radius:28px;
+  margin-bottom:24px; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg,#667eea,#00f2fe,#1abc9c,#f39c12,#e74c3c,#667eea);
+  background-size:200%; animation:rainbowSlide 4s linear infinite;
+}
+.eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(102,126,234,0.18); border:1px solid rgba(102,126,234,0.35);
+  color:#a8b8f8; font-family:'Inter',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; padding:7px 20px; border-radius:50px; margin-bottom:28px;
+}
+.dot-live { width:7px; height:7px; border-radius:50%; background:#00f2fe; animation:blink 2s ease-in-out infinite; }
+.avatar {
+  width:96px; height:96px; border-radius:50%;
+  background:linear-gradient(135deg,#667eea,#764ba2); margin:0 auto 20px;
+  display:flex; align-items:center; justify-content:center; font-size:44px;
+  border:3px solid rgba(255,255,255,0.16);
+  box-shadow:0 0 0 8px rgba(102,126,234,0.1),0 16px 40px rgba(0,0,0,0.4);
+  animation:floatY 4s ease-in-out infinite;
+}
+.hero-name { font-family:'Inter',sans-serif; font-size:22px; font-weight:800; color:white; margin-bottom:4px; }
+.hero-role {
+  font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:28px;
+  background:linear-gradient(90deg,#00f2fe,#4facfe);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.paper-title {
+  font-family:'Crimson Text',serif; font-size:clamp(21px,4vw,31px); font-weight:700;
+  color:white; line-height:1.35; margin-bottom:12px; text-shadow:0 2px 20px rgba(102,126,234,0.4);
+}
+.paper-sub { font-family:'Inter',sans-serif; font-size:14px; color:rgba(255,255,255,0.5); line-height:1.7; max-width:620px; margin:0 auto 32px; }
+.stats-row { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
+.stat-chip { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:30px; padding:8px 18px; text-align:center; }
+.sc-val { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:700; display:block; color:#00f2fe; }
+.sc-lbl { font-family:'Inter',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.4); }
+.actions { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.btn-p {
+  background:linear-gradient(135deg,#667eea,#764ba2); color:white; border:none; border-radius:30px;
+  padding:12px 28px; font-family:'Inter',sans-serif; font-size:14px; font-weight:700;
+  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  box-shadow:0 8px 24px rgba(102,126,234,0.35); transition:all .3s;
+}
+.btn-p:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(102,126,234,0.5); }
+.btn-s {
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.85); border-radius:30px; padding:12px 24px;
+  font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
+  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .3s;
+}
+.btn-s:hover { background:rgba(255,255,255,0.14); transform:translateY(-2px); }
+
+/* SECTION GRID */
+.panel-label { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.28); margin-bottom:14px; text-align:center; }
+.sec-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:11px; margin-bottom:24px; }
+.sc {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
+  border-radius:18px; padding:22px 18px; text-decoration:none; color:white;
+  display:flex; flex-direction:column; gap:7px; transition:all .3s; position:relative; overflow:hidden;
+}
+.sc::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; opacity:0; transition:opacity .3s; }
+.sc:hover { background:rgba(255,255,255,0.10); transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,0.3); border-color:rgba(255,255,255,0.17); }
+.sc:hover::before { opacity:1; }
+.sc.a::before{background:linear-gradient(90deg,#667eea,#764ba2);}
+.sc.b::before{background:linear-gradient(90deg,#3498db,#1abc9c);}
+.sc.c::before{background:linear-gradient(90deg,#27ae60,#1abc9c);}
+.sc.d::before{background:linear-gradient(90deg,#1abc9c,#3498db);}
+.sc.e::before{background:linear-gradient(90deg,#e67e22,#f39c12);}
+.sc.f::before{background:linear-gradient(90deg,#1abc9c,#27ae60);}
+.sc-num { font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,0.28); font-weight:700; }
+.sc-ico { font-size:26px; line-height:1; }
+.sc-ttl { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:rgba(255,255,255,0.9); line-height:1.3; }
+.sc-dsc { font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.38); line-height:1.5; }
+.sc-tag { display:inline-block; font-family:'Inter',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 8px; border-radius:6px; margin-top:3px; }
+.tn { background:rgba(26,188,156,0.2); color:#1abc9c; }
+.tc { background:rgba(102,126,234,0.2); color:#a8b8f8; }
+.tr { background:rgba(149,165,166,0.15); color:#95a5a6; }
+
+/* INFO PANELS */
+.panel {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px; padding:30px; margin-bottom:22px;
+}
+.panel-ttl { font-family:'Inter',sans-serif; font-size:15px; font-weight:800; color:white; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+.steps { list-style:none; }
+.step { display:grid; grid-template-columns:34px 1fr; gap:12px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.06); align-items:start; }
+.step:last-child { border-bottom:none; }
+.step-n { width:28px; height:28px; background:linear-gradient(135deg,#667eea,#764ba2); color:white; border-radius:7px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.step-t { font-family:'Inter',sans-serif; font-size:13px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:3px; }
+.step-p { font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.45); line-height:1.6; }
+.step-code { font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(102,126,234,0.15); color:#a8b8f8; padding:3px 9px; border-radius:5px; display:inline-block; margin-top:5px; }
+
+/* LANG GRID */
+.lang-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px; }
+.lc {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09);
+  border-radius:12px; padding:13px 10px; text-align:center; cursor:pointer; transition:all .25s;
+}
+.lc:hover { background:rgba(255,255,255,0.14); transform:translateY(-3px); }
+.lc.active { background:rgba(102,126,234,0.2); border-color:rgba(102,126,234,0.4); }
+.lc-f { font-size:22px; display:block; margin-bottom:5px; }
+.lc-n { font-family:'Inter',sans-serif; font-size:12px; font-weight:700; color:rgba(255,255,255,0.85); }
+.lc-s { font-family:'Inter',sans-serif; font-size:10px; color:rgba(255,255,255,0.3); }
+
+/* HUB FOOTER */
+.hub-foot { text-align:center; padding:20px; font-family:'Inter',sans-serif; font-size:12px; color:rgba(255,255,255,0.2); }
+.hub-foot a { color:rgba(255,255,255,0.38); text-decoration:none; }
+.hub-foot a:hover { color:rgba(255,255,255,0.75); }
+
+/* ═══ SCROLL REVEAL ANIMATIONS ═══ */
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.fade-in.revealed{opacity:1;transform:translateY(0);}
+.stagger-children .sc{opacity:0;transform:translateY(24px) scale(.96);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.stagger-children .sc.revealed{opacity:1;transform:translateY(0) scale(1);}
+.stat-chip{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+.stat-chip.revealed{opacity:1;transform:translateY(0);}
+.lc{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;}
+.lc.revealed{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="hub">
+
+  <div class="hero fade-in">
+    <div class="eyebrow"><span class="dot-live"></span> <span data-i18n="eyebrow">Versión 1.0.0 · Marzo 2026 · CC BY 4.0</span></div>
+    <div class="avatar">
+      <img src="assets/foto-elizabeth.jpg" alt="Elizabeth Díaz Familia"
+        style="width:90px;height:90px;border-radius:50%;object-fit:cover;object-position:center top;display:block;"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+      <span style="display:none;font-size:52px;">👩‍🔬</span>
+    </div>
+    <div class="hero-name">Elizabeth Díaz Familia</div>
+    <div class="hero-role" data-i18n="hero.role">Científica en IA Sostenible · AI Data Scientist</div>
+    <h1 class="paper-title" data-i18n="paper.title">Metodología Científica para Medición de<br>Huella de Carbono en Modelos de IA</h1>
+    <p class="paper-sub" data-i18n="paper.sub">Marco integral · Carbono · Agua · E-Waste · Minerales · Biodiversidad — con validación empírica y calculadora pública</p>
+    <div class="stats-row">
+      <div class="stat-chip"><span class="sc-val">30+</span><span class="sc-lbl" data-i18n="stat.models">Modelos</span></div>
+      <div class="stat-chip"><span class="sc-val">R²=0.89</span><span class="sc-lbl" data-i18n="stat.corr">Correlación</span></div>
+      <div class="stat-chip"><span class="sc-val">&lt;6%</span><span class="sc-lbl" data-i18n="stat.error">Error</span></div>
+      <div class="stat-chip"><span class="sc-val">47</span><span class="sc-lbl" data-i18n="stat.refs">Referencias</span></div>
+      <div class="stat-chip"><span class="sc-val">5</span><span class="sc-lbl" data-i18n="stat.dims">Dimensiones</span></div>
+      <div class="stat-chip"><span class="sc-val">11</span><span class="sc-lbl" data-i18n="stat.langs">Idiomas</span></div>
+    </div>
+    <div class="actions">
+      <a href="portada.html" class="btn-p" data-i18n="btn.read">📄 Leer el Paper</a>
+      <button class="btn-s" onclick="window.print()" data-i18n="btn.pdf">📥 Descargar PDF</button>
+      <a href="calculadora.html" class="btn-s" data-i18n="btn.calc">⚡ Calculadora</a>
+      <a href="https://lizzy0981.github.io" class="btn-s" target="_blank" data-i18n="btn.portfolio">🌐 Portfolio</a>
+    </div>
+  </div>
+
+  <!-- SECTION GRID -->
+  <div class="panel-label" data-i18n="grid.label">Contenido del Paper — 13 Secciones</div>
+  <div class="sec-grid stagger-children">
+    <a href="portada.html" class="sc a"><span class="sc-num">00</span><span class="sc-ico">🎓</span><span class="sc-ttl" data-i18n="s00.ttl">Portada</span><span class="sc-dsc" data-i18n="s00.dsc">Autora, versión 1.0, licencia CC BY 4.0</span><span class="sc-tag tc" data-i18n="tag.main">Principal</span></a>
+    <a href="toc.html" class="sc a"><span class="sc-num">01</span><span class="sc-ico">📋</span><span class="sc-ttl" data-i18n="s01.ttl">Tabla de Contenidos</span><span class="sc-dsc" data-i18n="s01.dsc">Estructura completa, estadísticas del paper</span><span class="sc-tag tc" data-i18n="tag.index">Índice</span></a>
+    <a href="resumen.html" class="sc b"><span class="sc-num">02</span><span class="sc-ico">📝</span><span class="sc-ttl" data-i18n="s02.ttl">Resumen / Abstract</span><span class="sc-dsc" data-i18n="s02.dsc">Bilingüe ES–EN, hallazgos clave, palabras clave</span><span class="sc-tag tc" data-i18n="tag.summary">Resumen</span></a>
+    <a href="introduccion.html" class="sc a"><span class="sc-num">03</span><span class="sc-ico">🌐</span><span class="sc-ttl" data-i18n="s03.ttl">Introducción</span><span class="sc-dsc" data-i18n="s03.dsc">Cronología 2019–2025, objetivos del estudio</span><span class="sc-tag tc" data-i18n="tag.intro">Intro</span></a>
+    <a href="metodologia.html" class="sc b"><span class="sc-num">§1</span><span class="sc-ico">📐</span><span class="sc-ttl" data-i18n="s04.ttl">Metodología</span><span class="sc-dsc" data-i18n="s04.dsc">Fórmula CO₂, GPU specs, PUE, validación R²</span><span class="sc-tag tc" data-i18n="tag.method">Metodología</span></a>
+    <a href="resultados.html" class="sc c"><span class="sc-num">§2</span><span class="sc-ico">📊</span><span class="sc-ttl" data-i18n="s05.ttl">Resultados</span><span class="sc-dsc" data-i18n="s05.dsc">30+ modelos · diferencia 100× · geografía 90×</span><span class="sc-tag tc" data-i18n="tag.results">Resultados</span></a>
+    <a href="impacto_hidrico.html" class="sc d"><span class="sc-num">§3</span><span class="sc-ico">💧</span><span class="sc-ttl" data-i18n="s06.ttl">Impacto Hídrico</span><span class="sc-dsc" data-i18n="s06.dsc">700K L GPT-3 · crisis Chile / España / Texas</span><span class="sc-tag tn" data-i18n="tag.new">Nueva</span></a>
+    <a href="residuos_electronicos.html" class="sc e"><span class="sc-num">§4</span><span class="sc-ico">🗑️</span><span class="sc-ttl" data-i18n="s07.ttl">E-Waste</span><span class="sc-dsc" data-i18n="s07.dsc">1.2–5 Mt para 2030 · toxinas · GPU 2–3 años</span><span class="sc-tag tn" data-i18n="tag.new">Nueva</span></a>
+    <a href="minerales_biodiversidad.html" class="sc c"><span class="sc-num">§5</span><span class="sc-ico">⛏️</span><span class="sc-ttl" data-i18n="s08.ttl">Minerales y Biodiversidad</span><span class="sc-dsc" data-i18n="s08.dsc">Cobalto, litio, tierras raras, Baotou, océanos</span><span class="sc-tag tn" data-i18n="tag.new">Nueva</span></a>
+    <a href="discusion.html" class="sc e"><span class="sc-num">§6</span><span class="sc-ico">🔬</span><span class="sc-ttl" data-i18n="s09.ttl">Discusión</span><span class="sc-dsc" data-i18n="s09.dsc">Paradigmas · regulación · limitaciones · futuro</span><span class="sc-tag tc" data-i18n="tag.analysis">Análisis</span></a>
+    <a href="recomendaciones.html" class="sc f"><span class="sc-num">§7</span><span class="sc-ico">✅</span><span class="sc-ttl" data-i18n="s10.ttl">Recomendaciones</span><span class="sc-dsc" data-i18n="s10.dsc">21 recomendaciones para 5 tipos de actores</span><span class="sc-tag tn" data-i18n="tag.new">Nueva</span></a>
+    <a href="conclusiones.html" class="sc a"><span class="sc-num">§8</span><span class="sc-ico">🏁</span><span class="sc-ttl" data-i18n="s11.ttl">Conclusiones</span><span class="sc-dsc" data-i18n="s11.dsc">7 conclusiones + llamado a la acción global</span><span class="sc-tag tn" data-i18n="tag.new">Nueva</span></a>
+    <a href="referencias.html" class="sc b"><span class="sc-num">📚</span><span class="sc-ico">🔗</span><span class="sc-ttl" data-i18n="s12.ttl">Referencias</span><span class="sc-dsc" data-i18n="s12.dsc">47 fuentes verificadas · 2019–2026</span><span class="sc-tag tr" data-i18n="tag.refs">47 fuentes</span></a>
+  </div>
+
+  <!-- PDF PANEL -->
+  <div class="panel fade-in">
+    <div class="panel-ttl" data-i18n="pdf.title">📥 Cómo Exportar el Paper a PDF</div>
+    <ul class="steps">
+      <li class="step"><div class="step-n">1</div><div><div class="step-t" data-i18n="pdf.s1t">Desde cualquier página del paper</div><p class="step-p" data-i18n="pdf.s1p">Haz clic en el botón "📥 Descargar PDF" — usa CSS @media print optimizado. El selector de idioma y la navegación se ocultan automáticamente.</p></div></li>
+      <li class="step"><div class="step-n">2</div><div><div class="step-t" data-i18n="pdf.s2t">Configuración del diálogo de impresión</div><p class="step-p" data-i18n="pdf.s2p">Destino: Guardar como PDF · Tamaño: A4 · Márgenes: Predeterminados · ✅ Gráficos de fondo activado</p><span class="step-code">Ctrl+P (Windows) · Cmd+P (Mac)</span></div></li>
+      <li class="step"><div class="step-n">3</div><div><div class="step-t" data-i18n="pdf.s3t">PDF completo (todas las secciones unificadas)</div><p class="step-p" data-i18n="pdf.s3p">Herramienta recomendada: Puppeteer (Node.js). Combina las 13 secciones en un único PDF con header/footer, numeración de páginas y tabla de contenidos automática.</p><span class="step-code">npx puppeteer-pdf portada.html … -o paper-ia-carbono.pdf</span></div></li>
+      <li class="step"><div class="step-n">4</div><div><div class="step-t" data-i18n="pdf.s4t">Para envío académico (journals, conferencias)</div><p class="step-p" data-i18n="pdf.s4p">El formato A4, la estructura IMRD y las 47 referencias cumplen los requisitos estándar de revistas académicas como Nature, PLOS ONE y similares.</p></div></li>
+    </ul>
+  </div>
+
+  <!-- LANGUAGES PANEL -->
+  <div class="panel fade-in">
+    <div class="panel-ttl" data-i18n="lang.title">🌐 11 Idiomas — Selector Global</div>
+    <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:18px;line-height:1.6;" data-i18n="lang.desc">El selector de idioma traduce toda la página al instante.</p>
+    <div class="lang-grid">
+      <div class="lc active" onclick="selectLang('es',this)"><span class="lc-f">🇪🇸</span><div class="lc-n">Español</div></div>
+      <div class="lc" onclick="selectLang('en',this)"><span class="lc-f">🇺🇸</span><div class="lc-n">English</div></div>
+      <div class="lc" onclick="selectLang('fr',this)"><span class="lc-f">🇫🇷</span><div class="lc-n">Français</div></div>
+      <div class="lc" onclick="selectLang('pt',this)"><span class="lc-f">🇧🇷</span><div class="lc-n">Português</div></div>
+      <div class="lc" onclick="selectLang('ru',this)"><span class="lc-f">🇷🇺</span><div class="lc-n">Русский</div></div>
+      <div class="lc" onclick="selectLang('tr',this)"><span class="lc-f">🇹🇷</span><div class="lc-n">Türkçe</div></div>
+      <div class="lc" onclick="selectLang('ar',this)"><span class="lc-f">🇸🇦</span><div class="lc-n">العربية</div></div>
+      <div class="lc" onclick="selectLang('he',this)"><span class="lc-f">🇮🇱</span><div class="lc-n">עברית</div></div>
+      <div class="lc" onclick="selectLang('ja',this)"><span class="lc-f">🇯🇵</span><div class="lc-n">日本語</div></div>
+      <div class="lc" onclick="selectLang('ko',this)"><span class="lc-f">🇰🇷</span><div class="lc-n">한국어</div></div>
+      <div class="lc" onclick="selectLang('zh',this)"><span class="lc-f">🇨🇳</span><div class="lc-n">中文</div></div>
+    </div>
+  </div>
+
+  <div class="hub-foot">
+    <a href="https://lizzy0981.github.io" target="_blank">lizzy0981.github.io</a> ·
+    <a href="https://linkedin.com/in/eli-familia/" target="_blank">LinkedIn</a> ·
+    <a href="https://github.com/Lizzy0981" target="_blank">GitHub</a> ·
+    <span data-i18n="foot.copy">Investigación Independiente · Santo Domingo Este, RD · CC BY 4.0 · 2026</span>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   SISTEMA DE TRADUCCIÓN COMPLETO — index.html
+   11 idiomas · todas las secciones visibles
+   ══════════════════════════════════════════════ */
+const IDX_T = {
+  es: {
+    dir:'ltr',
+    'eyebrow':'Versión 1.0.0 · Marzo 2026 · CC BY 4.0',
+    'hero.role':'Científica en IA Sostenible · AI Data Scientist',
+    'paper.title':'Metodología Científica para Medición de<br>Huella de Carbono en Modelos de IA',
+    'paper.sub':'Marco integral · Carbono · Agua · E-Waste · Minerales · Biodiversidad — con validación empírica y calculadora pública',
+    'stat.models':'Modelos','stat.corr':'Correlación','stat.error':'Error','stat.refs':'Referencias','stat.dims':'Dimensiones','stat.langs':'Idiomas',
+    'btn.read':'📄 Leer el Paper','btn.pdf':'📥 Descargar PDF','btn.calc':'⚡ Calculadora','btn.portfolio':'🌐 Portfolio',
+    'grid.label':'Contenido del Paper — 13 Secciones',
+    's00.ttl':'Portada',          's00.dsc':'Autora, versión 1.0, licencia CC BY 4.0',
+    's01.ttl':'Tabla de Contenidos','s01.dsc':'Estructura completa, estadísticas del paper',
+    's02.ttl':'Resumen / Abstract','s02.dsc':'Bilingüe ES–EN, hallazgos clave, palabras clave',
+    's03.ttl':'Introducción',     's03.dsc':'Cronología 2019–2025, objetivos del estudio',
+    's04.ttl':'Metodología',      's04.dsc':'Fórmula CO₂, GPU specs, PUE, validación R²',
+    's05.ttl':'Resultados',       's05.dsc':'30+ modelos · diferencia 100× · geografía 90×',
+    's06.ttl':'Impacto Hídrico',  's06.dsc':'700K L GPT-3 · crisis Chile / España / Texas',
+    's07.ttl':'E-Waste',          's07.dsc':'1.2–5 Mt para 2030 · toxinas · GPU 2–3 años',
+    's08.ttl':'Minerales y Biodiversidad','s08.dsc':'Cobalto, litio, tierras raras, Baotou, océanos',
+    's09.ttl':'Discusión',        's09.dsc':'Paradigmas · regulación · limitaciones · futuro',
+    's10.ttl':'Recomendaciones',  's10.dsc':'21 recomendaciones para 5 tipos de actores',
+    's11.ttl':'Conclusiones',     's11.dsc':'7 conclusiones + llamado a la acción global',
+    's12.ttl':'Referencias',      's12.dsc':'47 fuentes verificadas · 2019–2026',
+    'tag.main':'Principal','tag.index':'Índice','tag.summary':'Resumen','tag.intro':'Intro',
+    'tag.method':'Metodología','tag.results':'Resultados','tag.new':'Nueva','tag.analysis':'Análisis','tag.refs':'47 fuentes',
+    'pdf.title':'📥 Cómo Exportar el Paper a PDF',
+    'pdf.s1t':'Desde cualquier página del paper','pdf.s1p':'Haz clic en "📥 Descargar PDF" — CSS @media print optimizado. El selector de idioma y la navegación se ocultan automáticamente.',
+    'pdf.s2t':'Configuración del diálogo de impresión','pdf.s2p':'Destino: Guardar como PDF · Tamaño: A4 · Márgenes: Predeterminados · ✅ Gráficos de fondo activado',
+    'pdf.s3t':'PDF completo (todas las secciones unificadas)','pdf.s3p':'Herramienta recomendada: Puppeteer (Node.js). Combina las 13 secciones en un PDF con header/footer y tabla de contenidos automática.',
+    'pdf.s4t':'Para envío académico (journals, conferencias)','pdf.s4p':'El formato A4, la estructura IMRD y las 47 referencias cumplen los requisitos de revistas como Nature, PLOS ONE y similares.',
+    'lang.title':'🌐 11 Idiomas — Selector Global',
+    'lang.desc':'El selector de idioma traduce toda la página al instante.',
+    'foot.copy':'Investigación Independiente · Santo Domingo Este, RD · CC BY 4.0 · 2026',
+  },
+  en: {
+    dir:'ltr',
+    'eyebrow':'Version 1.0 · March 2026 · CC BY 4.0',
+    'hero.role':'Sustainable AI Scientist · AI Data Scientist',
+    'paper.title':'Scientific Methodology for Measuring<br>Carbon Footprint of AI Models',
+    'paper.sub':'Comprehensive framework · Carbon · Water · E-Waste · Minerals · Biodiversity — with empirical validation and public calculator',
+    'stat.models':'Models','stat.corr':'Correlation','stat.error':'Error','stat.refs':'References','stat.dims':'Dimensions','stat.langs':'Languages',
+    'btn.read':'📄 Read the Paper','btn.pdf':'📥 Download PDF','btn.calc':'⚡ Calculator','btn.portfolio':'🌐 Portfolio',
+    'grid.label':'Paper Contents — 13 Sections',
+    's00.ttl':'Cover',            's00.dsc':'Author, version 1.0, CC BY 4.0 license',
+    's01.ttl':'Table of Contents','s01.dsc':'Full structure, paper statistics',
+    's02.ttl':'Abstract',         's02.dsc':'Bilingual ES–EN, key findings, keywords',
+    's03.ttl':'Introduction',     's03.dsc':'Timeline 2019–2025, study objectives',
+    's04.ttl':'Methodology',      's04.dsc':'CO₂ formula, GPU specs, PUE, R² validation',
+    's05.ttl':'Results',          's05.dsc':'30+ models · 100× difference · 90× geography',
+    's06.ttl':'Water Impact',     's06.dsc':'700K L GPT-3 · crisis Chile / Spain / Texas',
+    's07.ttl':'E-Waste',          's07.dsc':'1.2–5 Mt by 2030 · toxins · GPU 2–3 years',
+    's08.ttl':'Minerals & Biodiversity','s08.dsc':'Cobalt, lithium, rare earths, Baotou, oceans',
+    's09.ttl':'Discussion',       's09.dsc':'Paradigms · regulation · limitations · future',
+    's10.ttl':'Recommendations',  's10.dsc':'21 recommendations for 5 types of stakeholders',
+    's11.ttl':'Conclusions',      's11.dsc':'7 conclusions + global call to action',
+    's12.ttl':'References',       's12.dsc':'47 verified sources · 2019–2026',
+    'tag.main':'Main','tag.index':'Index','tag.summary':'Abstract','tag.intro':'Intro',
+    'tag.method':'Method','tag.results':'Results','tag.new':'New','tag.analysis':'Analysis','tag.refs':'47 sources',
+    'pdf.title':'📥 How to Export the Paper to PDF',
+    'pdf.s1t':'From any page of the paper','pdf.s1p':'Click "📥 Download PDF" — uses optimized CSS @media print. The language selector and navigation hide automatically.',
+    'pdf.s2t':'Print dialog settings','pdf.s2p':'Destination: Save as PDF · Size: A4 · Margins: Default · ✅ Background graphics enabled',
+    'pdf.s3t':'Full PDF (all sections unified)','pdf.s3p':'Recommended tool: Puppeteer (Node.js). Merges all 13 sections into one PDF with header/footer and automatic table of contents.',
+    'pdf.s4t':'For academic submission (journals, conferences)','pdf.s4p':'A4 format, IMRD structure and 47 references meet the standard requirements of journals like Nature, PLOS ONE and similar.',
+    'lang.title':'🌐 11 Languages — Global Selector',
+    'lang.desc':'The language selector translates the entire page instantly.',
+    'foot.copy':'Independent Research · Santo Domingo Este, Dominican Republic · CC BY 4.0 · 2026',
+  },
+  fr: {
+    dir:'ltr',
+    'eyebrow':'Version 1.0 · Mars 2026 · CC BY 4.0',
+    'hero.role':'Scientifique en IA Durable · Data Scientist IA',
+    'paper.title':'Méthodologie Scientifique pour Mesurer<br>l\'Empreinte Carbone des Modèles d\'IA',
+    'paper.sub':'Cadre intégral · Carbone · Eau · Déchets élec. · Minéraux · Biodiversité — avec validation empirique et calculateur public',
+    'stat.models':'Modèles','stat.corr':'Corrélation','stat.error':'Erreur','stat.refs':'Références','stat.dims':'Dimensions','stat.langs':'Langues',
+    'btn.read':'📄 Lire l\'Article','btn.pdf':'📥 Télécharger PDF','btn.calc':'⚡ Calculateur','btn.portfolio':'🌐 Portfolio',
+    'grid.label':'Contenu de l\'Article — 13 Sections',
+    's00.ttl':'Couverture',         's00.dsc':'Auteure, version 1.0, licence CC BY 4.0',
+    's01.ttl':'Table des matières', 's01.dsc':'Structure complète, statistiques de l\'article',
+    's02.ttl':'Résumé / Abstract',  's02.dsc':'Bilingue ES–EN, résultats clés, mots-clés',
+    's03.ttl':'Introduction',       's03.dsc':'Chronologie 2019–2025, objectifs de l\'étude',
+    's04.ttl':'Méthodologie',       's04.dsc':'Formule CO₂, specs GPU, PUE, validation R²',
+    's05.ttl':'Résultats',          's05.dsc':'30+ modèles · différence 100× · géographie 90×',
+    's06.ttl':'Impact Hydrique',    's06.dsc':'700K L GPT-3 · crise Chili / Espagne / Texas',
+    's07.ttl':'Déchets Électroniques','s07.dsc':'1.2–5 Mt d\'ici 2030 · toxines · GPU 2–3 ans',
+    's08.ttl':'Minéraux & Biodiversité','s08.dsc':'Cobalt, lithium, terres rares, Baotou, océans',
+    's09.ttl':'Discussion',         's09.dsc':'Paradigmes · réglementation · limites · avenir',
+    's10.ttl':'Recommandations',    's10.dsc':'21 recommandations pour 5 types d\'acteurs',
+    's11.ttl':'Conclusions',        's11.dsc':'7 conclusions + appel à l\'action mondial',
+    's12.ttl':'Références',         's12.dsc':'47 sources vérifiées · 2019–2026',
+    'tag.main':'Principal','tag.index':'Index','tag.summary':'Résumé','tag.intro':'Intro',
+    'tag.method':'Méthode','tag.results':'Résultats','tag.new':'Nouveau','tag.analysis':'Analyse','tag.refs':'47 sources',
+    'pdf.title':'📥 Comment Exporter en PDF',
+    'pdf.s1t':'Depuis n\'importe quelle page','pdf.s1p':'Cliquez sur "📥 Télécharger PDF" — CSS @media print optimisé. Le sélecteur de langue se cache automatiquement.',
+    'pdf.s2t':'Paramètres d\'impression','pdf.s2p':'Destination: Enregistrer en PDF · Taille: A4 · Marges: Par défaut · ✅ Graphiques d\'arrière-plan activés',
+    'pdf.s3t':'PDF complet (toutes les sections)','pdf.s3p':'Outil recommandé: Puppeteer (Node.js). Combine les 13 sections en un PDF avec en-tête/pied et table des matières automatique.',
+    'pdf.s4t':'Pour soumission académique','pdf.s4p':'Le format A4, la structure IMRD et les 47 références répondent aux exigences des revues comme Nature, PLOS ONE et similaires.',
+    'lang.title':'🌐 11 Langues — Sélecteur Global',
+    'lang.desc':'Le sélecteur de langue traduit toute la page instantanément.',
+    'foot.copy':'Recherche Indépendante · Santo Domingo Este, Rép. Dominicaine · CC BY 4.0 · 2026',
+  },
+  pt: {
+    dir:'ltr',
+    'eyebrow':'Versão 1.0 · Março 2026 · CC BY 4.0',
+    'hero.role':'Cientista em IA Sustentável · AI Data Scientist',
+    'paper.title':'Metodologia Científica para Medição da<br>Pegada de Carbono de Modelos de IA',
+    'paper.sub':'Estrutura integral · Carbono · Água · E-Waste · Minerais · Biodiversidade — com validação empírica e calculadora pública',
+    'stat.models':'Modelos','stat.corr':'Correlação','stat.error':'Erro','stat.refs':'Referências','stat.dims':'Dimensões','stat.langs':'Idiomas',
+    'btn.read':'📄 Ler o Artigo','btn.pdf':'📥 Baixar PDF','btn.calc':'⚡ Calculadora','btn.portfolio':'🌐 Portfolio',
+    'grid.label':'Conteúdo do Artigo — 13 Seções',
+    's00.ttl':'Capa',                 's00.dsc':'Autora, versão 1.0, licença CC BY 4.0',
+    's01.ttl':'Sumário',              's01.dsc':'Estrutura completa, estatísticas do artigo',
+    's02.ttl':'Resumo / Abstract',    's02.dsc':'Bilíngue ES–EN, descobertas principais, palavras-chave',
+    's03.ttl':'Introdução',           's03.dsc':'Cronologia 2019–2025, objetivos do estudo',
+    's04.ttl':'Metodologia',          's04.dsc':'Fórmula CO₂, specs GPU, PUE, validação R²',
+    's05.ttl':'Resultados',           's05.dsc':'30+ modelos · diferença 100× · geografia 90×',
+    's06.ttl':'Impacto Hídrico',      's06.dsc':'700K L GPT-3 · crise Chile / Espanha / Texas',
+    's07.ttl':'Resíduos Eletrônicos', 's07.dsc':'1.2–5 Mt até 2030 · toxinas · GPU 2–3 anos',
+    's08.ttl':'Minerais & Biodiversidade','s08.dsc':'Cobalto, lítio, terras raras, Baotou, oceanos',
+    's09.ttl':'Discussão',            's09.dsc':'Paradigmas · regulação · limitações · futuro',
+    's10.ttl':'Recomendações',        's10.dsc':'21 recomendações para 5 tipos de atores',
+    's11.ttl':'Conclusões',           's11.dsc':'7 conclusões + chamado à ação global',
+    's12.ttl':'Referências',          's12.dsc':'47 fontes verificadas · 2019–2026',
+    'tag.main':'Principal','tag.index':'Índice','tag.summary':'Resumo','tag.intro':'Intro',
+    'tag.method':'Método','tag.results':'Resultados','tag.new':'Novo','tag.analysis':'Análise','tag.refs':'47 fontes',
+    'pdf.title':'📥 Como Exportar para PDF',
+    'pdf.s1t':'De qualquer página do artigo','pdf.s1p':'Clique em "📥 Baixar PDF" — CSS @media print otimizado. O seletor de idioma e navegação ocultam automaticamente.',
+    'pdf.s2t':'Configurações de impressão','pdf.s2p':'Destino: Salvar como PDF · Tamanho: A4 · Margens: Padrão · ✅ Gráficos de fundo ativado',
+    'pdf.s3t':'PDF completo (todas as seções)','pdf.s3p':'Ferramenta recomendada: Puppeteer (Node.js). Combina as 13 seções em um PDF com cabeçalho/rodapé e sumário automático.',
+    'pdf.s4t':'Para envio acadêmico','pdf.s4p':'O formato A4, estrutura IMRD e 47 referências atendem os requisitos de revistas como Nature, PLOS ONE e similares.',
+    'lang.title':'🌐 11 Idiomas — Seletor Global',
+    'lang.desc':'O seletor de idioma traduz toda a página instantaneamente.',
+    'foot.copy':'Pesquisa Independente · Santo Domingo Este, República Dominicana · CC BY 4.0 · 2026',
+  },
+  ru: {
+    dir:'ltr',
+    'eyebrow':'Версия 1.0 · Март 2026 · CC BY 4.0',
+    'hero.role':'Учёный в области устойчивого ИИ · Data Scientist',
+    'paper.title':'Научная методология измерения<br>углеродного следа моделей ИИ',
+    'paper.sub':'Комплексная структура · Углерод · Вода · Э-отходы · Минералы · Биоразнообразие — с эмпирической валидацией и публичным калькулятором',
+    'stat.models':'Модели','stat.corr':'Корреляция','stat.error':'Погрешность','stat.refs':'Источники','stat.dims':'Измерения','stat.langs':'Языки',
+    'btn.read':'📄 Читать статью','btn.pdf':'📥 Скачать PDF','btn.calc':'⚡ Калькулятор','btn.portfolio':'🌐 Портфолио',
+    'grid.label':'Содержание статьи — 13 разделов',
+    's00.ttl':'Обложка',            's00.dsc':'Автор, версия 1.0, лицензия CC BY 4.0',
+    's01.ttl':'Оглавление',         's01.dsc':'Полная структура, статистика статьи',
+    's02.ttl':'Аннотация',          's02.dsc':'Двуязычный ES–EN, ключевые выводы, ключевые слова',
+    's03.ttl':'Введение',           's03.dsc':'Хронология 2019–2025, цели исследования',
+    's04.ttl':'Методология',        's04.dsc':'Формула CO₂, GPU, PUE, валидация R²',
+    's05.ttl':'Результаты',         's05.dsc':'30+ моделей · разница 100× · география 90×',
+    's06.ttl':'Водное воздействие', 's06.dsc':'700K л GPT-3 · кризис Чили / Испания / Техас',
+    's07.ttl':'Электронные отходы', 's07.dsc':'1.2–5 млн т к 2030 · токсины · GPU 2–3 года',
+    's08.ttl':'Минералы и биоразнообразие','s08.dsc':'Кобальт, литий, редкие земли, Баотоу, океаны',
+    's09.ttl':'Обсуждение',         's09.dsc':'Парадигмы · регулирование · ограничения · будущее',
+    's10.ttl':'Рекомендации',       's10.dsc':'21 рекомендация для 5 типов участников',
+    's11.ttl':'Заключение',         's11.dsc':'7 выводов + глобальный призыв к действию',
+    's12.ttl':'Литература',         's12.dsc':'47 проверенных источников · 2019–2026',
+    'tag.main':'Главная','tag.index':'Индекс','tag.summary':'Аннотация','tag.intro':'Введение',
+    'tag.method':'Метод','tag.results':'Результаты','tag.new':'Новое','tag.analysis':'Анализ','tag.refs':'47 источников',
+    'pdf.title':'📥 Как экспортировать в PDF',
+    'pdf.s1t':'С любой страницы статьи','pdf.s1p':'Нажмите "📥 Скачать PDF" — оптимизированный CSS @media print. Выбор языка и навигация скрываются автоматически.',
+    'pdf.s2t':'Настройки диалога печати','pdf.s2p':'Назначение: Сохранить как PDF · Размер: A4 · Поля: По умолчанию · ✅ Фоновая графика включена',
+    'pdf.s3t':'Полный PDF (все разделы)','pdf.s3p':'Рекомендуемый инструмент: Puppeteer (Node.js). Объединяет 13 разделов в один PDF с заголовком/подвалом и автоматическим оглавлением.',
+    'pdf.s4t':'Для академической подачи','pdf.s4p':'Формат A4, структура IMRD и 47 источников соответствуют стандартам журналов Nature, PLOS ONE и аналогичных.',
+    'lang.title':'🌐 11 языков — Глобальный выбор',
+    'lang.desc':'Выбор языка переводит всю страницу мгновенно.',
+    'foot.copy':'Независимые исследования · Санто-Доминго-Эсте, Доминиканская Республика · CC BY 4.0 · 2026',
+  },
+  zh: {
+    dir:'ltr',
+    'eyebrow':'版本 1.0 · 2026年3月 · CC BY 4.0',
+    'hero.role':'可持续AI科学家 · AI数据科学家',
+    'paper.title':'测量AI模型碳足迹的<br>科学方法论',
+    'paper.sub':'综合框架 · 碳 · 水 · 电子废物 · 矿产 · 生物多样性 — 含实证验证和公共计算器',
+    'stat.models':'模型','stat.corr':'相关性','stat.error':'误差','stat.refs':'参考文献','stat.dims':'维度','stat.langs':'语言',
+    'btn.read':'📄 阅读论文','btn.pdf':'📥 下载PDF','btn.calc':'⚡ 计算器','btn.portfolio':'🌐 作品集',
+    'grid.label':'论文内容 — 13个章节',
+    's00.ttl':'封面',       's00.dsc':'作者，版本1.0，CC BY 4.0许可证',
+    's01.ttl':'目录',       's01.dsc':'完整结构，论文统计数据',
+    's02.ttl':'摘要',       's02.dsc':'双语ES–EN，主要发现，关键词',
+    's03.ttl':'引言',       's03.dsc':'2019–2025年时间线，研究目标',
+    's04.ttl':'方法论',     's04.dsc':'CO₂公式，GPU规格，PUE，R²验证',
+    's05.ttl':'结果',       's05.dsc':'30+模型·差异100×·地理90×',
+    's06.ttl':'水资源影响', 's06.dsc':'GPT-3 700K升·智利/西班牙/德克萨斯危机',
+    's07.ttl':'电子废物',   's07.dsc':'到2030年1.2–5百万吨·毒素·GPU 2–3年',
+    's08.ttl':'矿产与生物多样性','s08.dsc':'钴、锂、稀土、包头、海洋',
+    's09.ttl':'讨论',       's09.dsc':'范式·监管·局限性·未来',
+    's10.ttl':'建议',       's10.dsc':'针对5类利益相关者的21条建议',
+    's11.ttl':'结论',       's11.dsc':'7条结论+全球行动呼吁',
+    's12.ttl':'参考文献',   's12.dsc':'47个已验证来源·2019–2026',
+    'tag.main':'主要','tag.index':'索引','tag.summary':'摘要','tag.intro':'引言',
+    'tag.method':'方法','tag.results':'结果','tag.new':'新','tag.analysis':'分析','tag.refs':'47个来源',
+    'pdf.title':'📥 如何导出为PDF',
+    'pdf.s1t':'从论文的任意页面','pdf.s1p':'点击"📥 下载PDF" — 使用优化的CSS @media print。语言选择器和导航自动隐藏。',
+    'pdf.s2t':'打印对话框设置','pdf.s2p':'目标：另存为PDF · 大小：A4 · 边距：默认 · ✅ 启用背景图形',
+    'pdf.s3t':'完整PDF（所有章节合并）','pdf.s3p':'推荐工具：Puppeteer (Node.js)。将13个章节合并为一个带页眉/页脚和自动目录的PDF。',
+    'pdf.s4t':'学术投稿（期刊、会议）','pdf.s4p':'A4格式、IMRD结构和47个参考文献符合Nature、PLOS ONE等学术期刊的标准要求。',
+    'lang.title':'🌐 11种语言 — 全球选择器',
+    'lang.desc':'语言选择器可立即翻译整个页面。',
+    'foot.copy':'独立研究 · 圣多明哥东部，多米尼加共和国 · CC BY 4.0 · 2026',
+  },
+  ja: {
+    dir:'ltr',
+    'eyebrow':'バージョン 1.0 · 2026年3月 · CC BY 4.0',
+    'hero.role':'サステナブルAI科学者 · AIデータサイエンティスト',
+    'paper.title':'AIモデルのカーボンフットプリントを<br>測定するための科学的方法論',
+    'paper.sub':'包括的フレームワーク · 炭素 · 水 · 電子廃棄物 · 鉱物 · 生物多様性 — 実証的検証と公開計算機付き',
+    'stat.models':'モデル','stat.corr':'相関','stat.error':'誤差','stat.refs':'参考文献','stat.dims':'次元','stat.langs':'言語',
+    'btn.read':'📄 論文を読む','btn.pdf':'📥 PDFダウンロード','btn.calc':'⚡ 計算機','btn.portfolio':'🌐 ポートフォリオ',
+    'grid.label':'論文の内容 — 13セクション',
+    's00.ttl':'表紙',        's00.dsc':'著者、バージョン1.0、CC BY 4.0ライセンス',
+    's01.ttl':'目次',        's01.dsc':'完全な構造、論文の統計',
+    's02.ttl':'要旨 / Abstract','s02.dsc':'二言語ES–EN、主要な所見、キーワード',
+    's03.ttl':'はじめに',    's03.dsc':'2019–2025年のタイムライン、研究目的',
+    's04.ttl':'方法論',      's04.dsc':'CO₂式、GPU仕様、PUE、R²検証',
+    's05.ttl':'結果',        's05.dsc':'30+モデル·差異100×·地理90×',
+    's06.ttl':'水への影響',  's06.dsc':'GPT-3 700K L·チリ/スペイン/テキサス危機',
+    's07.ttl':'電子廃棄物',  's07.dsc':'2030年までに120–500万トン·毒素·GPU 2–3年',
+    's08.ttl':'鉱物と生物多様性','s08.dsc':'コバルト、リチウム、希土類、包頭、海洋',
+    's09.ttl':'考察',        's09.dsc':'パラダイム·規制·限界·未来',
+    's10.ttl':'勧告',        's10.dsc':'5種類のステークホルダーへの21の勧告',
+    's11.ttl':'結論',        's11.dsc':'7つの結論+グローバルな行動呼びかけ',
+    's12.ttl':'参考文献',    's12.dsc':'47の検証済み情報源·2019–2026',
+    'tag.main':'メイン','tag.index':'索引','tag.summary':'要旨','tag.intro':'序文',
+    'tag.method':'方法','tag.results':'結果','tag.new':'新規','tag.analysis':'分析','tag.refs':'47件',
+    'pdf.title':'📥 PDFへのエクスポート方法',
+    'pdf.s1t':'論文の任意のページから','pdf.s1p':'"📥 PDFダウンロード"をクリック — 最適化されたCSS @media printを使用。言語セレクターとナビゲーションは自動的に非表示になります。',
+    'pdf.s2t':'印刷ダイアログの設定','pdf.s2p':'宛先：PDFとして保存 · サイズ：A4 · 余白：デフォルト · ✅ 背景グラフィックスを有効',
+    'pdf.s3t':'完全PDF（全セクション統合）','pdf.s3p':'推奨ツール：Puppeteer (Node.js)。13セクションをヘッダー/フッターと自動目次付きの1つのPDFに統合。',
+    'pdf.s4t':'学術投稿（ジャーナル、学会）','pdf.s4p':'A4形式、IMRD構造と47の参考文献はNature、PLOS ONEなどの学術誌の標準要件を満たします。',
+    'lang.title':'🌐 11言語 — グローバルセレクター',
+    'lang.desc':'言語セレクターはページ全体を即座に翻訳します。',
+    'foot.copy':'独立研究 · サントドミンゴエステ、ドミニカ共和国 · CC BY 4.0 · 2026',
+  },
+  ko: {
+    dir:'ltr',
+    'eyebrow':'버전 1.0 · 2026년 3월 · CC BY 4.0',
+    'hero.role':'지속 가능한 AI 과학자 · AI 데이터 사이언티스트',
+    'paper.title':'AI 모델의 탄소 발자국 측정을 위한<br>과학적 방법론',
+    'paper.sub':'종합 프레임워크 · 탄소 · 물 · 전자 폐기물 · 광물 · 생물다양성 — 실증 검증 및 공개 계산기 포함',
+    'stat.models':'모델','stat.corr':'상관관계','stat.error':'오류','stat.refs':'참고문헌','stat.dims':'차원','stat.langs':'언어',
+    'btn.read':'📄 논문 읽기','btn.pdf':'📥 PDF 다운로드','btn.calc':'⚡ 계산기','btn.portfolio':'🌐 포트폴리오',
+    'grid.label':'논문 내용 — 13개 섹션',
+    's00.ttl':'표지',         's00.dsc':'저자, 버전 1.0, CC BY 4.0 라이선스',
+    's01.ttl':'목차',         's01.dsc':'전체 구조, 논문 통계',
+    's02.ttl':'초록 / Abstract','s02.dsc':'이중 언어 ES–EN, 주요 발견, 키워드',
+    's03.ttl':'서론',         's03.dsc':'2019–2025년 타임라인, 연구 목표',
+    's04.ttl':'방법론',       's04.dsc':'CO₂ 공식, GPU 사양, PUE, R² 검증',
+    's05.ttl':'결과',         's05.dsc':'30+모델 · 100× 차이 · 90× 지리',
+    's06.ttl':'수자원 영향',  's06.dsc':'GPT-3 700K L · 칠레/스페인/텍사스 위기',
+    's07.ttl':'전자 폐기물',  's07.dsc':'2030년까지 1.2–5Mt · 독소 · GPU 2–3년',
+    's08.ttl':'광물과 생물다양성','s08.dsc':'코발트, 리튬, 희토류, 바오터우, 해양',
+    's09.ttl':'토론',         's09.dsc':'패러다임 · 규제 · 한계 · 미래',
+    's10.ttl':'권고사항',     's10.dsc':'5가지 유형의 행위자를 위한 21가지 권고',
+    's11.ttl':'결론',         's11.dsc':'7가지 결론 + 글로벌 행동 촉구',
+    's12.ttl':'참고문헌',     's12.dsc':'47개 검증된 출처 · 2019–2026',
+    'tag.main':'주요','tag.index':'색인','tag.summary':'초록','tag.intro':'서론',
+    'tag.method':'방법','tag.results':'결과','tag.new':'신규','tag.analysis':'분석','tag.refs':'47개',
+    'pdf.title':'📥 PDF로 내보내는 방법',
+    'pdf.s1t':'논문의 아무 페이지에서','pdf.s1p':'"📥 PDF 다운로드"를 클릭 — 최적화된 CSS @media print 사용. 언어 선택기와 탐색이 자동으로 숨겨집니다.',
+    'pdf.s2t':'인쇄 대화상자 설정','pdf.s2p':'대상: PDF로 저장 · 크기: A4 · 여백: 기본값 · ✅ 배경 그래픽 활성화',
+    'pdf.s3t':'완전한 PDF (모든 섹션 통합)','pdf.s3p':'권장 도구: Puppeteer (Node.js). 13개 섹션을 머리글/바닥글과 자동 목차가 있는 하나의 PDF로 결합.',
+    'pdf.s4t':'학술 제출 (저널, 학회)','pdf.s4p':'A4 형식, IMRD 구조 및 47개 참고문헌은 Nature, PLOS ONE 등 학술지의 표준 요건을 충족합니다.',
+    'lang.title':'🌐 11개 언어 — 글로벌 선택기',
+    'lang.desc':'언어 선택기가 전체 페이지를 즉시 번역합니다.',
+    'foot.copy':'독립 연구 · 산토도밍고에스테, 도미니카 공화국 · CC BY 4.0 · 2026',
+  },
+  ar: {
+    dir:'rtl',
+    'eyebrow':'الإصدار 1.0 · مارس 2026 · CC BY 4.0',
+    'hero.role':'عالمة في الذكاء الاصطناعي المستدام · عالمة بيانات ذكاء اصطناعي',
+    'paper.title':'منهجية علمية لقياس<br>البصمة الكربونية لنماذج الذكاء الاصطناعي',
+    'paper.sub':'إطار شامل · كربون · ماء · نفايات إلكترونية · معادن · تنوع بيولوجي — مع التحقق التجريبي وحاسبة عامة',
+    'stat.models':'نماذج','stat.corr':'الارتباط','stat.error':'خطأ','stat.refs':'مراجع','stat.dims':'أبعاد','stat.langs':'لغات',
+    'btn.read':'📄 اقرأ الورقة','btn.pdf':'📥 تحميل PDF','btn.calc':'⚡ الحاسبة','btn.portfolio':'🌐 ملف الأعمال',
+    'grid.label':'محتوى الورقة — 13 قسمًا',
+    's00.ttl':'الغلاف',             's00.dsc':'المؤلفة، الإصدار 1.0، رخصة CC BY 4.0',
+    's01.ttl':'جدول المحتويات',    's01.dsc':'الهيكل الكامل، إحصاءات الورقة',
+    's02.ttl':'ملخص / Abstract',   's02.dsc':'ثنائي اللغة ES–EN، النتائج الرئيسية، الكلمات المفتاحية',
+    's03.ttl':'مقدمة',              's03.dsc':'الجدول الزمني 2019–2025، أهداف الدراسة',
+    's04.ttl':'المنهجية',           's04.dsc':'صيغة CO₂، مواصفات GPU، PUE، التحقق R²',
+    's05.ttl':'النتائج',            's05.dsc':'30+ نموذج · فارق 100× · جغرافيا 90×',
+    's06.ttl':'التأثير المائي',     's06.dsc':'700 ألف لتر GPT-3 · أزمة تشيلي / إسبانيا / تكساس',
+    's07.ttl':'النفايات الإلكترونية','s07.dsc':'1.2–5 مليون طن بحلول 2030 · سموم · GPU 2–3 سنوات',
+    's08.ttl':'المعادن والتنوع البيولوجي','s08.dsc':'كوبالت، ليثيوم، أتربة نادرة، باوتو، المحيطات',
+    's09.ttl':'مناقشة',            's09.dsc':'النماذج · التنظيم · القيود · المستقبل',
+    's10.ttl':'التوصيات',           's10.dsc':'21 توصية لـ 5 أنواع من الجهات الفاعلة',
+    's11.ttl':'الخلاصة',            's11.dsc':'7 استنتاجات + نداء للعمل العالمي',
+    's12.ttl':'المراجع',            's12.dsc':'47 مصدرًا موثقًا · 2019–2026',
+    'tag.main':'رئيسي','tag.index':'فهرس','tag.summary':'ملخص','tag.intro':'مقدمة',
+    'tag.method':'منهج','tag.results':'نتائج','tag.new':'جديد','tag.analysis':'تحليل','tag.refs':'47 مصدر',
+    'pdf.title':'📥 كيفية التصدير إلى PDF',
+    'pdf.s1t':'من أي صفحة في الورقة','pdf.s1p':'انقر على "📥 تحميل PDF" — يستخدم CSS @media print محسّن. محدد اللغة والتنقل يختفيان تلقائيًا.',
+    'pdf.s2t':'إعدادات مربع حوار الطباعة','pdf.s2p':'الوجهة: حفظ بصيغة PDF · الحجم: A4 · الهوامش: افتراضية · ✅ تفعيل رسومات الخلفية',
+    'pdf.s3t':'PDF كامل (جميع الأقسام موحدة)','pdf.s3p':'الأداة الموصى بها: Puppeteer (Node.js). يدمج 13 قسمًا في PDF واحد مع رأس/تذييل وجدول محتويات تلقائي.',
+    'pdf.s4t':'للتقديم الأكاديمي (مجلات، مؤتمرات)','pdf.s4p':'تنسيق A4 وهيكل IMRD و47 مرجعًا تستوفي المتطلبات القياسية لمجلات مثل Nature وPLOS ONE وما شابهها.',
+    'lang.title':'🌐 11 لغة — محدد عالمي',
+    'lang.desc':'محدد اللغة يترجم الصفحة بأكملها فورًا.',
+    'foot.copy':'بحث مستقل · سانتو دومينغو إيست، جمهورية الدومينيكان · CC BY 4.0 · 2026',
+  },
+  he: {
+    dir:'rtl',
+    'eyebrow':'גרסה 1.0 · מרץ 2026 · CC BY 4.0',
+    'hero.role':'מדענית בינה מלאכותית בת-קיימא · מדענית נתונים',
+    'paper.title':'מתודולוגיה מדעית למדידת<br>טביעת הרגל הפחמנית של מודלי בינה מלאכותית',
+    'paper.sub':'מסגרת מקיפה · פחמן · מים · פסולת אלקטרונית · מינרלים · מגוון ביולוגי — עם אימות אמפירי ומחשבון ציבורי',
+    'stat.models':'מודלים','stat.corr':'קורלציה','stat.error':'שגיאה','stat.refs':'מקורות','stat.dims':'ממדים','stat.langs':'שפות',
+    'btn.read':'📄 קרא את המאמר','btn.pdf':'📥 הורד PDF','btn.calc':'⚡ מחשבון','btn.portfolio':'🌐 תיק עבודות',
+    'grid.label':'תוכן המאמר — 13 סעיפים',
+    's00.ttl':'שער',              's00.dsc':'מחברת, גרסה 1.0, רישיון CC BY 4.0',
+    's01.ttl':'תוכן עניינים',    's01.dsc':'מבנה מלא, סטטיסטיקות המאמר',
+    's02.ttl':'תקציר / Abstract','s02.dsc':'דו-לשוני ES–EN, ממצאים עיקריים, מילות מפתח',
+    's03.ttl':'מבוא',             's03.dsc':'ציר זמן 2019–2025, מטרות המחקר',
+    's04.ttl':'מתודולוגיה',       's04.dsc':'נוסחת CO₂, מפרטי GPU, PUE, אימות R²',
+    's05.ttl':'תוצאות',           's05.dsc':'30+ מודלים · הפרש 100× · גאוגרפיה 90×',
+    's06.ttl':'השפעה על המים',    's06.dsc':'GPT-3 700K ל · משבר צ\'ילה / ספרד / טקסס',
+    's07.ttl':'פסולת אלקטרונית', 's07.dsc':'1.2–5 מיליון טון עד 2030 · רעלים · GPU 2–3 שנים',
+    's08.ttl':'מינרלים ומגוון ביולוגי','s08.dsc':'קובלט, ליתיום, אדמות נדירות, בָּאוֹטוּ, אוקיינוסים',
+    's09.ttl':'דיון',             's09.dsc':'פרדיגמות · רגולציה · מגבלות · עתיד',
+    's10.ttl':'המלצות',           's10.dsc':'21 המלצות ל-5 סוגי גורמים',
+    's11.ttl':'מסקנות',           's11.dsc':'7 מסקנות + קריאה לפעולה עולמית',
+    's12.ttl':'מקורות',           's12.dsc':'47 מקורות מאומתים · 2019–2026',
+    'tag.main':'ראשי','tag.index':'אינדקס','tag.summary':'תקציר','tag.intro':'מבוא',
+    'tag.method':'שיטה','tag.results':'תוצאות','tag.new':'חדש','tag.analysis':'ניתוח','tag.refs':'47 מקורות',
+    'pdf.title':'📥 כיצד לייצא ל-PDF',
+    'pdf.s1t':'מכל עמוד במאמר','pdf.s1p':'לחץ על "📥 הורד PDF" — משתמש ב-CSS @media print מותאם. בורר השפה והניווט מוסתרים אוטומטית.',
+    'pdf.s2t':'הגדרות תיבת הדו-שיח להדפסה','pdf.s2p':'יעד: שמור כ-PDF · גודל: A4 · שוליים: ברירת מחדל · ✅ אפשר גרפיקת רקע',
+    'pdf.s3t':'PDF מלא (כל הסעיפים מאוחדים)','pdf.s3p':'כלי מומלץ: Puppeteer (Node.js). משלב 13 סעיפים ל-PDF אחד עם כותרת/כותרת תחתונה ותוכן עניינים אוטומטי.',
+    'pdf.s4t':'להגשה אקדמית (כתבי עת, כנסים)','pdf.s4p':'פורמט A4, מבנה IMRD ו-47 מקורות עומדים בדרישות כתבי העת הסטנדרטיים כמו Nature, PLOS ONE ודומים.',
+    'lang.title':'🌐 11 שפות — בורר גלובלי',
+    'lang.desc':'בורר השפה מתרגם את כל העמוד באופן מיידי.',
+    'foot.copy':'מחקר עצמאי · סנטו דומינגו אסטה, הרפובליקה הדומיניקנית · CC BY 4.0 · 2026',
+  },
+  tr: {
+    dir:'ltr',
+    'eyebrow':'Sürüm 1.0 · Mart 2026 · CC BY 4.0',
+    'hero.role':'Sürdürülebilir YZ Bilimcisi · YZ Veri Bilimcisi',
+    'paper.title':'Yapay Zeka Modellerinin Karbon<br>Ayak İzini Ölçmek için Bilimsel Metodoloji',
+    'paper.sub':'Kapsamlı çerçeve · Karbon · Su · E-Atık · Mineraller · Biyoçeşitlilik — ampirik doğrulama ve herkese açık hesap makinesiyle',
+    'stat.models':'Model','stat.corr':'Korelasyon','stat.error':'Hata','stat.refs':'Referanslar','stat.dims':'Boyutlar','stat.langs':'Dil',
+    'btn.read':'📄 Makaleyi Oku','btn.pdf':'📥 PDF İndir','btn.calc':'⚡ Hesap Makinesi','btn.portfolio':'🌐 Portfolyo',
+    'grid.label':'Makale İçeriği — 13 Bölüm',
+    's00.ttl':'Kapak',            's00.dsc':'Yazar, sürüm 1.0, CC BY 4.0 lisansı',
+    's01.ttl':'İçindekiler',      's01.dsc':'Tam yapı, makale istatistikleri',
+    's02.ttl':'Özet / Abstract',  's02.dsc':'İki dilli ES–EN, temel bulgular, anahtar kelimeler',
+    's03.ttl':'Giriş',            's03.dsc':'2019–2025 zaman çizelgesi, çalışma hedefleri',
+    's04.ttl':'Metodoloji',       's04.dsc':'CO₂ formülü, GPU özellikleri, PUE, R² doğrulaması',
+    's05.ttl':'Sonuçlar',         's05.dsc':'30+ model · 100× fark · 90× coğrafya',
+    's06.ttl':'Su Etkisi',        's06.dsc':'GPT-3 700K L · Şili / İspanya / Teksas krizi',
+    's07.ttl':'Elektronik Atık',  's07.dsc':'2030\'a kadar 1.2–5 Mt · toksinler · GPU 2–3 yıl',
+    's08.ttl':'Mineraller ve Biyoçeşitlilik','s08.dsc':'Kobalt, lityum, nadir topraklar, Baotou, okyanuslar',
+    's09.ttl':'Tartışma',         's09.dsc':'Paradigmalar · düzenleme · sınırlamalar · gelecek',
+    's10.ttl':'Öneriler',         's10.dsc':'5 tür paydaş için 21 öneri',
+    's11.ttl':'Sonuçlar',         's11.dsc':'7 sonuç + küresel eylem çağrısı',
+    's12.ttl':'Referanslar',      's12.dsc':'47 doğrulanmış kaynak · 2019–2026',
+    'tag.main':'Ana','tag.index':'Dizin','tag.summary':'Özet','tag.intro':'Giriş',
+    'tag.method':'Yöntem','tag.results':'Sonuçlar','tag.new':'Yeni','tag.analysis':'Analiz','tag.refs':'47 kaynak',
+    'pdf.title':'📥 PDF\'e Nasıl Aktarılır',
+    'pdf.s1t':'Makalenin herhangi bir sayfasından','pdf.s1p':'"📥 PDF İndir"e tıklayın — optimize edilmiş CSS @media print kullanır. Dil seçici ve gezinme otomatik gizlenir.',
+    'pdf.s2t':'Yazdırma iletişim kutusu ayarları','pdf.s2p':'Hedef: PDF olarak kaydet · Boyut: A4 · Kenar boşlukları: Varsayılan · ✅ Arka plan grafiklerini etkinleştir',
+    'pdf.s3t':'Tam PDF (tüm bölümler birleşik)','pdf.s3p':'Önerilen araç: Puppeteer (Node.js). 13 bölümü üstbilgi/altbilgi ve otomatik içindekiler tablosuyla tek bir PDF\'e birleştirir.',
+    'pdf.s4t':'Akademik gönderim için (dergiler, konferanslar)','pdf.s4p':'A4 formatı, IMRD yapısı ve 47 referans Nature, PLOS ONE ve benzeri dergilerin standart gereksinimlerini karşılar.',
+    'lang.title':'🌐 11 Dil — Küresel Seçici',
+    'lang.desc':'Dil seçici tüm sayfayı anında çevirir.',
+    'foot.copy':'Bağımsız Araştırma · Santo Domingo Este, Dominik Cumhuriyeti · CC BY 4.0 · 2026',
+  },
+};
+
+function applyLang(code) {
+  const L = IDX_T[code];
+  if(!L) return;
+  document.documentElement.dir  = L.dir;
+  document.documentElement.lang = code;
+  localStorage.setItem('paper_lang', code);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n')];
+    if(v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('.lc').forEach(c =>
+    c.classList.toggle('active', c.getAttribute('onclick').includes(`'${code}'`))
+  );
+}
+
+function selectLang(code, el) { applyLang(code); }
+
+// Apply on load
+applyLang('es'); // Hub en español — siempre inicia en 'es', independiente de localStorage compartido con /en/
+</script>
+
+<script>
+(function(){
+  // Hero + panels: simple fade-in on scroll
+  const fadeObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); fadeObserver.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-in').forEach(el=>fadeObserver.observe(el));
+
+  // Section cards: staggered cascade reveal
+  const staggerObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const cards = Array.from(e.target.querySelectorAll('.sc'));
+        cards.forEach((card,i)=>{
+          setTimeout(()=>card.classList.add('revealed'), i*70);
+        });
+        staggerObserver.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.05, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.stagger-children').forEach(el=>staggerObserver.observe(el));
+
+  // Stat chips + language cards: quick fade
+  const quickObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('revealed'), (i%8)*60);
+        quickObserver.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.stat-chip, .lc').forEach(el=>quickObserver.observe(el));
+})();
+</script>
+
+</body>
+</html>
