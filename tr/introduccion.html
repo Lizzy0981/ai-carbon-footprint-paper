@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>Giriş — Yapay Zeka Modellerinde Karbon Ayak İzi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#4a235a 0%,#6c3483 50%,#8e44ad 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0 0 L30 30 L60 0 L60 60 L0 60 Z'/%3E%3C/svg%3E") repeat;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+/* BODY */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+/* SECTION H */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#6c3483;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #8e44ad;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* PROBLEM CARD */
+.problem-intro{background:linear-gradient(135deg,#f9f3ff,#f0e6ff);border-left:6px solid #8e44ad;border-radius:0 16px 16px 0;padding:30px 34px;margin-bottom:40px;position:relative;}
+.problem-intro::before{content:'🌐';position:absolute;top:-14px;left:18px;font-size:26px;background:white;padding:0 6px;}
+.problem-intro p{font-size:19px;line-height:1.85;color:#2c3e50;}
+.problem-intro strong{color:#6c3483;}
+/* TIMELINE */
+.timeline{margin:30px 0;}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:20px 0;border-bottom:1px dashed #e8d5f5;align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#8e44ad;background:#f5e6ff;padding:6px 12px;border-radius:8px;text-align:center;margin-top:4px;}
+.tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#4a235a;margin-bottom:6px;}
+.tl-text{font-size:16px;line-height:1.7;color:#34495e;}
+.tl-badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f5e6ff;color:#6c3483;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px;}
+/* OBJECTIVES */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0;}
+.obj{background:white;border:2px solid #e8d5f5;border-radius:14px;padding:22px;transition:all .3s;position:relative;overflow:hidden;}
+.obj::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#8e44ad,#1abc9c);}
+.obj:hover{border-color:#8e44ad;transform:translateY(-4px);box-shadow:0 10px 26px rgba(142,68,173,0.15);}
+.obj-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#8e44ad;margin-bottom:8px;display:block;}
+.obj-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#4a235a;margin-bottom:7px;}
+.obj-text{font-size:15px;line-height:1.7;color:#34495e;}
+/* STRUCTURE */
+.structure-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;margin:20px 0;}
+.structure-table thead tr{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;}
+.structure-table th{padding:13px 16px;text-align:left;font-size:13px;font-weight:700;}
+.structure-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid #f0e6ff;color:#2c3e50;vertical-align:top;}
+.structure-table tr:nth-child(even) td{background:#fbf7ff;}
+.structure-table tr:hover td{background:#f5e6ff;}
+.tag-new2{background:#e8fff5;color:#1a8449;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-upd{background:#fef9e7;color:#d68910;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-core2{background:#f0e6ff;color:#6c3483;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(142,68,173,0.3);border-color:rgba(142,68,173,0.5);color:#d7b8f5;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Giriş</div>
+    <h1>Bağlam, Sorun ve Hedefler</h1>
+    <p>İklim değişikliğinin bir etkeni olarak yapay zeka: metriklerden yoksun coşkudan bilimsel titizliğe</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#8e44ad;font-style:italic;text-align:center;margin-bottom:24px;">Doğrulanmış ES/EN orijinalinin çevirisidir. Herhangi bir farklılık durumunda orijinal metin geçerlidir.</p>
+
+  <div class="problem-intro">
+    <p>2023 yılında, GPT-4'ü eğitmek tahminen <strong>1.000 Amerikan hanesinin bir yıllık tükettiği</strong> kadar enerji harcadı. 2024'te küresel veri merkezleri 415 TWh elektrik tüketti — bu, tüm Arjantin'den daha fazlasıdır. 2030'a kadar <strong>945 TWh tüketecekler, bu da tüm Japonya'nın elektrik talebine eşdeğerdir</strong>. Bu rakamlara rağmen, bu çalışmanın yayınlanmasına kadar yapay zeka modellerinin çevresel etkisini ölçmek, karşılaştırmak ve iletmek için kapsamlı, erişilebilir ve kamuya açık bir bilimsel çerçeve mevcut değildi.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.1</span>Sorunun Bağlamı</div>
+
+  <p class="body-text">
+    Üretken yapay zeka, 2020'den bu yana benzeri görülmemiş bir genişleme yaşadı; modellerin boyutu her 12–18 ayda bir katlanıyor ve küresel ölçekte dağıtımları devasa fiziksel altyapı gerektiriyor: binlerce veri merkezi, on milyonlarca özel GPU ve kamuoyu tartışmalarının tanıdığından kat kat fazla kaynak tüketimi — enerji, su, mineraller.
+  </p>
+
+  <p class="body-text">
+    Strubell ve ark. (2019) tarafından yapılan öncü çalışma, ilk kez büyük doğal dil işleme modellerinin eğitiminin önemli "enerji ve politika maliyetleri" taşıdığı konusunda uyardı. O zamandan beri, alan hızla gelişti ancak parçalı bir şekilde: bazı çalışmalar karbonu ölçtü, bazıları suyu, bazıları e-atığı — araştırmacıların, gazetecilerin, yasa koyucuların ve vatandaşların günlük olarak kullandıkları yapay zeka sistemlerinin gerçek etkisini hesaplamasına ve karşılaştırmasına olanak tanıyan metodolojik entegrasyon veya kamuya açık araçlar olmaksızın.
+  </p>
+
+  <div class="sh"><span class="sh-num">0.2</span>Alanın Evrimi: Bilimsel Kronoloji</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div>
+        <div class="tl-title">Strubell ve ark. — İlk Alarm</div>
+        <p class="tl-text">Büyük NLP modellerini eğitmenin enerji maliyetinin ilk sistematik ölçümü. Hiperparametre aramasıyla bir transformer eğitmenin ~626.000 libre CO₂ saldığını tahmin ediyor — bu, beş arabanın tüm kullanım ömrüne eşdeğerdir.</p>
+        <span class="tl-badge">ACL 2019 · Temel Çalışma</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021–22</div>
+      <div>
+        <div class="tl-title">Patterson, Luccioni ve ark. — Metodolojik Derinleşme</div>
+        <p class="tl-text">Google ve Hugging Face metodolojileri iyileştiriyor. Patterson, veri merkezinin coğrafi konumunun emisyonları 40 kata kadar azaltabileceğini gösteriyor. Luccioni, BLOOM (176B parametre) için ilk karbon denetimini geliştiriyor.</p>
+        <span class="tl-badge">Google / Hugging Face · Metodolojik</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">Li ve ark. — Su Krizi Ortaya Çıkıyor</div>
+        <p class="tl-text">Kaliforniya Riverside Üniversitesi, GPT-3'ün eğitim sırasında 700.000 litre içme suyunu buharlaştırdığını keşfediyor. Yapay zeka modellerinin su ayak izinin ilk sistematik ölçümü.</p>
+        <span class="tl-badge">UC Riverside · arXiv:2304.03271</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">Wang ve ark. — E-Atık Tartışmaya Giriyor</div>
+        <p class="tl-text">Nature Computational Science, üretken yapay zeka tarafından üretilen e-atığın ilk sistematik projeksiyonunu yayınlıyor: 2030 yılına kadar 1,2 ila 5 milyon metrik ton arasında, ilişkili toksinlerin bir kataloğuyla birlikte.</p>
+        <span class="tl-badge">Nature Comp. Sci. · 2024</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div>
+        <div class="tl-title">IEA, Nature Sustainability, Cell Reports — Küresel Yakınsama</div>
+        <p class="tl-text">Uluslararası Enerji Ajansı, bugüne kadarki en yetkili analiz olan "Energy and AI"yı yayınlıyor (Nisan 2025). Aynı zamanda, Xiao ve ark. (Cornell/Nature Sustainability) ve de Vries-Gao (Cell Reports Sustainability) su ve karbon için en kapsamlı nicel çerçeveleri yayınlıyor.</p>
+        <span class="tl-badge">IEA · Cornell · VU Amsterdam · 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.3</span>Çalışmanın Hedefleri</div>
+  <div class="obj-grid">
+    <div class="obj"><span class="obj-num">O1</span><div class="obj-title">Tekrarlanabilir Metodoloji Geliştirmek</div><p class="obj-text">Kamuya açık teknik özelliklerden herhangi bir yapay zeka modelinin karbon ayak izini hesaplamak için doğrulanmış ve tekrarlanabilir bir formül oluşturmak.</p></div>
+    <div class="obj"><span class="obj-num">O2</span><div class="obj-title">30+ Modelin Karşılaştırmalı Analizi</div><p class="obj-text">Metodolojiyi piyasadaki en önemli modellere uygulamak ve sonuçları kamuya açık ve ücretsiz olarak yayınlamak.</p></div>
+    <div class="obj"><span class="obj-num">O3</span><div class="obj-title">Kapsamlı Çevresel Çerçeve</div><p class="obj-text">Analizi karbonun ötesine, beş boyuta genişletmek: enerji, su, atık, mineraller ve biyoçeşitlilik.</p></div>
+    <div class="obj"><span class="obj-num">O4</span><div class="obj-title">Kamuya Açık Etkileşimli Araç</div><p class="obj-text">Herhangi bir araştırmacı, şirket veya vatandaş için erişilebilir 3 modüllü bir yapay zeka karbon ayak izi hesaplayıcısı geliştirmek ve yayınlamak — eğitim, çıkarım ve yeşil ROI.</p></div>
+    <div class="obj"><span class="obj-num">O5</span><div class="obj-title">Uygulanabilir Öneriler</div><p class="obj-text">Şirketler, hükümetler, araştırmacılar ve kullanıcılar için yapay zekanın çevresel etkisini azaltmaya yönelik özel öneriler çerçevesi üretmek.</p></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.4</span>Makalenin Yapısı</div>
+  <table class="structure-table">
+    <thead><tr><th>Bölüm</th><th>İçerik</th><th>Durum</th></tr></thead>
+    <tbody>
+      <tr><td><strong>§1 Metodoloji</strong></td><td>CO₂ formülü, donanım, PUE, karbon faktörleri, doğrulama</td><td><span class="tag-core2">Orijinal</span></td></tr>
+      <tr><td><strong>§2 Sonuçlar</strong></td><td>30+ analiz edilen model, korelasyonlar, karşılaştırmalar, doğrulama</td><td><span class="tag-core2">Orijinal</span></td></tr>
+      <tr><td><strong>§3 Su Etkisi</strong></td><td>Sorgu başına tüketim, coğrafi krizler, 2030 projeksiyonları</td><td><span class="tag-new2">Yeni 2025</span></td></tr>
+      <tr><td><strong>§4 Elektronik Atık</strong></td><td>GPU e-atığı, yaşam döngüsü, toksinler, 2030 senaryoları</td><td><span class="tag-new2">Yeni 2025</span></td></tr>
+      <tr><td><strong>§5 Mineraller ve Biyoçeşitlilik</strong></td><td>Tedarik zinciri, Baotou, okyanus madenciliği, ekosistemler</td><td><span class="tag-new2">Yeni 2025</span></td></tr>
+      <tr><td><strong>§6 Tartışma</strong></td><td>Paradigma değişimi, literatür karşılaştırması, düzenleme</td><td><span class="tag-new2">Yeni</span></td></tr>
+      <tr><td><strong>§7 Öneriler</strong></td><td>Paydaşa göre rehber: şirketler, hükümetler, araştırmacılar, kullanıcılar</td><td><span class="tag-new2">Yeni 2025</span></td></tr>
+      <tr><td><strong>§8 Sonuçlar</strong></td><td>Sentez, özgün katkılar, eyleme çağrı</td><td><span class="tag-new2">Yeni 2025</span></td></tr>
+      <tr><td><strong>Kaynakça</strong></td><td>47 doğrulanmış kaynak, 2019–2026</td><td><span class="tag-new2">Yeni</span></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">Kapak</a><a href="toc.html" class="nl">İçindekiler</a>
+    <a href="resumen.html" class="nl">Özet</a><a href="introduccion.html" class="nl active">Giriş</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">Kaynakça</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Sürüm 1.0.0, Mart 2026</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%4*80); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-item,.obj,.structure-table tr').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

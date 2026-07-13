@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§2 결과 — AI 모델의 탄소발자국</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#001f00 0%,#003300 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+.hdr{background:linear-gradient(135deg,#0a3d0a 0%,#1a5e1a 50%,#27ae60 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:34px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:16px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#1a8449;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #27ae60;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#1a8449,#27ae60);color:white;font-size:14px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* KEY FINDINGS */
+.key-findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:30px 0;}
+.kf{border:2px solid;border-radius:14px;padding:22px;text-align:center;transition:all .3s;}
+.kf:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.1);}
+.kf.a{background:linear-gradient(135deg,#f4f7ff,#e8edff);border-color:#667eea;}
+.kf.b{background:linear-gradient(135deg,#fdecea,#fbd5d0);border-color:#e74c3c;}
+.kf.c{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border-color:#27ae60;}
+.kf.d{background:linear-gradient(135deg,#fef9e7,#fdefc3);border-color:#f39c12;}
+.kf-val{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;display:block;margin-bottom:6px;}
+.kf.a .kf-val{color:#4a5cbf;} .kf.b .kf-val{color:#c0392b;} .kf.c .kf-val{color:#1a8449;} .kf.d .kf-val{color:#d68910;}
+.kf-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.kf.a .kf-label{color:#4a5cbf;} .kf.b .kf-label{color:#c0392b;} .kf.c .kf-label{color:#1a8449;} .kf.d .kf-label{color:#d68910;}
+.kf-note{font-size:13px;color:#7f8c8d;margin-top:5px;}
+
+/* MAIN RESULTS TABLE */
+.table-wrap{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border:2px solid #27ae60;border-radius:16px;padding:28px;margin:28px 0;overflow-x:auto;}
+.tw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#1a8449;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.results{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.results thead tr{background:linear-gradient(135deg,#1a8449,#27ae60);color:white;}
+table.results th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.5px;}
+table.results td{padding:11px 14px;font-size:13px;border-bottom:1px solid #a9dfbf;color:#2c3e50;vertical-align:middle;}
+table.results tr:nth-child(even) td{background:rgba(39,174,96,0.05);}
+table.results tr:hover td{background:rgba(39,174,96,0.1);}
+.cat-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:8px;text-transform:uppercase;white-space:nowrap;}
+.ct-llm{background:#e8edff;color:#4a5cbf;} .ct-vis{background:#fdefc3;color:#d68910;}
+.ct-spec{background:#d5f5e3;color:#1a8449;} .ct-small{background:#f0e6ff;color:#6c3483;}
+.em-vhi{color:#c0392b;font-weight:800;} .em-hi{color:#e67e22;font-weight:700;}
+.em-mid{color:#d68910;font-weight:600;} .em-lo{color:#27ae60;font-weight:600;} .em-vlo{color:#1a8449;font-weight:700;}
+
+/* CHART BAR VISUAL */
+.bar-chart{margin:28px 0;}
+.bar-item{display:grid;grid-template-columns:160px 1fr auto;gap:12px;align-items:center;padding:6px 0;}
+.bar-name{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#2c3e50;text-align:right;}
+.bar-track{background:#e9ecef;border-radius:4px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:white;white-space:nowrap;transition:width 1s ease;}
+.bar-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;white-space:nowrap;min-width:120px;}
+
+/* GEO IMPACT */
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0;}
+.geo-card{border-radius:14px;padding:20px;border:2px solid;}
+.geo-card.clean{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border-color:#27ae60;}
+.geo-card.mid{background:linear-gradient(135deg,#fef9e7,#fdefc3);border-color:#f39c12;}
+.geo-card.dirty{background:linear-gradient(135deg,#fdecea,#fbd5d0);border-color:#e74c3c;}
+.geo-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.geo-card.clean .geo-title{color:#1a8449;} .geo-card.mid .geo-title{color:#d68910;} .geo-card.dirty .geo-title{color:#c0392b;}
+.geo-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;display:block;margin-bottom:4px;}
+.geo-card.clean .geo-val{color:#1a8449;} .geo-card.mid .geo-val{color:#d68910;} .geo-card.dirty .geo-val{color:#c0392b;}
+.geo-note{font-size:14px;color:#34495e;line-height:1.6;}
+
+.insight-box{background:linear-gradient(135deg,#e8f4ff,#d0ecf8);border:2px solid #3498db;border-radius:16px;padding:28px;margin:28px 0;position:relative;}
+.insight-box::before{content:'🔬';position:absolute;top:-14px;left:24px;font-size:24px;background:white;padding:0 6px;}
+.insight-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#1a6fa8;margin-bottom:10px;}
+.insight-box p{font-size:17px;line-height:1.8;color:#2c3e50;}
+.source-note{background:#f8f9fa;border-left:4px solid #95a5a6;border-radius:0 8px 8px 0;padding:11px 18px;margin:14px 0;font-size:14px;font-style:italic;color:#5d6d7e;}
+
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(39,174,96,0.25);border-color:rgba(39,174,96,0.5);color:#86efac;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.bar-item{grid-template-columns:80px 1fr auto;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a9dfbf;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a8449;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:380px;}
+@media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">섹션 2 — 결과</div>
+    <h1>결과: 모델별 탄소발자국</h1>
+    <p>30개 이상 AI 모델 분석 — 언어 모델, 비전 모델, 전문 모델 — 통계적 상관관계와 지리적 비교 포함</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#1a8449;font-style:italic;text-align:center;margin-bottom:24px;">검증된 스페인어/영어 원문의 번역본입니다. 상이한 내용이 있을 경우 원문이 우선합니다.</p>
+
+  <div class="key-findings">
+    <div class="kf a"><span class="kf-val">R²=0.89</span><div class="kf-label">매개변수→CO₂ 상관관계</div><div class="kf-note">p&lt;0.001 — 통계적으로 유의미</div></div>
+    <div class="kf b"><span class="kf-val">100×</span><div class="kf-label">GPT-4 대 Claude 차이</div><div class="kf-note">동일한 작업, 근본적으로 다른 영향</div></div>
+    <div class="kf c"><span class="kf-val">1,820,000</span><div class="kf-label">kg CO₂ — GPT-4 학습</div><div class="kf-note">≈ 자동차 400대의 전체 수명주기</div></div>
+    <div class="kf d"><span class="kf-val">90%</span><div class="kf-label">지리적 조건에 따른 최대 변동</div><div class="kf-note">아이슬란드 대 폴란드 — 같은 모델, 크게 다른 영향</div></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.1</span>모델별 전 세계 결과</div>
+
+  <div class="table-wrap">
+    <div class="tw-title">학습 탄소발자국 — 선정 모델</div>
+    <table class="results">
+      <thead><tr><th>모델</th><th>기업</th><th>매개변수 수</th><th>하드웨어</th><th>추정 CO₂ (kg)</th><th>유형</th></tr></thead>
+      <tbody>
+        <tr><td><strong>GPT-4</strong></td><td>OpenAI/Microsoft</td><td>~1.76T (MoE)</td><td>~25,000× H100</td><td class="em-vhi">1,820,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>GPT-3.5</strong></td><td>OpenAI/Microsoft</td><td>175B</td><td>~10,000× A100</td><td class="em-vhi">552,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>PaLM 2 (Bison)</strong></td><td>Google</td><td>340B</td><td>~6,144× TPU v4</td><td class="em-hi">245,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>Gemini Ultra</strong></td><td>Google</td><td>~1.56T</td><td>~16,000× TPU v5e</td><td class="em-vhi">1,100,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>LLaMA 3 (70B)</strong></td><td>Meta AI</td><td>70B</td><td>~16,000× H100</td><td class="em-hi">183,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>LLaMA 3 (8B)</strong></td><td>Meta AI</td><td>8B</td><td>~2,048× H100</td><td class="em-mid">22,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>Claude 3 Opus</strong></td><td>Anthropic</td><td>비공개(추정 ~52B)</td><td>~4,096× H100</td><td class="em-mid">54,000</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>Claude Sonnet</strong></td><td>Anthropic</td><td>비공개(추정 ~10B)</td><td>~1,024× H100</td><td class="em-lo">18,200</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>Mistral 7B</strong></td><td>Mistral AI</td><td>7.3B</td><td>~512× A100</td><td class="em-vlo">4,800</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>BERT (base)</strong></td><td>Google</td><td>110M</td><td>64× TPU v3</td><td class="em-vlo">652</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>GPT-2 (XL)</strong></td><td>OpenAI</td><td>1.5B</td><td>32× V100</td><td class="em-vlo">78</td><td><span class="cat-tag ct-llm">LLM</span></td></tr>
+        <tr><td><strong>DALL-E 3</strong></td><td>OpenAI/Microsoft</td><td>~5B</td><td>~4,096× A100</td><td class="em-hi">89,000</td><td><span class="cat-tag ct-vis">이미지</span></td></tr>
+        <tr><td><strong>Stable Diffusion XL</strong></td><td>Stability AI</td><td>3.5B</td><td>~256× A100</td><td class="em-mid">8,600</td><td><span class="cat-tag ct-vis">이미지</span></td></tr>
+        <tr><td><strong>Midjourney v6</strong></td><td>Midjourney</td><td>비공개</td><td>비공개(추정)</td><td class="em-hi">~120,000</td><td><span class="cat-tag ct-vis">이미지</span></td></tr>
+        <tr><td><strong>DeepSeek-R1 (671B)</strong></td><td>DeepSeek</td><td>671B (MoE)</td><td>~2,048× H800</td><td class="em-mid">58,000</td><td><span class="cat-tag ct-spec">추론</span></td></tr>
+        <tr><td><strong>Phi-3 Mini</strong></td><td>Microsoft</td><td>3.8B</td><td>~512× A100</td><td class="em-vlo">3,200</td><td><span class="cat-tag ct-small">SLM</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="source-note"><strong>방법론적 참고사항:</strong> "비공개"로 표시된 값은 업계의 불투명성을 반영합니다. 추정치는 기술 문서, 기업 발표, 외부 연구 논문에서 도출되었습니다. 이용 가능한 공식 데이터 대비 평균 오차: &lt;6%.</div>
+
+  <div class="sh"><span class="sh-num">2.2</span>비교 시각화: 배출량별 모델</div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 모델별 탄소발자국(kg CO₂) — 로그 스케일</div>
+    <div class="chart-canvas-wrap"><canvas id="chartModelsCO2"></canvas></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.3</span>지리적 조건의 영향: 같은 모델, 다른 발자국</div>
+
+  <p class="body-text">GPT-3(175B)를 동일한 인프라로 서로 다른 지리적 위치에서 학습시키면 탄소발자국이 극적으로 달라집니다 — 가장 효율적인 시나리오와 가장 비효율적인 시나리오 사이에 최대 90배 차이가 발생합니다.</p>
+
+  <div class="geo-grid">
+    <div class="geo-card clean"><div class="geo-title">🇮🇸 아이슬란드</div><span class="geo-val">28,800 kg</span><p class="geo-note">지열 100% · C_factor: 0.012 kg/kWh</p></div>
+    <div class="geo-card clean"><div class="geo-title">🇳🇴 노르웨이</div><span class="geo-val">38,400 kg</span><p class="geo-note">수력 98% · C_factor: 0.016 kg/kWh</p></div>
+    <div class="geo-card clean"><div class="geo-title">🇫🇷 프랑스</div><span class="geo-val">79,200 kg</span><p class="geo-note">원자력 70% · C_factor: 0.033 kg/kWh</p></div>
+    <div class="geo-card mid"><div class="geo-title">🇺🇸 캘리포니아</div><span class="geo-val">558,000 kg</span><p class="geo-note">재생에너지 혼합 · C_factor: 0.233 kg/kWh</p></div>
+    <div class="geo-card mid"><div class="geo-title">🇺🇸 미국 평균</div><span class="geo-val">926,400 kg</span><p class="geo-note">국가 평균 · C_factor: 0.386 kg/kWh</p></div>
+    <div class="geo-card dirty"><div class="geo-title">🇮🇳 인도</div><span class="geo-val">1,519,200 kg</span><p class="geo-note">석탄 의존도 높음 · C_factor: 0.633 kg/kWh</p></div>
+    <div class="geo-card dirty"><div class="geo-title">🇵🇱 폴란드</div><span class="geo-val">2,604,000 kg</span><p class="geo-note">석탄 ~70% · C_factor: 1.085 kg/kWh</p></div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 GPT-3(175B)를 7개 지역에서 학습 — 동일 인프라</div>
+    <div class="chart-canvas-wrap"><canvas id="chartGeo"></canvas></div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title">주요 발견: 지리적 조건은 배출량을 최대 90배까지 줄일 수 있음</div>
+    <p>같은 모델을 아이슬란드(지열)와 폴란드(석탄)에서 학습시키면 <strong>탄소 배출량에 90배 차이</strong>가 발생합니다. 이는 데이터센터 위치 선정이 AI 지속가능성에 있어 모델 규모나 하드웨어 효율성보다 더 큰 영향을 미치는 단일 요인임을 의미합니다. 이 결론은 데이터센터 입지 정책에 직접적인 시사점을 제공합니다.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.4</span>매개변수-배출량 상관관계: 거듭제곱 법칙</div>
+  <p class="body-text">30개 이상 모델의 통계 분석 결과, 매개변수 수와 CO₂ 배출량 사이에 거듭제곱 법칙 형태의 상관관계가 나타났습니다(R²=0.89, p&lt;0.001). 매개변수 수가 두 배가 될 때마다 배출량은 약 1.6배 증가합니다. 이 관계는 선형이 아닙니다: 매개변수를 70억에서 700억으로 늘리면(약 10배) 배출량은 약 16배 증가합니다. 이 상관관계는 모델 규모가 환경적 영향의 가장 신뢰할 수 있는 예측 지표임을 확인해 주지만, 지리적 조건과 사용된 하드웨어 역시 상당한 변동 요인으로 작용합니다.</p>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">표지</a><a href="toc.html" class="nl">목차</a>
+    <a href="resumen.html" class="nl">요약</a><a href="introduccion.html" class="nl">서론</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl active">§2 결과</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">참고문헌</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · 버전 1.0.0, 2026년 3월</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.kf,.geo-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Models CO2 (log scale, sorted descending)
+  new Chart(document.getElementById('chartModelsCO2'), {
+    type:'bar',
+    data:{
+      labels:['GPT-4','Gemini Ultra','Midjourney v6','GPT-3.5','DALL-E 3','PaLM 2','LLaMA 3 70B','DeepSeek-R1','Claude 3 Opus','Stable Diff. XL','LLaMA 3 8B','Claude Sonnet','Mistral 7B','Phi-3 Mini','GPT-2 XL','BERT Base'],
+      datasets:[{
+        label:'kg CO₂',
+        data:[1820000,1100000,120000,552000,89000,245000,183000,58000,54000,8600,22000,18200,4800,3200,78,652],
+        backgroundColor:(ctx)=>{
+          const v=ctx.raw||0;
+          if(v>500000) return '#c0392b';
+          if(v>100000) return '#e67e22';
+          if(v>20000)  return '#f39c12';
+          if(v>2000)   return '#27ae60';
+          return '#1abc9c';
+        },
+        borderRadius:6,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*60},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} kg CO₂`}} },
+      scales:{ x:{type:'logarithmic', title:{display:true,text:'kg CO₂ (escala log)'}} }
+    }
+  });
+
+  // Chart 2 — Geographic impact same model
+  new Chart(document.getElementById('chartGeo'), {
+    type:'bar',
+    data:{
+      labels:['🇮🇸 아이슬란드','🇳🇴 노르웨이','🇫🇷 프랑스','🇺🇸 캘리포니아','🇺🇸 미국 평균','🇮🇳 인도','🇵🇱 폴란드'],
+      datasets:[{
+        label:'kg CO₂',
+        data:[28800,38400,79200,558000,926400,1519200,2604000],
+        backgroundColor:['#27ae60','#27ae60','#27ae60','#f39c12','#f39c12','#e74c3c','#e74c3c'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} kg CO₂`}},
+        annotation:{} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'kg CO₂'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

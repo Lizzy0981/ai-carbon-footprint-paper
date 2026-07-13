@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>פרק 4 — פסולת אלקטרונית | מאמר מדעי</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #fef6e4 0%, #fde8cc 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #7d3c00 0%, #b7410e 50%, #d35400 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolygon fill='%23ffffff' fill-opacity='0.05' points='50,0 100,50 50,100 0,50'/%3E%3C/svg%3E") repeat;
+            animation: bgSlide 20s linear infinite;
+        }
+
+        @keyframes bgSlide {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: shake 4s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 700px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* CRISIS INTRO */
+        .crisis-callout {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe8d0 100%);
+            border-left: 6px solid #d35400;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #5d2e00; }
+        .crisis-callout strong { color: #b7410e; }
+
+        /* STATS */
+        .ewaste-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .ewaste-stat {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400;
+            border-radius: 16px; padding: 25px 20px;
+            text-align: center; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .ewaste-stat::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #d35400, #b7410e);
+        }
+
+        .ewaste-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(211,84,0,0.2);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif; font-size: 26px;
+            font-weight: 800; color: #b7410e;
+            display: block; margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; color: #7d4000;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+        }
+
+        .stat-source { font-size: 12px; color: #7f8c8d; font-style: italic; }
+
+        /* HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #b7410e;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #d35400;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* LIFECYCLE */
+        .lifecycle-steps {
+            counter-reset: lifecycle;
+            margin: 30px 0;
+        }
+
+        .lifecycle-step {
+            counter-increment: lifecycle;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px dashed #fcd3a1;
+            align-items: start;
+        }
+
+        .lifecycle-step:last-child { border-bottom: none; }
+
+        .lifecycle-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 22px; font-weight: 800;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-content {}
+
+        .lifecycle-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 8px;
+        }
+
+        .lifecycle-text { font-size: 16px; line-height: 1.7; color: #34495e; }
+
+        .lifecycle-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; color: #b7410e;
+            background: #fff5ec; padding: 6px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* TOXICS TABLE */
+        .toxics-wrap {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400; border-radius: 16px;
+            padding: 30px; margin: 30px 0; overflow-x: auto;
+        }
+
+        .toxics-title {
+            font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 20px;
+            text-align: center; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        table.toxics-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
+
+        table.toxics-table thead tr {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+        }
+
+        table.toxics-table th {
+            padding: 14px 16px; text-align: left;
+            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+        }
+
+        table.toxics-table td {
+            padding: 12px 16px; font-size: 14px;
+            border-bottom: 1px solid #fcd3a1; color: #2c3e50;
+        }
+
+        table.toxics-table tr:nth-child(even) td { background: rgba(211,84,0,0.05); }
+        table.toxics-table tr:hover td { background: rgba(211,84,0,0.1); }
+
+        .toxicity-high { color: #c0392b; font-weight: 700; }
+        .toxicity-medium { color: #d68910; font-weight: 700; }
+        .toxicity-low { color: #27ae60; font-weight: 700; }
+
+        /* SCENARIOS */
+        .scenarios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .scenario-card {
+            border-radius: 14px; padding: 22px;
+            border: 2px solid; text-align: center;
+        }
+
+        .scenario-card.s1 { background: #eafaf1; border-color: #27ae60; }
+        .scenario-card.s2 { background: #fef9e7; border-color: #f39c12; }
+        .scenario-card.s3 { background: #fdecea; border-color: #e74c3c; }
+        .scenario-card.s4 { background: #4a0000; border-color: #800000; }
+
+        .scenario-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 12px;
+        }
+
+        .scenario-card.s1 .scenario-label { color: #1e8449; }
+        .scenario-card.s2 .scenario-label { color: #d68910; }
+        .scenario-card.s3 .scenario-label { color: #c0392b; }
+        .scenario-card.s4 .scenario-label { color: #ff6b6b; }
+
+        .scenario-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px; font-weight: 700; display: block; margin-bottom: 8px;
+        }
+
+        .scenario-card.s1 .scenario-number { color: #27ae60; }
+        .scenario-card.s2 .scenario-number { color: #f39c12; }
+        .scenario-card.s3 .scenario-number { color: #e74c3c; }
+        .scenario-card.s4 .scenario-number { color: #ff6b6b; }
+
+        .scenario-desc { font-size: 14px; line-height: 1.6; color: #34495e; }
+        .scenario-card.s4 .scenario-desc { color: #ffa8a8; }
+
+        /* GLOBAL CONTEXT */
+        .global-context {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0;
+        }
+
+        .global-context-title {
+            font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700;
+            margin-bottom: 15px; color: #f39c12;
+        }
+
+        .global-context p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .global-context p:last-child { margin-bottom: 0; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white; border: 2px solid #fcd3a1;
+            border-radius: 16px; padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #d35400;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(211,84,0,0.15);
+        }
+
+        .solution-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif; font-size: 15px;
+            font-weight: 700; color: #b7410e; margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #3d1f00 0%, #5c2e00 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav {
+            text-align: center; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #d35400; border-color: #d35400; color: white; }
+
+        .author-note {
+            font-size: 13px; opacity: 0.8;
+            font-style: italic; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">פרק 4 — חדש</span>
+            <span class="section-icon">🗑️</span>
+            <h1 class="section-title">הפסולת האלקטרונית של בינה מלאכותית</h1>
+            <p class="section-subtitle">
+                המשבר הנסתר של החומרה: מיליוני טונות של יחידות GPU, שרתים
+                ורכיבים מיושנים העמוסים ברעלים המזהמים אדמה ומי תהום
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#b7410e;font-style:italic;margin-bottom:20px;">תרגום למקור המאומת בספרדית/אנגלית. במקרה של סתירה, הטקסט המקורי גובר.</p>
+
+        <div class="crisis-callout">
+            <p>
+                כאשר מודל בינה מלאכותית מאומן, קיימת חומרה פיזית מאחוריו.
+                וכאשר מודל זה מוחלף בחדש יותר — דבר המתרחש
+                <strong>כל כמה שבועות בתעשייה הנוכחית</strong> — החומרה
+                הקודמת הופכת לפסולת. לא פסולת רגילה: אלא פסולת אלקטרונית
+                העמוסה ב<strong>עופרת, כספית, קדמיום, ארסן ודיוקסינים</strong>
+                שיכולים לזהם קרקע ומי תהום במשך עשורים. בינה מלאכותית
+                גנרטיבית עשויה להוסיף בין <strong>1.2 ל-5 מיליון טונות מטריות
+                של פסולת אלקטרונית מצטברת עד 2030</strong>.
+            </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="ewaste-stats">
+            <div class="ewaste-stat">
+                <span class="stat-number">62 מיליון טונות</span>
+                <span class="stat-label">סה"כ פסולת אלקטרונית עולמית (2022)</span>
+                <span class="stat-source">Global E-Waste Monitor של האו"ם (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">1.2 – 5 מיליון טונות</span>
+                <span class="stat-label">פסולת אלקטרונית נוספת מבינה מלאכותית גנרטיבית 2023–2030</span>
+                <span class="stat-source">Wang ועמיתיו, Nature Comp. Sci. (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2.5 מיליון טונות/שנה</span>
+                <span class="stat-label">תחזית שנתית לבינה מלאכותית — 2030 (תרחיש אגרסיבי)</span>
+                <span class="stat-source">Tzachor ועמיתיו, IEEE Spectrum (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2–3 שנים</span>
+                <span class="stat-label">אורך חיים של GPU ייעודי לבינה מלאכותית</span>
+                <span class="stat-source">לעומת 5–7 שנים בשרת מסורתי</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">22%</span>
+                <span class="stat-label">פסולת אלקטרונית עם מיחזור רשמי כיום</span>
+                <span class="stat-source">Global E-Waste Monitor 2024</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">×5</span>
+                <span class="stat-label">קצב צמיחה לעומת מיחזור</span>
+                <span class="stat-source">האו"ם (2022) — הפסולת האלקטרונית גדלה פי 5 מהר יותר</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 נתח הפסולת האלקטרונית העולמית המיוחס לבינה מלאכותית (2030, תרחיש אגרסיבי)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartGlobalShare"></canvas></div>
+        </div>
+
+        <!-- 4.1 CICLO DE VIDA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.1</span>
+            מחזור החיים של חומרת בינה מלאכותית והשפעותיו
+        </h2>
+
+        <p class="body-text">
+            החומרה התומכת במודלי בינה מלאכותית עוברת מחזור חיים קצר
+            ואלים מנקודת מבט סביבתית. הביקוש לביצועים חישוביים גבוהים
+            יותר מניע החלפות תשתית מתמשכות, המייצרות כמויות גדלות
+            והולכות של פסולת המכילה חומרים רעילים ביותר.
+        </p>
+
+        <div class="lifecycle-steps">
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">1</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">ייצור — הטביעה שלפני ההפעלה</div>
+                    <p class="lifecycle-text">
+                        ייצור GPU בודד בעל ביצועים גבוהים מייצר כ-200 ק"ג
+                        CO₂ — שווה ערך לנסיעה של יותר מ-800 מייל במכונית
+                        בנזין. מרכזי נתונים פורסים עשרות אלפי יחידות אלה.
+                        בנוסף, ייצור שבבים דורש מים טהורים ביותר, גזים
+                        מיוחדים וכימיקלים שטיפולם מייצר פסולת רעילה במפעל.
+                    </p>
+                    <span class="lifecycle-data">~200 ק"ג CO₂ לכל GPU H100 שיוצר</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">2</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">הפעלה — התקופה הפעילה</div>
+                    <p class="lifecycle-text">
+                        חיי התפעול של GPU ייעודי לבינה מלאכותית נמשכים רק
+                        2–3 שנים, לעומת 5–7 שנים בשרת קונבנציונלי. הסיבה:
+                        קצב ההתקדמות בארכיטקטורות שבבים (Volta ← Ampere ←
+                        Hopper ← Blackwell) הופך את החומרה הקודמת למיושנת
+                        במחזורים קצרים והולכים. בשנת 2023, NVIDIA, AMD
+                        ו-Intel שלחו 3.85 מיליון GPU למרכזי נתונים —
+                        המספר עלה משמעותית ב-2024.
+                    </p>
+                    <span class="lifecycle-data">3.85 מיליון GPU נשלחו למרכזי נתונים רק ב-2023 (TechInsights)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">3</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">התיישנות מואצת</div>
+                    <p class="lifecycle-text">
+                        חברות בינה מלאכותית משיקות מודלים חדשים כל כמה
+                        שבועות. לפי חוקרי MIT, "האנרגיה שנעשה בה שימוש
+                        לאימון גרסאות קודמות מתבזבזת, ומודלים חדשים בדרך
+                        כלל צורכים יותר אנרגיה מכיוון שיש להם יותר
+                        פרמטרים." מרוץ טכנולוגי זה משמעו שחומרה שנרכשה
+                        לפני 18 חודשים עשויה כבר להיות בלתי מספקת להתחרות.
+                    </p>
+                    <span class="lifecycle-data">מודלים חדשים כל כמה שבועות — MIT News (2025)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">4</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">הגורל הסופי: משבר המיחזור</div>
+                    <p class="lifecycle-text">
+                        רק 22% מהפסולת האלקטרונית העולמית מקבלת מיחזור
+                        רשמי (האו"ם, 2024). חלק המוערך בעד 80% מיוצא
+                        למדינות מתפתחות שבהן הוא מעובד באופן לא רשמי,
+                        ללא הגנות סביבתיות או בריאותיות תעסוקתיות, משחרר
+                        רעלים לקרקע, מים ואוויר של קהילות פגיעות.
+                    </p>
+                    <span class="lifecycle-data">~80% מהפסולת האלקטרונית של ארה"ב מיוצאת (E-waste Collective)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 SUSTANCIAS TÓXICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.2</span>
+            חומרים רעילים בפסולת האלקטרונית של בינה מלאכותית
+        </h2>
+
+        <p class="body-text">
+            מחקרם של Wang, Tzachor ו-Chen שפורסם ב-<em>Nature Computational
+            Science</em> (2024) כימת את החומרים הרעילים שעשויים להצטבר
+            בפסולת האלקטרונית של שרתי בינה מלאכותית עד 2030 בתרחיש
+            הארכת אורך החיים (המפחית פסולת). התוצאות מדאיגות אפילו
+            בתרחיש הטוב ביותר שנותח:
+        </p>
+
+        <div class="toxics-wrap">
+            <div class="toxics-title">תחזית פסולת רעילה מהפסולת האלקטרונית של בינה מלאכותית לשנת 2030</div>
+            <table class="toxics-table">
+                <thead>
+                    <tr>
+                        <th>חומר</th>
+                        <th>כמות צפויה (2030)</th>
+                        <th>השפעה על מערכות אקולוגיות</th>
+                        <th>רמת סיכון</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>עופרת (Pb)</strong></td>
+                        <td>917,000 טונות</td>
+                        <td>מזהמת קרקע ומי תהום; נזק נוירולוגי לבני אדם</td>
+                        <td class="toxicity-high">⬛ קריטי</td>
+                    </tr>
+                    <tr>
+                        <td><strong>כרום (Cr)</strong></td>
+                        <td>907 טונות</td>
+                        <td>חומר מסרטן; נותר בקרקע במשך עשורים</td>
+                        <td class="toxicity-high">⬛ קריטי</td>
+                    </tr>
+                    <tr>
+                        <td><strong>בריום (Ba)</strong></td>
+                        <td>6,000 טונות</td>
+                        <td>רעילות קרדיווסקולרית; זיהום מי תהום</td>
+                        <td class="toxicity-high">🔴 גבוה</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ארסן (As)</strong></td>
+                        <td>34 טונות</td>
+                        <td>חומר מסרטן; נזק קבוע למערכות אקולוגיות מימיות</td>
+                        <td class="toxicity-high">🔴 גבוה</td>
+                    </tr>
+                    <tr>
+                        <td><strong>קדמיום (Cd)</strong></td>
+                        <td>30 טונות</td>
+                        <td>הצטברות בשרשרת המזון; רעיל לצמחייה ולבעלי חיים</td>
+                        <td class="toxicity-high">🔴 גבוה</td>
+                    </tr>
+                    <tr>
+                        <td><strong>אנטימון (Sb)</strong></td>
+                        <td>7,000 טונות</td>
+                        <td>רעיל לאורגניזמים מימיים; חשד לחומר מסרטן</td>
+                        <td class="toxicity-medium">🟠 בינוני</td>
+                    </tr>
+                    <tr>
+                        <td><strong>כספית (Hg)</strong></td>
+                        <td>7 טונות</td>
+                        <td>הצטברות ביולוגית בדגים; נזק נוירולוגי חמור לבני אדם</td>
+                        <td class="toxicity-high">⬛ קריטי</td>
+                    </tr>
+                    <tr>
+                        <td><strong>פולימרים של לוחות מעגלים</strong></td>
+                        <td>~30% ממשקל לוחות המעגלים</td>
+                        <td>אינם ניתנים לפירוק ביולוגי; פוגעים בפוריות הקרקע לצמיתות</td>
+                        <td class="toxicity-medium">🟠 בינוני</td>
+                    </tr>
+                    <tr>
+                        <td><strong>דיוקסינים/פורנים</strong></td>
+                        <td>תוצר לוואי של שריפה חלקית</td>
+                        <td>מסרטנים ביותר; מאיימים על הבריאות הציבורית</td>
+                        <td class="toxicity-high">⬛ קריטי</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>מקור עיקרי:</strong> Wang P., Tzachor A., Chen W-Q. (2024).
+            "E-waste Challenges of Generative Artificial Intelligence."
+            <em>Nature Computational Science</em>. DOI: 10.1038/s43588-024-00712-6.
+            ערכים אלה תואמים את תרחיש הארכת אורך החיים (השמרני ביותר שנותח).
+        </div>
+
+        <!-- 4.3 ESCENARIOS 2030 -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.3</span>
+            תרחישי פסולת אלקטרונית 2023–2030
+        </h2>
+
+        <p class="body-text">
+            אותו מחקר של Wang ועמיתיו מדגם ארבעה תרחישי אימוץ של בינה
+            מלאכותית גנרטיבית, מהתרחבות מוגבלת ועד צמיחה אגרסיבית.
+            תוצאות הפסולת האלקטרונית המצטברת בין 2023 ל-2030 משתנות
+            דרמטית בהתאם להחלטות מדיניות ואימוץ כלכלה מעגלית:
+        </p>
+
+        <div class="scenarios-container">
+            <div class="scenario-card s1">
+                <div class="scenario-label">התרחבות מוגבלת</div>
+                <span class="scenario-number">1.2 מיליון טונות</span>
+                <p class="scenario-desc">
+                    סה"כ פסולת אלקטרונית מצטברת 2023–2030. אימוץ שמרני +
+                    מדיניות הארכת אורך חיים + מיחזור חזק.
+                </p>
+            </div>
+            <div class="scenario-card s2">
+                <div class="scenario-label">התרחבות מתונה</div>
+                <span class="scenario-number">2.6 מיליון טונות</span>
+                <p class="scenario-desc">
+                    תרחיש ביניים עם צמיחה מתמשכת דומה למגמות 2022–2024.
+                    ללא שינויים משמעותיים בניהול פסולת.
+                </p>
+            </div>
+            <div class="scenario-card s3">
+                <div class="scenario-label">התרחבות אגרסיבית</div>
+                <span class="scenario-number">5.0 מיליון טונות</span>
+                <p class="scenario-desc">
+                    אימוץ המוני עם חומרה אינטנסיבית ומחזורי החלפה מואצים.
+                    פסולת אלקטרונית שנתית המגיעה ל-2.5 מיליון טונות/שנה עד 2030.
+                </p>
+            </div>
+            <div class="scenario-card s4">
+                <div class="scenario-label">ללא התערבות</div>
+                <span class="scenario-number">16 מיליון טונות</span>
+                <p class="scenario-desc">
+                    פסולת אלקטרונית מצטברת אם לא יאומצו אמצעי כלכלה מעגלית.
+                    תרחיש ללא מדיניות הארכת אורך חיים או מיחזור.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4.4 CONTEXTO GLOBAL -->
+        <div class="global-context">
+            <div class="global-context-title">📌 ההקשר העולמי של הפסולת האלקטרונית</div>
+            <p>
+                בשנת 2022, העולם ייצר <strong>62 מיליון טונות של סה"כ פסולת
+                אלקטרונית</strong>, לפי Global E-Waste Monitor של האו"ם (2024).
+                זרם פסולת זה גדל <strong>פי 5 מהר יותר מתוכניות המיחזור</strong>.
+            </p>
+            <p>
+                רכיבי הפסולת האלקטרונית של בינה מלאכותית כוללים: יחידות
+                GPU, מעבדים, סוללות גיבוי של מרכזי נתונים, מודולי זיכרון,
+                ולוחות מעגלים מודפסים (PCB). הפולימרים המהווים ~30%
+                ממשקל לוחות המעגלים אינם ניתנים לפירוק ביולוגי ועלולים
+                לפגוע בפוריות הקרקע. קבורה במטמנות מזהמת קרקע ומי תהום.
+                שריפה חלקית משחררת דיוקסינים ופורנים, הפוגעים בבריאות
+                הציבור.
+            </p>
+            <p>
+                חשש מאבטחת מידע הוא מחסום נוסף למיחזור: חברות משמידות
+                חומרה כדי למנוע דליפת מידע, במקום לשפץ או למחזר אותה
+                באחריות.
+            </p>
+        </div>
+
+        <!-- 4.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.4</span>
+            כלכלה מעגלית לפסולת האלקטרונית של בינה מלאכותית
+        </h2>
+
+        <p class="body-text">
+            אותו מחקר של Nature Computational Science זיהה שהאסטרטגיה
+            היעילה ביותר להפחתת הפסולת האלקטרונית של בינה מלאכותית היא
+            <strong>הארכת אורך חיי החומרה</strong>: הארכת מחזור החיים
+            הממוצע של שרתים בשנה אחת בלבד עשויה להפחית את הפסולת
+            האלקטרונית המצטברת במיליוני טונות. שימוש חוזר במודולים
+            (GPU, מעבד, סוללות) מפחית פסולת אלקטרונית ב-21% נוספים.
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🔧</span>
+                <div class="solution-title">הארכת אורך חיים (C1)</div>
+                <p class="solution-text">
+                    הגדלת אורך החיים הממוצע של שרתי בינה מלאכותית
+                    בשנה אחת היא האמצעי הבודד היעיל ביותר, המיושם
+                    כיום על ידי כמה מפעילי מרכזי נתונים עולמיים.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">שימוש חוזר מודולרי (C3)</div>
+                <p class="solution-text">
+                    פירוק, שיפוץ והרכבה מחדש של מודולים קריטיים (GPU,
+                    מעבד, סוללות) משרתים מיושנים לשימוש בחישוב בעל
+                    ביקוש נמוך יותר. מפחית פסולת אלקטרונית ב-21%.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🏭</span>
+                <div class="solution-title">תוכניות החזרה</div>
+                <p class="solution-text">
+                    תוכניות החזרה מחייבות שבהן היצרנים לוקחים בחזרה
+                    חומרה מיושנת ומבטיחים את מיחזורה באחריות. דורשת
+                    יישום רגולטורי.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📋</span>
+                <div class="solution-title">עיצוב למיחזוריות</div>
+                <p class="solution-text">
+                    עיצוב שבבים ולוחות עם חומרים פחות רעילים ויכולת
+                    הפרדה גבוהה יותר מקל על שליפת מתכות בעלות ערך ללא
+                    חשיפה לרעלים. מחקר פעיל בתחום מוליכים למחצה
+                    ביולוגיים.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🔬</span>
+                <div class="solution-title">מחיקה מאובטחת + שימוש חוזר</div>
+                <p class="solution-text">
+                    טכנולוגיות מוסמכות למחיקה מאובטחת של נתונים (ללא
+                    השמדה פיזית) יאפשרו לשפץ ולעשות שימוש חוזר בחומרה
+                    שכיום נהרסת שלא לצורך מסיבות אבטחה.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">⚖️</span>
+                <div class="solution-title">מסגרת רגולטורית בינלאומית</div>
+                <p class="solution-text">
+                    UNEA-7 (ניירובי, דצמבר 2025) הציבה את הפסולת
+                    האלקטרונית של בינה מלאכותית בסדר היום העולמי. יש
+                    צורך במדיניות בינלאומית המחייבת דיווח על פסולת
+                    ותקנים מינימליים למיחזור רשמי.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">פרק</div>
+                <div class="footer-value">4 — פסולת אלקטרונית (חדש)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">טווח הנתונים</div>
+                <div class="footer-value">2022 – 2025 (עם תחזיות עד 2030)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">מקורות עיקריים</div>
+                <div class="footer-value">Nature Computational Sci., האו"ם, MIT, IEEE Spectrum</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">הפרק הבא</div>
+                <div class="footer-value">פרק 5 → מינרלים וביולוגיה מגוונת</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">שער</a>
+                <a href="toc.html" class="nav-link">תוכן עניינים</a>
+                <a href="resumen.html" class="nav-link">תקציר</a>
+                <a href="introduccion.html" class="nav-link">מבוא</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link active">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">מקורות</a>
+            </div>
+            <p class="author-note">
+                <strong>המחברת:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 בינלאומי
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.ewaste-stat,.scenario-card,.lifecycle-card,.solution-card,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — 4 scenarios
+  new Chart(document.getElementById('chartScenarios'), {
+    type:'bar',
+    data:{
+      labels:['התרחבות מוגבלת','התרחבות מתונה','התרחבות אגרסיבית','ללא התערבות'],
+      datasets:[{
+        label:'Mt acumuladas 2023–2030',
+        data:[1.2, 2.6, 5.0, 16],
+        backgroundColor:['#27ae60','#f39c12','#e74c3c','#800000'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de toneladas (Mt)'}} }
+    }
+  });
+
+  // Chart 2 — AI share of global e-waste (donut)
+  new Chart(document.getElementById('chartGlobalShare'), {
+    type:'doughnut',
+    data:{
+      labels:['פסולת אלקטרונית עולמית (מגזרים אחרים)','פסולת המיוחסת לבינה מלאכותית גנרטיבית'],
+      datasets:[{
+        data:[59.5, 2.5],
+        backgroundColor:['#d4a373','#b7410e'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:12}}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

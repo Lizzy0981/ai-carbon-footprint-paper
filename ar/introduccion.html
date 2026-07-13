@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>مقدمة — البصمة الكربونية لنماذج الذكاء الاصطناعي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#4a235a 0%,#6c3483 50%,#8e44ad 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0 0 L30 30 L60 0 L60 60 L0 60 Z'/%3E%3C/svg%3E") repeat;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+/* BODY */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+/* SECTION H */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#6c3483;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #8e44ad;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* PROBLEM CARD */
+.problem-intro{background:linear-gradient(135deg,#f9f3ff,#f0e6ff);border-left:6px solid #8e44ad;border-radius:0 16px 16px 0;padding:30px 34px;margin-bottom:40px;position:relative;}
+.problem-intro::before{content:'🌐';position:absolute;top:-14px;left:18px;font-size:26px;background:white;padding:0 6px;}
+.problem-intro p{font-size:19px;line-height:1.85;color:#2c3e50;}
+.problem-intro strong{color:#6c3483;}
+/* TIMELINE */
+.timeline{margin:30px 0;}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:20px 0;border-bottom:1px dashed #e8d5f5;align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#8e44ad;background:#f5e6ff;padding:6px 12px;border-radius:8px;text-align:center;margin-top:4px;}
+.tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#4a235a;margin-bottom:6px;}
+.tl-text{font-size:16px;line-height:1.7;color:#34495e;}
+.tl-badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f5e6ff;color:#6c3483;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px;}
+/* OBJECTIVES */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0;}
+.obj{background:white;border:2px solid #e8d5f5;border-radius:14px;padding:22px;transition:all .3s;position:relative;overflow:hidden;}
+.obj::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#8e44ad,#1abc9c);}
+.obj:hover{border-color:#8e44ad;transform:translateY(-4px);box-shadow:0 10px 26px rgba(142,68,173,0.15);}
+.obj-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#8e44ad;margin-bottom:8px;display:block;}
+.obj-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#4a235a;margin-bottom:7px;}
+.obj-text{font-size:15px;line-height:1.7;color:#34495e;}
+/* STRUCTURE */
+.structure-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;margin:20px 0;}
+.structure-table thead tr{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;}
+.structure-table th{padding:13px 16px;text-align:left;font-size:13px;font-weight:700;}
+.structure-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid #f0e6ff;color:#2c3e50;vertical-align:top;}
+.structure-table tr:nth-child(even) td{background:#fbf7ff;}
+.structure-table tr:hover td{background:#f5e6ff;}
+.tag-new2{background:#e8fff5;color:#1a8449;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-upd{background:#fef9e7;color:#d68910;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-core2{background:#f0e6ff;color:#6c3483;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(142,68,173,0.3);border-color:rgba(142,68,173,0.5);color:#d7b8f5;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">مقدمة</div>
+    <h1>السياق، المشكلة، والأهداف</h1>
+    <p>الذكاء الاصطناعي كعامل من عوامل تغير المناخ: من الحماس بلا مقاييس إلى الصرامة العلمية</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#8e44ad;font-style:italic;text-align:center;margin-bottom:24px;">ترجمة للنص الأصلي الموثّق بالإسبانية/الإنجليزية. في حال وجود أي تباين، يُعتمد النص الأصلي.</p>
+
+  <div class="problem-intro">
+    <p>في عام 2023، استهلك تدريب GPT-4 طاقة تُقدَّر بما تستهلكه <strong>1000 أسرة أمريكية في عام كامل</strong>. في عام 2024، استهلكت مراكز البيانات العالمية 415 تيراواط ساعة من الكهرباء — أكثر من استهلاك الأرجنتين بأكملها. وبحلول عام 2030، ستستهلك <strong>945 تيراواط ساعة، ما يعادل إجمالي الطلب على الكهرباء في اليابان</strong>. ورغم هذه الأرقام، لم يكن هناك حتى نشر هذا البحث إطار علمي شامل ومتاح للجمهور لقياس ومقارنة والتواصل حول الأثر البيئي لنماذج الذكاء الاصطناعي.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.1</span>سياق المشكلة</div>
+
+  <p class="body-text">
+    شهد الذكاء الاصطناعي التوليدي توسعاً غير مسبوق منذ عام 2020، بنماذج يتضاعف حجمها كل 12 إلى 18 شهراً، ونشرها على نطاق عالمي يستلزم بنية تحتية فعلية ضخمة: آلاف مراكز البيانات، وعشرات الملايين من وحدات معالجة الرسوميات المتخصصة، واستهلاكاً للموارد — الطاقة والمياه والمعادن — يفوق بمراتب عديدة ما اعترف به النقاش العام.
+  </p>
+
+  <p class="body-text">
+    نبّه العمل التأسيسي لـ Strubell وزملائه (2019) لأول مرة إلى أن تدريب نماذج معالجة اللغة الطبيعية الكبيرة يترتب عليه "تكاليف طاقة وسياسية" كبيرة. ومنذ ذلك الحين، تطور هذا المجال بسرعة، لكن بشكل مجزأ: بعض الدراسات تقيس الكربون، وأخرى تقيس المياه، وأخرى النفايات الإلكترونية — دون تكامل منهجي أو أدوات عامة تتيح للباحثين والصحفيين وصناع القرار والمواطنين حساب ومقارنة الأثر الحقيقي لأنظمة الذكاء الاصطناعي التي يستخدمونها يومياً.
+  </p>
+
+  <div class="sh"><span class="sh-num">0.2</span>تطور المجال: الجدول الزمني العلمي</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div>
+        <div class="tl-title">Strubell وزملاؤه — التحذير الأول</div>
+        <p class="tl-text">أول قياس منهجي للتكلفة الطاقية لتدريب نماذج معالجة اللغة الطبيعية الكبيرة. يُقدَّر أن تدريب محول واحد مع البحث عن المعاملات الفائقة ينتج عنه ~626,000 رطل من ثاني أكسيد الكربون — ما يعادل خمس سيارات طوال عمرها الإنتاجي الكامل.</p>
+        <span class="tl-badge">ACL 2019 · دراسة تأسيسية</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021–22</div>
+      <div>
+        <div class="tl-title">Patterson وLuccioni وزملاؤهما — التعمق المنهجي</div>
+        <p class="tl-text">تُحسّن Google وHugging Face المنهجيات. يُظهر Patterson أن الموقع الجغرافي لمركز البيانات يمكن أن يخفض الانبعاثات حتى 40 ضعفاً. تُطور Luccioni أول تدقيق كربوني لنموذج BLOOM (176 مليار معامل).</p>
+        <span class="tl-badge">Google / Hugging Face · منهجي</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">Li وزملاؤه — بروز أزمة المياه</div>
+        <p class="tl-text">تكتشف جامعة كاليفورنيا ريفرسايد أن GPT-3 بخّر 700,000 لتر من مياه الشرب أثناء تدريبه. أول قياس منهجي للبصمة المائية لنماذج الذكاء الاصطناعي.</p>
+        <span class="tl-badge">UC Riverside · arXiv:2304.03271</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">Wang وزملاؤه — دخول النفايات الإلكترونية إلى النقاش</div>
+        <p class="tl-text">تنشر Nature Computational Science أول توقع منهجي للنفايات الإلكترونية الناتجة عن الذكاء الاصطناعي التوليدي: ما بين 1.2 و5 ملايين طن متري بحلول عام 2030، مع قائمة بالسموم المرتبطة بها.</p>
+        <span class="tl-badge">Nature Comp. Sci. · 2024</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div>
+        <div class="tl-title">IEA وNature Sustainability وCell Reports — تقارب عالمي</div>
+        <p class="tl-text">تنشر الوكالة الدولية للطاقة "Energy and AI" (أبريل 2025)، وهو التحليل الأكثر موثوقية حتى تاريخه. وفي الوقت نفسه، ينشر Xiao وزملاؤه (Cornell/Nature Sustainability) وde Vries-Gao (Cell Reports Sustainability) أشمل الأطر الكمية للمياه والكربون.</p>
+        <span class="tl-badge">IEA · Cornell · VU Amsterdam · 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.3</span>أهداف الدراسة</div>
+  <div class="obj-grid">
+    <div class="obj"><span class="obj-num">O1</span><div class="obj-title">تطوير منهجية قابلة للتكرار</div><p class="obj-text">إنشاء صيغة موثّقة وقابلة للتكرار لحساب البصمة الكربونية لأي نموذج ذكاء اصطناعي انطلاقاً من المواصفات التقنية العامة.</p></div>
+    <div class="obj"><span class="obj-num">O2</span><div class="obj-title">تحليل مقارن لأكثر من 30 نموذجاً</div><p class="obj-text">تطبيق المنهجية على أهم النماذج المتاحة في السوق ونشر النتائج بشكل عام ومجاني.</p></div>
+    <div class="obj"><span class="obj-num">O3</span><div class="obj-title">إطار بيئي شامل</div><p class="obj-text">توسيع التحليل إلى ما هو أبعد من الكربون ليشمل خمسة أبعاد: الطاقة، والمياه، والنفايات، والمعادن، والتنوع البيولوجي.</p></div>
+    <div class="obj"><span class="obj-num">O4</span><div class="obj-title">أداة تفاعلية عامة</div><p class="obj-text">تطوير ونشر حاسبة للبصمة الكربونية للذكاء الاصطناعي بثلاث وحدات — التدريب والاستدلال والعائد الأخضر — متاحة لأي باحث أو شركة أو مواطن.</p></div>
+    <div class="obj"><span class="obj-num">O5</span><div class="obj-title">توصيات قابلة للتنفيذ</div><p class="obj-text">إعداد إطار توصيات محددة للشركات والحكومات والباحثين والمستخدمين تتيح تقليل الأثر البيئي للذكاء الاصطناعي.</p></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.4</span>هيكل البحث</div>
+  <table class="structure-table">
+    <thead><tr><th>القسم</th><th>المحتوى</th><th>الحالة</th></tr></thead>
+    <tbody>
+      <tr><td><strong>§1 المنهجية</strong></td><td>صيغة ثاني أكسيد الكربون، العتاد، PUE، عوامل الكربون، التحقق</td><td><span class="tag-core2">أصلي</span></td></tr>
+      <tr><td><strong>§2 النتائج</strong></td><td>أكثر من 30 نموذجاً محللاً، الارتباطات، المقارنات، التحقق</td><td><span class="tag-core2">أصلي</span></td></tr>
+      <tr><td><strong>§3 الأثر المائي</strong></td><td>الاستهلاك لكل استعلام، الأزمات الجغرافية، توقعات 2030</td><td><span class="tag-new2">قسم جديد 2025</span></td></tr>
+      <tr><td><strong>§4 النفايات الإلكترونية</strong></td><td>نفايات وحدات المعالجة الرسومية، دورة الحياة، السموم، سيناريوهات 2030</td><td><span class="tag-new2">قسم جديد 2025</span></td></tr>
+      <tr><td><strong>§5 المعادن والتنوع البيولوجي</strong></td><td>سلسلة التوريد، Baotou، التعدين المحيطي، الأنظمة البيئية</td><td><span class="tag-new2">قسم جديد 2025</span></td></tr>
+      <tr><td><strong>§6 المناقشة</strong></td><td>تحول النموذج، مقارنة الأدبيات، التنظيم</td><td><span class="tag-new2">جديد</span></td></tr>
+      <tr><td><strong>§7 التوصيات</strong></td><td>دليل حسب الجهة: الشركات، الحكومات، الباحثون، المستخدمون</td><td><span class="tag-new2">قسم جديد 2025</span></td></tr>
+      <tr><td><strong>§8 الخاتمة</strong></td><td>التوليف، المساهمات الأصلية، دعوة للعمل</td><td><span class="tag-new2">جديد 2025</span></td></tr>
+      <tr><td><strong>المراجع</strong></td><td>47 مصدراً موثّقاً، 2019–2026</td><td><span class="tag-new2">جديد</span></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">الغلاف</a><a href="toc.html" class="nl">الفهرس</a>
+    <a href="resumen.html" class="nl">الملخص</a><a href="introduccion.html" class="nl active">المقدمة</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">المراجع</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · الإصدار 1.0.0، مارس 2026</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%4*80); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-item,.obj,.structure-table tr').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

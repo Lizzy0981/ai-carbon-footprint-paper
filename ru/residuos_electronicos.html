@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Раздел 4 — Электронные отходы | Научная работа</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #fef6e4 0%, #fde8cc 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #7d3c00 0%, #b7410e 50%, #d35400 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolygon fill='%23ffffff' fill-opacity='0.05' points='50,0 100,50 50,100 0,50'/%3E%3C/svg%3E") repeat;
+            animation: bgSlide 20s linear infinite;
+        }
+
+        @keyframes bgSlide {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: shake 4s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 700px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* CRISIS INTRO */
+        .crisis-callout {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe8d0 100%);
+            border-left: 6px solid #d35400;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #5d2e00; }
+        .crisis-callout strong { color: #b7410e; }
+
+        /* STATS */
+        .ewaste-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .ewaste-stat {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400;
+            border-radius: 16px; padding: 25px 20px;
+            text-align: center; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .ewaste-stat::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #d35400, #b7410e);
+        }
+
+        .ewaste-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(211,84,0,0.2);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif; font-size: 26px;
+            font-weight: 800; color: #b7410e;
+            display: block; margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; color: #7d4000;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+        }
+
+        .stat-source { font-size: 12px; color: #7f8c8d; font-style: italic; }
+
+        /* HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #b7410e;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #d35400;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* LIFECYCLE */
+        .lifecycle-steps {
+            counter-reset: lifecycle;
+            margin: 30px 0;
+        }
+
+        .lifecycle-step {
+            counter-increment: lifecycle;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px dashed #fcd3a1;
+            align-items: start;
+        }
+
+        .lifecycle-step:last-child { border-bottom: none; }
+
+        .lifecycle-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 22px; font-weight: 800;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-content {}
+
+        .lifecycle-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 8px;
+        }
+
+        .lifecycle-text { font-size: 16px; line-height: 1.7; color: #34495e; }
+
+        .lifecycle-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; color: #b7410e;
+            background: #fff5ec; padding: 6px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* TOXICS TABLE */
+        .toxics-wrap {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400; border-radius: 16px;
+            padding: 30px; margin: 30px 0; overflow-x: auto;
+        }
+
+        .toxics-title {
+            font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 20px;
+            text-align: center; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        table.toxics-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
+
+        table.toxics-table thead tr {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+        }
+
+        table.toxics-table th {
+            padding: 14px 16px; text-align: left;
+            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+        }
+
+        table.toxics-table td {
+            padding: 12px 16px; font-size: 14px;
+            border-bottom: 1px solid #fcd3a1; color: #2c3e50;
+        }
+
+        table.toxics-table tr:nth-child(even) td { background: rgba(211,84,0,0.05); }
+        table.toxics-table tr:hover td { background: rgba(211,84,0,0.1); }
+
+        .toxicity-high { color: #c0392b; font-weight: 700; }
+        .toxicity-medium { color: #d68910; font-weight: 700; }
+        .toxicity-low { color: #27ae60; font-weight: 700; }
+
+        /* SCENARIOS */
+        .scenarios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .scenario-card {
+            border-radius: 14px; padding: 22px;
+            border: 2px solid; text-align: center;
+        }
+
+        .scenario-card.s1 { background: #eafaf1; border-color: #27ae60; }
+        .scenario-card.s2 { background: #fef9e7; border-color: #f39c12; }
+        .scenario-card.s3 { background: #fdecea; border-color: #e74c3c; }
+        .scenario-card.s4 { background: #4a0000; border-color: #800000; }
+
+        .scenario-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 12px;
+        }
+
+        .scenario-card.s1 .scenario-label { color: #1e8449; }
+        .scenario-card.s2 .scenario-label { color: #d68910; }
+        .scenario-card.s3 .scenario-label { color: #c0392b; }
+        .scenario-card.s4 .scenario-label { color: #ff6b6b; }
+
+        .scenario-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px; font-weight: 700; display: block; margin-bottom: 8px;
+        }
+
+        .scenario-card.s1 .scenario-number { color: #27ae60; }
+        .scenario-card.s2 .scenario-number { color: #f39c12; }
+        .scenario-card.s3 .scenario-number { color: #e74c3c; }
+        .scenario-card.s4 .scenario-number { color: #ff6b6b; }
+
+        .scenario-desc { font-size: 14px; line-height: 1.6; color: #34495e; }
+        .scenario-card.s4 .scenario-desc { color: #ffa8a8; }
+
+        /* GLOBAL CONTEXT */
+        .global-context {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0;
+        }
+
+        .global-context-title {
+            font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700;
+            margin-bottom: 15px; color: #f39c12;
+        }
+
+        .global-context p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .global-context p:last-child { margin-bottom: 0; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white; border: 2px solid #fcd3a1;
+            border-radius: 16px; padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #d35400;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(211,84,0,0.15);
+        }
+
+        .solution-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif; font-size: 15px;
+            font-weight: 700; color: #b7410e; margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #3d1f00 0%, #5c2e00 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav {
+            text-align: center; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #d35400; border-color: #d35400; color: white; }
+
+        .author-note {
+            font-size: 13px; opacity: 0.8;
+            font-style: italic; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Раздел 4 — Новый</span>
+            <span class="section-icon">🗑️</span>
+            <h1 class="section-title">Электронные отходы ИИ</h1>
+            <p class="section-subtitle">
+                Невидимый кризис оборудования: миллионы тонн устаревших GPU, серверов
+                и компонентов, насыщенных токсинами, отравляющими почву и водоносные горизонты
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#b7410e;font-style:italic;margin-bottom:20px;">Перевод проверенного оригинала ES/EN. В случае расхождений оригинал имеет приоритет.</p>
+
+        <div class="crisis-callout">
+            <p>
+                Когда модель ИИ обучена, за ней стоит физическое оборудование.
+                Когда эта модель заменяется более новой — что происходит
+                <strong>каждые несколько недель в современной индустрии</strong> — предыдущее оборудование
+                превращается в мусор. Не обычный мусор: в электронные отходы, насыщенные
+                <strong>свинцом, ртутью, кадмием, мышьяком и диоксинами</strong>,
+                способными загрязнять почву и грунтовые воды на протяжении
+                десятилетий. Генеративный ИИ может добавить от <strong>1,2 до 5 миллионов
+                метрических тонн накопленных электронных отходов к 2030 году</strong>.
+            </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="ewaste-stats">
+            <div class="ewaste-stat">
+                <span class="stat-number">62 Мт</span>
+                <span class="stat-label">Общий глобальный e-waste (2022)</span>
+                <span class="stat-source">ООН Global E-Waste Monitor (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">1,2 – 5 Мт</span>
+                <span class="stat-label">Дополнительный e-waste от ген. ИИ 2023–2030</span>
+                <span class="stat-source">Wang et al., Nature Comp. Sci. (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2,5 Мт/год</span>
+                <span class="stat-label">Годовой прогноз ИИ — 2030 (агрессивный сценарий)</span>
+                <span class="stat-source">Tzachor et al., IEEE Spectrum (2024)</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2–3 года</span>
+                <span class="stat-label">Срок службы специализированной GPU для ИИ</span>
+                <span class="stat-source">против 5–7 лет обычного сервера</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">22%</span>
+                <span class="stat-label">E-waste с официальной переработкой сегодня</span>
+                <span class="stat-source">Global E-Waste Monitor 2024</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">5×</span>
+                <span class="stat-label">Скорость роста vs переработки</span>
+                <span class="stat-source">ООН (2022) — e-waste растёт в 5 раз быстрее</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Доля глобального e-waste, приписываемая ИИ (2030, агрессивный сценарий)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartGlobalShare"></canvas></div>
+        </div>
+
+        <!-- 4.1 CICLO DE VIDA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.1</span>
+            Жизненный цикл оборудования ИИ и его воздействие
+        </h2>
+
+        <p class="body-text">
+            Оборудование, поддерживающее модели ИИ, имеет короткий и жёсткий
+            с экологической точки зрения жизненный цикл. Спрос на всё большую
+            вычислительную мощность движет постоянными заменами инфраструктуры, генерируя
+            растущие объёмы отходов, содержащих высокотоксичные материалы.
+        </p>
+
+        <div class="lifecycle-steps">
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">1</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Производство — след до включения</div>
+                    <p class="lifecycle-text">
+                        Производство одной высокопроизводительной GPU выделяет примерно
+                        200 кг CO₂ — эквивалент проезда более 800 миль на бензиновом автомобиле.
+                        Дата-центры разворачивают десятки тысяч таких устройств. Кроме того,
+                        производство чипов требует сверхчистую воду, специальные газы и химические
+                        вещества, обработка которых генерирует токсичные отходы на заводе.
+                    </p>
+                    <span class="lifecycle-data">~200 кг CO₂ на произведённый GPU H100</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">2</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Эксплуатация — активный период</div>
+                    <p class="lifecycle-text">
+                        Срок эксплуатации специализированной GPU для ИИ составляет всего 2–3 года,
+                        против 5–7 лет для обычного сервера. Причина: темп
+                        прогресса в архитектурах чипов (Volta → Ampere → Hopper → Blackwell)
+                        делает предыдущее оборудование устаревшим во всё более коротких циклах. В 2023 году
+                        NVIDIA, AMD и Intel поставили 3,85 миллиона GPU в дата-центры —
+                        цифра значительно выросла в 2024 году.
+                    </p>
+                    <span class="lifecycle-data">3,85 млн GPU, поставленных в дата-центры только в 2023 (TechInsights)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">3</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Ускоренное устаревание</div>
+                    <p class="lifecycle-text">
+                        Компании ИИ выпускают новые модели каждые несколько недель.
+                        По словам исследователей MIT, «энергия, использованная для обучения
+                        предыдущих версий, тратится впустую, а новые модели обычно
+                        потребляют больше энергии, потому что у них больше параметров». Эта технологическая
+                        гонка означает, что оборудование, приобретённое 18 месяцев назад, может уже
+                        быть недостаточным для конкуренции.
+                    </p>
+                    <span class="lifecycle-data">Новые модели каждые несколько недель — MIT News (2025)</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">4</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">Конечная судьба: кризис переработки</div>
+                    <p class="lifecycle-text">
+                        Только 22% глобального e-waste получает официальную переработку (ООН, 2024).
+                        Доля, оцениваемая до 80%, экспортируется в развивающиеся
+                        страны, где перерабатывается неформально, без экологической
+                        защиты и защиты труда, высвобождая токсины в почву,
+                        воду и воздух уязвимых сообществ.
+                    </p>
+                    <span class="lifecycle-data">~80% e-waste США экспортируется (E-waste Collective)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 SUSTANCIAS TÓXICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.2</span>
+            Токсичные вещества в e-waste ИИ
+        </h2>
+
+        <p class="body-text">
+            Исследование Wang, Tzachor и Chen, опубликованное в <em>Nature Computational Science</em>
+            (2024), количественно оценило токсичные вещества, которые могли бы накопиться в e-waste
+            серверов ИИ к 2030 году в рамках сценария продления срока службы
+            (который снижает отходы). Результаты вызывают тревогу даже в
+            лучшем из проанализированных сценариев:
+        </p>
+
+        <div class="toxics-wrap">
+            <div class="toxics-title">Прогноз токсичных отходов от e-waste ИИ на 2030 год</div>
+            <table class="toxics-table">
+                <thead>
+                    <tr>
+                        <th>Вещество</th>
+                        <th>Прогнозируемое количество (2030)</th>
+                        <th>Воздействие на экосистемы</th>
+                        <th>Уровень риска</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Свинец (Pb)</strong></td>
+                        <td>917 000 тонн</td>
+                        <td>Загрязняет почву и грунтовые воды; неврологический вред для человека</td>
+                        <td class="toxicity-high">⬛ КРИТИЧЕСКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Хром (Cr)</strong></td>
+                        <td>907 тонн</td>
+                        <td>Канцероген; сохраняется в почвах десятилетиями</td>
+                        <td class="toxicity-high">⬛ КРИТИЧЕСКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Барий (Ba)</strong></td>
+                        <td>6 000 тонн</td>
+                        <td>Сердечно-сосудистая токсичность; загрязнение водоносных горизонтов</td>
+                        <td class="toxicity-high">🔴 ВЫСОКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Мышьяк (As)</strong></td>
+                        <td>34 тонны</td>
+                        <td>Канцероген; необратимый вред водным экосистемам</td>
+                        <td class="toxicity-high">🔴 ВЫСОКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Кадмий (Cd)</strong></td>
+                        <td>30 тонн</td>
+                        <td>Накопление в пищевой цепи; токсичен для флоры и фауны</td>
+                        <td class="toxicity-high">🔴 ВЫСОКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Сурьма (Sb)</strong></td>
+                        <td>7 000 тонн</td>
+                        <td>Токсична для водных организмов; подозреваемый канцероген</td>
+                        <td class="toxicity-medium">🟠 УМЕРЕННЫЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ртуть (Hg)</strong></td>
+                        <td>7 тонн</td>
+                        <td>Биоаккумуляция в рыбе; тяжёлый неврологический вред человеку</td>
+                        <td class="toxicity-high">⬛ КРИТИЧЕСКИЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Полимеры печатных плат</strong></td>
+                        <td>~30% веса печатных плат</td>
+                        <td>Небиоразлагаемы; наносят необратимый вред плодородию почвы</td>
+                        <td class="toxicity-medium">🟠 УМЕРЕННЫЙ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Диоксины/фураны</strong></td>
+                        <td>Побочный продукт неполного сжигания</td>
+                        <td>Чрезвычайно канцерогенны; угрожают общественному здоровью</td>
+                        <td class="toxicity-high">⬛ КРИТИЧЕСКИЙ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>Основной источник:</strong> Wang P., Tzachor A., Chen W-Q. (2024).
+            «E-waste Challenges of Generative Artificial Intelligence».
+            <em>Nature Computational Science</em>. DOI: 10.1038/s43588-024-00712-6.
+            Эти значения соответствуют сценарию продления срока службы (наиболее консервативному из проанализированных).
+        </div>
+
+        <!-- 4.3 ESCENARIOS 2030 -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.3</span>
+            Сценарии e-waste 2023–2030
+        </h2>
+
+        <p class="body-text">
+            То же исследование Wang et al. смоделировало четыре сценария внедрения генеративного ИИ,
+            от ограниченного расширения до агрессивного роста. Результаты накопленного e-waste
+            между 2023 и 2030 годами резко различаются в зависимости от политических решений
+            и внедрения циркулярной экономики:
+        </p>
+
+        <div class="scenarios-container">
+            <div class="scenario-card s1">
+                <div class="scenario-label">Ограниченное расширение</div>
+                <span class="scenario-number">1,2 Мт</span>
+                <p class="scenario-desc">
+                    Общий накопленный e-waste 2023–2030. Консервативное внедрение + политики продления
+                    срока службы + надёжная переработка.
+                </p>
+            </div>
+            <div class="scenario-card s2">
+                <div class="scenario-label">Умеренное расширение</div>
+                <span class="scenario-number">2,6 Мт</span>
+                <p class="scenario-desc">
+                    Промежуточный сценарий с устойчивым ростом, аналогичным тенденциям 2022–2024 годов.
+                    Без значительных изменений в управлении отходами.
+                </p>
+            </div>
+            <div class="scenario-card s3">
+                <div class="scenario-label">Агрессивное расширение</div>
+                <span class="scenario-number">5,0 Мт</span>
+                <p class="scenario-desc">
+                    Массовое внедрение с интенсивным оборудованием и ускоренными циклами замены.
+                    Годовой e-waste достигает 2,5 Мт/год к 2030 году.
+                </p>
+            </div>
+            <div class="scenario-card s4">
+                <div class="scenario-label">Без вмешательства</div>
+                <span class="scenario-number">16 Мт</span>
+                <p class="scenario-desc">
+                    Накопленный e-waste, если не будут приняты меры циркулярной экономики.
+                    Сценарий без политик продления срока службы или переработки.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4.4 CONTEXTO GLOBAL -->
+        <div class="global-context">
+            <div class="global-context-title">📌 Глобальный контекст e-waste</div>
+            <p>
+                В 2022 году мир произвёл <strong>62 миллиона тонн общего e-waste</strong>,
+                согласно Глобальному монитору e-waste ООН (2024). Этот поток отходов растёт
+                <strong>в 5 раз быстрее, чем программы переработки</strong>.
+            </p>
+            <p>
+                Компоненты e-waste ИИ включают: GPU, CPU, резервные аккумуляторы
+                дата-центров, модули памяти и печатные платы (PCB). Полимеры,
+                составляющие ~30% печатных плат, небиоразлагаемы и могут наносить вред плодородию
+                почвы. Захоронение на свалках загрязняет почву и грунтовые
+                воды. Неполное сжигание высвобождает диоксины и фураны, ставя под угрозу
+                общественное здоровье.
+            </p>
+            <p>
+                Забота о безопасности данных является дополнительным барьером для переработки:
+                компании уничтожают оборудование, чтобы избежать утечек информации, вместо
+                того чтобы его переработать или переработать ответственно.
+            </p>
+        </div>
+
+        <!-- 4.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.4</span>
+            Циркулярная экономика для e-waste ИИ
+        </h2>
+
+        <p class="body-text">
+            То же исследование Nature Computational Science определило, что наиболее
+            эффективной стратегией снижения e-waste ИИ является <strong>продление срока службы
+            оборудования</strong>: продление всего на 1 год среднего жизненного цикла
+            серверов могло бы снизить накопленный e-waste на миллионы тонн.
+            Повторное использование модулей (GPU, CPU, аккумуляторы) снижает e-waste ещё на 21%
+            дополнительно.
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🔧</span>
+                <div class="solution-title">Продление срока службы (C1)</div>
+                <p class="solution-text">
+                    Увеличение на 1 год среднего срока службы серверов ИИ является
+                    наиболее эффективной отдельной мерой, в настоящее время реализуемой некоторыми
+                    глобальными операторами дата-центров.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">Модульное повторное использование (C3)</div>
+                <p class="solution-text">
+                    Разборка, восстановление и повторная сборка критических модулей (GPU, CPU, аккумуляторы)
+                    из устаревших серверов для использования в вычислениях с меньшим спросом.
+                    Снижает e-waste на 21%.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🏭</span>
+                <div class="solution-title">Программы обратного выкупа</div>
+                <p class="solution-text">
+                    Программы обязательного возврата, при которых производители забирают
+                    устаревшее оборудование и гарантируют его ответственную переработку. Требует
+                    регуляторного внедрения.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📋</span>
+                <div class="solution-title">Дизайн для перерабатываемости</div>
+                <p class="solution-text">
+                    Проектирование чипов и плат с материалами меньшей токсичности и большей
+                    разделимости облегчает извлечение ценных металлов без
+                    воздействия токсинов. Активные исследования в области биополупроводников.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🔬</span>
+                <div class="solution-title">Безопасное удаление данных + повторное использование</div>
+                <p class="solution-text">
+                    Сертифицированные технологии безопасного удаления данных (без физического
+                    уничтожения) позволили бы восстанавливать и повторно использовать оборудование, которое сегодня
+                    уничтожается без необходимости по соображениям безопасности.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">⚖️</span>
+                <div class="solution-title">Международная регуляторная база</div>
+                <p class="solution-text">
+                    UNEA-7 (Найроби, декабрь 2025) включила e-waste ИИ в глобальную
+                    повестку. Необходимы международные политики, обязывающие отчётность о
+                    отходах и минимальные стандарты официальной переработки.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Раздел</div>
+                <div class="footer-value">4 — Электронные отходы (Новый)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Данные охватывают</div>
+                <div class="footer-value">2022 – 2025 (с прогнозами до 2030)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Первичные источники</div>
+                <div class="footer-value">Nature Computational Sci., ООН, MIT, IEEE Spectrum</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Следующий раздел</div>
+                <div class="footer-value">Раздел 5 → Минералы и биоразнообразие</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">Обложка</a>
+                <a href="toc.html" class="nav-link">Содержание</a>
+                <a href="resumen.html" class="nav-link">Резюме</a>
+                <a href="introduccion.html" class="nav-link">Введение</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link active">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Ссылки</a>
+            </div>
+            <p class="author-note">
+                <strong>Автор:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Международная
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.ewaste-stat,.scenario-card,.lifecycle-card,.solution-card,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — 4 scenarios
+  new Chart(document.getElementById('chartScenarios'), {
+    type:'bar',
+    data:{
+      labels:['Ограниченное расширение','Умеренное расширение','Агрессивное расширение','Без вмешательства'],
+      datasets:[{
+        label:'Мт накоплено 2023–2030',
+        data:[1.2, 2.6, 5.0, 16],
+        backgroundColor:['#27ae60','#f39c12','#e74c3c','#800000'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} Мт`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Миллионы тонн (Мт)'}} }
+    }
+  });
+
+  // Chart 2 — AI share of global e-waste (donut)
+  new Chart(document.getElementById('chartGlobalShare'), {
+    type:'doughnut',
+    data:{
+      labels:['Глобальный e-waste (другие секторы)','E-waste, приписываемый генеративному ИИ'],
+      datasets:[{
+        data:[59.5, 2.5],
+        backgroundColor:['#d4a373','#b7410e'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:12}}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>セクション4 — 電子廃棄物 | 科学論文</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #fef6e4 0%, #fde8cc 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #7d3c00 0%, #b7410e 50%, #d35400 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolygon fill='%23ffffff' fill-opacity='0.05' points='50,0 100,50 50,100 0,50'/%3E%3C/svg%3E") repeat;
+            animation: bgSlide 20s linear infinite;
+        }
+
+        @keyframes bgSlide {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: shake 4s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 700px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* CRISIS INTRO */
+        .crisis-callout {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe8d0 100%);
+            border-left: 6px solid #d35400;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #5d2e00; }
+        .crisis-callout strong { color: #b7410e; }
+
+        /* STATS */
+        .ewaste-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .ewaste-stat {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400;
+            border-radius: 16px; padding: 25px 20px;
+            text-align: center; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .ewaste-stat::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #d35400, #b7410e);
+        }
+
+        .ewaste-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(211,84,0,0.2);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif; font-size: 26px;
+            font-weight: 800; color: #b7410e;
+            display: block; margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; color: #7d4000;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+        }
+
+        .stat-source { font-size: 12px; color: #7f8c8d; font-style: italic; }
+
+        /* HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #b7410e;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #d35400;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* LIFECYCLE */
+        .lifecycle-steps {
+            counter-reset: lifecycle;
+            margin: 30px 0;
+        }
+
+        .lifecycle-step {
+            counter-increment: lifecycle;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px dashed #fcd3a1;
+            align-items: start;
+        }
+
+        .lifecycle-step:last-child { border-bottom: none; }
+
+        .lifecycle-num {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 22px; font-weight: 800;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-content {}
+
+        .lifecycle-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 8px;
+        }
+
+        .lifecycle-text { font-size: 16px; line-height: 1.7; color: #34495e; }
+
+        .lifecycle-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; color: #b7410e;
+            background: #fff5ec; padding: 6px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* TOXICS TABLE */
+        .toxics-wrap {
+            background: linear-gradient(135deg, #fff5ec 0%, #ffe0c0 100%);
+            border: 2px solid #d35400; border-radius: 16px;
+            padding: 30px; margin: 30px 0; overflow-x: auto;
+        }
+
+        .toxics-title {
+            font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+            color: #b7410e; margin-bottom: 20px;
+            text-align: center; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        table.toxics-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; }
+
+        table.toxics-table thead tr {
+            background: linear-gradient(135deg, #b7410e, #d35400);
+            color: white;
+        }
+
+        table.toxics-table th {
+            padding: 14px 16px; text-align: left;
+            font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+        }
+
+        table.toxics-table td {
+            padding: 12px 16px; font-size: 14px;
+            border-bottom: 1px solid #fcd3a1; color: #2c3e50;
+        }
+
+        table.toxics-table tr:nth-child(even) td { background: rgba(211,84,0,0.05); }
+        table.toxics-table tr:hover td { background: rgba(211,84,0,0.1); }
+
+        .toxicity-high { color: #c0392b; font-weight: 700; }
+        .toxicity-medium { color: #d68910; font-weight: 700; }
+        .toxicity-low { color: #27ae60; font-weight: 700; }
+
+        /* SCENARIOS */
+        .scenarios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .scenario-card {
+            border-radius: 14px; padding: 22px;
+            border: 2px solid; text-align: center;
+        }
+
+        .scenario-card.s1 { background: #eafaf1; border-color: #27ae60; }
+        .scenario-card.s2 { background: #fef9e7; border-color: #f39c12; }
+        .scenario-card.s3 { background: #fdecea; border-color: #e74c3c; }
+        .scenario-card.s4 { background: #4a0000; border-color: #800000; }
+
+        .scenario-label {
+            font-family: 'Inter', sans-serif; font-size: 12px;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 12px;
+        }
+
+        .scenario-card.s1 .scenario-label { color: #1e8449; }
+        .scenario-card.s2 .scenario-label { color: #d68910; }
+        .scenario-card.s3 .scenario-label { color: #c0392b; }
+        .scenario-card.s4 .scenario-label { color: #ff6b6b; }
+
+        .scenario-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px; font-weight: 700; display: block; margin-bottom: 8px;
+        }
+
+        .scenario-card.s1 .scenario-number { color: #27ae60; }
+        .scenario-card.s2 .scenario-number { color: #f39c12; }
+        .scenario-card.s3 .scenario-number { color: #e74c3c; }
+        .scenario-card.s4 .scenario-number { color: #ff6b6b; }
+
+        .scenario-desc { font-size: 14px; line-height: 1.6; color: #34495e; }
+        .scenario-card.s4 .scenario-desc { color: #ffa8a8; }
+
+        /* GLOBAL CONTEXT */
+        .global-context {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0;
+        }
+
+        .global-context-title {
+            font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700;
+            margin-bottom: 15px; color: #f39c12;
+        }
+
+        .global-context p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .global-context p:last-child { margin-bottom: 0; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white; border: 2px solid #fcd3a1;
+            border-radius: 16px; padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #d35400;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(211,84,0,0.15);
+        }
+
+        .solution-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif; font-size: 15px;
+            font-weight: 700; color: #b7410e; margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #3d1f00 0%, #5c2e00 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav {
+            text-align: center; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #d35400; border-color: #d35400; color: white; }
+
+        .author-note {
+            font-size: 13px; opacity: 0.8;
+            font-style: italic; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">セクション4 — 新規</span>
+            <span class="section-icon">🗑️</span>
+            <h1 class="section-title">AIの電子廃棄物</h1>
+            <p class="section-subtitle">
+                ハードウェアの見えざる危機：土壌と地下水を汚染する有毒物質
+                で満たされた、数百万トンの陳腐化したGPU、サーバー、部品
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#b7410e;font-style:italic;margin-bottom:20px;">検証済みのスペイン語/英語原文の翻訳です。相違がある場合は原文が優先されます。</p>
+
+        <div class="crisis-callout">
+            <p>
+                AIモデルが学習されるとき、その背後には物理的なハードウェアが
+                存在します。そして、そのモデルがより新しいものに置き換え
+                られるとき — 現在の業界では<strong>わずか数週間ごとに</strong>
+                起きていることですが — 以前のハードウェアはゴミと化します。
+                普通のゴミではありません：数十年にわたって土壌と地下水を
+                汚染しうる<strong>鉛、水銀、カドミウム、ヒ素、ダイオキシン</strong>
+                で満たされた電子廃棄物です。生成AIは、<strong>2030年までに
+                累計120万〜500万メトリックトンの電子廃棄物</strong>を追加
+                で生み出す可能性があります。
+            </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="ewaste-stats">
+            <div class="ewaste-stat">
+                <span class="stat-number">6,200万トン</span>
+                <span class="stat-label">世界の電子廃棄物総量（2022年）</span>
+                <span class="stat-source">国連グローバル電子廃棄物モニター（2024年）</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">120万〜500万トン</span>
+                <span class="stat-label">生成AIによる追加電子廃棄物 2023〜2030年</span>
+                <span class="stat-source">Wangら、Nature Comp. Sci.（2024年）</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">年間250万トン</span>
+                <span class="stat-label">AI年間予測 — 2030年（積極シナリオ）</span>
+                <span class="stat-source">Tzachorら、IEEE Spectrum（2024年）</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">2〜3年</span>
+                <span class="stat-label">AI専用GPUの耐用年数</span>
+                <span class="stat-source">従来型サーバーの5〜7年に対して</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">22%</span>
+                <span class="stat-label">現在正式にリサイクルされている電子廃棄物</span>
+                <span class="stat-source">Global E-Waste Monitor 2024</span>
+            </div>
+            <div class="ewaste-stat">
+                <span class="stat-number">5倍</span>
+                <span class="stat-label">リサイクルに対する増加速度</span>
+                <span class="stat-source">国連（2022年）— 電子廃棄物は5倍速く増加</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 AIに起因する世界の電子廃棄物の割合（2030年、積極シナリオ）</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartGlobalShare"></canvas></div>
+        </div>
+
+        <!-- 4.1 CICLO DE VIDA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.1</span>
+            AIハードウェアのライフサイクルとその影響
+        </h2>
+
+        <p class="body-text">
+            AIモデルを支えるハードウェアは、環境の観点から見ると短く
+            激しいライフサイクルをたどります。より高い計算性能への
+            需要が絶え間ないインフラの更新を促し、極めて有毒な物質を
+            含む廃棄物の量を増加させ続けています。
+        </p>
+
+        <div class="lifecycle-steps">
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">1</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">製造 — 稼働前のフットプリント</div>
+                    <p class="lifecycle-text">
+                        高性能GPU1基の製造は約200kgのCO₂を排出します —
+                        ガソリン車で800マイル以上走行するのに相当します。
+                        データセンターはこのようなユニットを数万個規模で
+                        展開します。さらに、チップ製造には超純水、特殊
+                        ガス、化学薬品が必要で、その処理は工場で有毒
+                        廃棄物を生み出します。
+                    </p>
+                    <span class="lifecycle-data">H100 GPU1基の製造あたり約200kg CO₂</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">2</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">稼働 — アクティブ期間</div>
+                    <p class="lifecycle-text">
+                        AI専用GPUの稼働寿命は従来型サーバーの5〜7年に対し、
+                        わずか2〜3年です。理由は：チップアーキテクチャ
+                        （Volta→Ampere→Hopper→Blackwell）の進歩の速さが
+                        以前のハードウェアを急速に陳腐化させるためです。
+                        2023年、NVIDIA、AMD、Intelはデータセンター向けに
+                        385万個のGPUを出荷しました — この数字は2024年に
+                        大幅に増加しました。
+                    </p>
+                    <span class="lifecycle-data">2023年だけでデータセンター向けに385万個のGPUが出荷（TechInsights）</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">3</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">加速する陳腐化</div>
+                    <p class="lifecycle-text">
+                        AI企業は数週間ごとに新しいモデルを発表しています。
+                        MITの研究者によると、「以前のバージョンの学習に
+                        使われたエネルギーは無駄になり、新しいモデルは
+                        パラメータ数が多いため、通常はより多くのエネルギー
+                        を消費する」とされています。この技術競争は、
+                        18か月前に購入したハードウェアがすでに競争力を
+                        失っている可能性があることを意味します。
+                    </p>
+                    <span class="lifecycle-data">数週間ごとの新モデル発表 — MIT News（2025年）</span>
+                </div>
+            </div>
+            <div class="lifecycle-step">
+                <div class="lifecycle-num">4</div>
+                <div class="lifecycle-content">
+                    <div class="lifecycle-title">最終行き先：リサイクル危機</div>
+                    <p class="lifecycle-text">
+                        世界の電子廃棄物のうち、正式にリサイクルされる
+                        のはわずか22%です（国連、2024年）。最大80%と
+                        推定される割合が、適切なリサイクル能力を持たない
+                        発展途上国に輸出され、環境保護や労働安全の
+                        保護なしに非公式に処理され、脆弱なコミュニティ
+                        の土壌、水、空気に毒素を放出しています。
+                    </p>
+                    <span class="lifecycle-data">米国の電子廃棄物の約80%が輸出（E-waste Collective）</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 SUSTANCIAS TÓXICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.2</span>
+            AI電子廃棄物中の有害物質
+        </h2>
+
+        <p class="body-text">
+            Wang、Tzachor、Chenによる<em>Nature Computational Science</em>
+            （2024年）の研究では、耐用年数延長シナリオ（廃棄物を削減する
+            シナリオ）のもとで、2030年までにAIサーバーの電子廃棄物に
+            蓄積される可能性のある有害物質を定量化しました。分析された
+            最良のシナリオにおいても、結果は憂慮すべきものです：
+        </p>
+
+        <div class="toxics-wrap">
+            <div class="toxics-title">2030年に向けたAI電子廃棄物からの有毒廃棄物予測</div>
+            <table class="toxics-table">
+                <thead>
+                    <tr>
+                        <th>物質</th>
+                        <th>予測量（2030年）</th>
+                        <th>生態系への影響</th>
+                        <th>リスクレベル</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>鉛（Pb）</strong></td>
+                        <td>91.7万トン</td>
+                        <td>土壌と地下水を汚染；人体への神経系損傷</td>
+                        <td class="toxicity-high">⬛ 極めて高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>クロム（Cr）</strong></td>
+                        <td>907トン</td>
+                        <td>発がん性；数十年にわたり土壌中に残留</td>
+                        <td class="toxicity-high">⬛ 極めて高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>バリウム（Ba）</strong></td>
+                        <td>6,000トン</td>
+                        <td>心血管系への毒性；地下水汚染</td>
+                        <td class="toxicity-high">🔴 高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ヒ素（As）</strong></td>
+                        <td>34トン</td>
+                        <td>発がん性；水生生態系への恒久的損傷</td>
+                        <td class="toxicity-high">🔴 高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>カドミウム（Cd）</strong></td>
+                        <td>30トン</td>
+                        <td>食物連鎖中への蓄積；動植物に有毒</td>
+                        <td class="toxicity-high">🔴 高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>アンチモン（Sb）</strong></td>
+                        <td>7,000トン</td>
+                        <td>水生生物に有毒；発がん性の疑い</td>
+                        <td class="toxicity-medium">🟠 中程度</td>
+                    </tr>
+                    <tr>
+                        <td><strong>水銀（Hg）</strong></td>
+                        <td>7トン</td>
+                        <td>魚類への生物蓄積；人体への深刻な神経系損傷</td>
+                        <td class="toxicity-high">⬛ 極めて高い</td>
+                    </tr>
+                    <tr>
+                        <td><strong>基板（PCB）ポリマー</strong></td>
+                        <td>基板重量の約30%</td>
+                        <td>生分解不可；土壌の肥沃度を恒久的に損なう</td>
+                        <td class="toxicity-medium">🟠 中程度</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ダイオキシン／フラン類</strong></td>
+                        <td>不完全燃焼の副生成物</td>
+                        <td>極めて発がん性が高い；公衆衛生への脅威</td>
+                        <td class="toxicity-high">⬛ 極めて高い</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>主要情報源：</strong> Wang P., Tzachor A., Chen W-Q.（2024年）。
+            "E-waste Challenges of Generative Artificial Intelligence."
+            <em>Nature Computational Science</em>。DOI: 10.1038/s43588-024-00712-6。
+            これらの数値は、耐用年数延長シナリオ（分析された中で最も保守的なシナリオ）に対応しています。
+        </div>
+
+        <!-- 4.3 ESCENARIOS 2030 -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.3</span>
+            2023〜2030年の電子廃棄物シナリオ
+        </h2>
+
+        <p class="body-text">
+            同じWangらの研究は、限定的な拡大から積極的な成長まで、
+            生成AI普及の4つのシナリオをモデル化しました。2023年から
+            2030年までの累積電子廃棄物の結果は、政策決定と循環型
+            経済の採用状況によって劇的に異なります：
+        </p>
+
+        <div class="scenarios-container">
+            <div class="scenario-card s1">
+                <div class="scenario-label">限定的拡大</div>
+                <span class="scenario-number">120万トン</span>
+                <p class="scenario-desc">
+                    2023〜2030年の累積電子廃棄物総量。保守的な普及＋
+                    耐用年数延長政策＋強力なリサイクル。
+                </p>
+            </div>
+            <div class="scenario-card s2">
+                <div class="scenario-label">中程度の拡大</div>
+                <span class="scenario-number">260万トン</span>
+                <p class="scenario-desc">
+                    2022〜2024年の傾向と同様の持続的成長を想定した中間
+                    シナリオ。廃棄物管理に大きな変化なし。
+                </p>
+            </div>
+            <div class="scenario-card s3">
+                <div class="scenario-label">積極的拡大</div>
+                <span class="scenario-number">500万トン</span>
+                <p class="scenario-desc">
+                    ハードウェア集約的な大量普及と加速する交換サイクル。
+                    2030年までに年間電子廃棄物が250万トンに達する。
+                </p>
+            </div>
+            <div class="scenario-card s4">
+                <div class="scenario-label">対策なし</div>
+                <span class="scenario-number">1,600万トン</span>
+                <p class="scenario-desc">
+                    循環型経済対策が採用されない場合の累積電子廃棄物。
+                    耐用年数延長政策もリサイクルもないシナリオ。
+                </p>
+            </div>
+        </div>
+
+        <!-- 4.4 CONTEXTO GLOBAL -->
+        <div class="global-context">
+            <div class="global-context-title">📌 電子廃棄物の世界的背景</div>
+            <p>
+                2022年、世界は<strong>6,200万トンの電子廃棄物総量</strong>
+                を生み出しました（国連グローバル電子廃棄物モニター、
+                2024年）。この廃棄物の流れは<strong>リサイクル計画より
+                5倍速く</strong>増加しています。
+            </p>
+            <p>
+                AI電子廃棄物の構成要素には、GPU、CPU、データセンターの
+                バックアップバッテリー、メモリモジュール、プリント基板
+                （PCB）が含まれます。基板重量の約30%を占めるポリマーは
+                生分解不可能であり、土壌の肥沃度を損なう可能性があります。
+                埋立地への廃棄は土壌と地下水を汚染します。不完全な焼却は
+                ダイオキシンとフラン類を放出し、公衆衛生を脅かします。
+            </p>
+            <p>
+                データセキュリティへの懸念もリサイクルの障壁となって
+                います：企業は情報漏洩を防ぐため、責任を持って改修
+                またはリサイクルするのではなく、ハードウェアを破壊
+                しています。
+            </p>
+        </div>
+
+        <!-- 4.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">4.4</span>
+            AI電子廃棄物に対する循環型経済
+        </h2>
+
+        <p class="body-text">
+            同じNature Computational Scienceの研究は、AI電子廃棄物削減
+            の最も効果的な戦略が<strong>ハードウェアの耐用年数延長</strong>
+            であることを明らかにしました：サーバーの平均ライフサイクル
+            をわずか1年延長するだけで、累積電子廃棄物を数百万トン削減
+            できる可能性があります。モジュール（GPU、CPU、バッテリー）
+            の再利用は、電子廃棄物をさらに21%削減します。
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🔧</span>
+                <div class="solution-title">耐用年数延長（C1）</div>
+                <p class="solution-text">
+                    AIサーバーの平均耐用年数を1年延長することが最も
+                    効果的な単一策であり、現在すでに一部のグローバル
+                    データセンター運営者によって実施されています。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">モジュール再利用（C3）</div>
+                <p class="solution-text">
+                    陳腐化したサーバーから重要なモジュール（GPU、CPU、
+                    バッテリー）を分解、改修、再組み立てし、より需要
+                    の低い計算用途に使用します。電子廃棄物を21%削減
+                    します。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🏭</span>
+                <div class="solution-title">回収プログラム</div>
+                <p class="solution-text">
+                    製造業者が陳腐化したハードウェアを回収し、責任ある
+                    リサイクルを保証する義務的な回収プログラム。規制
+                    による実施が必要です。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📋</span>
+                <div class="solution-title">リサイクル性を考慮した設計</div>
+                <p class="solution-text">
+                    毒性の低い材料と高い分離可能性を持つチップと基板の
+                    設計により、有毒物質への曝露なしに貴重な金属の回収
+                    が容易になります。生物由来半導体の研究が進行中です。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🔬</span>
+                <div class="solution-title">安全なデータ消去＋再利用</div>
+                <p class="solution-text">
+                    認証済みの安全なデータ消去技術（物理的破壊を伴わない）
+                    により、現在セキュリティ上の理由で不必要に破壊されて
+                    いるハードウェアを改修・再利用できるようになります。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">⚖️</span>
+                <div class="solution-title">国際規制枠組み</div>
+                <p class="solution-text">
+                    UNEA-7（ナイロビ、2025年12月）はAI電子廃棄物を世界
+                    的な議題として取り上げました。廃棄物報告を義務付け、
+                    正式リサイクルの最低基準を定める国際政策が必要です。
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">セクション</div>
+                <div class="footer-value">4 — 電子廃棄物（新規）</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">対象期間</div>
+                <div class="footer-value">2022〜2025年（2030年予測含む）</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">主要情報源</div>
+                <div class="footer-value">Nature Computational Sci., 国連, MIT, IEEE Spectrum</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">次のセクション</div>
+                <div class="footer-value">セクション5 → 鉱物と生物多様性</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">表紙</a>
+                <a href="toc.html" class="nav-link">目次</a>
+                <a href="resumen.html" class="nav-link">要約</a>
+                <a href="introduccion.html" class="nav-link">序論</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link active">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">参考文献</a>
+            </div>
+            <p class="author-note">
+                <strong>著者：</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 国際
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.ewaste-stat,.scenario-card,.lifecycle-card,.solution-card,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — 4 scenarios
+  new Chart(document.getElementById('chartScenarios'), {
+    type:'bar',
+    data:{
+      labels:['限定的拡大','中程度の拡大','積極的拡大','対策なし'],
+      datasets:[{
+        label:'Mt acumuladas 2023–2030',
+        data:[1.2, 2.6, 5.0, 16],
+        backgroundColor:['#27ae60','#f39c12','#e74c3c','#800000'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de toneladas (Mt)'}} }
+    }
+  });
+
+  // Chart 2 — AI share of global e-waste (donut)
+  new Chart(document.getElementById('chartGlobalShare'), {
+    type:'doughnut',
+    data:{
+      labels:['世界の電子廃棄物（他部門）','生成AIに起因する電子廃棄物'],
+      datasets:[{
+        data:[59.5, 2.5],
+        backgroundColor:['#d4a373','#b7410e'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:12}}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} Mt`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

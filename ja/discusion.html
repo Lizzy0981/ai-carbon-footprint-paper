@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>セクション6 — 考察 | 科学論文</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Crimson Text',serif; line-height:1.8; color:#2c3e50;
+            background:linear-gradient(135deg,#fdf3e7 0%,#fde8c8 100%);
+            min-height:100vh; padding:40px 20px;
+        }
+        .container {
+            max-width:1100px; margin:0 auto; background:white;
+            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.1);
+            overflow:hidden; position:relative;
+        }
+        .container::before {
+            content:''; position:absolute; top:0; left:0;
+            width:100%; height:6px;
+            background:linear-gradient(90deg,#3498db,#2ecc71,#e74c3c,#f39c12);
+        }
+        /* HEADER */
+        .header-section {
+            background:linear-gradient(135deg,#c0392b 0%,#e67e22 50%,#f39c12 100%);
+            color:white; padding:50px 40px; text-align:center;
+            position:relative; overflow:hidden;
+        }
+        .header-section::before {
+            content:''; position:absolute; inset:0;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1.5'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+        }
+        .header-content { position:relative; z-index:2; }
+        .section-badge {
+            display:inline-block; background:rgba(255,255,255,0.2);
+            border:1px solid rgba(255,255,255,0.4); color:white;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:700;
+            letter-spacing:3px; text-transform:uppercase;
+            padding:6px 20px; border-radius:50px; margin-bottom:20px;
+        }
+        .section-icon { font-size:52px; margin-bottom:16px; display:block; }
+        .section-title {
+            font-family:'Inter',sans-serif; font-size:36px; font-weight:800;
+            margin-bottom:14px; text-shadow:0 2px 8px rgba(0,0,0,0.3);
+        }
+        .section-subtitle { font-size:18px; opacity:0.9; max-width:680px; margin:0 auto; line-height:1.5; }
+
+        /* CONTENT */
+        .content-section { padding:50px 45px; }
+
+        .section-heading {
+            font-family:'Inter',sans-serif; font-size:23px; font-weight:800;
+            color:#c0392b; margin:45px 0 18px; padding-bottom:12px;
+            border-bottom:3px solid #e67e22;
+            display:flex; align-items:center; gap:12px;
+        }
+        .section-heading-num {
+            background:linear-gradient(135deg,#c0392b,#e67e22);
+            color:white; font-size:14px; font-weight:700;
+            width:32px; height:32px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .body-text {
+            font-size:18px; line-height:1.9; color:#2c3e50;
+            margin-bottom:20px; text-align:justify;
+        }
+
+        /* PARADIGM SHIFTS */
+        .paradigm-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:20px; margin:30px 0;
+        }
+        .paradigm-card {
+            border-radius:16px; overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+        }
+        .paradigm-before {
+            background:linear-gradient(135deg,#fdecea,#fbd5d0);
+            padding:18px 20px;
+            border-left:4px solid #e74c3c;
+        }
+        .paradigm-arrow {
+            background:white; padding:8px 20px;
+            text-align:center; font-size:22px;
+            border-left:4px solid #ccc;
+        }
+        .paradigm-after {
+            background:linear-gradient(135deg,#eafaf1,#d5f5e3);
+            padding:18px 20px;
+            border-left:4px solid #27ae60;
+        }
+        .paradigm-label {
+            font-family:'Inter',sans-serif; font-size:11px;
+            font-weight:700; text-transform:uppercase; letter-spacing:1px;
+            margin-bottom:8px;
+        }
+        .paradigm-before .paradigm-label { color:#c0392b; }
+        .paradigm-after .paradigm-label { color:#1e8449; }
+        .paradigm-text { font-size:15px; line-height:1.6; color:#2c3e50; }
+
+        /* COMPARISON TABLE */
+        .comparison-wrap {
+            background:linear-gradient(135deg,#fff5ec 0%,#fde8cc 100%);
+            border:2px solid #e67e22; border-radius:16px;
+            padding:28px; margin:30px 0; overflow-x:auto;
+        }
+        .comparison-title {
+            font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
+            color:#c0392b; margin-bottom:18px; text-align:center;
+            text-transform:uppercase; letter-spacing:2px;
+        }
+        table.comp-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+        table.comp-table thead tr { background:linear-gradient(135deg,#c0392b,#e67e22); color:white; }
+        table.comp-table th { padding:12px 16px; text-align:left; font-size:13px; font-weight:700; }
+        table.comp-table td { padding:11px 16px; font-size:14px; border-bottom:1px solid #fcd3a1; color:#2c3e50; }
+        table.comp-table tr:nth-child(even) td { background:rgba(230,126,34,0.05); }
+        table.comp-table tr:hover td { background:rgba(230,126,34,0.1); }
+        .align-exceed { color:#e74c3c; font-weight:700; }
+        .align-good { color:#27ae60; font-weight:700; }
+        .align-warn { color:#d68910; font-weight:700; }
+
+        /* CALLOUT BOXES */
+        .insight-box {
+            border-radius:16px; padding:28px; margin:28px 0; position:relative;
+        }
+        .insight-box::before {
+            position:absolute; top:-14px; left:24px;
+            font-size:26px; background:white; padding:0 6px;
+        }
+        .insight-box.discovery { background:linear-gradient(135deg,#e8f6ff,#d0ecf8); border:2px solid #3498db; }
+        .insight-box.discovery::before { content:'🔍'; }
+        .insight-box.warning { background:linear-gradient(135deg,#fdecea,#fbd5d0); border:2px solid #e74c3c; }
+        .insight-box.warning::before { content:'⚠️'; }
+        .insight-box.positive { background:linear-gradient(135deg,#eafaf1,#d5f5e3); border:2px solid #27ae60; }
+        .insight-box.positive::before { content:'✅'; }
+
+        .insight-title {
+            font-family:'Inter',sans-serif; font-size:16px; font-weight:800;
+            margin-bottom:10px;
+        }
+        .insight-box.discovery .insight-title { color:#1a6fa8; }
+        .insight-box.warning .insight-title { color:#c0392b; }
+        .insight-box.positive .insight-title { color:#1a8449; }
+        .insight-box p { font-size:17px; line-height:1.8; color:#2c3e50; }
+
+        /* LIMITATIONS */
+        .limitations-list { list-style:none; margin:20px 0; }
+        .limitation-item {
+            display:grid; grid-template-columns:36px 1fr;
+            gap:14px; padding:16px 0;
+            border-bottom:1px dashed #fde8cc; align-items:start;
+        }
+        .limitation-item:last-child { border-bottom:none; }
+        .limit-num {
+            background:#e67e22; color:white;
+            font-family:'Inter',sans-serif; font-size:13px; font-weight:700;
+            width:30px; height:30px; border-radius:8px;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .limit-title { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:#c0392b; margin-bottom:5px; }
+        .limit-text { font-size:16px; line-height:1.7; color:#34495e; }
+
+        /* FUTURE RESEARCH */
+        .future-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:16px; margin:24px 0;
+        }
+        .future-card {
+            background:white; border:2px solid #fde8cc; border-radius:14px;
+            padding:22px; transition:all 0.3s ease;
+        }
+        .future-card:hover { border-color:#e67e22; transform:translateY(-4px); box-shadow:0 8px 24px rgba(230,126,34,0.15); }
+        .future-icon { font-size:26px; margin-bottom:10px; display:block; }
+        .future-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#c0392b; margin-bottom:8px; }
+        .future-text { font-size:15px; line-height:1.7; color:#34495e; }
+
+        .source-note {
+            background:#f8f9fa; border-left:4px solid #7f8c8d;
+            border-radius:0 8px 8px 0; padding:12px 20px;
+            margin:15px 0; font-size:14px; font-style:italic; color:#5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background:linear-gradient(135deg,#4a1500 0%,#7d2d00 100%);
+            color:white; padding:35px 45px;
+        }
+        .footer-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px; margin-bottom:25px;
+        }
+        .footer-item { background:rgba(255,255,255,0.08); padding:18px; border-radius:12px; }
+        .footer-label { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:6px; }
+        .footer-value { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; }
+        .footer-nav { text-align:center; padding-top:20px; border-top:1px solid rgba(255,255,255,0.2); }
+        .nav-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:15px; }
+        .nav-link {
+            color:rgba(255,255,255,0.7); text-decoration:none;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+            padding:6px 13px; border:1px solid rgba(255,255,255,0.2); border-radius:20px; transition:all 0.3s;
+        }
+        .nav-link:hover { background:rgba(255,255,255,0.12); color:white; }
+        .nav-link.active { background:#e67e22; border-color:#e67e22; color:white; }
+        .author-note { font-size:13px; opacity:0.8; font-style:italic; text-align:center; }
+        @media(max-width:768px){ .content-section{padding:30px 20px;} .header-section{padding:35px 20px;} .section-title{font-size:26px;} .document-footer{padding:25px 20px;} }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4c5f0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#5b3a8e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:340px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">セクション6 — 更新済み</span>
+            <span class="section-icon">🔬</span>
+            <h1 class="section-title">考察</h1>
+            <p class="section-subtitle">発見の解釈、産業界と科学への影響、
+            既存文献との比較、今後の研究方向</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#667eea;font-style:italic;margin-bottom:20px;">検証済みのスペイン語/英語原文の翻訳です。相違がある場合は原文が優先されます。</p>
+
+        <!-- 6.1 PARADIGM SHIFTS -->
+        <h2 class="section-heading"><span class="section-heading-num">6.1</span>環境問題としてのAI：多次元的なパラダイムシフト</h2>
+
+        <p class="body-text">
+            最新の研究成果（2023〜2025年）と統合された本研究の結果は、
+            AIの環境影響がもはや炭素という単一のレンズだけでは評価
+            できないことを裏付けています。Strubellらによる基礎的研究
+            （2019年）から、IEAの報告書（2025年）、Nature
+            Sustainability（Xiaoら、2025年）に至るまで蓄積された
+            エビデンスは、産業界、規制当局、社会がAIの真のコストを
+            評価する方法の変革を求める、多次元的な構図を確立しています。
+        </p>
+
+        <div class="paradigm-grid">
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 従来のパラダイム</div>
+                    <p class="paradigm-text">AIの環境影響は学習時のCO₂排出量のみで測定される</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 新しい科学的枠組み</div>
+                    <p class="paradigm-text">CO₂＋水＋電子廃棄物＋鉱物＋生物多様性＋推論＋サプライチェーン全体</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 従来の見方</div>
+                    <p class="paradigm-text">AIモデルは「ソフトウェア」であり、その影響は主にエネルギー的かつ一時的</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 記録された現実</div>
+                    <p class="paradigm-text">AIは水、土壌、生態系に恒久的な環境影響をもたらす大規模な物理インフラを必要とする</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 従来の前提</div>
+                    <p class="paradigm-text">モデルの規模が大きいほど常に価値が高い；規模はコストなき美徳である</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 科学的エビデンス</div>
+                    <p class="paradigm-text">R²=0.89が規模と排出量の相関を裏付ける；DeepSeek-R1のような効率的なモデルは5〜10倍少ないリソースで同等の性能を達成</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 COMPARACIÓN LITERATURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.2</span>既存文献との比較と本研究の位置づけ</h2>
+
+        <p class="body-text">
+            本論文は学術体系の中で独自の位置を占めています：カーボン
+            測定方法論（StrubellらおよびPattersonらの後継）と、水
+            への影響（Liら、2023年；de Vries-Gao、2025年）、電子
+            廃棄物（Wangら、2024年）、鉱物サプライチェーン
+            （Springer Nature Carbon Neutral Systems、2025年）の
+            新しいデータを、統一された枠組みと一般公開されている
+            インタラクティブな計算ツールに統合した初めての研究です。
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">既存の科学文献に対する本研究の位置づけ</div>
+            <table class="comp-table">
+                <thead>
+                    <tr><th>研究／情報源</th><th>年</th><th>CO₂</th><th>水</th><th>電子廃棄物</th><th>鉱物</th><th>公開ツール</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Strubellら</strong>（ACL 2019年）</td><td>2019</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Pattersonら</strong>（Google、2021年）</td><td>2021</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Luccioniら BLOOM</strong>（2022年）</td><td>2022</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Liら</strong> Water Footprint（2023年）</td><td>2023</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Wangら</strong> E-waste Nature（2024年）</td><td>2024</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>IEA Energy and AI</strong>（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Xiaoら</strong> Nature Sustainability（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Springer Nature Carbon Neutral Systems</strong>（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong style="color:#667eea;">本研究（Díaz Familia、2025〜2026年）</strong></td><td><strong>2025〜26</strong></td><td class="align-good">✓＋計算機</td><td class="align-good">✓新規</td><td class="align-good">✓新規</td><td class="align-good">✓新規</td><td class="align-good">✓公開</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 研究別にカバーされている次元 — 分野の進化（2019〜2026年）</div>
+            <div class="chart-canvas-wrap"><canvas id="chartCoverage"></canvas></div>
+        </div>
+
+        <div class="insight-box discovery">
+            <div class="insight-title">科学分野への独自の貢献</div>
+            <p>
+                これまでに発表されたいかなる研究も、5つの柱（炭素、水、
+                電子廃棄物、鉱物、生物多様性）を<em>実証検証</em>を伴う
+                単一の方法論的枠組みと、一般公開されているインタラク
+                ティブな計算ツールに統合したものはありません。この
+                組み合わせにより、本研究はAIモデルの環境影響全体を
+                評価するために利用可能な最も包括的な枠組みとして位置
+                づけられます。
+            </p>
+        </div>
+
+        <!-- 6.3 IMPLICACIONES INDUSTRIA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.3</span>世界の技術産業への影響</h2>
+
+        <p class="body-text">
+            本研究の発見は、AIモデルを開発・展開する企業にとって
+            直接的かつ具体的な影響をもたらします。同等の性能を持つ
+            GPT-4（1,820,000kg CO₂）とClaude Sonnet（18,200kg CO₂）
+            との間のカーボンフットプリントにおける100倍の差は、
+            環境効率が技術性能と相反する目標ではなく、意図的な設計
+            上の選択であることを証明しています。水と鉱物に関する
+            新たなデータはこの結論を裏付けています。
+        </p>
+
+        <div class="insight-box warning">
+            <div class="insight-title">「より大きなモデル」を求める競争は環境的に持続不可能</div>
+            <p>
+                2018〜2024年の分析によれば、学習のエネルギー消費量は
+                AlexNet（2012年）からGPT-4（2023年）までに約30万倍に
+                増加しました。設計アーキテクチャに変化がなければ、
+                IEAが予測する2030年までにデータセンターの電力消費量
+                が日本全体の需要を上回るという見通しは、必然的に
+                控えめな推定と言えます。DeepSeek-R1（2025年1月）は、
+                GPT-4oに匹敵する性能を約96%少ない計算リソースで
+                達成できることを実証しました。これは、業界が技術的
+                必要性ではなくマーケティング上の理由から効率性より
+                規模を優先してきたことを示唆しています。
+            </p>
+        </div>
+
+        <p class="body-text">
+            水への影響の発覚 — ChatGPTだけで1日1億4,800万リットルと
+            推定される — は、企業の論理を根本的に変えます。土地や
+            エネルギーの低コストを活用するために水ストレス地域に
+            データセンターを配置する企業は、企業の意思決定において
+            発言権を持たない地域社会と生態系にコストを外部化して
+            います。チリ、スペイン、インド、米国南西部で記録されて
+            いるこのパターンは、規制枠組みがまだ対処していない
+            新しい形態の環境負債を構成しています。
+        </p>
+
+        <!-- 6.4 MARCO REGULATORIO -->
+        <h2 class="section-heading"><span class="section-heading-num">6.4</span>規制枠組み：進展と重大な課題</h2>
+
+        <p class="body-text">
+            規制の状況は進化していますが、断片的であり、業界の拡大
+            速度をはるかに下回るペースです。以下の動向は重要な進展を
+            示していますが、対処すべき課題も明らかにしています：
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">世界の規制枠組みの現状（2024〜2025年）</div>
+            <table class="comp-table">
+                <thead><tr><th>制度／規制</th><th>管轄</th><th>範囲</th><th>特定された課題</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>EU AI Act</strong></td><td>欧州連合</td>
+                        <td class="align-warn">リスク、透明性</td>
+                        <td>義務的な環境報告を含まない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EU Data Centre Code of Conduct</strong></td><td>EU</td>
+                        <td class="align-good">任意のPUE</td>
+                        <td>任意；AIの水や電子廃棄物を対象としない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UNEA-7 Agenda Item</strong></td><td>世界（国連）</td>
+                        <td class="align-good">水の透明性</td>
+                        <td>議題のみ；まだ義務化されていない（2025年12月）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Executive Order on AI（米国、2025年）</strong></td><td>米国</td>
+                        <td class="align-exceed">環境規制の緩和</td>
+                        <td>データセンターの環境審査を迂回</td>
+                    </tr>
+                    <tr>
+                        <td><strong>China AI Governance Guidelines</strong></td><td>中国</td>
+                        <td class="align-warn">安全性、倫理</td>
+                        <td>標準的な環境報告を含まない</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GHG Protocol / ISO 14064</strong></td><td>世界</td>
+                        <td class="align-good">スコープ1-2-3炭素</td>
+                        <td>AI向けの特定基準なし；水と電子廃棄物が欠如</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box positive">
+            <div class="insight-title">地平線上の前向きな兆し</div>
+            <p>
+                Googleは2025年、Geminiにおける1推論クエリあたりの
+                水と炭素を測定する初の詳細な方法論を発表し、透明性
+                の前例を確立しました。Microsoftは2024年8月に初の
+                「ゼロウォーター」データセンターを稼働開始しました。
+                UNEA-7は2025年12月の議題に、データセンターの環境
+                透明性を含めました。コーネル大学をはじめとする複数の
+                大学が、立地、効率化、クリーンエネルギーを組み合わせ
+                た戦略により、炭素で73%、水で86%の削減が技術的に
+                達成可能であることを示す詳細な「ロードマップ」を
+                発表しています。
+            </p>
+        </div>
+
+        <!-- 6.5 LIMITACIONES -->
+        <h2 class="section-heading"><span class="section-heading-num">6.5</span>本研究の限界</h2>
+
+        <p class="body-text">
+            科学的誠実性のためには、提示された結果の精度に影響を
+            与える方法論的な限界を明示的に認める必要があります。
+            これらの限界は全体的な結論を無効にするものではなく、
+            解釈の際に考慮すべき不確実性の範囲を定めるものです：
+        </p>
+
+        <ul class="limitations-list">
+            <li class="limitation-item">
+                <div class="limit-num">1</div>
+                <div>
+                    <div class="limit-title">業界の不透明性</div>
+                    <p class="limit-text">
+                        主要なモデル開発者（OpenAI、Google、Anthropic、
+                        Meta）は、使用したハードウェア、GPUの台数、
+                        正確な学習期間、特定のPUE係数に関する完全な
+                        技術データを公表していません。本研究の推定値
+                        は、公開データ、技術文書からの推論、環境報告書
+                        との交差検証に基づいています。情報開示が改善
+                        されるにつれて、計算値はより精緻化される可能性
+                        があります。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">2</div>
+                <div>
+                    <div class="limit-title">推論こそが真の問題の80〜90%を占める</div>
+                    <p class="limit-text">
+                        本研究は主に、最も測定しやすい段階である学習に
+                        焦点を当てています。しかし、推論（モデルの日常的
+                        な使用）は、複数の情報源によればAIの総計算量の
+                        80〜90%を占めています。推論の影響を計算する
+                        方法論はより複雑で、利用可能なデータもより
+                        限られています；これは今後の研究課題を定める
+                        既知の限界です。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">3</div>
+                <div>
+                    <div class="limit-title">水への影響データのばらつき</div>
+                    <p class="limit-text">
+                        クエリあたりの水消費量の値は、異なる情報源と
+                        方法論の間で最大100倍のばらつきがあります
+                        （クエリあたり5mL対519mL）。これらの違いは、
+                        測定範囲の違い（直接冷却のみ対ライフサイクル
+                        全体）、モデル世代、データセンターの種類、
+                        地理的位置の違いを反映しています。本研究は、
+                        この不確実性を正直に反映するため、単一の値
+                        ではなく範囲を報告しています。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">4</div>
+                <div>
+                    <div class="limit-title">技術変化の速度</div>
+                    <p class="limit-text">
+                        AIモデルは数週間単位のサイクルで進化しています。
+                        今日正確なハードウェアと効率のデータは、数か月
+                        後には部分的に陳腐化している可能性があります。
+                        MoEアーキテクチャ、蒸留モデル、効率が向上した
+                        チップ（NVIDIAのBlackwellなど）の登場は、状況
+                        を絶えず変化させています。インタラクティブな
+                        計算機のデータは毎年見直すことが推奨されます。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">5</div>
+                <div>
+                    <div class="limit-title">サプライチェーン：不完全なデータ</div>
+                    <p class="limit-text">
+                        重要鉱物の採掘と加工による環境影響は、標準化
+                        された比較可能なデータを欠いています。鉱業
+                        企業やチップ製造業者が透明性のある方法論で
+                        完全なライフサイクルデータを公表することは
+                        稀です。包頭やその他の事例のデータは、業界の
+                        体系的な報告書ではなく、個別の学術研究に由来
+                        しています。
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 6.6 INVESTIGACIÓN FUTURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.6</span>今後の研究方向</h2>
+
+        <p class="body-text">
+            特定された限界は、今後数年間の持続可能なAI研究の優先
+            事項を直接的に規定しています。この分野には以下が
+            必要です：
+        </p>
+
+        <div class="future-grid">
+            <div class="future-card">
+                <span class="future-icon">📐</span>
+                <div class="future-title">推論の標準方法論</div>
+                <p class="future-text">クエリの種類、モデル、クラウドプロバイダーごとに推論の影響を推定するための、学習と同様の検証済み数式を開発する。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">💧</span>
+                <div class="future-title">モデル別水監査</div>
+                <p class="future-text">AIプロバイダーが標準化された方法論（直接＋間接＋製造）でクエリごとの水消費量を報告する仕組みを確立する。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🌍</span>
+                <div class="future-title">地域生態系への影響</div>
+                <p class="future-text">データセンターの影響を受けるコミュニティでの現地調査：チリ、スペイン、インド、オランダ、バージニア州。帯水層、生物多様性、地域気温への影響の定量化。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🔄</span>
+                <div class="future-title">チップの完全なライフサイクル</div>
+                <p class="future-text">製造、稼働、リサイクル、最終処分を含む、AI用GPUの標準化されたライフサイクル分析（LCA）を、製造業者からの検証済みデータとともに実施する。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🤖</span>
+                <div class="future-title">効率的なAI：アーキテクチャの相関</div>
+                <p class="future-text">MoEアーキテクチャ、量子化モデル、エッジAIを含むように相関分析を拡張し、最適化手法別の排出削減係数を確立する。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">⚖️</span>
+                <div class="future-title">環境正義とAI</div>
+                <p class="future-text">グローバルノース（便益）とグローバルサウス（採掘と電子廃棄物のコスト）の間における、AIの便益対環境コストの不均衡な分配を定量化する。</p>
+            </div>
+        </div>
+
+        <div class="source-note">
+            <strong>考察の総合：</strong> 本論文は、AIの5つの環境影響ベクトル（炭素、水、電子廃棄物、鉱物、生物多様性）を、実証検証と公開ツールを備えた単一の科学的枠組みに初めて統合したものです。類似モデル間の100倍の差は、環境効率が実現可能であり、設計上の決定に依存することを裏付けています。推論、水、サプライチェーンに関する完全なデータの欠如は科学的限界ではなく、研究と規制が是正すべき業界の透明性の欠如を示すものです。
+        </div>
+
+    </div><!-- /content-section -->
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item"><div class="footer-label">セクション</div><div class="footer-value">6 — 考察（完全版）</div></div>
+            <div class="footer-item"><div class="footer-label">サブセクション</div><div class="footer-value">6.1〜6.6（パラダイム、文献、産業、規制、限界、今後）</div></div>
+            <div class="footer-item"><div class="footer-label">次</div><div class="footer-value">セクション7 → 提言</div></div>
+            <div class="footer-item"><div class="footer-label">バージョン</div><div class="footer-value">1.0.0 — 2026年3月</div></div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">表紙</a>
+                <a href="toc.html" class="nav-link">目次</a>
+                <a href="resumen.html" class="nav-link">要約</a>
+                <a href="introduccion.html" class="nav-link">序論</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link active">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">参考文献</a>
+            </div>
+            <p class="author-note"><strong>Elizabeth Díaz Familia</strong> — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI | CC BY 4.0 国際</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.paradigm-card,.limitation-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['Strubell\n2019','Patterson\n2021','Luccioni\n2022','Liら\n2023','Wangら\n2024','Xiaoら\n2025','IEA\n2025','Springer\nNature 2025','本研究\n2025-26'],
+      datasets:[{
+        label:'カバーされた次元数（5つ中）',
+        data:[1,1,1,1,1,2,3,4,5],
+        backgroundColor:(ctx)=>{
+          const i = ctx.dataIndex;
+          return i===8 ? '#667eea' : '#bdc3c7';
+        },
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*100},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}/5 次元`}} },
+      scales:{ y:{beginAtZero:true, max:5, ticks:{stepSize:1}, title:{display:true,text:'次元（CO₂、水、電子廃棄物、鉱物、ツール）'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

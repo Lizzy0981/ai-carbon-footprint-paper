@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>섹션 3 — AI의 물 영향 | 과학 논문</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #1a6fa8 0%, #0d4f8a 50%, #2980b9 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0 40 Q20 10 40 40 Q60 70 80 40 L80 80 L0 80 Z'/%3E%3C/svg%3E") repeat-x bottom;
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 bottom; }
+            100% { background-position: 160px bottom; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+            animation: droplet 3s ease-in-out infinite;
+        }
+
+        @keyframes droplet {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* INTRO CALLOUT */
+        .crisis-callout {
+            background: linear-gradient(135deg, #ebf5ff 0%, #d6ecff 100%);
+            border-left: 6px solid #1a6fa8;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px; left: 20px;
+            font-size: 24px;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .crisis-callout p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #1a3a5c;
+        }
+
+        .crisis-callout strong { color: #0d4f8a; }
+
+        /* STATS GRID */
+        .water-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .water-stat {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0fa 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .water-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(52,152,219,0.25);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a6fa8;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #5d8aa8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-source {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a6fa8;
+            margin: 45px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* BODY TEXT */
+        .body-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* WATER JOURNEY */
+        .water-journey {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .journey-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.15);
+        }
+
+        .journey-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .journey-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journey-card-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .journey-card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #2980b9;
+            background: #ebf5ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* PER QUERY TABLE */
+        .query-table-wrap {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .query-table-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table.water-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table.water-table thead tr {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+        }
+
+        table.water-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        table.water-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #d6ecff;
+            color: #2c3e50;
+        }
+
+        table.water-table tr:nth-child(even) td { background: rgba(52,152,219,0.05); }
+        table.water-table tr:hover td { background: rgba(52,152,219,0.1); }
+
+        .highlight-red { color: #e74c3c; font-weight: 700; }
+        .highlight-orange { color: #e67e22; font-weight: 700; }
+        .highlight-green { color: #27ae60; font-weight: 700; }
+
+        /* REGIONS BOX */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .region-card {
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .region-card.crisis {
+            background: linear-gradient(135deg, #fdecea 0%, #fbd5d0 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .region-card.warning {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdeabf 100%);
+            border: 2px solid #f39c12;
+        }
+
+        .region-card.monitor {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+        }
+
+        .region-flag { font-size: 28px; margin-bottom: 8px; display: block; }
+
+        .region-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-card.crisis .region-name { color: #c0392b; }
+        .region-card.warning .region-name { color: #d68910; }
+        .region-card.monitor .region-name { color: #1e8449; }
+
+        .region-detail { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea 0%, #fad7d0 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute;
+            top: -18px; left: 30px;
+            font-size: 30px;
+            background: white;
+            padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #c0392b;
+            margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        /* COMPARISON BOX */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 640px) { .comparison-container { grid-template-columns: 1fr; } }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fdecea, #fbd5d0);
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-card.good {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #27ae60;
+        }
+
+        .comparison-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card.bad .comparison-label { color: #c0392b; }
+        .comparison-card.good .comparison-label { color: #1e8449; }
+
+        .comparison-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.bad .comparison-number { color: #e74c3c; }
+        .comparison-card.good .comparison-number { color: #27ae60; }
+
+        .comparison-desc { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(52,152,219,0.15);
+        }
+
+        .solution-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* NOTE */
+        .source-note {
+            background: #f8f9fa;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
+            color: white;
+            padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .footer-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .nav-link.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .author-note {
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+
+        @media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+    
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">섹션 3 — 신규</span>
+            <span class="section-icon">💧</span>
+            <h1 class="section-title">AI의 물 영향</h1>
+            <p class="section-subtitle">
+                조용한 위기: AI 모델은 지구에서 가장 희소한 자원을
+                어떻게 소비하고, 증발시키고, 경쟁하는가
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;margin-bottom:20px;">검증된 스페인어/영어 원문의 번역본입니다. 상이한 내용이 있을 경우 원문이 우선합니다.</p>
+
+        <!-- INTRO CALLOUT -->
+        <div class="crisis-callout">
+            <p>
+                AI와 환경에 관한 공공 담론은 주로 CO₂ 배출에 초점을
+                맞춰왔지만, <strong>거의 눈에 띄지 않는 병행 위기</strong>가
+                존재합니다: 데이터센터의 대규모 담수·식수 소비입니다.
+                2023년, GPT-3 학습만으로 Microsoft 데이터센터에서 직접
+                <strong>70만 리터의 담수</strong>가 증발했습니다 — 이는
+                1,400명이 하루 동안 사용할 수 있는 양입니다. 그리고
+                이는 불과 2년 전, 단 하나의 모델에 관한 이야기입니다.
+            </p>
+        </div>
+
+        <!-- KEY STATS -->
+        <div class="water-stats">
+            <div class="water-stat">
+                <span class="stat-number">70만 리터</span>
+                <span class="stat-label">GPT-3 학습</span>
+                <span class="stat-source">Li 등, arXiv:2304.03271(2023년)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">3,125억〜7,646억 리터</span>
+                <span class="stat-label">2025년 AI 전 세계 물 발자국</span>
+                <span class="stat-source">de Vries-Gao, Cell Reports Sustainability(2025년)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1조 680억 리터</span>
+                <span class="stat-label">2028년 AI 전 세계 전망</span>
+                <span class="stat-source">Morgan Stanley Research(2024년)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">~500mL</span>
+                <span class="stat-label">ChatGPT 질의 20〜50회당</span>
+                <span class="stat-source">Li 등 / UC 리버사이드(2023년)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">하루 1억 4,800만 리터</span>
+                <span class="stat-label">ChatGPT 일일 소비 추정치(2025년)</span>
+                <span class="stat-source">Business Energy UK(2025년)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">0.26mL</span>
+                <span class="stat-label">Gemini 질의당(Google, 2025년)</span>
+                <span class="stat-source">Google 환경 보고서(2025년)</span>
+            </div>
+        </div>
+
+        <!-- 3.1 CÓMO SE USA EL AGUA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.1</span>
+            데이터센터의 물 소비 메커니즘
+        </h2>
+
+        <p class="body-text">
+            물은 AI의 우연한 부산물이 아닙니다 — 냉각 시스템이 수분
+            내로 멈추지 않기 위해 반드시 필요한 운영상 투입 자원입니다.
+            현대 서버의 에너지 수요는 막대한 열을 발생시킵니다: NVIDIA
+            H100 GPU 1개만으로도 최대 700W의 지속적인 열을 방출합니다.
+            데이터센터 규모에서는 수만 개의 GPU가 병렬로 작동하므로
+            이 열을 지속적으로 제거해야 합니다.
+        </p>
+
+        <div class="water-journey">
+            <div class="journey-card">
+                <span class="journey-card-icon">🌊</span>
+                <div class="journey-card-title">증발 냉각</div>
+                <p class="journey-card-text">
+                    가장 일반적인 방식입니다: 담수가 열을 흡수하며 순환한
+                    후 냉각탑에서 증발합니다. 이 물은 <em>지역 수계로
+                    돌아가지 않고</em> 대기 중으로 사라집니다.
+                </p>
+                <span class="journey-card-data">소비 전력 1kWh당 물 약 1.9L(전 세계 평균 WUE)</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">⚡</span>
+                <div class="journey-card-title">간접 물(발전)</div>
+                <p class="journey-card-text">
+                    데이터센터에 전력을 공급하는 화력발전소는 증기 생산과
+                    냉각을 위해 물이 필요합니다. 미국에서 발전은 1kWh당
+                    43.8L를 취수하고 3.1L를 소비합니다.
+                </p>
+                <span class="journey-card-data">미국 간접 발자국: 연간 약 8,000억 리터</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏭</span>
+                <div class="journey-card-title">칩 제조</div>
+                <p class="journey-card-text">
+                    반도체 제조에는 막대한 양의 초순수가 필요합니다.
+                    Apple은 전체 물 발자국의 99%가 직접 사업 활동이 아닌
+                    공급망에서 비롯된다고 보고했습니다.
+                </p>
+                <span class="journey-card-data">낮은 재활용률과 유해 폐기물 위험</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏗️</span>
+                <div class="journey-card-title">인프라 건설</div>
+                <p class="journey-card-text">
+                    새로운 데이터센터는 건설 과정과 조경, 공조 시스템에
+                    물이 필요합니다. 버지니아, 텍사스, 네바다의 확장
+                    프로젝트는 지역사회의 수자원을 흡수하고 있습니다.
+                </p>
+                <span class="journey-card-data">텍사스: 2025년 연간 490억 갤런(HARC/휴스턴대)</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 학습 시 물 소비량 — GPT-3(175B)</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartTrainingWater"></canvas></div>
+        </div>
+
+        <!-- 3.2 CONSUMO POR CONSULTA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.2</span>
+            질의 및 모델별 물 소비량
+        </h2>
+
+        <p class="body-text">
+            AI 질의당 소비되는 물의 정확한 정량화는 활발한 연구
+            분야이며, 방법론, 모델, 특정 데이터센터에 따라 수치가
+            다릅니다. 다음 표는 과학 문헌과 검증된 기관 보고서에서
+            가장 많이 인용되는 데이터를 정리한 것입니다:
+        </p>
+
+        <div class="query-table-wrap">
+            <div class="query-table-title">AI 활동 유형별 물 소비량</div>
+            <table class="water-table">
+                <thead>
+                    <tr>
+                        <th>활동/모델</th>
+                        <th>추정 소비량</th>
+                        <th>물의 종류</th>
+                        <th>출처</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GPT-3 학습(1,750억 매개변수)</td>
+                        <td class="highlight-red">70만 리터</td>
+                        <td>식수용 담수</td>
+                        <td>Li 등(2023년) / UC 리버사이드</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-3 학습 — 총 추정치</td>
+                        <td class="highlight-red">540만 리터</td>
+                        <td>직접+간접</td>
+                        <td>Li 등, arXiv:2304.03271(2023년)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 짧은 질의 1회당(운영 기준)</td>
+                        <td class="highlight-orange">~5mL</td>
+                        <td>직접 냉각</td>
+                        <td>Goedecke, 기술 분석(2024년)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 생성된 100단어당</td>
+                        <td class="highlight-orange">~519mL</td>
+                        <td>전체 수명주기</td>
+                        <td>Li 등 / EESI(2023년)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 20〜50개 질문당</td>
+                        <td class="highlight-orange">500mL(생수 1병)</td>
+                        <td>직접 냉각</td>
+                        <td>워싱턴포스트 / Verma(2024년)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 전 세계 일일 소비량(2025년)</td>
+                        <td class="highlight-red">1억 4,800만 리터</td>
+                        <td>총 추정치</td>
+                        <td>Business Energy UK(2025년)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Gemini — 질의당</td>
+                        <td class="highlight-green">0.26mL(물방울 5개)</td>
+                        <td>운영 기준</td>
+                        <td>Google 환경 보고서(2025년)</td>
+                    </tr>
+                    <tr>
+                        <td>Google 검색(AI 미사용)</td>
+                        <td class="highlight-green">0.2〜0.5mL</td>
+                        <td>운영 기준</td>
+                        <td>여러 출처 종합</td>
+                    </tr>
+                    <tr>
+                        <td>AI 이미지 생성(1024×1024)</td>
+                        <td class="highlight-orange">~15mL(추정)</td>
+                        <td>집약적 GPU 냉각</td>
+                        <td>이미지당 kWh 기준 추정치</td>
+                    </tr>
+                    <tr>
+                        <td>Google 산티아고(칠레) 데이터센터</td>
+                        <td class="highlight-red">하루 760만 리터</td>
+                        <td>시립 식수</td>
+                        <td>칠레 소송 자료(2024년)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>방법론적 참고사항:</strong> 데이터의 편차는 측정 범위의
+            차이(직접 냉각만 vs 전체 수명주기), 모델 세대, 데이터센터
+            유형, 지리적 위치의 차이를 반영합니다. 전체 수명주기 값은
+            직접 운영 값보다 30〜100배 높습니다.
+        </div>
+
+        <!-- 3.3 CRISIS GEOGRÁFICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.3</span>
+            지역별 위기: 물 스트레스 지역의 데이터센터
+        </h2>
+
+        <p class="body-text">
+            AI의 물 영향에서 가장 중요한 측면 중 하나는 전 세계
+            9,000개 이상의 데이터센터 중 <strong>거의 절반이 고수준
+            물 스트레스 지역</strong>에 위치한다는 점입니다(Morgan
+            Stanley Research, 2024년). 이는 이 시스템들이 인간 사회,
+            농업, 생태계와 동일한 희소 자원을 직접 놓고 경쟁한다는
+            것을 의미합니다. 다음의 기록된 사례들은 문제의 규모를
+            보여줍니다:
+        </p>
+
+        <div class="regions-grid">
+            <div class="region-card crisis">
+                <span class="region-flag">🇨🇱</span>
+                <div class="region-name">산티아고, 칠레</div>
+                <p class="region-detail">
+                    세리요스에 위치한 Google 데이터센터는 이미 심각한
+                    가뭄을 겪고 있는 지역에서 하루 약 760만 리터의
+                    식수를 소비합니다. 지역사회로부터 법적 소송에
+                    직면했습니다.
+                    <br><em><small>출처: 칠레 소송 자료(2024년)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇪🇸</span>
+                <div class="region-name">아라곤, 스페인</div>
+                <p class="region-detail">
+                    Amazon은 2024년 아라곤 지역 시설을 위해 물 사용
+                    허가 48% 증량을 신청했습니다.
+                    <em>"당신의 클라우드가 내 강을 말리고 있다"</em>
+                    라는 구호 아래 항의가 이어졌습니다.
+                    <br><em><small>출처: IE Insights / 다수 언론(2025년)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇺🇸</span>
+                <div class="region-name">텍사스, 미국</div>
+                <p class="region-detail">
+                    텍사스의 데이터센터는 2025년 490억 갤런의 물을
+                    소비할 것이며, 2030년에는 3,990억 갤런에 도달할
+                    수 있습니다 — 이는 미드호를 1년 만에 16피트 말리는
+                    것과 같습니다.
+                    <br><em><small>출처: HARC / 휴스턴대학교(2025년)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇬🇧</span>
+                <div class="region-name">영국</div>
+                <p class="region-detail">
+                    정부는 2050년까지 하루 50억 리터의 물 부족을 전망하고
+                    있습니다. 스타머 총리의 첫 "AI 성장 구역"은 잉글랜드에서
+                    물 스트레스가 가장 심각한 지역인 옥스퍼드셔주
+                    컬럼에 계획되었습니다.
+                    <br><em><small>출처: 영국 정부 보고서(2025년)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇳🇱</span>
+                <div class="region-name">네덜란드</div>
+                <p class="region-detail">
+                    암스테르담과 주변 지역에서 농지에 메가 데이터센터를
+                    건설하는 것에 반대하는 항의가 일어났습니다. 네덜란드
+                    정부는 신규 건설 허가에 대한 임시 제한을 시행했습니다.
+                    <br><em><small>출처: 다수 유럽 언론(2023〜2024년)</small></em>
+                </p>
+            </div>
+            <div class="region-card monitor">
+                <span class="region-flag">🌍</span>
+                <div class="region-name">라틴아메리카(배경)</div>
+                <p class="region-detail">
+                    카리브해와 중앙아메리카는 2030〜2050년 기후변화로
+                    인한 물 스트레스가 가장 크게 증가할 것으로 예상되는
+                    세계 지역 중 하나입니다. 물 규제 없는 AI 확장은 이
+                    위기를 심화시킬 수 있습니다.
+                    <br><em><small>출처: IPCC AR6(2022년) / UN-Water(2023년)</small></em>
+                </p>
+            </div>
+        </div>
+
+        <!-- 3.4 ALERTA -->
+        <div class="alert-box">
+            <div class="alert-box-title">중요한 사실: AI가 사용하는 물은 식수입니다</div>
+            <p>
+                농업이나 산업에 사용되는 물(재활용수 또는 비식수인
+                경우도 있음)과 달리, 대부분의 데이터센터는 불순물이
+                장비를 손상시키기 때문에 냉각 시스템에 <strong>시립
+                등급의 식수</strong>를 필요로 합니다. 이는 AI가 사람이
+                마시는 물과 직접 경쟁한다는 것을 의미합니다. 미국
+                남서부, 칠레 북부, 지중해 지역과 같이 가뭄이 진행
+                중인 지역에서 이 경쟁은 구체적인 인도주의적 비상사태가
+                됩니다.
+            </p>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 질의당 물 소비량 — 시스템 간 비교(mL)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartQueryWater"></canvas></div>
+        </div>
+
+        <!-- 3.5 PROYECCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.4</span>
+            2025〜2030년 전망: 우려스러운 추세
+        </h2>
+
+        <p class="body-text">
+            코넬대학교 연구진이 <em>Nature Sustainability</em>
+            (2025년 11월)에 발표한 데이터에 따르면, 미국 내 AI 서버
+            배치로 인해 2024년부터 2030년 사이 연간 7억 3,100만〜
+            11억 2,500만 세제곱미터의 물이 소비될 수 있습니다 — 이는
+            미국인 600만〜1,000만 명의 연간 가정용 소비량과 맞먹습니다.
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-card bad">
+                <div class="comparison-label">현상 유지 시나리오(2030년)</div>
+                <span class="comparison-number">11억 2,500만 m³</span>
+                <p class="comparison-desc">
+                    미국에서만, 인프라나 물 규제에 변화가 없이 현재
+                    추세가 지속될 경우.
+                    <br><small>출처: Xiao 등, Nature Sustainability(2025년)</small>
+                </p>
+            </div>
+            <div class="comparison-card good">
+                <div class="comparison-label">완화 시나리오(2030년)</div>
+                <span class="comparison-number">−86%</span>
+                <p class="comparison-desc">
+                    데이터센터의 전략적 입지, 직접 액체 냉각, 운영
+                    효율성을 결합하여 달성 가능한 물 소비량 감소.
+                    <br><small>출처: You 등, 코넬대 / Nature Sustainability(2025년)</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 2030년 미국 전망 — 현상 유지 대 완화 시나리오</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartProjection"></canvas></div>
+        </div>
+
+        <p class="body-text">
+            de Vries-Gao가 <em>Cell Reports Sustainability</em>
+            (2025년 12월)에 발표한 연구는 AI 시스템의 전 세계 물
+            발자국이 <strong>2025년 3,125억〜7,646억 리터에 이를
+            수 있다</strong>고 밝혔습니다. 이는 전 세계 병입 생수의
+            연간 소비량과 맞먹습니다. 이 수치는 단순히 취수된 양이
+            아니라 직접 소비된 물을 나타내며, 이는 이 물이 지역
+            수순환으로 돌아가지 않는다는 것을 의미합니다.
+        </p>
+
+        <!-- 3.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.5</span>
+            기술적 해결책과 물 정책
+        </h2>
+
+        <p class="body-text">
+            전망은 우려스럽지만, AI의 물 영향을 크게 줄일 수 있는
+            기술적 해결책과 정책 수단이 모두 존재합니다. 이들을
+            결합하여 시행하면 동등한 처리 능력을 유지하면서 물
+            소비량을 최대 86% 줄일 수 있습니다:
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🧊</span>
+                <div class="solution-title">직접 액체 냉각(침지식 냉각)</div>
+                <p class="solution-text">
+                    비전도성 액체에 부품을 담그는 방식입니다. 증발 냉각용
+                    물의 필요성을 거의 완전히 없앱니다. Microsoft는 2024년
+                    8월 최초의 "무수(無水)" 데이터센터를 가동했습니다.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📍</span>
+                <div class="solution-title">전략적 입지 선정</div>
+                <p class="solution-text">
+                    한랭 기후 지역(아이슬란드, 노르웨이, 캐나다 북부)에
+                    데이터센터를 건설하면 능동 냉각의 필요성이 크게
+                    줄어듭니다. 아이슬란드는 지열과 외기 냉각을
+                    사용합니다.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">재활용수 및 비식수 사용</div>
+                <p class="solution-text">
+                    Amazon, Meta, Apple은 신선한 식수 대신 처리된 시립수
+                    (재생수)를 사용하기 시작했습니다. 다른 조치와 결합하면
+                    식수 사용량을 50〜70% 줄일 수 있습니다.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📊</span>
+                <div class="solution-title">정보 공개 및 규제</div>
+                <p class="solution-text">
+                    현재 대부분의 국가에는 데이터센터별 물 소비량 보고에
+                    관한 법적 요건이 없습니다. UNEA-7(나이로비, 2025년
+                    12월)은 데이터센터의 물 투명성을 우선 의제로
+                    포함했습니다.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🌬️</span>
+                <div class="solution-title">단열 냉각</div>
+                <p class="solution-text">
+                    Microsoft는 기온이 29.4°C 미만일 때 단열 냉각(외기)을
+                    사용합니다. 온화하거나 추운 기후에서는 이것이 연중
+                    대부분을 커버하여 물 사용을 없앱니다.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🤖</span>
+                <div class="solution-title">설계 단계부터 효율적인 AI</div>
+                <p class="solution-text">
+                    MoE(전문가 혼합) 아키텍처, 모델 증류, 양자화와 같은
+                    기법은 추론에 필요한 연산량을 줄입니다. DeepSeek-R1은
+                    2025년, 고도로 최적화된 모델이 최적화되지 않은 동급
+                    모델보다 5〜10배 적은 자원으로 작동할 수 있음을
+                    입증했습니다.
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /content-section -->
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">섹션</div>
+                <div class="footer-value">3 — 물 영향(신규)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">대상 기간</div>
+                <div class="footer-value">2019년〜2025년 12월</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">주요 출처</div>
+                <div class="footer-value">Nature Sustainability, IEA, Cell Reports, UC Riverside</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">다음 섹션</div>
+                <div class="footer-value">섹션 4 → 전자폐기물</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">표지</a>
+                <a href="toc.html" class="nav-link">목차</a>
+                <a href="resumen.html" class="nav-link">요약</a>
+                <a href="introduccion.html" class="nav-link">서론</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link active">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">참고문헌</a>
+            </div>
+            <p class="author-note">
+                <strong>저자:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 국제
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.water-stat,.journey-card,.region-card,.solution-card,.comparison-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Training water: direct vs total
+  new Chart(document.getElementById('chartTrainingWater'), {
+    type:'bar',
+    data:{
+      labels:['직접 증발','총 발자국(직접+간접)'],
+      datasets:[{
+        label:'Litros',
+        data:[700000, 5400000],
+        backgroundColor:['#3498db','#1a6fa8'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} litros`}} },
+      scales:{ x:{beginAtZero:true, title:{display:true,text:'Litros'}} }
+    }
+  });
+
+  // Chart 2 — Per-query water comparison (mL, log scale due to wide range)
+  new Chart(document.getElementById('chartQueryWater'), {
+    type:'bar',
+    data:{
+      labels:['ChatGPT(질의 1회)','ChatGPT(100단어)','Google 검색','Gemini(Google)'],
+      datasets:[{
+        label:'mL de agua',
+        data:[5, 519, 0.35, 0.26],
+        backgroundColor:['#e67e22','#e74c3c','#27ae60','#1a8449'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} mL`}} },
+      scales:{ y:{type:'logarithmic', title:{display:true,text:'mL (escala log)'}} }
+    }
+  });
+
+  // Chart 3 — 2030 projection scenarios
+  new Chart(document.getElementById('chartProjection'), {
+    type:'bar',
+    data:{
+      labels:['현상 유지(2030년)','완화책 적용(2030년)'],
+      datasets:[{
+        label:'Millones de m³',
+        data:[1125, 157.5],
+        backgroundColor:['#e74c3c','#27ae60'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} M m³`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de m³'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

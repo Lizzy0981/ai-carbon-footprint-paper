@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>第6节 — 讨论 | 科学论文</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Crimson Text',serif; line-height:1.8; color:#2c3e50;
+            background:linear-gradient(135deg,#fdf3e7 0%,#fde8c8 100%);
+            min-height:100vh; padding:40px 20px;
+        }
+        .container {
+            max-width:1100px; margin:0 auto; background:white;
+            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.1);
+            overflow:hidden; position:relative;
+        }
+        .container::before {
+            content:''; position:absolute; top:0; left:0;
+            width:100%; height:6px;
+            background:linear-gradient(90deg,#3498db,#2ecc71,#e74c3c,#f39c12);
+        }
+        /* HEADER */
+        .header-section {
+            background:linear-gradient(135deg,#c0392b 0%,#e67e22 50%,#f39c12 100%);
+            color:white; padding:50px 40px; text-align:center;
+            position:relative; overflow:hidden;
+        }
+        .header-section::before {
+            content:''; position:absolute; inset:0;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1.5'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+        }
+        .header-content { position:relative; z-index:2; }
+        .section-badge {
+            display:inline-block; background:rgba(255,255,255,0.2);
+            border:1px solid rgba(255,255,255,0.4); color:white;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:700;
+            letter-spacing:3px; text-transform:uppercase;
+            padding:6px 20px; border-radius:50px; margin-bottom:20px;
+        }
+        .section-icon { font-size:52px; margin-bottom:16px; display:block; }
+        .section-title {
+            font-family:'Inter',sans-serif; font-size:36px; font-weight:800;
+            margin-bottom:14px; text-shadow:0 2px 8px rgba(0,0,0,0.3);
+        }
+        .section-subtitle { font-size:18px; opacity:0.9; max-width:680px; margin:0 auto; line-height:1.5; }
+
+        /* CONTENT */
+        .content-section { padding:50px 45px; }
+
+        .section-heading {
+            font-family:'Inter',sans-serif; font-size:23px; font-weight:800;
+            color:#c0392b; margin:45px 0 18px; padding-bottom:12px;
+            border-bottom:3px solid #e67e22;
+            display:flex; align-items:center; gap:12px;
+        }
+        .section-heading-num {
+            background:linear-gradient(135deg,#c0392b,#e67e22);
+            color:white; font-size:14px; font-weight:700;
+            width:32px; height:32px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .body-text {
+            font-size:18px; line-height:1.9; color:#2c3e50;
+            margin-bottom:20px; text-align:justify;
+        }
+
+        /* PARADIGM SHIFTS */
+        .paradigm-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:20px; margin:30px 0;
+        }
+        .paradigm-card {
+            border-radius:16px; overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+        }
+        .paradigm-before {
+            background:linear-gradient(135deg,#fdecea,#fbd5d0);
+            padding:18px 20px;
+            border-left:4px solid #e74c3c;
+        }
+        .paradigm-arrow {
+            background:white; padding:8px 20px;
+            text-align:center; font-size:22px;
+            border-left:4px solid #ccc;
+        }
+        .paradigm-after {
+            background:linear-gradient(135deg,#eafaf1,#d5f5e3);
+            padding:18px 20px;
+            border-left:4px solid #27ae60;
+        }
+        .paradigm-label {
+            font-family:'Inter',sans-serif; font-size:11px;
+            font-weight:700; text-transform:uppercase; letter-spacing:1px;
+            margin-bottom:8px;
+        }
+        .paradigm-before .paradigm-label { color:#c0392b; }
+        .paradigm-after .paradigm-label { color:#1e8449; }
+        .paradigm-text { font-size:15px; line-height:1.6; color:#2c3e50; }
+
+        /* COMPARISON TABLE */
+        .comparison-wrap {
+            background:linear-gradient(135deg,#fff5ec 0%,#fde8cc 100%);
+            border:2px solid #e67e22; border-radius:16px;
+            padding:28px; margin:30px 0; overflow-x:auto;
+        }
+        .comparison-title {
+            font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
+            color:#c0392b; margin-bottom:18px; text-align:center;
+            text-transform:uppercase; letter-spacing:2px;
+        }
+        table.comp-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+        table.comp-table thead tr { background:linear-gradient(135deg,#c0392b,#e67e22); color:white; }
+        table.comp-table th { padding:12px 16px; text-align:left; font-size:13px; font-weight:700; }
+        table.comp-table td { padding:11px 16px; font-size:14px; border-bottom:1px solid #fcd3a1; color:#2c3e50; }
+        table.comp-table tr:nth-child(even) td { background:rgba(230,126,34,0.05); }
+        table.comp-table tr:hover td { background:rgba(230,126,34,0.1); }
+        .align-exceed { color:#e74c3c; font-weight:700; }
+        .align-good { color:#27ae60; font-weight:700; }
+        .align-warn { color:#d68910; font-weight:700; }
+
+        /* CALLOUT BOXES */
+        .insight-box {
+            border-radius:16px; padding:28px; margin:28px 0; position:relative;
+        }
+        .insight-box::before {
+            position:absolute; top:-14px; left:24px;
+            font-size:26px; background:white; padding:0 6px;
+        }
+        .insight-box.discovery { background:linear-gradient(135deg,#e8f6ff,#d0ecf8); border:2px solid #3498db; }
+        .insight-box.discovery::before { content:'🔍'; }
+        .insight-box.warning { background:linear-gradient(135deg,#fdecea,#fbd5d0); border:2px solid #e74c3c; }
+        .insight-box.warning::before { content:'⚠️'; }
+        .insight-box.positive { background:linear-gradient(135deg,#eafaf1,#d5f5e3); border:2px solid #27ae60; }
+        .insight-box.positive::before { content:'✅'; }
+
+        .insight-title {
+            font-family:'Inter',sans-serif; font-size:16px; font-weight:800;
+            margin-bottom:10px;
+        }
+        .insight-box.discovery .insight-title { color:#1a6fa8; }
+        .insight-box.warning .insight-title { color:#c0392b; }
+        .insight-box.positive .insight-title { color:#1a8449; }
+        .insight-box p { font-size:17px; line-height:1.8; color:#2c3e50; }
+
+        /* LIMITATIONS */
+        .limitations-list { list-style:none; margin:20px 0; }
+        .limitation-item {
+            display:grid; grid-template-columns:36px 1fr;
+            gap:14px; padding:16px 0;
+            border-bottom:1px dashed #fde8cc; align-items:start;
+        }
+        .limitation-item:last-child { border-bottom:none; }
+        .limit-num {
+            background:#e67e22; color:white;
+            font-family:'Inter',sans-serif; font-size:13px; font-weight:700;
+            width:30px; height:30px; border-radius:8px;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .limit-title { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:#c0392b; margin-bottom:5px; }
+        .limit-text { font-size:16px; line-height:1.7; color:#34495e; }
+
+        /* FUTURE RESEARCH */
+        .future-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:16px; margin:24px 0;
+        }
+        .future-card {
+            background:white; border:2px solid #fde8cc; border-radius:14px;
+            padding:22px; transition:all 0.3s ease;
+        }
+        .future-card:hover { border-color:#e67e22; transform:translateY(-4px); box-shadow:0 8px 24px rgba(230,126,34,0.15); }
+        .future-icon { font-size:26px; margin-bottom:10px; display:block; }
+        .future-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#c0392b; margin-bottom:8px; }
+        .future-text { font-size:15px; line-height:1.7; color:#34495e; }
+
+        .source-note {
+            background:#f8f9fa; border-left:4px solid #7f8c8d;
+            border-radius:0 8px 8px 0; padding:12px 20px;
+            margin:15px 0; font-size:14px; font-style:italic; color:#5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background:linear-gradient(135deg,#4a1500 0%,#7d2d00 100%);
+            color:white; padding:35px 45px;
+        }
+        .footer-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px; margin-bottom:25px;
+        }
+        .footer-item { background:rgba(255,255,255,0.08); padding:18px; border-radius:12px; }
+        .footer-label { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:6px; }
+        .footer-value { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; }
+        .footer-nav { text-align:center; padding-top:20px; border-top:1px solid rgba(255,255,255,0.2); }
+        .nav-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:15px; }
+        .nav-link {
+            color:rgba(255,255,255,0.7); text-decoration:none;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+            padding:6px 13px; border:1px solid rgba(255,255,255,0.2); border-radius:20px; transition:all 0.3s;
+        }
+        .nav-link:hover { background:rgba(255,255,255,0.12); color:white; }
+        .nav-link.active { background:#e67e22; border-color:#e67e22; color:white; }
+        .author-note { font-size:13px; opacity:0.8; font-style:italic; text-align:center; }
+        @media(max-width:768px){ .content-section{padding:30px 20px;} .header-section{padding:35px 20px;} .section-title{font-size:26px;} .document-footer{padding:25px 20px;} }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4c5f0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#5b3a8e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:340px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">第6节 — 已更新</span>
+            <span class="section-icon">🔬</span>
+            <h1 class="section-title">讨论</h1>
+            <p class="section-subtitle">发现的解读、对产业和科学的启示、
+            与现有文献的比较，以及未来研究方向</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#2874a6;font-style:italic;margin-bottom:20px;">本文为已验证的西班牙语/英语原文译本。如有差异，以原文为准。</p>
+
+        <!-- 6.1 PARADIGM SHIFTS -->
+        <h2 class="section-heading"><span class="section-heading-num">6.1</span>AI作为多维环境问题：一场范式转变</h2>
+
+        <p class="body-text">
+            本研究的结果与最新研究（2023–2025年）相结合，证实
+            人工智能的环境影响不能再仅仅通过碳排放这一单一视角
+            来评估。从Strubell等人（2019年）的奠基性研究，到IEA
+            （2025年）和Nature Sustainability（Xiao等人，2025年）
+            的报告，累积的证据构成了一幅多维图景，要求产业界、
+            监管机构和社会转变对AI真实成本的评估方式。
+        </p>
+
+        <div class="paradigm-grid">
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 旧有范式</div>
+                    <p class="paradigm-text">AI的环境影响仅通过训练期间的CO₂排放来衡量</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 新科学框架</div>
+                    <p class="paradigm-text">CO₂+水资源+电子废弃物+矿产+生物多样性+推理+完整供应链</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 以往观点</div>
+                    <p class="paradigm-text">AI模型是"软件"——其影响主要是能源性的、暂时性的</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 已记录的现实</div>
+                    <p class="paradigm-text">AI需要庞大的实体基础设施，对水、土壤和生态系统造成永久性环境影响</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ 以往假设</div>
+                    <p class="paradigm-text">模型规模越大总是意味着价值越高；规模是一种无成本的优点</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ 科学证据</div>
+                    <p class="paradigm-text">R²=0.89证实了规模与排放量的相关性；像DeepSeek-R1这样的高效模型能以5–10倍更少的资源实现相近性能</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 COMPARACIÓN LITERATURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.2</span>与现有文献的比较及本研究的定位</h2>
+
+        <p class="body-text">
+            本论文在学术文献中占据独特的位置：它是首个将碳排放
+            测量方法论（继承自Strubell等人和Patterson等人）与
+            水资源影响的新数据（Li等人，2023年；de Vries-Gao，
+            2025年）、电子废弃物（Wang等人，2024年）以及矿产
+            供应链（施普林格·自然Carbon Neutral Systems，2025年）
+            整合到一个统一框架中，并配以公众可用的交互式计算
+            工具的研究。
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">本研究相对于现有科学文献的定位</div>
+            <table class="comp-table">
+                <thead>
+                    <tr><th>研究/来源</th><th>年份</th><th>CO₂</th><th>水资源</th><th>电子废弃物</th><th>矿产</th><th>公开工具</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Strubell等人</strong>（ACL 2019）</td><td>2019</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Patterson等人</strong>（Google，2021年）</td><td>2021</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Luccioni等人 BLOOM</strong>（2022年）</td><td>2022</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Li等人</strong> 水足迹（2023年）</td><td>2023</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Wang等人</strong> 电子废弃物 Nature（2024年）</td><td>2024</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>IEA Energy and AI</strong>（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Xiao等人</strong> Nature Sustainability（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>施普林格·自然 Carbon Neutral Systems</strong>（2025年）</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong style="color:#667eea;">本研究（Díaz Familia，2025–2026年）</strong></td><td><strong>2025–26</strong></td><td class="align-good">✓ + 计算器</td><td class="align-good">✓ 新增</td><td class="align-good">✓ 新增</td><td class="align-good">✓ 新增</td><td class="align-good">✓ 公开</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 各研究覆盖的维度 — 该领域的演变（2019–2026年）</div>
+            <div class="chart-canvas-wrap"><canvas id="chartCoverage"></canvas></div>
+        </div>
+
+        <div class="insight-box discovery">
+            <div class="insight-title">对该科学领域的原创贡献</div>
+            <p>
+                迄今为止，尚无已发表的研究将五大支柱（碳、水、
+                电子废弃物、矿产、生物多样性）整合到一个<em>
+                具有实证验证</em>的统一方法论框架中，并配以公开
+                的交互式计算工具。这一组合使本研究成为目前用于
+                评估AI模型综合环境影响的最完整框架。
+            </p>
+        </div>
+
+        <!-- 6.3 IMPLICACIONES INDUSTRIA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.3</span>对全球科技产业的启示</h2>
+
+        <p class="body-text">
+            本研究的发现对开发和部署AI模型的企业产生了直接而
+            具体的影响。在性能相当的模型之间，GPT-4
+            （1,820,000 kg CO₂）与Claude Sonnet（18,200 kg CO₂）
+            碳足迹相差100倍，这表明环境效率并非与技术性能相
+            冲突的目标——而是一种深思熟虑的设计选择。关于水
+            资源和矿产的新兴数据进一步印证了这一结论。
+        </p>
+
+        <div class="insight-box warning">
+            <div class="insight-title">追逐"更大模型"的竞赛在环境上不可持续</div>
+            <p>
+                对2018–2024年这段时期的分析显示，训练能耗从
+                AlexNet（2012年）到GPT-4（2023年）增长了约
+                30万倍。若设计架构不作改变，IEA关于数据中心
+                用电量将在2030年超过日本总需求的预测无疑是保守
+                的。DeepSeek-R1（2025年1月）证明，性能与GPT-4o
+                相当的模型可以用约少96%的计算资源进行训练，
+                这表明该行业出于营销原因而非技术必要性，将规模
+                置于效率之上。
+            </p>
+        </div>
+
+        <p class="body-text">
+            水资源影响的揭示——仅ChatGPT一项，估计每天消耗
+            1.48亿升水——从根本上改变了商业论证。为利用低廉
+            土地和能源成本而在水资源紧张地区选址数据中心的
+            企业，正在将成本外部化，转嫁给在企业决策中没有
+            话语权的当地社区和生态系统。这一模式已在智利、
+            西班牙、印度和美国西南部得到记录，构成了监管
+            框架尚未应对的一种新型环境负债。
+        </p>
+
+        <!-- 6.4 MARCO REGULATORIO -->
+        <h2 class="section-heading"><span class="section-heading-num">6.4</span>监管框架：进展与关键差距</h2>
+
+        <p class="body-text">
+            监管环境正在演变，但呈现出碎片化状态，速度远低于
+            行业扩张的步伐。以下进展代表了重要的推进，但也
+            揭示了亟待解决的差距：
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">全球监管框架现状（2024–2025年）</div>
+            <table class="comp-table">
+                <thead><tr><th>工具/法规</th><th>管辖范围</th><th>覆盖内容</th><th>已识别的差距</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>欧盟AI法案</strong></td><td>欧洲联盟</td>
+                        <td class="align-warn">风险、透明度</td>
+                        <td>不包括强制性环境报告</td>
+                    </tr>
+                    <tr>
+                        <td><strong>欧盟数据中心行为准则</strong></td><td>欧盟</td>
+                        <td class="align-good">自愿性PUE</td>
+                        <td>自愿性质；不涵盖AI的水资源和电子废弃物</td>
+                    </tr>
+                    <tr>
+                        <td><strong>第七届联合国环境大会议程项目</strong></td><td>全球（联合国）</td>
+                        <td class="align-good">水资源透明度</td>
+                        <td>仅列入议程；尚未具备强制性（2025年12月）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI行政命令（美国，2025年）</strong></td><td>美国</td>
+                        <td class="align-exceed">环境去监管化</td>
+                        <td>绕过数据中心的环境审查</td>
+                    </tr>
+                    <tr>
+                        <td><strong>中国AI治理指南</strong></td><td>中国</td>
+                        <td class="align-warn">安全、伦理</td>
+                        <td>不包括标准化环境报告</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GHG Protocol / ISO 14064</strong></td><td>全球</td>
+                        <td class="align-good">碳排放范围1-2-3</td>
+                        <td>无AI专用标准；缺失水资源和电子废弃物条款</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box positive">
+            <div class="insight-title">地平线上的积极信号</div>
+            <p>
+                Google于2025年发布了首个衡量Gemini每次推理查询
+                水资源和碳排放的详细方法论，为透明度树立了先例。
+                微软于2024年8月推出了首座投入运营的"零用水"数据
+                中心。第七届联合国环境大会已将数据中心环境透明度
+                列入2025年12月议程。康奈尔大学及其他院校已发布
+                详细的"路线图"，证明通过结合选址、效率提升和
+                清洁能源策略，实现73%的碳减排和86%的节水在技术上
+                是可行的。
+            </p>
+        </div>
+
+        <!-- 6.5 LIMITACIONES -->
+        <h2 class="section-heading"><span class="section-heading-num">6.5</span>研究局限性</h2>
+
+        <p class="body-text">
+            科学严谨性要求明确承认影响所呈现结果精确度的方法论
+            局限性。这些局限性并不推翻总体结论，而是界定了应
+            在其中解读结论的不确定性范围：
+        </p>
+
+        <ul class="limitations-list">
+            <li class="limitation-item">
+                <div class="limit-num">1</div>
+                <div>
+                    <div class="limit-title">产业不透明性</div>
+                    <p class="limit-text">
+                        主要模型开发商（OpenAI、Google、Anthropic、
+                        Meta）不公开有关所用硬件、GPU数量、准确训练
+                        时长或具体PUE系数的完整技术数据。本研究的
+                        估算基于可获得的公开数据、从技术出版物中
+                        推断的信息，以及与环境报告的交叉验证。随着
+                        信息披露的改善，计算数值将得以完善。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">2</div>
+                <div>
+                    <div class="limit-title">推理占据真实问题的80–90%</div>
+                    <p class="limit-text">
+                        本研究主要聚焦于训练阶段，因为这是最易测量
+                        的阶段。然而，据多方数据来源，推理（模型的
+                        日常使用）占AI总能耗的80–90%。计算推理的
+                        方法论更为复杂，可获得的数据也更为稀缺；
+                        这是一项已被承认的局限性，它界定了未来的
+                        研究方向。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">3</div>
+                <div>
+                    <div class="limit-title">水资源影响数据的差异性</div>
+                    <p class="limit-text">
+                        不同来源和方法论之间，每次查询的用水量数值
+                        差异可达100倍（每次查询5毫升对比519毫升）。
+                        这些差异反映了不同的测量范围（仅直接冷却对比
+                        完整生命周期）、模型代际、数据中心类型和地理
+                        位置的不同。本研究报告的是区间范围，而非单一
+                        数值，以诚实地反映这种不确定性。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">4</div>
+                <div>
+                    <div class="limit-title">技术变革的速度</div>
+                    <p class="limit-text">
+                        AI模型以数周为周期不断演进。今天准确的硬件
+                        和效率数据，几个月后可能部分过时。MoE架构、
+                        蒸馏模型以及效率更高的芯片（如NVIDIA的
+                        Blackwell）的出现持续改变着整体格局。建议
+                        每年对交互式计算器的数据进行审查更新。
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">5</div>
+                <div>
+                    <div class="limit-title">供应链：数据不完整</div>
+                    <p class="limit-text">
+                        关键矿产开采和加工的环境影响缺乏标准化、可
+                        比较的数据。矿业公司和芯片制造商很少发布
+                        方法论透明的完整生命周期数据。包头及类似
+                        地区的数据来自零散的学术研究，而非系统性的
+                        产业报告。
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 6.6 INVESTIGACIÓN FUTURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.6</span>未来研究方向</h2>
+
+        <p class="body-text">
+            已识别的局限性直接界定了未来几年可持续AI研究的
+            优先方向。该领域需要：
+        </p>
+
+        <div class="future-grid">
+            <div class="future-card">
+                <span class="future-icon">📐</span>
+                <div class="future-title">推理的标准方法论</div>
+                <p class="future-text">开发并验证一个类似于训练公式的方法，用于按查询类型、模型和云服务提供商估算推理的影响。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">💧</span>
+                <div class="future-title">按模型进行水资源审计</div>
+                <p class="future-text">建立协议，要求AI供应商依据标准化方法论（直接+间接+制造）报告每次查询的水资源消耗。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🌍</span>
+                <div class="future-title">对本地生态系统的影响</div>
+                <p class="future-text">在受数据中心影响的社区开展实地研究：智利、西班牙、印度、荷兰、弗吉尼亚州。量化对含水层、生物多样性和局地气温的影响。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🔄</span>
+                <div class="future-title">芯片的完整生命周期</div>
+                <p class="future-text">对AI用GPU进行标准化生命周期分析（LCA），涵盖制造、运行、回收和最终处置，采用制造商验证的数据。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🤖</span>
+                <div class="future-title">高效AI：架构相关性</div>
+                <p class="future-text">扩展相关性分析，纳入MoE架构、量化模型和边缘AI，建立各优化技术的排放削减系数。</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">⚖️</span>
+                <div class="future-title">环境正义与AI</div>
+                <p class="future-text">量化AI在全球北方（收益）与全球南方（开采及电子废弃物成本）之间收益与环境成本分配的不平等状况。</p>
+            </div>
+        </div>
+
+        <div class="source-note">
+            <strong>讨论综述：</strong> 本论文首次将AI环境影响的五个维度
+            （碳、水、电子废弃物、矿产、生物多样性）整合到一个具有实证
+            验证和公开工具的统一科学框架中。相似模型之间存在100倍的差异，
+            证实了环境效率是可以实现的，且取决于设计决策。关于推理、水
+            资源和供应链数据的不完整，并非科学上的局限——而是产业透明度
+            方面的失职，研究和监管必须予以纠正。
+        </div>
+
+    </div><!-- /content-section -->
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item"><div class="footer-label">章节</div><div class="footer-value">第6节 — 讨论（完整）</div></div>
+            <div class="footer-item"><div class="footer-label">子章节</div><div class="footer-value">6.1 – 6.6（范式、文献、产业、监管、局限性、未来）</div></div>
+            <div class="footer-item"><div class="footer-label">下一节</div><div class="footer-value">第7节 → 建议</div></div>
+            <div class="footer-item"><div class="footer-label">版本</div><div class="footer-value">1.0.0 — 2026年3月</div></div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">封面</a>
+                <a href="toc.html" class="nav-link">目录</a>
+                <a href="resumen.html" class="nav-link">摘要</a>
+                <a href="introduccion.html" class="nav-link">引言</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link active">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">参考文献</a>
+            </div>
+            <p class="author-note"><strong>Elizabeth Díaz Familia</strong> — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI | CC BY 4.0 国际</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.paradigm-card,.limitation-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['Strubell\n2019年','Patterson\n2021年','Luccioni\n2022年','Li等人\n2023年','Wang等人\n2024年','Xiao等人\n2025年','IEA\n2025年','施普林格·\n自然2025年','本研究\n2025-26年'],
+      datasets:[{
+        label:'覆盖维度数（共5项）',
+        data:[1,1,1,1,1,2,3,4,5],
+        backgroundColor:(ctx)=>{
+          const i = ctx.dataIndex;
+          return i===8 ? '#667eea' : '#bdc3c7';
+        },
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*100},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}/5个维度`}} },
+      scales:{ y:{beginAtZero:true, max:5, ticks:{stepSize:1}, title:{display:true,text:'维度（CO₂、水、电子废弃物、矿产、工具）'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

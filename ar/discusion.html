@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>القسم 6 — المناقشة | بحث علمي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Crimson Text',serif; line-height:1.8; color:#2c3e50;
+            background:linear-gradient(135deg,#fdf3e7 0%,#fde8c8 100%);
+            min-height:100vh; padding:40px 20px;
+        }
+        .container {
+            max-width:1100px; margin:0 auto; background:white;
+            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.1);
+            overflow:hidden; position:relative;
+        }
+        .container::before {
+            content:''; position:absolute; top:0; left:0;
+            width:100%; height:6px;
+            background:linear-gradient(90deg,#3498db,#2ecc71,#e74c3c,#f39c12);
+        }
+        /* HEADER */
+        .header-section {
+            background:linear-gradient(135deg,#c0392b 0%,#e67e22 50%,#f39c12 100%);
+            color:white; padding:50px 40px; text-align:center;
+            position:relative; overflow:hidden;
+        }
+        .header-section::before {
+            content:''; position:absolute; inset:0;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1.5'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+        }
+        .header-content { position:relative; z-index:2; }
+        .section-badge {
+            display:inline-block; background:rgba(255,255,255,0.2);
+            border:1px solid rgba(255,255,255,0.4); color:white;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:700;
+            letter-spacing:3px; text-transform:uppercase;
+            padding:6px 20px; border-radius:50px; margin-bottom:20px;
+        }
+        .section-icon { font-size:52px; margin-bottom:16px; display:block; }
+        .section-title {
+            font-family:'Inter',sans-serif; font-size:36px; font-weight:800;
+            margin-bottom:14px; text-shadow:0 2px 8px rgba(0,0,0,0.3);
+        }
+        .section-subtitle { font-size:18px; opacity:0.9; max-width:680px; margin:0 auto; line-height:1.5; }
+
+        /* CONTENT */
+        .content-section { padding:50px 45px; }
+
+        .section-heading {
+            font-family:'Inter',sans-serif; font-size:23px; font-weight:800;
+            color:#c0392b; margin:45px 0 18px; padding-bottom:12px;
+            border-bottom:3px solid #e67e22;
+            display:flex; align-items:center; gap:12px;
+        }
+        .section-heading-num {
+            background:linear-gradient(135deg,#c0392b,#e67e22);
+            color:white; font-size:14px; font-weight:700;
+            width:32px; height:32px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .body-text {
+            font-size:18px; line-height:1.9; color:#2c3e50;
+            margin-bottom:20px; text-align:justify;
+        }
+
+        /* PARADIGM SHIFTS */
+        .paradigm-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:20px; margin:30px 0;
+        }
+        .paradigm-card {
+            border-radius:16px; overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+        }
+        .paradigm-before {
+            background:linear-gradient(135deg,#fdecea,#fbd5d0);
+            padding:18px 20px;
+            border-left:4px solid #e74c3c;
+        }
+        .paradigm-arrow {
+            background:white; padding:8px 20px;
+            text-align:center; font-size:22px;
+            border-left:4px solid #ccc;
+        }
+        .paradigm-after {
+            background:linear-gradient(135deg,#eafaf1,#d5f5e3);
+            padding:18px 20px;
+            border-left:4px solid #27ae60;
+        }
+        .paradigm-label {
+            font-family:'Inter',sans-serif; font-size:11px;
+            font-weight:700; text-transform:uppercase; letter-spacing:1px;
+            margin-bottom:8px;
+        }
+        .paradigm-before .paradigm-label { color:#c0392b; }
+        .paradigm-after .paradigm-label { color:#1e8449; }
+        .paradigm-text { font-size:15px; line-height:1.6; color:#2c3e50; }
+
+        /* COMPARISON TABLE */
+        .comparison-wrap {
+            background:linear-gradient(135deg,#fff5ec 0%,#fde8cc 100%);
+            border:2px solid #e67e22; border-radius:16px;
+            padding:28px; margin:30px 0; overflow-x:auto;
+        }
+        .comparison-title {
+            font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
+            color:#c0392b; margin-bottom:18px; text-align:center;
+            text-transform:uppercase; letter-spacing:2px;
+        }
+        table.comp-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+        table.comp-table thead tr { background:linear-gradient(135deg,#c0392b,#e67e22); color:white; }
+        table.comp-table th { padding:12px 16px; text-align:left; font-size:13px; font-weight:700; }
+        table.comp-table td { padding:11px 16px; font-size:14px; border-bottom:1px solid #fcd3a1; color:#2c3e50; }
+        table.comp-table tr:nth-child(even) td { background:rgba(230,126,34,0.05); }
+        table.comp-table tr:hover td { background:rgba(230,126,34,0.1); }
+        .align-exceed { color:#e74c3c; font-weight:700; }
+        .align-good { color:#27ae60; font-weight:700; }
+        .align-warn { color:#d68910; font-weight:700; }
+
+        /* CALLOUT BOXES */
+        .insight-box {
+            border-radius:16px; padding:28px; margin:28px 0; position:relative;
+        }
+        .insight-box::before {
+            position:absolute; top:-14px; left:24px;
+            font-size:26px; background:white; padding:0 6px;
+        }
+        .insight-box.discovery { background:linear-gradient(135deg,#e8f6ff,#d0ecf8); border:2px solid #3498db; }
+        .insight-box.discovery::before { content:'🔍'; }
+        .insight-box.warning { background:linear-gradient(135deg,#fdecea,#fbd5d0); border:2px solid #e74c3c; }
+        .insight-box.warning::before { content:'⚠️'; }
+        .insight-box.positive { background:linear-gradient(135deg,#eafaf1,#d5f5e3); border:2px solid #27ae60; }
+        .insight-box.positive::before { content:'✅'; }
+
+        .insight-title {
+            font-family:'Inter',sans-serif; font-size:16px; font-weight:800;
+            margin-bottom:10px;
+        }
+        .insight-box.discovery .insight-title { color:#1a6fa8; }
+        .insight-box.warning .insight-title { color:#c0392b; }
+        .insight-box.positive .insight-title { color:#1a8449; }
+        .insight-box p { font-size:17px; line-height:1.8; color:#2c3e50; }
+
+        /* LIMITATIONS */
+        .limitations-list { list-style:none; margin:20px 0; }
+        .limitation-item {
+            display:grid; grid-template-columns:36px 1fr;
+            gap:14px; padding:16px 0;
+            border-bottom:1px dashed #fde8cc; align-items:start;
+        }
+        .limitation-item:last-child { border-bottom:none; }
+        .limit-num {
+            background:#e67e22; color:white;
+            font-family:'Inter',sans-serif; font-size:13px; font-weight:700;
+            width:30px; height:30px; border-radius:8px;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .limit-title { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:#c0392b; margin-bottom:5px; }
+        .limit-text { font-size:16px; line-height:1.7; color:#34495e; }
+
+        /* FUTURE RESEARCH */
+        .future-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:16px; margin:24px 0;
+        }
+        .future-card {
+            background:white; border:2px solid #fde8cc; border-radius:14px;
+            padding:22px; transition:all 0.3s ease;
+        }
+        .future-card:hover { border-color:#e67e22; transform:translateY(-4px); box-shadow:0 8px 24px rgba(230,126,34,0.15); }
+        .future-icon { font-size:26px; margin-bottom:10px; display:block; }
+        .future-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#c0392b; margin-bottom:8px; }
+        .future-text { font-size:15px; line-height:1.7; color:#34495e; }
+
+        .source-note {
+            background:#f8f9fa; border-left:4px solid #7f8c8d;
+            border-radius:0 8px 8px 0; padding:12px 20px;
+            margin:15px 0; font-size:14px; font-style:italic; color:#5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background:linear-gradient(135deg,#4a1500 0%,#7d2d00 100%);
+            color:white; padding:35px 45px;
+        }
+        .footer-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px; margin-bottom:25px;
+        }
+        .footer-item { background:rgba(255,255,255,0.08); padding:18px; border-radius:12px; }
+        .footer-label { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:6px; }
+        .footer-value { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; }
+        .footer-nav { text-align:center; padding-top:20px; border-top:1px solid rgba(255,255,255,0.2); }
+        .nav-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:15px; }
+        .nav-link {
+            color:rgba(255,255,255,0.7); text-decoration:none;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+            padding:6px 13px; border:1px solid rgba(255,255,255,0.2); border-radius:20px; transition:all 0.3s;
+        }
+        .nav-link:hover { background:rgba(255,255,255,0.12); color:white; }
+        .nav-link.active { background:#e67e22; border-color:#e67e22; color:white; }
+        .author-note { font-size:13px; opacity:0.8; font-style:italic; text-align:center; }
+        @media(max-width:768px){ .content-section{padding:30px 20px;} .header-section{padding:35px 20px;} .section-title{font-size:26px;} .document-footer{padding:25px 20px;} }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4c5f0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#5b3a8e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:340px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">القسم 6 — مُحدَّث</span>
+            <span class="section-icon">🔬</span>
+            <h1 class="section-title">المناقشة</h1>
+            <p class="section-subtitle">تفسير النتائج، الآثار على القطاع والعلم،
+            مقارنة بالأدبيات الموجودة، وخطوط البحث المستقبلية</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#667eea;font-style:italic;margin-bottom:20px;">ترجمة للنص الأصلي الموثّق بالإسبانية/الإنجليزية. في حال وجود أي تباين، يُعتمد النص الأصلي.</p>
+
+        <!-- 6.1 PARADIGM SHIFTS -->
+        <h2 class="section-heading"><span class="section-heading-num">6.1</span>الذكاء الاصطناعي كمشكلة بيئية متعددة الأبعاد: تحوّل في النموذج</h2>
+
+        <p class="body-text">
+            تُؤكّد نتائج هذه الدراسة، المُدمَجة مع أحدث الأبحاث (2023–2025)، أن الأثر
+            البيئي للذكاء الاصطناعي لا يمكن أن يستمر تقييمه فقط من خلال منظور
+            الكربون. تُقيم الأدلة المتراكمة منذ العمل التأسيسي لـStrubell وزملائه
+            (2019) وحتى تقارير IEA (2025) وNature Sustainability (Xiao وزملاؤه،
+            2025) صورة متعددة الأبعاد تتطلّب تحوّلاً في كيفية تقييم القطاع
+            والجهات التنظيمية والمجتمع للتكلفة الحقيقية للذكاء الاصطناعي.
+        </p>
+
+        <div class="paradigm-grid">
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ النموذج السابق</div>
+                    <p class="paradigm-text">يُقاس الأثر البيئي للذكاء الاصطناعي حصرياً بانبعاثات CO₂ أثناء التدريب</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ الإطار العلمي الجديد</div>
+                    <p class="paradigm-text">CO₂ + المياه + النفايات الإلكترونية + المعادن + التنوع البيولوجي + الاستدلال + سلسلة التوريد الكاملة</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ الرؤية السابقة</div>
+                    <p class="paradigm-text">نماذج الذكاء الاصطناعي هي "برمجيات" — أثرها طاقي وعابر بشكل أساسي</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ الواقع الموثّق</div>
+                    <p class="paradigm-text">يتطلّب الذكاء الاصطناعي بنية تحتية فعلية ضخمة ذات آثار بيئية دائمة على المياه والتربة والأنظمة البيئية</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ الافتراض السابق</div>
+                    <p class="paradigm-text">حجم النموذج الأكبر يعني دائماً قيمة أكبر؛ الحجم فضيلة بلا تكلفة</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ الدليل العلمي</div>
+                    <p class="paradigm-text">R²=0.89 يُؤكّد الارتباط بين الحجم والانبعاثات؛ تُحقّق نماذج فعّالة مثل DeepSeek-R1 أداءً مماثلاً بموارد أقل بـ5–10 مرات</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 COMPARACIÓN LITERATURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.2</span>مقارنة بالأدبيات الموجودة وموقع الدراسة</h2>
+
+        <p class="body-text">
+            يحتلّ هذا البحث موقعاً فريداً ضمن المتن الأكاديمي: إنه الأول
+            الذي يُدمج منهجية قياس الكربون (وريث Strubell وزملائه وPatterson
+            وزملائه) مع البيانات الجديدة عن الأثر المائي (Li وزملاؤه، 2023؛
+            de Vries-Gao، 2025)، والنفايات الإلكترونية (Wang وزملاؤه، 2024)،
+            وسلسلة التوريد المعدنية (Springer Nature Carbon Neutral Systems،
+            2025) في إطار متماسك وأداة حسابية تفاعلية متاحة للجمهور.
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">موقع الدراسة مقارنة بالأدبيات العلمية الموجودة</div>
+            <table class="comp-table">
+                <thead>
+                    <tr><th>الدراسة / المصدر</th><th>السنة</th><th>CO₂</th><th>المياه</th><th>النفايات الإلكترونية</th><th>المعادن</th><th>أداة عامة</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Strubell وزملاؤه</strong> (ACL 2019)</td><td>2019</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Patterson وزملاؤه</strong> (Google، 2021)</td><td>2021</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Luccioni وزملاؤه BLOOM</strong> (2022)</td><td>2022</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Li وزملاؤه</strong> Water Footprint (2023)</td><td>2023</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Wang وزملاؤه</strong> E-waste Nature (2024)</td><td>2024</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>IEA Energy and AI</strong> (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Xiao وزملاؤه</strong> Nature Sustainability (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Springer Nature Carbon Neutral Systems</strong> (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong style="color:#667eea;">هذه الدراسة (Díaz Familia، 2025–2026)</strong></td><td><strong>2025–26</strong></td><td class="align-good">✓ + حاسبة</td><td class="align-good">✓ جديد</td><td class="align-good">✓ جديد</td><td class="align-good">✓ جديد</td><td class="align-good">✓ عامة</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 الأبعاد المشمولة حسب الدراسة — تطور المجال (2019–2026)</div>
+            <div class="chart-canvas-wrap"><canvas id="chartCoverage"></canvas></div>
+        </div>
+
+        <div class="insight-box discovery">
+            <div class="insight-title">مساهمة أصلية في المجال العلمي</div>
+            <p>
+                لا تُدمج أي دراسة منشورة حتى تاريخه الأركان الخمسة (الكربون، المياه،
+                النفايات الإلكترونية، المعادن، التنوع البيولوجي) في إطار منهجي
+                واحد <em>مع تحقق تجريبي</em> وأداة حسابية عامة تفاعلية. يضع هذا
+                الجمع هذا العمل كأشمل إطار متاح لتقييم الأثر البيئي الشامل
+                لنماذج الذكاء الاصطناعي.
+            </p>
+        </div>
+
+        <!-- 6.3 IMPLICACIONES INDUSTRIA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.3</span>الآثار على قطاع التكنولوجيا العالمي</h2>
+
+        <p class="body-text">
+            لنتائج هذه الدراسة تبعات مباشرة وملموسة على الشركات التي تُطوّر
+            وتنشر نماذج الذكاء الاصطناعي. يُثبت الفرق البالغ ×100 في البصمة
+            الكربونية بين GPT-4 (1,820,000 كغ CO₂) وClaude Sonnet (18,200 كغ
+            CO₂) لأداء مماثل أن الكفاءة البيئية ليست هدفاً متعارضاً مع الأداء
+            التقني — بل خيار تصميم متعمّد. تُعزّز البيانات الناشئة عن المياه
+            والمعادن هذا الاستنتاج.
+        </p>
+
+        <div class="insight-box warning">
+            <div class="insight-title">سباق "النموذج الأكبر" غير مستدام بيئياً</div>
+            <p>
+                يُظهر تحليل الفترة 2018–2024 أن استهلاك الطاقة للتدريب نما
+                بحوالي ×300,000 من AlexNet (2012) إلى GPT-4 (2023). دون تغييرات
+                في معمارية التصميم، فإن توقع IEA بأن استهلاك الكهرباء لمراكز
+                البيانات سيتجاوز إجمالي طلب اليابان بحلول 2030 هو حتماً
+                متحفظ. أثبت DeepSeek-R1 (يناير 2025) أن النماذج ذات الأداء
+                المماثل لـGPT-4o يمكن تدريبها بموارد حسابية أقل بنسبة ~96%،
+                مما يُشير إلى أن القطاع أعطى الأولوية للحجم على الكفاءة
+                لأسباب تسويقية، لا لضرورة تقنية.
+            </p>
+        </div>
+
+        <p class="body-text">
+            يُغيّر الكشف عن الأثر المائي — 148 مليون لتر يومياً مُقدَّرة
+            لـChatGPT وحده — الحجة التجارية بشكل جذري. الشركات التي تُوطّن
+            مراكز البيانات في مناطق الإجهاد المائي للاستفادة من انخفاض تكاليف
+            الأرض والطاقة تُصدّر تكلفة تقع على المجتمعات المحلية والأنظمة
+            البيئية التي ليس لها تمثيل في القرارات المؤسسية. يُشكّل هذا
+            النمط، الموثّق في تشيلي وإسبانيا والهند وجنوب غرب الولايات
+            المتحدة، شكلاً جديداً من الالتزام البيئي لم تُعالجه الأطر
+            التنظيمية بعد.
+        </p>
+
+        <!-- 6.4 MARCO REGULATORIO -->
+        <h2 class="section-heading"><span class="section-heading-num">6.4</span>الإطار التنظيمي: التقدم والفجوات الحرجة</h2>
+
+        <p class="body-text">
+            المشهد التنظيمي يتطوّر، لكن بشكل مجزّأ وبسرعة أقل بكثير من
+            وتيرة توسع القطاع. تُمثّل التطورات التالية تقدماً كبيراً، لكنها
+            تكشف أيضاً الفجوات التي يجب معالجتها:
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">حالة الإطار التنظيمي العالمي (2024–2025)</div>
+            <table class="comp-table">
+                <thead><tr><th>الأداة / التنظيم</th><th>الولاية القضائية</th><th>النطاق</th><th>الفجوة المُحدَّدة</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>EU AI Act</strong></td><td>الاتحاد الأوروبي</td>
+                        <td class="align-warn">المخاطر، الشفافية</td>
+                        <td>لا يشمل الإبلاغ البيئي الإلزامي</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EU Data Centre Code of Conduct</strong></td><td>الاتحاد الأوروبي</td>
+                        <td class="align-good">PUE طوعي</td>
+                        <td>طوعي؛ لا يغطي المياه أو النفايات الإلكترونية للذكاء الاصطناعي</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UNEA-7 Agenda Item</strong></td><td>عالمي (الأمم المتحدة)</td>
+                        <td class="align-good">شفافية المياه</td>
+                        <td>مجرد جدول أعمال؛ دون إلزام بعد (ديسمبر 2025)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Executive Order on AI (الولايات المتحدة، 2025)</strong></td><td>الولايات المتحدة</td>
+                        <td class="align-exceed">إلغاء التنظيم البيئي</td>
+                        <td>يتجاوز المراجعات البيئية لمراكز البيانات</td>
+                    </tr>
+                    <tr>
+                        <td><strong>China AI Governance Guidelines</strong></td><td>الصين</td>
+                        <td class="align-warn">الأمان، الأخلاقيات</td>
+                        <td>لا يشمل إبلاغاً بيئياً معيارياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GHG Protocol / ISO 14064</strong></td><td>عالمي</td>
+                        <td class="align-good">الكربون النطاقات 1-2-3</td>
+                        <td>لا معيار محدد للذكاء الاصطناعي؛ المياه والنفايات الإلكترونية غائبة</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box positive">
+            <div class="insight-title">إشارات إيجابية في الأفق</div>
+            <p>
+                نشرت Google عام 2025 أول منهجية مفصّلة لقياس المياه والكربون
+                لكل استعلام استدلال في Gemini، مُرسّخةً سابقة شفافية.
+                أطلقت Microsoft أول مركز بيانات "صفر مياه" تشغيلي في أغسطس
+                2024. أدرجت UNEA-7 الشفافية البيئية لمراكز البيانات في
+                جدول أعمالها لديسمبر 2025. نشرت Cornell وجامعات أخرى
+                "خرائط طريق" مفصّلة تُثبت أن تخفيضات بنسبة 73% في الكربون
+                و86% في المياه قابلة للتحقيق تقنياً باستراتيجيات مجتمعة
+                للتوطين والكفاءة والطاقة النظيفة.
+            </p>
+        </div>
+
+        <!-- 6.5 LIMITACIONES -->
+        <h2 class="section-heading"><span class="section-heading-num">6.5</span>حدود الدراسة</h2>
+
+        <p class="body-text">
+            تتطلّب النزاهة العلمية الاعتراف صراحةً بالحدود المنهجية
+            التي تؤثّر على دقة النتائج المعروضة. لا تُبطل هذه الحدود
+            الاستنتاجات العامة، بل تُحدّد هوامش عدم اليقين التي يجب
+            تفسيرها ضمنها:
+        </p>
+
+        <ul class="limitations-list">
+            <li class="limitation-item">
+                <div class="limit-num">1</div>
+                <div>
+                    <div class="limit-title">عدم شفافية القطاع</div>
+                    <p class="limit-text">
+                        لا يُنشر مطوّرو النماذج الرئيسيون (OpenAI، Google، Anthropic،
+                        Meta) بيانات تقنية كاملة عن العتاد المستخدم، وعدد وحدات
+                        معالجة الرسوميات، والمدة الدقيقة للتدريب، أو عوامل PUE
+                        المحددة. تستند تقديرات هذه الدراسة إلى البيانات العامة
+                        المتاحة، والاستدلالات من المنشورات التقنية، والتحقق
+                        المتقاطع مع التقارير البيئية. مع تحسّن الإفصاح، يمكن
+                        تحسين القيم المحسوبة.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">2</div>
+                <div>
+                    <div class="limit-title">الاستدلال يمثّل 80–90% من المشكلة الحقيقية</div>
+                    <p class="limit-text">
+                        تُركّز هذه الدراسة بشكل أساسي على التدريب، وهو المرحلة
+                        الأكثر قابلية للقياس. لكن الاستدلال (الاستخدام اليومي
+                        للنماذج) يُمثّل 80–90% من إجمالي حساب الذكاء الاصطناعي
+                        وفقاً لمصادر متعددة. منهجية حساب الاستدلال أكثر تعقيداً
+                        والبيانات المتاحة أكثر ندرة؛ هذا حدّ معترف به يُحدّد
+                        جدول أعمال البحث المستقبلي.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">3</div>
+                <div>
+                    <div class="limit-title">التفاوت في بيانات الأثر المائي</div>
+                    <p class="limit-text">
+                        تتفاوت قيم استهلاك المياه لكل استعلام حتى ×100 بين
+                        مصادر ومنهجيات مختلفة (5 مل مقابل 519 مل لكل استعلام).
+                        تعكس هذه الفروقات نطاقات قياس مختلفة (تبريد مباشر فقط
+                        مقابل دورة حياة كاملة)، وأجيال النماذج، وأنواع مراكز
+                        البيانات، والمواقع الجغرافية. تُبلّغ هذه الدراسة عن
+                        نطاقات، لا قيم فردية، لتعكس هذا التفاوت بصدق.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">4</div>
+                <div>
+                    <div class="limit-title">سرعة التغيير التقني</div>
+                    <p class="limit-text">
+                        تتطوّر نماذج الذكاء الاصطناعي في دورات أسبوعية. قد
+                        تُصبح بيانات العتاد والكفاءة الدقيقة اليوم قديمة جزئياً
+                        خلال أشهر. يُغيّر ظهور معماريات MoE، والنماذج المُقطَّرة،
+                        والرقائق ذات الكفاءة المحسّنة (مثل Blackwell من NVIDIA)
+                        المشهد باستمرار. يُوصى بمراجعة سنوية لبيانات الحاسبة
+                        التفاعلية.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">5</div>
+                <div>
+                    <div class="limit-title">سلسلة التوريد: بيانات غير مكتملة</div>
+                    <p class="limit-text">
+                        يفتقر الأثر البيئي لاستخراج ومعالجة المعادن الحرجة
+                        إلى بيانات موحّدة وقابلة للمقارنة. نادراً ما تُنشر
+                        شركات التعدين ومصنّعو الرقائق بيانات دورة حياة كاملة
+                        بمنهجية شفافة. تأتي بيانات Baotou وحالات مشابهة من
+                        أبحاث أكاديمية منفردة، وليس من تقارير قطاعية منهجية.
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 6.6 INVESTIGACIÓN FUTURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.6</span>خطوط البحث المستقبلية</h2>
+
+        <p class="body-text">
+            تُحدّد الحدود المُحدَّدة مباشرة أولويات بحوث الذكاء الاصطناعي
+            المستدام للسنوات القادمة. يحتاج هذا المجال إلى:
+        </p>
+
+        <div class="future-grid">
+            <div class="future-card">
+                <span class="future-icon">📐</span>
+                <div class="future-title">منهجية معيارية للاستدلال</div>
+                <p class="future-text">تطوير والتحقق من صيغة مماثلة لتلك الخاصة بالتدريب لتقدير أثر الاستدلال حسب نوع الاستعلام والنموذج ومزوّد السحابة.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">💧</span>
+                <div class="future-title">تدقيق مائي حسب النموذج</div>
+                <p class="future-text">وضع بروتوكولات ليُبلّغ مزوّدو الذكاء الاصطناعي عن استهلاك المياه لكل استعلام بمنهجية موحّدة (مباشرة + غير مباشرة + التصنيع).</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🌍</span>
+                <div class="future-title">الأثر على الأنظمة البيئية المحلية</div>
+                <p class="future-text">دراسات ميدانية في المجتمعات المتأثرة بمراكز البيانات: تشيلي، إسبانيا، الهند، هولندا، فرجينيا. تحديد كمية الآثار على طبقات المياه الجوفية والتنوع البيولوجي ودرجة الحرارة المحلية.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🔄</span>
+                <div class="future-title">دورة الحياة الكاملة للرقائق</div>
+                <p class="future-text">تحليل دورة حياة موحّد (LCA) لوحدات معالجة الرسوميات للذكاء الاصطناعي يشمل التصنيع والتشغيل وإعادة التدوير والتخلص النهائي، ببيانات موثّقة من المصنّعين.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🤖</span>
+                <div class="future-title">ذكاء اصطناعي فعّال: ارتباطات المعمارية</div>
+                <p class="future-text">توسيع تحليل الارتباط ليشمل معماريات MoE، والنماذج المُكمَّمة، وذكاء الحافة، مع وضع عوامل خفض الانبعاثات حسب تقنية التحسين.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">⚖️</span>
+                <div class="future-title">العدالة البيئية والذكاء الاصطناعي</div>
+                <p class="future-text">تحديد كمية التوزيع غير المتكافئ للمنافع مقابل التكاليف البيئية للذكاء الاصطناعي بين الشمال العالمي (المنافع) والجنوب العالمي (التكاليف الاستخراجية وتكاليف النفايات الإلكترونية).</p>
+            </div>
+        </div>
+
+        <div class="source-note">
+            <strong>توليف المناقشة:</strong> يُدمج هذا البحث لأول مرة نواقل الأثر البيئي الخمسة للذكاء الاصطناعي (الكربون، المياه، النفايات الإلكترونية، المعادن، التنوع البيولوجي) في إطار علمي واحد مع تحقق تجريبي وأداة عامة. يُؤكّد الفرق البالغ ×100 بين نماذج متشابهة أن الكفاءة البيئية ممكنة وتعتمد على قرارات التصميم. غياب البيانات الكاملة عن الاستدلال والمياه وسلسلة التوريد ليس حداً علمياً — بل فشل في شفافية القطاع يجب على البحث والتنظيم تصحيحه.
+        </div>
+
+    </div><!-- /content-section -->
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item"><div class="footer-label">القسم</div><div class="footer-value">6 — المناقشة (كاملة)</div></div>
+            <div class="footer-item"><div class="footer-label">الأقسام الفرعية</div><div class="footer-value">6.1 – 6.6 (النماذج، الأدبيات، القطاع، التنظيم، الحدود، المستقبل)</div></div>
+            <div class="footer-item"><div class="footer-label">التالي</div><div class="footer-value">القسم 7 → التوصيات</div></div>
+            <div class="footer-item"><div class="footer-label">الإصدار</div><div class="footer-value">1.0.0 — مارس 2026</div></div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">الغلاف</a>
+                <a href="toc.html" class="nav-link">الفهرس</a>
+                <a href="resumen.html" class="nav-link">الملخص</a>
+                <a href="introduccion.html" class="nav-link">المقدمة</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link active">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">المراجع</a>
+            </div>
+            <p class="author-note"><strong>Elizabeth Díaz Familia</strong> — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI | CC BY 4.0 دولية</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.paradigm-card,.limitation-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['Strubell\n2019','Patterson\n2021','Luccioni\n2022','Li وزملاؤه\n2023','Wang وزملاؤه\n2024','Xiao وزملاؤه\n2025','IEA\n2025','Springer\nNature 2025','هذه الدراسة\n2025-26'],
+      datasets:[{
+        label:'الأبعاد المشمولة (من 5)',
+        data:[1,1,1,1,1,2,3,4,5],
+        backgroundColor:(ctx)=>{
+          const i = ctx.dataIndex;
+          return i===8 ? '#667eea' : '#bdc3c7';
+        },
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*100},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}/5 أبعاد`}} },
+      scales:{ y:{beginAtZero:true, max:5, ticks:{stepSize:1}, title:{display:true,text:'الأبعاد (CO₂، المياه، النفايات الإلكترونية، المعادن، الأداة)'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

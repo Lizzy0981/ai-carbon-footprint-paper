@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Bölüm 3 — Yapay Zekanın Su Etkisi | Bilimsel Makale</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #1a6fa8 0%, #0d4f8a 50%, #2980b9 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0 40 Q20 10 40 40 Q60 70 80 40 L80 80 L0 80 Z'/%3E%3C/svg%3E") repeat-x bottom;
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 bottom; }
+            100% { background-position: 160px bottom; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+            animation: droplet 3s ease-in-out infinite;
+        }
+
+        @keyframes droplet {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* INTRO CALLOUT */
+        .crisis-callout {
+            background: linear-gradient(135deg, #ebf5ff 0%, #d6ecff 100%);
+            border-left: 6px solid #1a6fa8;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px; left: 20px;
+            font-size: 24px;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .crisis-callout p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #1a3a5c;
+        }
+
+        .crisis-callout strong { color: #0d4f8a; }
+
+        /* STATS GRID */
+        .water-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .water-stat {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0fa 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .water-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(52,152,219,0.25);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a6fa8;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #5d8aa8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-source {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a6fa8;
+            margin: 45px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* BODY TEXT */
+        .body-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* WATER JOURNEY */
+        .water-journey {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .journey-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.15);
+        }
+
+        .journey-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .journey-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journey-card-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .journey-card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #2980b9;
+            background: #ebf5ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* PER QUERY TABLE */
+        .query-table-wrap {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .query-table-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table.water-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table.water-table thead tr {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+        }
+
+        table.water-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        table.water-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #d6ecff;
+            color: #2c3e50;
+        }
+
+        table.water-table tr:nth-child(even) td { background: rgba(52,152,219,0.05); }
+        table.water-table tr:hover td { background: rgba(52,152,219,0.1); }
+
+        .highlight-red { color: #e74c3c; font-weight: 700; }
+        .highlight-orange { color: #e67e22; font-weight: 700; }
+        .highlight-green { color: #27ae60; font-weight: 700; }
+
+        /* REGIONS BOX */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .region-card {
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .region-card.crisis {
+            background: linear-gradient(135deg, #fdecea 0%, #fbd5d0 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .region-card.warning {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdeabf 100%);
+            border: 2px solid #f39c12;
+        }
+
+        .region-card.monitor {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+        }
+
+        .region-flag { font-size: 28px; margin-bottom: 8px; display: block; }
+
+        .region-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-card.crisis .region-name { color: #c0392b; }
+        .region-card.warning .region-name { color: #d68910; }
+        .region-card.monitor .region-name { color: #1e8449; }
+
+        .region-detail { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea 0%, #fad7d0 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute;
+            top: -18px; left: 30px;
+            font-size: 30px;
+            background: white;
+            padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #c0392b;
+            margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        /* COMPARISON BOX */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 640px) { .comparison-container { grid-template-columns: 1fr; } }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fdecea, #fbd5d0);
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-card.good {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #27ae60;
+        }
+
+        .comparison-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card.bad .comparison-label { color: #c0392b; }
+        .comparison-card.good .comparison-label { color: #1e8449; }
+
+        .comparison-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.bad .comparison-number { color: #e74c3c; }
+        .comparison-card.good .comparison-number { color: #27ae60; }
+
+        .comparison-desc { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(52,152,219,0.15);
+        }
+
+        .solution-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* NOTE */
+        .source-note {
+            background: #f8f9fa;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
+            color: white;
+            padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .footer-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .nav-link.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .author-note {
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+
+        @media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+    
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Bölüm 3 — Yeni</span>
+            <span class="section-icon">💧</span>
+            <h1 class="section-title">Yapay Zekanın Su Etkisi</h1>
+            <p class="section-subtitle">
+                Sessiz kriz: yapay zeka modelleri gezegenin en kıt kaynağını nasıl tüketiyor,
+                buharlaştırıyor ve onun için rekabet ediyor
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;margin-bottom:20px;">Doğrulanmış ES/EN orijinalinin çevirisidir. Herhangi bir farklılık durumunda orijinal metin geçerlidir.</p>
+
+        <!-- INTRO CALLOUT -->
+        <div class="crisis-callout">
+            <p>
+                Yapay zeka ve çevre üzerine kamuoyu tartışması ağırlıklı olarak CO₂ emisyonlarına
+                odaklanırken, <strong>neredeyse görünmez kalan paralel bir kriz</strong> var:
+                veri merkezleri tarafından tatlı ve içme suyunun kitlesel tüketimi.
+                2023'te, yalnızca GPT-3'ün Microsoft'un merkezlerinde eğitimi doğrudan
+                <strong>700.000 litre tatlı su</strong> buharlaştırdı — bu, 1.400 kişiyi bir gün
+                boyunca besleyecek miktardır. Ve bu sadece iki yıl önce tek bir model.
+            </p>
+        </div>
+
+        <!-- KEY STATS -->
+        <div class="water-stats">
+            <div class="water-stat">
+                <span class="stat-number">700.000 L</span>
+                <span class="stat-label">GPT-3 Eğitimi</span>
+                <span class="stat-source">Li ve ark., arXiv:2304.03271 (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">312 – 764 Milyar L</span>
+                <span class="stat-label">2025 Küresel Yapay Zeka Su Ayak İzi</span>
+                <span class="stat-source">de Vries-Gao, Cell Reports Sustainability (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1.068 Milyar L</span>
+                <span class="stat-label">Küresel Yapay Zeka Projeksiyonu — 2028</span>
+                <span class="stat-source">Morgan Stanley Research (2024)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">~500 mL</span>
+                <span class="stat-label">Her 20–50 ChatGPT sorgusu için</span>
+                <span class="stat-source">Li ve ark. / Univ. California Riverside (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">148 M L/gün</span>
+                <span class="stat-label">ChatGPT tahmini günlük tüketim (2025)</span>
+                <span class="stat-source">Business Energy UK (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">0.26 mL</span>
+                <span class="stat-label">Gemini sorgusu başına (Google, 2025)</span>
+                <span class="stat-source">Google Environmental Report (2025)</span>
+            </div>
+        </div>
+
+        <!-- 3.1 CÓMO SE USA EL AGUA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.1</span>
+            Veri Merkezleri Suyu Nasıl Tüketiyor
+        </h2>
+
+        <p class="body-text">
+            Su, yapay zekanın yalnızca tesadüfi bir yan ürünü değildir — soğutma sistemlerinin
+            dakikalar içinde arızalanacağı kritik bir işletim girdisidir. Modern sunucuların
+            enerji talebi büyük ısı üretir: bir NVIDIA H100 GPU, sürekli olarak 700W'a kadar
+            termal ısı yayar. Onlarca bin GPU'nun paralel çalıştığı veri merkezi ölçeğinde,
+            bu ısının sürekli olarak uzaklaştırılması gerekir.
+        </p>
+
+        <div class="water-journey">
+            <div class="journey-card">
+                <span class="journey-card-icon">🌊</span>
+                <div class="journey-card-title">Buharlaştırmalı Soğutma</div>
+                <p class="journey-card-text">
+                    En yaygın yöntem: tatlı su ısıyı emerek dolaşır ve ardından
+                    soğutma kulelerinde buharlaşır. Su, yerel su sistemine
+                    <em>geri dönmez</em> — atmosferde kaybolur.
+                </p>
+                <span class="journey-card-data">Tüketilen kWh başına ~1.9 L su (küresel ortalama WUE)</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">⚡</span>
+                <div class="journey-card-title">Dolaylı Su (Elektrik Üretimi)</div>
+                <p class="journey-card-text">
+                    Veri merkezlerine elektrik sağlayan termik santraller, buhar üretimi ve
+                    soğutma için su gerektirir. ABD'de elektrik üretimi, kWh başına
+                    43.8 L su çekmekte ve 3.1 L tüketmektedir.
+                </p>
+                <span class="journey-card-data">ABD dolaylı ayak izi: ~800 milyar L/yıl</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏭</span>
+                <div class="journey-card-title">Çip Üretimi</div>
+                <p class="journey-card-text">
+                    Yarı iletkenler, üretimleri sırasında büyük miktarlarda ultra saf su
+                    gerektirir. Apple, toplam su ayak izinin %99'unun doğrudan operasyonlarından
+                    değil, tedarik zincirinden kaynaklandığını bildiriyor.
+                </p>
+                <span class="journey-card-data">Düşük geri dönüşüm oranı; toksik atık potansiyeli</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏗️</span>
+                <div class="journey-card-title">Altyapı İnşaatı</div>
+                <p class="journey-card-text">
+                    Her yeni veri merkezi, inşaatı ve peyzaj ile iklim kontrol sistemleri
+                    için su gerektirir. Virginia, Teksas ve Nevada'daki genişleme
+                    projeleri, yerel toplulukların su kaynaklarını emiyor.
+                </p>
+                <span class="journey-card-data">Teksas: 2025'te 49 milyar galon/yıl (HARC/Univ. Houston)</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Eğitimde Su Tüketimi — GPT-3 (175B)</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartTrainingWater"></canvas></div>
+        </div>
+
+        <!-- 3.2 CONSUMO POR CONSULTA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.2</span>
+            Sorgu ve Modele Göre Su Tüketimi
+        </h2>
+
+        <p class="body-text">
+            Bir yapay zeka sorgusunun tükettiği suyun kesin nicelleştirilmesi aktif bir araştırma
+            alanıdır ve değerler metodolojiye, modele ve belirli veri merkezine göre değişir.
+            Aşağıdaki tablo, bilimsel literatürden ve doğrulanmış kurumsal raporlardan en çok
+            atıfta bulunulan verileri bir araya getirmektedir:
+        </p>
+
+        <div class="query-table-wrap">
+            <div class="query-table-title">Yapay Zeka Aktivite Türüne Göre Su Tüketimi</div>
+            <table class="water-table">
+                <thead>
+                    <tr>
+                        <th>Aktivite / Model</th>
+                        <th>Tahmini Tüketim</th>
+                        <th>Su Türü</th>
+                        <th>Kaynak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GPT-3 Eğitimi (175B parametre)</td>
+                        <td class="highlight-red">700.000 litre</td>
+                        <td>Tatlı içme suyu</td>
+                        <td>Li ve ark. (2023) / UC Riverside</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-3 Eğitimi — toplam tahmin</td>
+                        <td class="highlight-red">5.400.000 litre</td>
+                        <td>Doğrudan + dolaylı</td>
+                        <td>Li ve ark., arXiv:2304.03271 (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — kısa sorgu başına (operasyonel)</td>
+                        <td class="highlight-orange">~5 mL</td>
+                        <td>Doğrudan soğutma</td>
+                        <td>Goedecke, teknik analiz (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 100 kelime üretimi başına</td>
+                        <td class="highlight-orange">~519 mL</td>
+                        <td>Tam yaşam döngüsü</td>
+                        <td>Li ve ark. / EESI (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 20–50 soru başına</td>
+                        <td class="highlight-orange">500 mL (1 şişe)</td>
+                        <td>Doğrudan soğutma</td>
+                        <td>Washington Post / Verma (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — küresel günlük tüketim (2025)</td>
+                        <td class="highlight-red">148.000.000 litre</td>
+                        <td>Toplam tahmin</td>
+                        <td>Business Energy UK (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Gemini — sorgu başına</td>
+                        <td class="highlight-green">0.26 mL (5 damla)</td>
+                        <td>Operasyonel</td>
+                        <td>Google Environmental Report (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Araması (yapay zekasız)</td>
+                        <td class="highlight-green">0.2–0.5 mL</td>
+                        <td>Operasyonel</td>
+                        <td>çoklu birleştirilmiş kaynaklar</td>
+                    </tr>
+                    <tr>
+                        <td>Yapay Zeka Görüntü Üretimi (1024×1024)</td>
+                        <td class="highlight-orange">~15 mL tahmini</td>
+                        <td>Yoğun GPU soğutması</td>
+                        <td>Görüntü başına kWh'den türetilmiş tahmin</td>
+                    </tr>
+                    <tr>
+                        <td>Google Santiago de Chile — veri merkezi</td>
+                        <td class="highlight-red">7.600.000 L/gün</td>
+                        <td>Belediye içme suyu</td>
+                        <td>Şili yargı sunumları (2024)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>Metodolojik not:</strong> Verilerdeki farklılıklar, ölçüm kapsamındaki farklılıkları
+            (sadece doğrudan soğutma vs. tam yaşam döngüsü), model neslini, altyapı türünü ve
+            veri merkezinin coğrafi konumunu yansıtır. Tam yaşam döngüsü değerleri, doğrudan operasyonel
+            değerlerin 30–100 katıdır.
+        </div>
+
+        <!-- 3.3 CRISIS GEOGRÁFICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.3</span>
+            Coğrafi Krizler: Su Stresi Bölgelerindeki Veri Merkezleri
+        </h2>
+
+        <p class="body-text">
+            Yapay zekanın su etkisinin en kritik yönlerinden biri, dünyanın 9.000'den fazla
+            veri merkezinin neredeyse <strong>yarısının yüksek su stresi bölgelerinde</strong>
+            bulunmasıdır (Morgan Stanley Research, 2024). Bu, bu sistemlerin insan toplulukları,
+            tarım ve ekosistemlerle aynı kıt kaynak için doğrudan rekabet ettiği anlamına gelir.
+            Aşağıdaki belgelenmiş durumlar, sorunun boyutunu göstermektedir:
+        </p>
+
+        <div class="regions-grid">
+            <div class="region-card crisis">
+                <span class="region-flag">🇨🇱</span>
+                <div class="region-name">Santiago, Şili</div>
+                <p class="region-detail">
+                    Google'ın Cerrillos'taki veri merkezi, zaten şiddetli kuraklık yaşayan
+                    bir bölgede günlük ~7,6 milyon litre içme suyu tüketiyor.
+                    Yerel topluluklardan gelen yargı davalarıyla karşı karşıya kaldı.
+                    <br><em><small>Kaynak: Şili yargı sunumları (2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇪🇸</span>
+                <div class="region-name">Aragón, İspanya</div>
+                <p class="region-detail">
+                    Amazon, 2024'te Aragón'daki tesisleri için su izinlerinde %48'lik bir
+                    artış talep etti. <em>"Bulutun nehrimi kurutuyor"</em> sloganıyla
+                    protestolar düzenlendi.
+                    <br><em><small>Kaynak: IE Insights / çoklu medya (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇺🇸</span>
+                <div class="region-name">Teksas, ABD</div>
+                <p class="region-detail">
+                    Teksas'taki veri merkezleri 2025'te 49 milyar galon su tüketecek ve
+                    2030'da 399 milyar galona ulaşabilir — bu, Mead Gölü'nü bir yılda
+                    16 fit boşaltmaya eşdeğerdir.
+                    <br><em><small>Kaynak: HARC / Houston Üniversitesi (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇬🇧</span>
+                <div class="region-name">Birleşik Krallık</div>
+                <p class="region-detail">
+                    Hükümet, 2050'ye kadar günlük 5 milyar litre su açığı öngörüyor.
+                    Başbakan Starmer'ın ilk "AI Growth Zone"u, İngiltere'nin en yüksek
+                    su stresi bölgesi olan Culham, Oxfordshire'da planlandı.
+                    <br><em><small>Kaynak: İngiltere hükümet raporu (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇳🇱</span>
+                <div class="region-name">Hollanda</div>
+                <p class="region-detail">
+                    Amsterdam ve çevresinde, tarım arazilerinde mega veri merkezi
+                    inşaatına karşı protestolar. Hollanda hükümeti, yeni inşaat izinlerine
+                    geçici kısıtlamalar getirdi.
+                    <br><em><small>Kaynak: çoklu Avrupa medyası (2023–2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card monitor">
+                <span class="region-flag">🌍</span>
+                <div class="region-name">Latin Amerika (bağlam)</div>
+                <p class="region-detail">
+                    Karayipler ve Orta Amerika, 2030–2050 için iklim değişikliğinden kaynaklanan
+                    en yüksek su stresi projeksiyonuna sahip dünya bölgeleri arasında yer alıyor.
+                    Su düzenlemesi olmadan yapay zeka genişlemesi bu krizi derinleştirebilir.
+                    <br><em><small>Kaynak: IPCC AR6 (2022) / BM-Su (2023)</small></em>
+                </p>
+            </div>
+        </div>
+
+        <!-- 3.4 ALERTA -->
+        <div class="alert-box">
+            <div class="alert-box-title">Kritik Veri: Yapay Zekanın Suyu İçme Suyudur</div>
+            <p>
+                Tarım veya sanayide kullanılan sudan farklı olarak (geri dönüştürülmüş veya içilemez
+                su olabilir), çoğu veri merkezi soğutma sistemleri için <strong>belediye kalitesinde
+                içme suyu</strong> gerektirir çünkü kirlilikler ekipmana zarar verir. Bu,
+                yapay zekanın insanların içtiği aynı su için doğrudan rekabet ettiği anlamına gelir.
+                ABD'nin güneybatısı, Şili'nin kuzeyi ve Akdeniz gibi aktif kuraklık yaşayan
+                bölgelerde bu rekabet somut bir insani acil duruma dönüşmektedir.
+            </p>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Sorgu Başına Su — Sistemler Arası Karşılaştırma (mL)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartQueryWater"></canvas></div>
+        </div>
+
+        <!-- 3.5 PROYECCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.4</span>
+            2025–2030 Projeksiyonları: Alarm Verici Bir Eğilim
+        </h2>
+
+        <p class="body-text">
+            Cornell Üniversitesi araştırmacılarının <em>Nature Sustainability</em>'de
+            (Kasım 2025) yayınlanan verileri, ABD'deki yapay zeka sunucu dağıtımının
+            2024 ile 2030 yılları arasında yıllık 731 ila 1.125 milyon metreküp su tüketebileceğini
+            öngörüyor — bu, 6 ila 10 milyon Amerikalının yıllık ev tüketimine eşdeğerdir.
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-card bad">
+                <div class="comparison-label">Değişiklik Olmayan Senaryo (2030)</div>
+                <span class="comparison-number">1.125 M m³</span>
+                <p class="comparison-desc">
+                    Yalnızca ABD'de, mevcut eğilimler altyapı veya su düzenlemesinde
+                    değişiklik olmadan devam ederse.
+                    <br><small>Kaynak: Xiao ve ark., Nature Sustainability (2025)</small>
+                </p>
+            </div>
+            <div class="comparison-card good">
+                <div class="comparison-label">Azaltım Senaryosu (2030)</div>
+                <span class="comparison-number">−86%</span>
+                <p class="comparison-desc">
+                    Stratejik veri merkezi konumu, doğrudan sıvı soğutma ve operasyonel verimliliği
+                    birleştirerek olası su tüketimi azaltımı.
+                    <br><small>Kaynak: You ve ark., Cornell / Nature Sustainability (2025)</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 2030 ABD Projeksiyonu — Değişiklik Olmayan Senaryo vs Azaltım</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartProjection"></canvas></div>
+        </div>
+
+        <p class="body-text">
+            de Vries-Gao'nun <em>Cell Reports Sustainability</em>'de (Aralık 2025) yayınlanan
+            çalışması, yapay zeka sistemlerinin küresel su ayak izinin <strong>2025'te 312,5 ila
+            764,6 milyar litreye ulaşabileceğini</strong> belirlemektedir; bu, şişelenmiş suyun
+            küresel yıllık tüketimine eşdeğerdir. Bu rakam, doğrudan tüketilen suyu — basitçe
+            çekilen değil — temsil eder, bu da yerel su döngüsüne geri dönmediği anlamına gelir.
+        </p>
+
+        <!-- 3.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.5</span>
+            Teknolojik ve Su Politikası Çözümleri
+        </h2>
+
+        <p class="body-text">
+            Görünüm endişe verici olsa da, yapay zekanın su etkisini önemli ölçüde azaltabilecek
+            hem teknolojik çözümler hem de politika araçları mevcuttur. Kombinasyon uygulaması,
+            aynı işlem kapasitesini korurken su tüketiminde %86'ya kadar azalma sağlayabilir:
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🧊</span>
+                <div class="solution-title">Doğrudan Sıvı Soğutma (İmmersiyon Soğutma)</div>
+                <p class="solution-text">
+                    Bileşenleri iletken olmayan sıvıya batırır. Buharlaştırma suyu ihtiyacını
+                    neredeyse tamamen ortadan kaldırır. Microsoft, Ağustos 2024'te ilk
+                    "sıfır su" veri merkezini başlattı.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📍</span>
+                <div class="solution-title">Stratejik Konumlandırma</div>
+                <p class="solution-text">
+                    Soğuk iklim bölgelerinde (İzlanda, Norveç, kuzey Kanada) veri merkezi
+                    inşası, aktif soğutma ihtiyacını dramatik biçimde azaltır. İzlanda jeotermal
+                    enerji ve dış hava soğutması kullanır.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">Geri Dönüştürülmüş ve İçilemez Su</div>
+                <p class="solution-text">
+                    Amazon, Meta ve Apple, tatlı içme suyu yerine arıtılmış belediye
+                    suyu (geri kazanılmış su) kullanmaya başladı. Diğer önlemlerle birleştirildiğinde
+                    içme suyu kullanımını %50–70 azaltabilir.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📊</span>
+                <div class="solution-title">Şeffaflık ve Düzenleme</div>
+                <p class="solution-text">
+                    Şu anda çoğu ülkede veri merkezi başına su tüketimini bildirmek için
+                    yasal bir zorunluluk yoktur. UNEA-7 (Nairobi, Aralık 2025), veri merkezlerinin
+                    su şeffaflığını öncelikli gündemine dahil etti.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🌬️</span>
+                <div class="solution-title">Adyabatik Soğutma</div>
+                <p class="solution-text">
+                    Microsoft, sıcaklıklar 29,4°C'nin altında olduğunda adyabatik soğutma
+                    (dış hava) kullanıyor. Ilıman ve soğuk iklimlerde bu, yılın çoğunu kapsar
+                    ve su kullanımını ortadan kaldırır.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🤖</span>
+                <div class="solution-title">Tasarım Gereği Verimli Yapay Zeka</div>
+                <p class="solution-text">
+                    MoE (Mixture of Experts), model damıtma ve nicelleştirme gibi mimariler,
+                    çıkarım başına gereken hesaplamayı azaltır. DeepSeek-R1, 2025'te
+                    yüksek verimli modellerin optimize edilmemiş eşdeğerlerinden 5–10 kat
+                    daha az kaynak gerektirdiğini gösterdi.
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /content-section -->
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Bölüm</div>
+                <div class="footer-value">3 — Su Etkisi (Yeni)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Veri Kapsamı</div>
+                <div class="footer-value">2019 – Ara. 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Birincil Kaynaklar</div>
+                <div class="footer-value">Nature Sustainability, IEA, Cell Reports, UC Riverside</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Sonraki Bölüm</div>
+                <div class="footer-value">Bölüm 4 → Elektronik Atık</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">Kapak</a>
+                <a href="toc.html" class="nav-link">İçindekiler</a>
+                <a href="resumen.html" class="nav-link">Özet</a>
+                <a href="introduccion.html" class="nav-link">Giriş</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link active">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Kaynakça</a>
+            </div>
+            <p class="author-note">
+                <strong>Yazar:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Uluslararası
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.water-stat,.journey-card,.region-card,.solution-card,.comparison-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Training water: direct vs total
+  new Chart(document.getElementById('chartTrainingWater'), {
+    type:'bar',
+    data:{
+      labels:['Doğrudan Buharlaşma','Toplam Ayak İzi (doğrudan+dolaylı)'],
+      datasets:[{
+        label:'Litre',
+        data:[700000, 5400000],
+        backgroundColor:['#3498db','#1a6fa8'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} litre`}} },
+      scales:{ x:{beginAtZero:true, title:{display:true,text:'Litre'}} }
+    }
+  });
+
+  // Chart 2 — Per-query water comparison (mL, log scale due to wide range)
+  new Chart(document.getElementById('chartQueryWater'), {
+    type:'bar',
+    data:{
+      labels:['ChatGPT (1 sorgu)','ChatGPT (100 kelime)','Google Araması','Gemini (Google)'],
+      datasets:[{
+        label:'mL su',
+        data:[5, 519, 0.35, 0.26],
+        backgroundColor:['#e67e22','#e74c3c','#27ae60','#1a8449'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} mL`}} },
+      scales:{ y:{type:'logarithmic', title:{display:true,text:'mL (log ölçek)'}} }
+    }
+  });
+
+  // Chart 3 — 2030 projection scenarios
+  new Chart(document.getElementById('chartProjection'), {
+    type:'bar',
+    data:{
+      labels:['Değişiklik Olmayan (2030)','Azaltımlı (2030)'],
+      datasets:[{
+        label:'Milyon m³',
+        data:[1125, 157.5],
+        backgroundColor:['#e74c3c','#27ae60'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} M m³`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Milyon m³'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

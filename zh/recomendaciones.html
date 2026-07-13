@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§7 建议 — AI模型的碳足迹</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">第7节 — 新增</div>
+    <h1>✅ 建议</h1>
+    <p>基于科学证据的可执行指南，用于减少AI的环境影响——按主体类型、时间范围和预期影响水平分类</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#3498db;font-style:italic;text-align:center;margin-bottom:24px;">本文为已验证的西班牙语/英语原文译本。如有差异，以原文为准。</p>
+
+  <p class="body-text">本研究的发现若不转化为具体行动，就不具备完整的科学价值。本节为能够加速向环境负责任的AI转型的五类主体，提供了经文献验证的具体建议。建议按实施时间范围和预期影响水平排列。</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 科技企业</div>
+    <div class="actor-pill ap2">🏛️ 政府与监管机构</div>
+    <div class="actor-pill ap3">🔬 研究人员与学术界</div>
+    <div class="actor-pill ap4">👤 用户与组织</div>
+    <div class="actor-pill ap5">🌍 全球南方</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 21项建议按主体的分布情况</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 面向科技企业与数据中心运营商</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">发布采用标准方法论的完整环境报告</div>
+        <p class="rec-text">针对AI系统专门采用GHG Protocol Scope 1-2-3协议，报告每次训练和推理会话的碳排放量、水资源消耗（直接和间接）以及产生的电子废弃物。通用的企业环境报告是不够的：AI模型必须拥有自己的环境专项条目。</p>
+        <span class="rec-impact">⚡ 影响：透明度+监管</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">将效率而非规模作为成功指标的优先事项</div>
+        <p class="rec-text">DeepSeek-R1（2025年1月）证明，用约少96%的计算资源即可实现与GPT-4相当的性能。企业必须将成功指标从参数数量（"最大的模型"）转向性能/排放比。内部基准测试应纳入环境维度。</p>
+        <span class="rec-impact">🌫️ 影响：单任务碳排放降低90%</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">将数据中心迁往清洁能源丰富、水资源充足的地区</div>
+        <p class="rec-text">本研究的地理分析显示，同样的基础设施在冰岛或挪威建设，碳足迹可比在波兰或印度低多达90倍。微软、谷歌和Meta已在北欧运营数据中心；行业应扩大这一做法，并避免在水资源紧张地区（AQUEDUCT评分≥4）建设数据中心。</p>
+        <span class="rec-impact">⚡ 潜在减排：碳排放降低最高90倍</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">采用无水或闭环冷却技术</div>
+        <p class="rec-text">在寒冷气候下采用直接空气冷却（自然冷却）、闭环水循环系统以及液态介质浸没式冷却，可将耗水量降低95–99%。微软于2024年8月推出了首座"零用水"数据中心。这项技术应成为行业标准，而非例外。</p>
+        <span class="rec-impact">💧 潜力：耗水量降低95%</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">延长硬件使用寿命并建立负责任的回收计划</div>
+        <p class="rec-text">AI用GPU的更换周期为2–3年，而传统服务器为5–7年。企业应建立延长使用寿命的计划（翻新、降级用于低耗能推理），并确保报废硬件在R2/e-Stewards认证下回收——而非出口至无充分回收能力的第三国。</p>
+        <span class="rec-impact">🗑️ 影响：减少有毒电子废弃物</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">采用模型效率技术：量化、蒸馏、剪枝</div>
+        <p class="rec-text">INT8/INT4量化、知识蒸馏和无效权重剪枝可将推理的计算成本降低50–80%，同时性能损失极小。推理占AI总计算量的80–90%；优化推理比优化训练具有更大的环境影响。</p>
+        <span class="rec-impact">⚡ 推理：能耗降低50–80%</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 面向政府与监管机构</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">将AI环境报告确立为强制性而非自愿性要求</div>
+        <p class="rec-text">欧盟应扩展《欧盟AI法案》，纳入强制性环境报告章节。美国应撤回对数据中心环境审查的削弱措施。国际最低标准应要求：按训练会话计算的CO₂排放量（范围1-3）、水利用效率（WUE），以及电子废弃物管理计划。若无强制性，自我报告是不够的。</p>
+        <span class="rec-impact">⚖️ 时间范围：短期（1–2年）</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">建立与真实环境效率挂钩的税收激励措施</div>
+        <p class="rec-text">对AI行业的补贴和税收优惠应以可核实的环境指标为条件：PUE≤1.2、5年内实现100%可再生能源、WUE≤0.5升/千瓦时，以及经认证的电子废弃物管理计划。没有环境条件的数据中心税收减免是将生态成本社会化的财富转移。</p>
+        <span class="rec-impact">💰 工具：绿色财政政策</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">监管AI供应链中的关键矿产开采</div>
+        <p class="rec-text">消费国政府应对关键矿产（钴、锂、稀土、镓）实施供应链尽职调查法律，类似于欧盟《企业可持续发展尽职调查指令》。购买芯片的科技企业应能够证明其矿产不来自存在童工、含水层破坏或原住民社区权利侵害的地区。</p>
+        <span class="rec-impact">⛏️ 影响：公正的供应链</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">禁止在严重水资源紧张地区建设数据中心</div>
+        <p class="rec-text">水资源短缺地区（智利、西班牙内陆、印度、中东、美国西南部）的政府应对AI数据中心的建设实施暂停或禁止，直到其配备无净水消耗的冷却技术。洛杉矶事件（2025年1月）——活跃火灾期间消防栓无水压——说明了不这样做的直接人道成本。</p>
+        <span class="rec-impact">💧 紧急地区：加州、智利、西班牙、印度</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">资助高效AI与标准化指标方面的公共研究</div>
+        <p class="rec-text">政府应资助本论文所助力发展的AI环境影响标准方法论、计算效率技术，以及制造影响更小的下一代芯片设计等研究方向。"绿色AI"研究不应仅依赖具有直接商业利益的企业。</p>
+        <span class="rec-impact">🔬 时间范围：中期</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 面向研究人员与科学界</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">在新模型发表时系统性地报告环境成本</div>
+        <p class="rec-text">每篇发表新AI模型的科学论文都应包含一个经同行评审的强制性章节，报告其训练的碳足迹、水资源消耗以及所用硬件。PNAS、Nature、Science和NeurIPS应采纳这一政策。若没有这一标准，科学界将延续其在产业界批评的不透明状况。</p>
+        <span class="rec-impact">📄 面向作者的即时行动</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">开发推理环境影响的标准方法论</div>
+        <p class="rec-text">本研究识别出的最大科学空白，是缺乏验证过的方法论来量化推理（模型的日常使用，占AI计算量的80–90%）的环境影响。<strong>更新：</strong>随本论文一并提供的公开计算器已整合了基于Jegham等人（arXiv:2505.09598，2025年）真实测量数据的推理模块——这是弥补这一空白的第一步。然而，仍需要更广泛的系统性学术研究，涵盖：更大规模下按查询类型划分的能耗、每生成一个token的水足迹，以及分布式推理造成的地理影响差异。</p>
+        <span class="rec-impact">🔭 关键研究空白</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">在环境数据方面优先考虑可复现性和开放获取</div>
+        <p class="rec-text">测量工具、按模型划分的能耗数据集以及计算框架应在开放许可（CC BY / Apache 2.0）下发布。与本论文一同开发的碳足迹计算器就是对开放科学承诺的一个范例。公共资助的可持续AI研究应向公众开放。</p>
+        <span class="rec-impact">🌐 已践行：本论文</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">研究对全球南方的差异化影响</div>
+        <p class="rec-text">当前关于AI环境影响的研究主要集中在全球北方。需要在刚果、玻利维亚和智利的矿区社区、加纳和孟加拉国的电子垃圾场，以及印度和东南亚受数据中心影响的生态系统中开展实地研究。环境正义要求研究纳入那些承担全球AI成本的人群。</p>
+        <span class="rec-impact">⚖️ 环境与学术正义</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 面向个人用户与组织</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">对不需要最大模型的任务优先选用高效模型</div>
+        <p class="rec-text">用GPT-4来撰写一封简单的电子邮件与用于复杂分析所付出的环境成本相同——但只有复杂分析才值得付出这样的成本。用户应根据任务的复杂程度来调整模型的能力：70亿至130亿参数的模型即可以一小部分环境影响解决80%的日常使用场景。</p>
+        <span class="rec-impact">⚡ 行动：即刻可行</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">将环境透明度作为供应商筛选标准</div>
+        <p class="rec-text">采购AI服务（API、平台、咨询）的组织应将环境透明度纳入评估标准：供应商是否公开其PUE？是否报告水资源消耗？是否有经认证的电子废弃物管理计划？市场压力——尤其是来自具有ESG承诺的大型企业——可以加速监管尚需时日才能实现的变革。</p>
+        <span class="rec-impact">🏢 面向采购和ESG团队</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">在企业可持续发展报告中计算并报告AI碳足迹</div>
+        <p class="rec-text">在生产环境中使用AI模型的企业应将因使用AI产生的范围3排放纳入其GHG Protocol报告。本论文的交互式计算器（lizzy0981.github.io/calculadora-huella-carbono-ia/）可作为此项计算的起点。不包含AI使用量的碳核算是不完整的，会低估实际影响。</p>
+        <span class="rec-impact">📊 资源：公开计算器</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 面向全球南方与发展中国家</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">在关键矿产开采方面建立自主条款</div>
+        <p class="rec-text">拥有钴（刚果民主共和国）、锂（玻利维亚、智利、阿根廷）、稀土（中国、巴西）矿藏的全球南方国家应谈判开采协议，内容应包括：技术转让、就地加工（而非出口原矿）、经核实的环境修复基金，以及原住民社区参与开采决策。</p>
+        <span class="rec-impact">⛏️ 自然资源主权</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">拒绝以"捐赠"或"技术援助"名义倾倒AI电子废弃物</div>
+        <p class="rec-text">以"技术捐赠"名义向无充分回收能力的国家倾倒过时的AI硬件，是将有毒成本转嫁给全球南方的行为。接收国应对二手硬件进口设立认证要求，拒绝接收出口方未按国际标准承担最终处置费用的设备。</p>
+        <span class="rec-impact">🗑️ 环境与健康保护</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">投资高效本地AI，而非依赖全球北方的大规模模型</div>
+        <p class="rec-text">全球南方国家应优先发展和部署适合本国语言和现实需求、以本地可再生能源训练的小型高效AI模型（SLM）。依赖外包于北方的大规模模型API意味着持续的外汇流出，而无法培养本地能力。获取AI的途径不应再现技术依赖的动态模式。</p>
+        <span class="rec-impact">🌐 技术主权</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">优先级矩阵 — 影响力最大的建议</div>
+    <table class="prio">
+      <thead><tr><th>行动</th><th>主体</th><th>时间范围</th><th>环境影响</th><th>可行性</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — 将数据中心迁往清洁能源地区</td><td>企业</td><td>中期</td><td><span class="im-high">极高</span></td><td class="p-mid">中等</td></tr>
+        <tr><td>R4 — 无水冷却/闭环系统</td><td>企业</td><td>短期</td><td><span class="im-high">极高（水）</span></td><td class="p-hi">高</td></tr>
+        <tr><td>R2 — 以效率而非规模作为指标</td><td>企业</td><td>即时</td><td><span class="im-high">高</span></td><td class="p-mid">中等</td></tr>
+        <tr><td>R7 — 强制性环境报告（监管）</td><td>政府</td><td>短期</td><td><span class="im-mid">高（透明度）</span></td><td class="p-mid">中等</td></tr>
+        <tr><td>R10 — 禁止在水资源紧张地区建设数据中心</td><td>政府</td><td>即时</td><td><span class="im-high">极高（水）</span></td><td class="p-hi">高（已有相关监管的地区）</td></tr>
+        <tr><td>R12 — 科学出版物中的环境报告</td><td>研究人员</td><td>即时</td><td><span class="im-mid">中等（文化）</span></td><td class="p-hi">高</td></tr>
+        <tr><td>R16 — 为简单任务选择高效模型</td><td>用户</td><td>即时</td><td><span class="im-lo">低至中等</span></td><td class="p-hi">极高</td></tr>
+        <tr><td>R6 — 量化与高效推理</td><td>企业</td><td>短期</td><td><span class="im-high">高（推理占80–90%）</span></td><td class="p-hi">高</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">道路已经存在——意愿才是关键变量</div>
+    <p class="closing-text">本论文的任何建议都不要求牺牲AI的发展。科学证据表明，像DeepSeek-R1或Claude Sonnet这样的高效模型，能够以一小部分环境成本完成规模大得多的系统的工作。这一挑战并非技术性的：它关乎激励机制、透明度和政治意愿。AI可以成为21世纪人类发展的引擎，而无需成为其主要的生态威胁之一。</p>
+    <div class="closing-quote">"AI的可持续性并非对进步的限制——而是其长期得以实现的前提条件。"</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">封面</a><a href="toc.html" class="nl">目录</a>
+    <a href="resumen.html" class="nl">摘要</a><a href="introduccion.html" class="nl">引言</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl active">§7 ✅ 建议</a>
+    <a href="conclusiones.html" class="nl">§8</a><a href="referencias.html" class="nl">参考文献</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · 版本1.0.0，2026年3月</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 企业（R1-R6）','🏛️ 政府（R7-R11）','🔬 研究人员（R12-R15）','👤 用户（R16-R18）','🌍 全球南方（R19-R21）'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.raw}项建议`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

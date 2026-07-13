@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>セクション5 — 重要鉱物と生物多様性 | 科学論文</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #0b6b35 0%, #1a8449 50%, #27ae60 100%);
+            color: white; padding: 50px 40px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E") repeat;
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white; font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px; margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: earthPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes earthPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 720px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        .crisis-callout {
+            background: linear-gradient(135deg, #e9f7ef 0%, #d5f5e3 100%);
+            border-left: 6px solid #27ae60;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px; position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '🌍';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #145a32; }
+        .crisis-callout strong { color: #0b6b35; }
+
+        /* MINERALS GRID */
+        .minerals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .mineral-card {
+            background: white; border-radius: 16px;
+            border: 2px solid #a9dfbf;
+            padding: 25px; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .mineral-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+
+        .mineral-card.critical::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+        .mineral-card.high::before { background: linear-gradient(90deg, #d68910, #f39c12); }
+        .mineral-card.medium::before { background: linear-gradient(90deg, #1a8449, #27ae60); }
+
+        .mineral-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(39,174,96,0.2);
+        }
+
+        .mineral-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .mineral-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .mineral-card.critical .mineral-name { color: #c0392b; }
+        .mineral-card.high .mineral-name { color: #d68910; }
+        .mineral-card.medium .mineral-name { color: #1a8449; }
+
+        .mineral-use {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: #7f8c8d; margin-bottom: 10px;
+        }
+
+        .mineral-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .mineral-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; padding: 5px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        .mineral-card.critical .mineral-data { background: #fdecea; color: #c0392b; }
+        .mineral-card.high .mineral-data { background: #fef9e7; color: #d68910; }
+        .mineral-card.medium .mineral-data { background: #eafaf1; color: #1a8449; }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #1a8449;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #27ae60;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a8449, #27ae60);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* BAOTOU CASE */
+        .case-study {
+            background: linear-gradient(135deg, #1c1c1c 0%, #2c2c2c 100%);
+            color: white; border-radius: 16px; padding: 35px;
+            margin: 30px 0; position: relative; overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '📍 CASO DE ESTUDIO';
+            position: absolute; top: 15px; right: 20px;
+            font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; background: #e74c3c; color: white;
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        .case-study-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px; font-weight: 800;
+            color: #f39c12; margin-bottom: 15px;
+        }
+
+        .case-study p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .case-study p:last-child { margin-bottom: 0; }
+        .case-study strong { color: #f39c12; }
+
+        /* BIODIVERSITY */
+        .biodiversity-impacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px; margin: 30px 0;
+        }
+
+        .bio-card {
+            background: white; border: 2px solid #a9dfbf;
+            border-radius: 14px; padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .bio-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 6px 20px rgba(39,174,96,0.15);
+        }
+
+        .bio-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+
+        .bio-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 700;
+            color: #1a8449; margin-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .bio-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* DEEP SEA BOX */
+        .deep-sea-box {
+            background: linear-gradient(135deg, #0a1a2e 0%, #0d2137 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0; border: 2px solid #1a6fa8;
+        }
+
+        .deep-sea-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 800;
+            color: #3498db; margin-bottom: 12px;
+        }
+
+        .deep-sea-box p { font-size: 17px; line-height: 1.8; margin-bottom: 10px; }
+        .deep-sea-box strong { color: #3498db; }
+
+        /* SUPPLY CHAIN */
+        .supply-chain {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .supply-item {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #a9dfbf;
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+
+        .supply-country { font-size: 30px; margin-bottom: 8px; display: block; }
+
+        .supply-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700;
+            color: #1a8449; margin-bottom: 6px;
+        }
+
+        .supply-detail { font-size: 14px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea, #fad7d0);
+            border: 3px solid #e74c3c; border-radius: 16px;
+            padding: 30px; margin: 30px 0; position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute; top: -18px; left: 30px;
+            font-size: 30px; background: white; padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif; font-size: 18px;
+            font-weight: 800; color: #c0392b; margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #0b3d1f 0%, #145a32 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #27ae60; border-color: #27ae60; color: white; }
+
+        .author-note { font-size: 13px; opacity: 0.8; font-style: italic; text-align: center; }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4a373;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#7d3c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">セクション5 — 新規</span>
+            <span class="section-icon">⛏️</span>
+            <h1 class="section-title">重要鉱物、生態系、生物多様性</h1>
+            <p class="section-subtitle">
+                AIは空気中に存在するわけではありません — そのチップとサーバーは
+                地中深くから採掘される金属を必要とし、ほとんど可視化されない
+                環境的・人的コストを伴います
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a8449;font-style:italic;margin-bottom:20px;">検証済みのスペイン語/英語原文の翻訳です。相違がある場合は原文が優先されます。</p>
+
+        <div class="crisis-callout">
+            <p>
+                2kgのコンピューターを製造するには<strong>800kgの原材料</strong>
+                が必要です。AIモデルに命を吹き込むマイクロチップは、環境的に
+                破壊的な条件下で — 多くの場合、環境規制が弱いか存在しない
+                地域で — 採掘される希土類元素に依存しています。
+                <strong>中国はAIにとって最も重要な鉱物の精製の60〜99%を
+                掌握しており</strong>、この分野の拡大はほぼ未探査の生態系
+                における深海底採掘の激化を引き起こす可能性があります。
+            </p>
+        </div>
+
+        <!-- 5.1 MINERALES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.1</span>
+            AIが必要とする重要鉱物
+        </h2>
+
+        <p class="body-text">
+            AIインフラに必要な鉱物は、一般的な金属から高度に専門化された
+            採掘を要する希土類元素まで多岐にわたります。各GPU、サーバー、
+            冷却システムはこれらの物質の数十種類を凝縮しており、その
+            サプライチェーンは鉱山から廃棄物処理場に至るまで環境影響を
+            生み出します：
+        </p>
+
+        <div class="minerals-grid">
+            <div class="mineral-card critical">
+                <span class="mineral-icon">⚡</span>
+                <div class="mineral-name">コバルト（Co）</div>
+                <div class="mineral-use">データセンターのバックアップバッテリー</div>
+                <p class="mineral-text">
+                    世界生産量の約70%はコンゴ民主共和国（DRC）から
+                    産出されており、そこでは零細採掘に児童労働が
+                    伴い、地元の河川を汚染しています。採掘は熱帯雨林
+                    を破壊し、先住民コミュニティに直接影響を与えます。
+                </p>
+                <span class="mineral-data">DRC：世界生産量の70% — IEA 2024年</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔋</span>
+                <div class="mineral-name">リチウム（Li）</div>
+                <div class="mineral-use">バッテリーと蓄電システム</div>
+                <p class="mineral-text">
+                    ボリビアの塩湖（世界最大の鉱床）からの採掘は、
+                    すでに乾燥している地域で膨大な量の水を使用し、
+                    ウユニ湖のようなユニークな生態系を脅かしています。
+                    先住民コミュニティは、協議が「単なる形式的なもの」
+                    にすぎないと訴えています。
+                </p>
+                <span class="mineral-data">ボリビア：世界最大の埋蔵量 — ユニークな生態系に影響</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔲</span>
+                <div class="mineral-name">ガリウム（Ga）</div>
+                <div class="mineral-use">GPU用のチップとパワーエレクトロニクス</div>
+                <p class="mineral-text">
+                    中国は世界のガリウム精製の99%を掌握しています。
+                    山西省でのライフサイクル調査では、精製に使用される
+                    水酸化ナトリウムが水質毒性の主な原因であることが
+                    特定されました。IEAは、2030年までに需要が現在の
+                    供給量の10%を超えると予測しています。
+                </p>
+                <span class="mineral-data">中国：世界精製量の99% — IEA Energy & AI（2025年）</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">🧲</span>
+                <div class="mineral-name">ネオジム（Nd）</div>
+                <div class="mineral-use">GPUのモーターとファン用の永久磁石</div>
+                <p class="mineral-text">
+                    冷却システムのモーターに使用される強力な磁石に
+                    不可欠な希土類元素です。中国での採掘は、内モンゴル
+                    の包頭にある有毒湖を含む、大規模な環境負債を
+                    生み出しました。
+                </p>
+                <span class="mineral-data">包頭：1億8,000万トンの廃棄物を含む有毒湖</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">💎</span>
+                <div class="mineral-name">銅（Cu）</div>
+                <div class="mineral-use">ケーブル、放熱板、PCB</div>
+                <p class="mineral-text">
+                    米国は銅の約37%を輸入しています。新しい鉱山は発見
+                    から生産まで15〜20年を要します。チリ北部での銅採掘
+                    は、乾燥地域での水使用をめぐって先住民コミュニティ
+                    の抗議に直面しています。
+                </p>
+                <span class="mineral-data">米国輸入率37% — FP Analytics（2025年）</span>
+            </div>
+            <div class="mineral-card medium">
+                <span class="mineral-icon">🔩</span>
+                <div class="mineral-name">超純度シリコン（Si）</div>
+                <div class="mineral-use">すべての半導体の基盤基板</div>
+                <p class="mineral-text">
+                    シリコンは豊富に存在しますが、半導体グレード
+                    （純度99.9999999%）への精製には、膨大なエネルギーと
+                    水を要するプロセスが必要です。チップ製造工場（fab）
+                    は台湾、韓国、米国に集中しています。
+                </p>
+                <span class="mineral-data">精製：業界で最も水集約的なプロセス</span>
+            </div>
+        </div>
+
+        <!-- 5.2 CASO BAOTOU -->
+        <div class="case-study">
+            <div class="case-study-title">🏭 事例研究：内モンゴル包頭、中国</div>
+            <p>
+                希土類精製の世界的中心地である包頭では、鉱物の採掘と
+                加工の過程で<strong>5平方マイルを超える有毒湖</strong>
+                が生まれ、<strong>鉱石加工から出た残渣粉塵1億8,000万
+                トン以上</strong>が含まれています。
+            </p>
+            <p>
+                この湖には<strong>放射性トリウム、硫酸、その他数十種類
+                の汚染物質</strong>が含まれており、地域の帯水層と周辺の
+                農地に浸透しています。最寄りの村々では、がん、骨粗鬆症、
+                先天性奇形の発生率が高いと報告されています。数キロメートル
+                圏内の生態系は不可逆的に変化しました。
+            </p>
+            <p>
+                これは孤立した事例ではありません：AIを含む技術向けの
+                希土類鉱物への世界的需要がもたらした、文書化された
+                結果なのです。
+            </p>
+        </div>
+
+        <!-- 5.3 BIODIVERSIDAD -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.2</span>
+            生物多様性と生態系への影響
+        </h2>
+
+        <p class="body-text">
+            <em>Carbon Neutral Systems</em>誌（Springer Nature、2025年
+            12月）に発表された研究は、AIがエネルギー、水、資材、土地に
+            与える影響を同時に分析する初の統合的な「資源ネクサス」
+            フレームワークを開発しました。生物多様性への影響はシステム
+            的かつ相互接続されており、空間的に不均衡であり、便益は
+            グローバルノースに集中し、生態学的コストはグローバルサウス
+            に外部化されていることが確認されています。
+        </p>
+
+        <div class="biodiversity-impacts">
+            <div class="bio-card">
+                <span class="bio-icon">🌳</span>
+                <div class="bio-title">採掘による生息地の破壊</div>
+                <p class="bio-text">
+                    重要鉱物の採掘と製錬は、生息地の破壊、鉱山道路網
+                    を通じた外来種の侵入、隣接する水生生態系への長期的
+                    な有毒影響を伴います。
+                    <br><small><em>情報源：Springer Nature（2025年）</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌱</span>
+                <div class="bio-title">データセンター用地への土地転換</div>
+                <p class="bio-text">
+                    大規模なサーバーファームは広大な面積を占有し、地元
+                    の動植物を追いやります。オレゴン州のあるデータ
+                    センターは327エーカー — サッカー場250面以上に相当
+                    — に及びます。都市近郊での開発は生態回廊を変え、
+                    都市ヒートアイランドの一因となります。
+                    <br><small><em>情報源：Medium/Eastgate（2024年）</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🐟</span>
+                <div class="bio-title">水質汚染</div>
+                <p class="bio-text">
+                    電子廃棄物埋立地からの浸出液と鉱物精製の廃棄物は、
+                    河川、湖沼、帯水層を汚染します。水銀は水生食物連鎖
+                    中で生物濃縮し、魚類、鳥類、海洋哺乳類に影響を
+                    与えます。
+                    <br><small><em>情報源：Wangら、Nature Comp. Sci.（2024年）</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🦜</span>
+                <div class="bio-title">生息地の断片化</div>
+                <p class="bio-text">
+                    鉱山アクセス用の道路網は、それまで連続していた
+                    生息地を断片化し、哺乳類や鳥類の移動パターンを
+                    妨害し、密猟や天然資源の違法採取を容易にします。
+                    <br><small><em>情報源：Springer Nature Carbon Neutral Systems（2025年）</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">💧</span>
+                <div class="bio-title">生態系との水資源競合</div>
+                <p class="bio-text">
+                    乾燥地域のデータセンターは、渡り鳥や固有動物にとって
+                    重要な湿地や河川を涵養しているのと同じ帯水層から
+                    水を汲み上げています。米国南西部、スペイン、チリ北部
+                    は、活発な対立が記録されている事例です。
+                    <br><small><em>情報源：Lincoln Institute / IE Insights（2025年）</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌡️</span>
+                <div class="bio-title">ヒートアイランドと微気候</div>
+                <p class="bio-text">
+                    メガデータセンターは残余熱を放出し、局地気温を
+                    数度上昇させ、敏感な生態系を支える微気候を変化
+                    させます。バージニア州北部のような300以上の
+                    データセンターが密集する地域では、その影響は
+                    地域的かつ記録済みです。
+                    <br><small><em>情報源：Lincoln Institute（2025年）</em></small>
+                </p>
+            </div>
+        </div>
+
+        <!-- 5.4 MINERÍA SUBMARINA -->
+        <div class="deep-sea-box">
+            <div class="deep-sea-title">⚓ 最も危険なフロンティア：深海底採掘</div>
+            <p>
+                AI向け金属への爆発的な需要は、<strong>深海底採掘</strong>
+                — ほぼ未探査の海域から海底の金属団塊を採取すること
+                — の提案を加速させています。メキシコとハワイの間に
+                位置するクラリオン・クリッパートン海域は、米国および
+                欧州の鉱業企業から最大の関心を集めています。
+            </p>
+            <p>
+                問題点：これらの団塊は<strong>ユニークな深海生態系</strong>
+                に存在しており、そこには未分類の種が生息し、多くが
+                海洋の生物地球化学サイクルにおいて重要な役割を担って
+                います。これらの団塊を回収するために海底を引きずったり
+                吸引したりすることは、<strong>形成に何百万年もかかった
+                生息地を不可逆的に破壊</strong>します。この海域は国際
+                水域にあり、その規制は国際海底機構において活発に
+                議論されています。
+            </p>
+            <p>
+                <strong>採掘が開始される前にこの影響を評価または
+                緩和するための適切な規制枠組みはまだ存在しません</strong>。
+            </p>
+        </div>
+
+        <!-- 5.5 CADENA DE SUMINISTRO -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.3</span>
+            サプライチェーンの地政学的集中
+        </h2>
+
+        <p class="body-text">
+            AIの重要鉱物への依存は、少数の国々に地理的に集中しており、
+            地政学的な脆弱性を生み出し、交渉力の弱い地域に環境コストを
+            外部化する採掘型モデルを永続させています。IEAは、2030年
+            までにガリウムの需要が現在の世界供給量の10%を超える可能性
+            があると報告しています。
+        </p>
+
+        <div class="supply-chain">
+            <div class="supply-item">
+                <span class="supply-country">🇨🇳</span>
+                <div class="supply-name">中国</div>
+                <p class="supply-detail">希土類生産の60%以上。ガリウム精製の99%。加工済みREEにおける事実上の独占。</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇨🇩</span>
+                <div class="supply-name">コンゴ民主共和国</div>
+                <p class="supply-detail">世界のコバルトの70%。労働環境への疑念。鉱山地域での活発な森林伐採。</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇧🇴</span>
+                <div class="supply-name">ボリビア／チリ／アルゼンチン</div>
+                <p class="supply-detail">世界最大のリチウム埋蔵量（「リチウム・トライアングル」）。先住民コミュニティとの対立が記録されている。</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇲🇲</span>
+                <div class="supply-name">ミャンマー</div>
+                <p class="supply-detail">REEとタングステンの重要な生産国。違法採掘が武力紛争資金に関連。</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇹🇼</span>
+                <div class="supply-name">台湾</div>
+                <p class="supply-detail">TSMCが世界で最も先進的なチップの92%を生産。製造における水への高い依存度。</p>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-box-title">世界的な不平等：コストが共有されていない</div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 市場集中度 — 国別の世界的支配率</div>
+            <div class="chart-canvas-wrap"><canvas id="chartSupplyChain"></canvas></div>
+        </div>
+            <p>
+                Springer Nature（2025年）の研究によると、AIの便益は
+                グローバルノース（米国、欧州、中国）に集中している
+                一方、生態学的コスト — 鉱山汚染、非公式な電子廃棄物、
+                生息地の破壊 — はグローバルサウス：サハラ以南アフリカ、
+                ラテンアメリカ、東南アジアに外部化されています。これは
+                <strong>デジタル環境植民地主義</strong>の一形態であり、
+                国際的な規制枠組みはこれに十分対処していません。
+            </p>
+        </div>
+
+        <div class="source-note">
+            <strong>本セクションの主要情報源：</strong> "The ecology of artificial intelligence:
+            energy, water, materials, and land limits of digital systems."
+            <em>Carbon Neutral Systems</em>、Springer Nature（2025年12月2日）。
+            DOI: 10.1007/s44438-025-00018-8。その他：UNEP "AI has an environmental problem"（2024年）、
+            FP Analytics "AI and the Critical Minerals Crunch"（2025年）、Wangら（2024年）。
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">セクション</div>
+                <div class="footer-value">5 — 鉱物と生物多様性（新規）</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">対象期間</div>
+                <div class="footer-value">2019年〜2025年12月</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">主要情報源</div>
+                <div class="footer-value">Springer Nature, UNEP, IEA, FP Analytics, Nature Comp. Sci.</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">次のセクション</div>
+                <div class="footer-value">セクション6 → 考察</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">表紙</a>
+                <a href="toc.html" class="nav-link">目次</a>
+                <a href="resumen.html" class="nav-link">要約</a>
+                <a href="introduccion.html" class="nav-link">序論</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link active">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">参考文献</a>
+            </div>
+            <p class="author-note">
+                <strong>著者：</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 国際
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.mineral-card,.supply-item,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartSupplyChain'), {
+    type:'bar',
+    data:{
+      labels:['🇹🇼 台湾 — 先端チップ（TSMC）','🇨🇳 中国 — ガリウム精製','🇨🇩 DRC — 世界のコバルト','🇨🇳 中国 — 希土類'],
+      datasets:[{
+        label:'% control global',
+        data:[92, 99, 70, 60],
+        backgroundColor:['#3498db','#e74c3c','#f39c12','#e67e22'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}% del mercado global`}} },
+      scales:{ x:{beginAtZero:true, max:100, title:{display:true,text:'% de control global'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

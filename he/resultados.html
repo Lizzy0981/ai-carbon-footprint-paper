@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§2 תוצאות — טביעת רגל פחמנית במודלי בינה מלאכותית</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#001f00 0%,#003300 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+.hdr{background:linear-gradient(135deg,#0a3d0a 0%,#1a5e1a 50%,#27ae60 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:34px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:16px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#1a8449;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #27ae60;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#1a8449,#27ae60);color:white;font-size:14px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* KEY FINDINGS */
+.key-findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:30px 0;}
+.kf{border:2px solid;border-radius:14px;padding:22px;text-align:center;transition:all .3s;}
+.kf:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.1);}
+.kf.a{background:linear-gradient(135deg,#f4f7ff,#e8edff);border-color:#667eea;}
+.kf.b{background:linear-gradient(135deg,#fdecea,#fbd5d0);border-color:#e74c3c;}
+.kf.c{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border-color:#27ae60;}
+.kf.d{background:linear-gradient(135deg,#fef9e7,#fdefc3);border-color:#f39c12;}
+.kf-val{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;display:block;margin-bottom:6px;}
+.kf.a .kf-val{color:#4a5cbf;} .kf.b .kf-val{color:#c0392b;} .kf.c .kf-val{color:#1a8449;} .kf.d .kf-val{color:#d68910;}
+.kf-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.kf.a .kf-label{color:#4a5cbf;} .kf.b .kf-label{color:#c0392b;} .kf.c .kf-label{color:#1a8449;} .kf.d .kf-label{color:#d68910;}
+.kf-note{font-size:13px;color:#7f8c8d;margin-top:5px;}
+
+/* MAIN RESULTS TABLE */
+.table-wrap{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border:2px solid #27ae60;border-radius:16px;padding:28px;margin:28px 0;overflow-x:auto;}
+.tw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#1a8449;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.results{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.results thead tr{background:linear-gradient(135deg,#1a8449,#27ae60);color:white;}
+table.results th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.5px;}
+table.results td{padding:11px 14px;font-size:13px;border-bottom:1px solid #a9dfbf;color:#2c3e50;vertical-align:middle;}
+table.results tr:nth-child(even) td{background:rgba(39,174,96,0.05);}
+table.results tr:hover td{background:rgba(39,174,96,0.1);}
+.cat-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:8px;text-transform:uppercase;white-space:nowrap;}
+.ct-llm{background:#e8edff;color:#4a5cbf;} .ct-vis{background:#fdefc3;color:#d68910;}
+.ct-spec{background:#d5f5e3;color:#1a8449;} .ct-small{background:#f0e6ff;color:#6c3483;}
+.em-vhi{color:#c0392b;font-weight:800;} .em-hi{color:#e67e22;font-weight:700;}
+.em-mid{color:#d68910;font-weight:600;} .em-lo{color:#27ae60;font-weight:600;} .em-vlo{color:#1a8449;font-weight:700;}
+
+/* CHART BAR VISUAL */
+.bar-chart{margin:28px 0;}
+.bar-item{display:grid;grid-template-columns:160px 1fr auto;gap:12px;align-items:center;padding:6px 0;}
+.bar-name{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#2c3e50;text-align:right;}
+.bar-track{background:#e9ecef;border-radius:4px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:white;white-space:nowrap;transition:width 1s ease;}
+.bar-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;white-space:nowrap;min-width:120px;}
+
+/* GEO IMPACT */
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0;}
+.geo-card{border-radius:14px;padding:20px;border:2px solid;}
+.geo-card.clean{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border-color:#27ae60;}
+.geo-card.mid{background:linear-gradient(135deg,#fef9e7,#fdefc3);border-color:#f39c12;}
+.geo-card.dirty{background:linear-gradient(135deg,#fdecea,#fbd5d0);border-color:#e74c3c;}
+.geo-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.geo-card.clean .geo-title{color:#1a8449;} .geo-card.mid .geo-title{color:#d68910;} .geo-card.dirty .geo-title{color:#c0392b;}
+.geo-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;display:block;margin-bottom:4px;}
+.geo-card.clean .geo-val{color:#1a8449;} .geo-card.mid .geo-val{color:#d68910;} .geo-card.dirty .geo-val{color:#c0392b;}
+.geo-note{font-size:14px;color:#34495e;line-height:1.6;}
+
+.insight-box{background:linear-gradient(135deg,#e8f4ff,#d0ecf8);border:2px solid #3498db;border-radius:16px;padding:28px;margin:28px 0;position:relative;}
+.insight-box::before{content:'🔬';position:absolute;top:-14px;left:24px;font-size:24px;background:white;padding:0 6px;}
+.insight-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#1a6fa8;margin-bottom:10px;}
+.insight-box p{font-size:17px;line-height:1.8;color:#2c3e50;}
+.source-note{background:#f8f9fa;border-left:4px solid #95a5a6;border-radius:0 8px 8px 0;padding:11px 18px;margin:14px 0;font-size:14px;font-style:italic;color:#5d6d7e;}
+
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(39,174,96,0.25);border-color:rgba(39,174,96,0.5);color:#86efac;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.bar-item{grid-template-columns:80px 1fr auto;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a9dfbf;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a8449;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:380px;}
+@media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">פרק 2 — תוצאות</div>
+    <h1>תוצאות: טביעת רגל פחמנית לפי מודל</h1>
+    <p>ניתוח של למעלה מ-30 מודלי בינה מלאכותית — מודלי שפה, ראייה, מודלים ייעודיים — עם מתאמים סטטיסטיים והשוואות גיאוגרפיות</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#1a8449;font-style:italic;text-align:center;margin-bottom:24px;">תרגום למקור המאומת בספרדית/אנגלית. במקרה של סתירה, הטקסט המקורי גובר.</p>
+
+  <div class="key-findings">
+    <div class="kf a"><span class="kf-val">R²=0.89</span><div class="kf-label">מתאם פרמטרים ל-CO₂</div><div class="kf-note">p&lt;0.001 — מובהק סטטיסטית</div></div>
+    <div class="kf b"><span class="kf-val">×100</span><div class="kf-label">הפרש GPT-4 לעומת Claude</div><div class="kf-note">אותה משימה, השפעה שונה בתכלית</div></div>
+    <div class="kf c"><span class="kf-val">1,820,000</span><div class="kf-label">ק"ג CO₂ — אימון GPT-4</div><div class="kf-note">≈ 400 מכוניות לאורך כל חייהן</div></div>
+    <div class="kf d"><span class="kf-val">90%</span><div class="kf-label">שונות מקסימלית לפי גיאוגרפיה</div><div class="kf-note">איסלנד לעומת פולין — אותו מודל, השפעה שונה מאוד</div></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.1</span>תוצאות עולמיות לפי מודל</div>
+
+  <div class="table-wrap">
+    <div class="tw-title">טביעת רגל פחמנית של אימון — מודלים נבחרים</div>
+    <table class="results">
+      <thead><tr><th>מודל</th><th>חברה</th><th>פרמטרים</th><th>חומרה</th><th>CO₂ מוערך (ק"ג)</th><th>סוג</th></tr></thead>
+      <tbody>
+        <tr><td><strong>GPT-4</strong></td><td>OpenAI/Microsoft</td><td>~1.76 טריליון (MoE)</td><td>~25,000× H100</td><td class="em-vhi">1,820,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>GPT-3.5</strong></td><td>OpenAI/Microsoft</td><td>175 מיליארד</td><td>~10,000× A100</td><td class="em-vhi">552,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>PaLM 2 (Bison)</strong></td><td>Google</td><td>340 מיליארד</td><td>~6,144× TPU v4</td><td class="em-hi">245,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>Gemini Ultra</strong></td><td>Google</td><td>~1.56 טריליון</td><td>~16,000× TPU v5e</td><td class="em-vhi">1,100,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>LLaMA 3 (70B)</strong></td><td>Meta AI</td><td>70 מיליארד</td><td>~16,000× H100</td><td class="em-hi">183,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>LLaMA 3 (8B)</strong></td><td>Meta AI</td><td>8 מיליארד</td><td>~2,048× H100</td><td class="em-mid">22,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>Claude 3 Opus</strong></td><td>Anthropic</td><td>לא ידוע (הערכה ~52 מיליארד)</td><td>~4,096× H100</td><td class="em-mid">54,000</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>Claude Sonnet</strong></td><td>Anthropic</td><td>לא ידוע (הערכה ~10 מיליארד)</td><td>~1,024× H100</td><td class="em-lo">18,200</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>Mistral 7B</strong></td><td>Mistral AI</td><td>7.3 מיליארד</td><td>~512× A100</td><td class="em-vlo">4,800</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>BERT (base)</strong></td><td>Google</td><td>110 מיליון</td><td>64× TPU v3</td><td class="em-vlo">652</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>GPT-2 (XL)</strong></td><td>OpenAI</td><td>1.5 מיליארד</td><td>32× V100</td><td class="em-vlo">78</td><td><span class="cat-tag ct-llm">מודל שפה</span></td></tr>
+        <tr><td><strong>DALL-E 3</strong></td><td>OpenAI/Microsoft</td><td>~5 מיליארד</td><td>~4,096× A100</td><td class="em-hi">89,000</td><td><span class="cat-tag ct-vis">תמונה</span></td></tr>
+        <tr><td><strong>Stable Diffusion XL</strong></td><td>Stability AI</td><td>3.5 מיליארד</td><td>~256× A100</td><td class="em-mid">8,600</td><td><span class="cat-tag ct-vis">תמונה</span></td></tr>
+        <tr><td><strong>Midjourney v6</strong></td><td>Midjourney</td><td>לא ידוע</td><td>לא ידוע (הערכה)</td><td class="em-hi">~120,000</td><td><span class="cat-tag ct-vis">תמונה</span></td></tr>
+        <tr><td><strong>DeepSeek-R1 (671B)</strong></td><td>DeepSeek</td><td>671 מיליארד (MoE)</td><td>~2,048× H800</td><td class="em-mid">58,000</td><td><span class="cat-tag ct-spec">הסקה</span></td></tr>
+        <tr><td><strong>Phi-3 Mini</strong></td><td>Microsoft</td><td>3.8 מיליארד</td><td>~512× A100</td><td class="em-vlo">3,200</td><td><span class="cat-tag ct-small">מודל שפה קטן</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="source-note"><strong>הערה מתודולוגית:</strong> הערכים המסומנים "לא ידוע" משקפים את חוסר השקיפות של התעשייה. האומדנים מבוססים על פרסומים טכניים, הודעות חברות ומאמרי מחקר חיצוניים. שגיאה ממוצעת לעומת נתונים רשמיים זמינים: &lt;6%.</div>
+
+  <div class="sh"><span class="sh-num">2.2</span>הדמיה השוואתית: מודלים לפי פליטות</div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 טביעת רגל פחמנית לפי מודל (ק"ג CO₂) — סקאלה לוגריתמית</div>
+    <div class="chart-canvas-wrap"><canvas id="chartModelsCO2"></canvas></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.3</span>השפעת הגיאוגרפיה: אותו מודל, טביעת רגל שונה</div>
+
+  <p class="body-text">כאשר מאמנים את אותו מודל GPT-3 (175 מיליארד) עם אותה תשתית אך במיקומים גיאוגרפיים שונים, טביעת הרגל הפחמנית משתנה באופן דרמטי — עד פי 90 בין התרחיש היעיל ביותר לפחות היעיל.</p>
+
+  <div class="geo-grid">
+    <div class="geo-card clean"><div class="geo-title">🇮🇸 איסלנד</div><span class="geo-val">28,800 ק"ג</span><p class="geo-note">100% גיאותרמי · C_factor: 0.012 ק"ג/קוט"ש</p></div>
+    <div class="geo-card clean"><div class="geo-title">🇳🇴 נורווגיה</div><span class="geo-val">38,400 ק"ג</span><p class="geo-note">98% הידרואלקטרי · C_factor: 0.016 ק"ג/קוט"ש</p></div>
+    <div class="geo-card clean"><div class="geo-title">🇫🇷 צרפת</div><span class="geo-val">79,200 ק"ג</span><p class="geo-note">70% גרעיני · C_factor: 0.033 ק"ג/קוט"ש</p></div>
+    <div class="geo-card mid"><div class="geo-title">🇺🇸 קליפורניה</div><span class="geo-val">558,000 ק"ג</span><p class="geo-note">תמהיל מתחדש · C_factor: 0.233 ק"ג/קוט"ש</p></div>
+    <div class="geo-card mid"><div class="geo-title">🇺🇸 ממוצע ארה"ב</div><span class="geo-val">926,400 ק"ג</span><p class="geo-note">ממוצע ארצי · C_factor: 0.386 ק"ג/קוט"ש</p></div>
+    <div class="geo-card dirty"><div class="geo-title">🇮🇳 הודו</div><span class="geo-val">1,519,200 ק"ג</span><p class="geo-note">תלות גבוהה בפחם · C_factor: 0.633 ק"ג/קוט"ש</p></div>
+    <div class="geo-card dirty"><div class="geo-title">🇵🇱 פולין</div><span class="geo-val">2,604,000 ק"ג</span><p class="geo-note">~70% פחם · C_factor: 1.085 ק"ג/קוט"ש</p></div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 GPT-3 (175 מיליארד) מאומן ב-7 מיקומים — אותה תשתית</div>
+    <div class="chart-canvas-wrap"><canvas id="chartGeo"></canvas></div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title">ממצא מרכזי: הגיאוגרפיה יכולה להפחית פליטות עד פי 90</div>
+    <p>אימון אותו מודל באיסלנד (גיאותרמי) לעומת פולין (פחם) מייצר <strong>הפרש של פי 90 בפליטות פחמן</strong>. משמעות הדבר היא שבחירת מיקום מרכז הנתונים היא הגורם הבודד בעל ההשפעה הגדולה ביותר על קיימות הבינה המלאכותית — יותר מגודל המודל או יעילות החומרה. למסקנה זו השלכות ישירות על מדיניות המיקום של מרכזי נתונים.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">2.4</span>מתאם פרמטרים-פליטות: חוק החזקה</div>
+  <p class="body-text">הניתוח הסטטיסטי של למעלה מ-30 המודלים חושף מתאם מסוג חוק חזקה בין מספר הפרמטרים לפליטות CO₂ (R²=0.89, p&lt;0.001). כל הכפלה במספר הפרמטרים משמעה עלייה של כ-×1.6 בפליטות. יחס זה אינו ליניארי: מעבר מ-7 מיליארד ל-70 מיליארד פרמטרים (~×10) משמעו כ-×16 יותר פליטות. המתאם מאשר שגודל המודל הוא המנבא האמין ביותר להשפעה הסביבתית, אף על פי שהגיאוגרפיה והחומרה בה נעשה שימוש מכניסות שונות משמעותית.</p>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">שער</a><a href="toc.html" class="nl">תוכן עניינים</a>
+    <a href="resumen.html" class="nl">תקציר</a><a href="introduccion.html" class="nl">מבוא</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl active">§2 תוצאות</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">מקורות</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · גרסה 1.0.0, מרץ 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.kf,.geo-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Models CO2 (log scale, sorted descending)
+  new Chart(document.getElementById('chartModelsCO2'), {
+    type:'bar',
+    data:{
+      labels:['GPT-4','Gemini Ultra','Midjourney v6','GPT-3.5','DALL-E 3','PaLM 2','LLaMA 3 70B','DeepSeek-R1','Claude 3 Opus','Stable Diff. XL','LLaMA 3 8B','Claude Sonnet','Mistral 7B','Phi-3 Mini','GPT-2 XL','BERT Base'],
+      datasets:[{
+        label:'kg CO₂',
+        data:[1820000,1100000,120000,552000,89000,245000,183000,58000,54000,8600,22000,18200,4800,3200,78,652],
+        backgroundColor:(ctx)=>{
+          const v=ctx.raw||0;
+          if(v>500000) return '#c0392b';
+          if(v>100000) return '#e67e22';
+          if(v>20000)  return '#f39c12';
+          if(v>2000)   return '#27ae60';
+          return '#1abc9c';
+        },
+        borderRadius:6,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*60},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} kg CO₂`}} },
+      scales:{ x:{type:'logarithmic', title:{display:true,text:'kg CO₂ (escala log)'}} }
+    }
+  });
+
+  // Chart 2 — Geographic impact same model
+  new Chart(document.getElementById('chartGeo'), {
+    type:'bar',
+    data:{
+      labels:['🇮🇸 איסלנד','🇳🇴 נורווגיה','🇫🇷 צרפת','🇺🇸 קליפורניה','🇺🇸 ממוצע ארה"ב','🇮🇳 הודו','🇵🇱 פולין'],
+      datasets:[{
+        label:'kg CO₂',
+        data:[28800,38400,79200,558000,926400,1519200,2604000],
+        backgroundColor:['#27ae60','#27ae60','#27ae60','#f39c12','#f39c12','#e74c3c','#e74c3c'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} kg CO₂`}},
+        annotation:{} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'kg CO₂'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

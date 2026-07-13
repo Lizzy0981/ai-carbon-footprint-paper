@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Раздел 5 — Критические минералы и биоразнообразие | Научная работа</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #0b6b35 0%, #1a8449 50%, #27ae60 100%);
+            color: white; padding: 50px 40px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E") repeat;
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white; font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px; margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: earthPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes earthPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 720px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        .crisis-callout {
+            background: linear-gradient(135deg, #e9f7ef 0%, #d5f5e3 100%);
+            border-left: 6px solid #27ae60;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px; position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '🌍';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #145a32; }
+        .crisis-callout strong { color: #0b6b35; }
+
+        /* MINERALS GRID */
+        .minerals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .mineral-card {
+            background: white; border-radius: 16px;
+            border: 2px solid #a9dfbf;
+            padding: 25px; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .mineral-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+
+        .mineral-card.critical::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+        .mineral-card.high::before { background: linear-gradient(90deg, #d68910, #f39c12); }
+        .mineral-card.medium::before { background: linear-gradient(90deg, #1a8449, #27ae60); }
+
+        .mineral-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(39,174,96,0.2);
+        }
+
+        .mineral-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .mineral-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .mineral-card.critical .mineral-name { color: #c0392b; }
+        .mineral-card.high .mineral-name { color: #d68910; }
+        .mineral-card.medium .mineral-name { color: #1a8449; }
+
+        .mineral-use {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: #7f8c8d; margin-bottom: 10px;
+        }
+
+        .mineral-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .mineral-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; padding: 5px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        .mineral-card.critical .mineral-data { background: #fdecea; color: #c0392b; }
+        .mineral-card.high .mineral-data { background: #fef9e7; color: #d68910; }
+        .mineral-card.medium .mineral-data { background: #eafaf1; color: #1a8449; }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #1a8449;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #27ae60;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a8449, #27ae60);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* BAOTOU CASE */
+        .case-study {
+            background: linear-gradient(135deg, #1c1c1c 0%, #2c2c2c 100%);
+            color: white; border-radius: 16px; padding: 35px;
+            margin: 30px 0; position: relative; overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '📍 CASO DE ESTUDIO';
+            position: absolute; top: 15px; right: 20px;
+            font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; background: #e74c3c; color: white;
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        .case-study-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px; font-weight: 800;
+            color: #f39c12; margin-bottom: 15px;
+        }
+
+        .case-study p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .case-study p:last-child { margin-bottom: 0; }
+        .case-study strong { color: #f39c12; }
+
+        /* BIODIVERSITY */
+        .biodiversity-impacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px; margin: 30px 0;
+        }
+
+        .bio-card {
+            background: white; border: 2px solid #a9dfbf;
+            border-radius: 14px; padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .bio-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 6px 20px rgba(39,174,96,0.15);
+        }
+
+        .bio-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+
+        .bio-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 700;
+            color: #1a8449; margin-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .bio-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* DEEP SEA BOX */
+        .deep-sea-box {
+            background: linear-gradient(135deg, #0a1a2e 0%, #0d2137 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0; border: 2px solid #1a6fa8;
+        }
+
+        .deep-sea-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 800;
+            color: #3498db; margin-bottom: 12px;
+        }
+
+        .deep-sea-box p { font-size: 17px; line-height: 1.8; margin-bottom: 10px; }
+        .deep-sea-box strong { color: #3498db; }
+
+        /* SUPPLY CHAIN */
+        .supply-chain {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .supply-item {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #a9dfbf;
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+
+        .supply-country { font-size: 30px; margin-bottom: 8px; display: block; }
+
+        .supply-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700;
+            color: #1a8449; margin-bottom: 6px;
+        }
+
+        .supply-detail { font-size: 14px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea, #fad7d0);
+            border: 3px solid #e74c3c; border-radius: 16px;
+            padding: 30px; margin: 30px 0; position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute; top: -18px; left: 30px;
+            font-size: 30px; background: white; padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif; font-size: 18px;
+            font-weight: 800; color: #c0392b; margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #0b3d1f 0%, #145a32 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #27ae60; border-color: #27ae60; color: white; }
+
+        .author-note { font-size: 13px; opacity: 0.8; font-style: italic; text-align: center; }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4a373;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#7d3c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Раздел 5 — Новый</span>
+            <span class="section-icon">⛏️</span>
+            <h1 class="section-title">Критические минералы, экосистемы и биоразнообразие</h1>
+            <p class="section-subtitle">
+                ИИ не существует в воздухе — его чипы и серверы требуют металлов, добываемых
+                из недр земли, ценой, часто остающейся невидимой для окружающей среды и людей
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a8449;font-style:italic;margin-bottom:20px;">Перевод проверенного оригинала ES/EN. В случае расхождений оригинал имеет приоритет.</p>
+
+        <div class="crisis-callout">
+            <p>
+                Производство компьютера весом 2 кг требует <strong>800 кг сырья</strong>.
+                Микрочипы, дающие жизнь моделям ИИ, зависят от редкоземельных элементов,
+                добываемых в экологически разрушительных условиях, часто в регионах
+                со слабым или отсутствующим экологическим регулированием. <strong>Китай контролирует 60–99%
+                переработки наиболее важных для ИИ критических минералов</strong>, и расширение
+                отрасли могло бы спровоцировать эскалацию подводной добычи практически
+                неисследованных экосистем.
+            </p>
+        </div>
+
+        <!-- 5.1 MINERALES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.1</span>
+            Критические минералы, необходимые для ИИ
+        </h2>
+
+        <p class="body-text">
+            Минералы, необходимые для инфраструктуры ИИ, охватывают от обычных металлов
+            до редкоземельных элементов высокоспециализированной добычи. Каждый GPU,
+            сервер и система охлаждения концентрируют десятки этих материалов, чья
+            цепочка поставок создаёт экологическое воздействие от шахты до свалки:
+        </p>
+
+        <div class="minerals-grid">
+            <div class="mineral-card critical">
+                <span class="mineral-icon">⚡</span>
+                <div class="mineral-name">Кобальт (Co)</div>
+                <div class="mineral-use">Резервные аккумуляторы дата-центров</div>
+                <p class="mineral-text">
+                    ~70% мирового производства приходится на ДРК (Демократическую
+                    Республику Конго), где кустарная добыча связана с детским трудом и
+                    загрязняет местные реки. Добыча уничтожает тропические леса
+                    и напрямую затрагивает коренные общины.
+                </p>
+                <span class="mineral-data">ДРК: 70% мирового производства — IEA 2024</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔋</span>
+                <div class="mineral-name">Литий (Li)</div>
+                <div class="mineral-use">Аккумуляторы и системы хранения</div>
+                <p class="mineral-text">
+                    Добыча на солончаке Боливии (крупнейшем мировом месторождении) использует
+                    огромные объёмы воды в уже засушливых регионах, угрожая уникальным
+                    экосистемам, таким как лагуна Уюни. Коренные общины заявляют
+                    о «чисто формальных» консультациях.
+                </p>
+                <span class="mineral-data">Боливия: крупнейший мировой резерв — воздействие на уникальные экосистемы</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔲</span>
+                <div class="mineral-name">Галлий (Ga)</div>
+                <div class="mineral-use">Чипы и силовая электроника для GPU</div>
+                <p class="mineral-text">
+                    Китай контролирует 99% мировой переработки галлия. Исследование
+                    жизненного цикла в Шаньси определяет гидроксид натрия, используемый в
+                    его переработке, как главный источник водной токсичности.
+                    IEA прогнозирует, что спрос превысит 10% текущего
+                    предложения к 2030 году.
+                </p>
+                <span class="mineral-data">Китай: 99% мировой переработки — IEA Energy & AI (2025)</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">🧲</span>
+                <div class="mineral-name">Неодим (Nd)</div>
+                <div class="mineral-use">Постоянные магниты в двигателях GPU и вентиляторах</div>
+                <p class="mineral-text">
+                    Редкоземельный элемент, необходимый для мощных магнитов
+                    двигателей систем охлаждения. Его добыча в Китае привела
+                    к масштабным экологическим ущербам, включая токсичное озеро
+                    Баотоу, Внутренняя Монголия.
+                </p>
+                <span class="mineral-data">Баотоу: токсичное озеро с 180 Мт отходов</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">💎</span>
+                <div class="mineral-name">Медь (Cu)</div>
+                <div class="mineral-use">Кабели, радиаторы, печатные платы</div>
+                <p class="mineral-text">
+                    США импортируют ~37% своей меди. Новые шахты требуют 15–20 лет
+                    от открытия до производства. Добыча меди на севере
+                    Чили сталкивается с протестами коренных общин из-за использования
+                    воды в засушливых зонах.
+                </p>
+                <span class="mineral-data">США импортируют 37% — FP Analytics (2025)</span>
+            </div>
+            <div class="mineral-card medium">
+                <span class="mineral-icon">🔩</span>
+                <div class="mineral-name">Сверхчистый кремний (Si)</div>
+                <div class="mineral-use">Базовая подложка всех полупроводников</div>
+                <p class="mineral-text">
+                    Хотя кремний в изобилии, его очистка до полупроводниковой чистоты
+                    (99,9999999%) требует чрезвычайно энергоёмких и водоёмких
+                    процессов. Заводы по производству чипов (fabs) сосредоточены в
+                    Тайване, Южной Корее и США.
+                </p>
+                <span class="mineral-data">Очистка: самый водоёмкий процесс в отрасли</span>
+            </div>
+        </div>
+
+        <!-- 5.2 CASO BAOTOU -->
+        <div class="case-study">
+            <div class="case-study-title">🏭 Пример Баотоу, Внутренняя Монголия, Китай</div>
+            <p>
+                В Баотоу, мировом центре переработки редкоземельных металлов, процесс
+                добычи и переработки минералов создал <strong>токсичное озеро
+                площадью более 5 квадратных миль</strong>, содержащее более
+                <strong>180 миллионов тонн остаточной пыли от переработки руды</strong>.
+            </p>
+            <p>
+                Это озеро содержит <strong>радиоактивный торий, серную кислоту и десятки
+                других загрязнителей</strong>, проникающих в местные водоносные горизонты и
+                окружающую сельскохозяйственную почву. Ближайшие деревни сообщают о повышенных
+                показателях рака, остеопороза и врождённых дефектов. Экосистема в радиусе
+                нескольких километров была необратимо изменена.
+            </p>
+            <p>
+                Это не единичный случай: это документированное следствие мирового
+                спроса на редкоземельные минералы для технологий — включая ИИ.
+            </p>
+        </div>
+
+        <!-- 5.3 BIODIVERSIDAD -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.2</span>
+            Воздействие на биоразнообразие и экосистемы
+        </h2>
+
+        <p class="body-text">
+            Исследование, опубликованное в <em>Carbon Neutral Systems</em> (Springer Nature, декабрь 2025),
+            разрабатывает первую интегрированную концепцию «ресурсного нексуса», анализирующую
+            воздействие ИИ на энергию, воду, материалы и почву одновременно. Оно определяет, что
+            воздействие на биоразнообразие является системным, взаимосвязанным и пространственно
+            неравномерным, с выгодами, сконцентрированными в Глобальном Севере, и экологическими
+            издержками, вынесенными в Глобальный Юг.
+        </p>
+
+        <div class="biodiversity-impacts">
+            <div class="bio-card">
+                <span class="bio-icon">🌳</span>
+                <div class="bio-title">Разрушение среды обитания при добыче</div>
+                <p class="bio-text">
+                    Добыча и плавка критических минералов влечёт разрушение сред обитания,
+                    внедрение инвазивных видов через сети горнодобывающих дорог,
+                    и долгосрочные токсические эффекты в прилегающих водных экосистемах.
+                    <br><small><em>Источник: Springer Nature (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌱</span>
+                <div class="bio-title">Преобразование земель под дата-центры</div>
+                <p class="bio-text">
+                    Крупные серверные парки занимают обширные территории, вытесняя
+                    местную флору и фауну. Дата-центр в Орегоне занимает 327 акров —
+                    более 250 футбольных полей. Их развитие в пригородных зонах
+                    изменяет экологические коридоры и способствует городским тепловым островам.
+                    <br><small><em>Источник: Medium/Eastgate (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🐟</span>
+                <div class="bio-title">Загрязнение воды</div>
+                <p class="bio-text">
+                    Фильтраты со свалок e-waste и отходы переработки
+                    минералов загрязняют реки, озёра и водоносные горизонты. Ртуть
+                    накапливается в водной пищевой цепи, поражая рыб,
+                    птиц и морских млекопитающих.
+                    <br><small><em>Источник: Wang et al., Nature Comp. Sci. (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🦜</span>
+                <div class="bio-title">Фрагментация среды обитания</div>
+                <p class="bio-text">
+                    Сети дорог для доступа к шахтам фрагментируют ранее непрерывные
+                    среды обитания, нарушая пути миграции млекопитающих и птиц,
+                    и облегчая браконьерство и незаконную добычу природных ресурсов.
+                    <br><small><em>Источник: Springer Nature Carbon Neutral Systems (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">💧</span>
+                <div class="bio-title">Конкуренция за воду с экосистемами</div>
+                <p class="bio-text">
+                    Дата-центры в засушливых зонах извлекают воду из тех же водоносных горизонтов,
+                    что питают водно-болотные угодья и реки, критически важные для перелётных птиц и
+                    эндемичной фауны. Юго-запад США, Испания и север Чили
+                    являются документированными случаями активного конфликта.
+                    <br><small><em>Источник: Lincoln Institute / IE Insights (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌡️</span>
+                <div class="bio-title">Тепловые острова и микроклимат</div>
+                <p class="bio-text">
+                    Мегадата-центры выделяют остаточное тепло, повышающее местную
+                    температуру на несколько градусов, изменяя микроклиматы, поддерживающие
+                    чувствительные экосистемы. В плотных зонах, таких как северная Вирджиния,
+                    с более чем 300 дата-центрами, эффект носит региональный и документированный характер.
+                    <br><small><em>Источник: Lincoln Institute (2025)</em></small>
+                </p>
+            </div>
+        </div>
+
+        <!-- 5.4 MINERÍA SUBMARINA -->
+        <div class="deep-sea-box">
+            <div class="deep-sea-title">⚓ Самая опасная граница: добыча на морском дне</div>
+            <p>
+                Взрывной спрос на металлы для ИИ ускоряет предложения по
+                <strong>добыче на морском дне</strong> — извлечению металлических конкреций со
+                дна океана в практически неисследованных зонах. Зона
+                Кларион-Клиппертон, между Мексикой и Гавайями, привлекает наибольший интерес
+                американских и европейских горнодобывающих компаний.
+            </p>
+            <p>
+                Проблема в том, что эти конкреции покоятся в <strong>уникальных глубоководных
+                экосистемах</strong>, где обитают некаталогизированные виды, многие с критической
+                ролью в океанических биогеохимических циклах. Волочение или всасывание морского
+                дна для извлечения этих конкреций <strong>необратимо разрушает
+                среды обитания, формировавшиеся миллионы лет</strong>. Эта зона
+                находится в международных водах, и её регулирование активно обсуждается
+                в Международном органе по морскому дну.
+            </p>
+            <p>
+                <strong>Пока не существует адекватной регуляторной базы</strong> для оценки
+                или смягчения этого воздействия до начала добычи.
+            </p>
+        </div>
+
+        <!-- 5.5 CADENA DE SUMINISTRO -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.3</span>
+            Геополитическая концентрация цепочки поставок
+        </h2>
+
+        <p class="body-text">
+            Зависимость ИИ от критических минералов географически сосредоточена
+            в горстке стран, создавая геополитические уязвимости и увековечивая
+            экстрактивные модели, которые выносят экологические издержки в регионы с меньшей
+            переговорной силой. IEA сообщает, что спрос на галлий может превысить
+            10% текущего глобального предложения к 2030 году.
+        </p>
+
+        <div class="supply-chain">
+            <div class="supply-item">
+                <span class="supply-country">🇨🇳</span>
+                <div class="supply-name">Китай</div>
+                <p class="supply-detail">60%+ производства редкоземельных металлов. 99% переработки галлия. Фактическая монополия на переработанные REE.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇨🇩</span>
+                <div class="supply-name">ДРК</div>
+                <p class="supply-detail">70% мирового кобальта. Оспариваемые трудовые условия. Активная вырубка лесов в горнодобывающих зонах.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇧🇴</span>
+                <div class="supply-name">Боливия / Чили / Аргентина</div>
+                <p class="supply-detail">Крупнейший мировой резерв лития («Литиевый треугольник»). Документированы конфликты с коренными общинами.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇲🇲</span>
+                <div class="supply-name">Мьянма</div>
+                <p class="supply-detail">Важный производитель REE и вольфрама. Незаконная добыча связана с финансированием вооружённого конфликта.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇹🇼</span>
+                <div class="supply-name">Тайвань</div>
+                <p class="supply-detail">TSMC производит 92% самых передовых чипов в мире. Высокая зависимость от воды для производства.</p>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-box-title">Глобальное неравенство: издержки не распределены поровну</div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Концентрация рынка — % глобального контроля по странам</div>
+            <div class="chart-canvas-wrap"><canvas id="chartSupplyChain"></canvas></div>
+        </div>
+            <p>
+                Исследование Springer Nature (2025) демонстрирует, что выгоды ИИ
+                сосредоточены в Глобальном Севере (США, Европа, Китай), в то время как
+                экологические издержки — горная поляризация, неформальный e-waste, разрушение
+                среды обитания — выносятся в Глобальный Юг: Африку к югу от Сахары, Латинскую
+                Америку и Юго-Восточную Азию. Это форма <strong>цифрового
+                экологического колониализма</strong>, которую международная регуляторная база
+                адекватно не рассмотрела.
+            </p>
+        </div>
+
+        <div class="source-note">
+            <strong>Основной источник этого раздела:</strong> «The ecology of artificial intelligence:
+            energy, water, materials, and land limits of digital systems».
+            <em>Carbon Neutral Systems</em>, Springer Nature (2 декабря 2025).
+            DOI: 10.1007/s44438-025-00018-8. Также: UNEP «AI has an environmental problem» (2024),
+            FP Analytics «AI and the Critical Minerals Crunch» (2025), Wang et al. (2024).
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Раздел</div>
+                <div class="footer-value">5 — Минералы и биоразнообразие (Новый)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Данные охватывают</div>
+                <div class="footer-value">2019 – Дек. 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Первичные источники</div>
+                <div class="footer-value">Springer Nature, UNEP, IEA, FP Analytics, Nature Comp. Sci.</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Следующий раздел</div>
+                <div class="footer-value">Раздел 6 → Обсуждение</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">Обложка</a>
+                <a href="toc.html" class="nav-link">Содержание</a>
+                <a href="resumen.html" class="nav-link">Резюме</a>
+                <a href="introduccion.html" class="nav-link">Введение</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link active">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Ссылки</a>
+            </div>
+            <p class="author-note">
+                <strong>Автор:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Международная
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.mineral-card,.supply-item,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartSupplyChain'), {
+    type:'bar',
+    data:{
+      labels:['🇹🇼 Тайвань — Передовые чипы (TSMC)','🇨🇳 Китай — Переработка галлия','🇨🇩 ДРК — Мировой кобальт','🇨🇳 Китай — Редкоземельные металлы'],
+      datasets:[{
+        label:'% мирового контроля',
+        data:[92, 99, 70, 60],
+        backgroundColor:['#3498db','#e74c3c','#f39c12','#e67e22'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}% мирового рынка`}} },
+      scales:{ x:{beginAtZero:true, max:100, title:{display:true,text:'% мирового контроля'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

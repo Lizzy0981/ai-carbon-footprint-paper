@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>目录 — 人工智能模型碳足迹测量科学方法论</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        :root {
+            --purple: #667eea;
+            --purple-dark: #764ba2;
+            --blue: #3498db;
+            --green: #27ae60;
+            --red: #e74c3c;
+            --orange: #f39c12;
+            --teal: #1abc9c;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d1a;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            background: #12121f;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* TOP RAINBOW BAR */
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--purple), var(--blue), var(--teal), var(--green), var(--orange), var(--red));
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 55px 50px 45px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+        }
+
+        /* Particle grid background */
+        .header::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(102,126,234,0.12) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .header-inner { position: relative; z-index: 2; }
+
+        .doc-type {
+            display: inline-block;
+            background: rgba(102,126,234,0.15);
+            border: 1px solid rgba(102,126,234,0.35);
+            color: #a8b8f8;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase;
+            padding: 7px 22px; border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        .paper-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 30px; font-weight: 700;
+            color: #e8eaf6; line-height: 1.4;
+            margin-bottom: 10px;
+            max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+
+        .paper-subtitle {
+            font-size: 14px; color: #7986a8;
+            margin-bottom: 30px; line-height: 1.6;
+        }
+
+        .paper-meta {
+            display: flex; justify-content: center;
+            gap: 30px; flex-wrap: wrap;
+        }
+
+        .meta-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 7px 16px; border-radius: 20px;
+            font-size: 12px; color: #a0aec0;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .meta-pill span { font-weight: 700; color: #c6d0e8; }
+
+        /* TOC BODY */
+        .toc-body { padding: 50px 50px 40px; }
+
+        /* SECTION LABEL */
+        .toc-group-label {
+            font-size: 10px; font-weight: 800;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #4a5568; margin-bottom: 14px; margin-top: 36px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .toc-group-label:first-of-type { margin-top: 0; }
+
+        /* TOC ITEMS */
+        .toc-item {
+            display: grid;
+            grid-template-columns: 44px 1fr auto;
+            align-items: center;
+            gap: 0;
+            padding: 0;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .toc-item::before {
+            content: '';
+            position: absolute; left: 0; top: 0;
+            width: 3px; height: 100%;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .toc-item:hover { background: rgba(255,255,255,0.04); }
+        .toc-item:hover::before { opacity: 1; }
+
+        /* Accent colors per section */
+        .toc-item.prelim::before { background: var(--purple); }
+        .toc-item.methodology::before { background: var(--blue); }
+        .toc-item.results::before { background: var(--red); }
+        .toc-item.water::before { background: var(--blue); }
+        .toc-item.ewaste::before { background: var(--orange); }
+        .toc-item.minerals::before { background: var(--green); }
+        .toc-item.discussion::before { background: #e67e22; }
+        .toc-item.recommendations::before { background: var(--teal); }
+        .toc-item.conclusions::before { background: var(--purple); }
+        .toc-item.references::before { background: var(--gray); }
+
+        /* Number circle */
+        .toc-num {
+            width: 44px; height: 54px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .toc-num-inner {
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+        }
+
+        .prelim .toc-num-inner { background: rgba(102,126,234,0.15); color: var(--purple); }
+        .methodology .toc-num-inner { background: rgba(52,152,219,0.15); color: var(--blue); }
+        .results .toc-num-inner { background: rgba(231,76,60,0.15); color: var(--red); }
+        .water .toc-num-inner { background: rgba(26,107,168,0.15); color: #2980b9; }
+        .ewaste .toc-num-inner { background: rgba(211,84,0,0.15); color: var(--orange); }
+        .minerals .toc-num-inner { background: rgba(39,174,96,0.15); color: var(--green); }
+        .discussion .toc-num-inner { background: rgba(230,126,34,0.15); color: #e67e22; }
+        .recommendations .toc-num-inner { background: rgba(26,188,156,0.15); color: var(--teal); }
+        .conclusions .toc-num-inner { background: rgba(102,126,234,0.15); color: var(--purple); }
+        .references .toc-num-inner { background: rgba(149,165,166,0.15); color: var(--gray); }
+
+        /* Title area */
+        .toc-title-area {
+            padding: 14px 14px 14px 4px;
+            min-width: 0;
+        }
+
+        .toc-title {
+            font-size: 15px; font-weight: 600;
+            color: #d0d8f0; line-height: 1.3;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .toc-item:hover .toc-title { color: white; }
+
+        .toc-desc {
+            font-size: 12px; color: #4a5568;
+            margin-top: 3px; line-height: 1.4;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .toc-item:hover .toc-desc { color: #718096; }
+
+        /* Tags */
+        .toc-tags {
+            display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap;
+        }
+
+        .toc-tag {
+            font-size: 10px; font-weight: 700;
+            padding: 2px 7px; border-radius: 6px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .tag-new { background: rgba(26,188,156,0.15); color: #1abc9c; }
+        .tag-updated { background: rgba(243,156,18,0.15); color: #f39c12; }
+        .tag-core { background: rgba(102,126,234,0.15); color: #667eea; }
+
+        /* Page / arrow */
+        .toc-arrow {
+            padding: 14px 20px 14px 10px;
+            color: #2d3748;
+            font-size: 16px;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .toc-item:hover .toc-arrow { color: #667eea; transform: translateX(3px); }
+
+        /* Subsections */
+        .toc-subsections {
+            margin: 4px 0 10px 44px;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .toc-sub {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px 0;
+            font-size: 13px; color: #4a5568;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .toc-sub:hover { color: #a0aec0; }
+
+        .toc-sub-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .prelim-sub .toc-sub-dot { background: rgba(102,126,234,0.5); }
+        .water-sub .toc-sub-dot { background: rgba(52,152,219,0.5); }
+        .ewaste-sub .toc-sub-dot { background: rgba(243,156,18,0.5); }
+        .minerals-sub .toc-sub-dot { background: rgba(39,174,96,0.5); }
+        .results-sub .toc-sub-dot { background: rgba(231,76,60,0.5); }
+        .discussion-sub .toc-sub-dot { background: rgba(230,126,34,0.5); }
+        .recommendations-sub .toc-sub-dot { background: rgba(26,188,156,0.5); }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1px;
+            background: rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin: 30px -50px;
+        }
+
+        .stat-cell {
+            background: #12121f;
+            padding: 18px 20px;
+            text-align: center;
+        }
+
+        .stat-cell-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px; font-weight: 700;
+            display: block; margin-bottom: 5px;
+        }
+
+        .stat-cell-label {
+            font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; color: #4a5568;
+        }
+
+        /* FOOTER */
+        .toc-footer {
+            background: linear-gradient(135deg, #0a0a15 0%, #12121f 100%);
+            padding: 30px 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-links {
+            display: flex; justify-content: center;
+            gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+
+        .footer-link {
+            color: #4a5568; text-decoration: none;
+            font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .footer-link:hover { background: rgba(255,255,255,0.05); color: #a0aec0; }
+        .footer-link.active { background: rgba(102,126,234,0.15); border-color: rgba(102,126,234,0.3); color: #a8b8f8; }
+
+        .footer-credit {
+            text-align: center; font-size: 13px; color: #4a5568;
+        }
+
+        .footer-credit strong { color: #7986a8; }
+
+        @media (max-width: 700px) {
+            .header { padding: 35px 25px; }
+            .toc-body { padding: 30px 20px 30px; }
+            .toc-footer { padding: 25px 20px; }
+            .paper-title { font-size: 22px; }
+            .stats-bar { margin: 20px -20px; }
+            .toc-title { font-size: 13px; white-space: normal; }
+            .toc-desc { white-space: normal; }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .container { background: white; box-shadow: none; max-width: 100%; }
+            .header { background: #f5f5f5; }
+            .toc-item:hover { background: none; }
+            .footer-links { display: none !important; }
+            .toc-footer { background: white !important; border-top: 2px solid #ddd; }
+            a { color: inherit; text-decoration: none; }
+        }
+    
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-inner">
+            <div class="doc-type">目录 — 版本1.0.0</div>
+            <h1 class="paper-title">人工智能模型碳足迹测量科学方法论</h1>
+            <p class="paper-subtitle">综合科学框架：碳排放·水资源·废弃物·矿产·生物多样性</p>
+            <div class="paper-meta">
+                <div class="meta-pill">📅 <span>版本1.0.0</span> · 2026年3月</div>
+                <div class="meta-pill">👩‍🔬 <span>Elizabeth Díaz Familia</span></div>
+                <div class="meta-pill">📄 <span>13个章节</span> · 47篇参考文献</div>
+                <div class="meta-pill">⚖️ CC BY 4.0 <span>国际</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOC BODY -->
+    <div class="toc-body">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#7986a8;font-style:italic;margin-bottom:20px;">本文为已验证的西班牙语/英语原文译本。如有差异，以原文为准。</p>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="stats-bar">
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#667eea;">30+</span>
+                <span class="stat-cell-label">已分析模型</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#3498db;">R²=0.89</span>
+                <span class="stat-cell-label">科学相关性</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#e74c3c;">&lt;6%</span>
+                <span class="stat-cell-label">与官方数据误差</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#f39c12;">47</span>
+                <span class="stat-cell-label">已验证参考文献</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#1abc9c;">5</span>
+                <span class="stat-cell-label">影响维度</span>
+            </div>
+            <div class="stat-cell">
+                <span class="stat-cell-num" style="color:#27ae60;">2019–26</span>
+                <span class="stat-cell-label">时间跨度</span>
+            </div>
+        </div>
+
+        <!-- SECCIONES PRELIMINARES -->
+        <div class="toc-group-label">前置章节</div>
+
+        <a href="portada.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">封面与论文简介</div>
+                <div class="toc-desc">作者、所属机构、版本、发布日期、CC BY 4.0许可</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">封面</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="resumen.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">摘要 / Abstract</div>
+                <div class="toc-desc">研究综述、主要发现、核心统计数据与关键词</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">摘要</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="introduccion.html" class="toc-item prelim">
+            <div class="toc-num"><div class="toc-num-inner">—</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">引言</div>
+                <div class="toc-desc">问题背景、科学论证、研究目标与论文结构</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">引言</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <!-- SECCIONES PRINCIPALES -->
+        <div class="toc-group-label">论文章节</div>
+
+        <a href="metodologia.html" class="toc-item methodology">
+            <div class="toc-num"><div class="toc-num-inner">1</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">碳足迹测量方法论</div>
+                <div class="toc-desc">CO₂公式、GPU规格（V100/A100/H100）、PUE、地区系数与验证</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">方法论</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="metodologia.html#formula" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.1 主要公式：CO₂(kg) = N_GPUs × P_GPU(kW) × T_h × PUE × C_factor
+            </a>
+            <a href="metodologia.html#hardware" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.2 已分析的GPU硬件规格
+            </a>
+            <a href="metodologia.html#pue" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.3 各地区电力使用效率（PUE）
+            </a>
+            <a href="metodologia.html#carbon" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.4 按地理区域划分的碳强度系数
+            </a>
+            <a href="metodologia.html#validation" class="toc-sub prelim-sub">
+                <span class="toc-sub-dot"></span>1.5 与官方数据的验证过程
+            </a>
+        </div>
+
+        <a href="resultados.html" class="toc-item results">
+            <div class="toc-num"><div class="toc-num-inner">2</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">结果：各模型的碳足迹</div>
+                <div class="toc-desc">分析30余个模型：LLM、视觉模型、专用模型。GPT-4：182万kg CO₂ 对比 Claude：18,200 kg CO₂</div>
+                <div class="toc-tags"><span class="toc-tag tag-core">结果</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="resultados.html#llms" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.1 语言模型（LLM）：GPT-4、Claude、LLaMA、BERT、Gemini
+            </a>
+            <a href="resultados.html#vision" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.2 视觉模型：DALL-E、Stable Diffusion、Midjourney
+            </a>
+            <a href="resultados.html#correlation" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.3 规模与排放量的相关性（R² = 0.89）及幂律关系
+            </a>
+            <a href="resultados.html#geographic" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.4 地理影响：因位置不同产生最高90%的差异
+            </a>
+            <a href="resultados.html#validation" class="toc-sub results-sub">
+                <span class="toc-sub-dot"></span>2.5 与OpenAI、Google、Meta AI报告的交叉验证
+            </a>
+        </div>
+
+        <a href="impacto_hidrico.html" class="toc-item water">
+            <div class="toc-num"><div class="toc-num-inner">3</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">💧 AI的水资源影响</div>
+                <div class="toc-desc">水资源危机：训练GPT-3消耗70万升水。2025年全球预测：3,125亿至7,646亿升</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">新增章节</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="impacto_hidrico.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.1 数据中心的水资源消耗机制
+            </a>
+            <a href="impacto_hidrico.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.2 按查询与模型划分的消耗量（对比表）
+            </a>
+            <a href="impacto_hidrico.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.3 地区危机：智利、西班牙、德克萨斯、英国
+            </a>
+            <a href="impacto_hidrico.html" class="toc-sub water-sub">
+                <span class="toc-sub-dot"></span>3.4 2025–2030年预测与缓解情景
+            </a>
+        </div>
+
+        <a href="residuos_electronicos.html" class="toc-item ewaste">
+            <div class="toc-num"><div class="toc-num-inner">4</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">🗑️ AI的电子废弃物</div>
+                <div class="toc-desc">到2030年累计120万至500万吨。铅、汞、砷。GPU使用寿命：2–3年</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">新增章节</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="residuos_electronicos.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.1 硬件生命周期：制造→运行→报废
+            </a>
+            <a href="residuos_electronicos.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.2 AI电子废弃物中的有毒物质（2030年预测表）
+            </a>
+            <a href="residuos_electronicos.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.3 2023–2030年电子废弃物四种情景
+            </a>
+            <a href="residuos_electronicos.html" class="toc-sub ewaste-sub">
+                <span class="toc-sub-dot"></span>4.4 循环经济策略
+            </a>
+        </div>
+
+        <a href="minerales_biodiversidad.html" class="toc-item minerals">
+            <div class="toc-num"><div class="toc-num-inner">5</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">⛏️ 关键矿产与生物多样性</div>
+                <div class="toc-desc">钴、锂、镓、稀土。包头的有毒湖泊。海洋采矿</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">新增章节</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="minerales_biodiversidad.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.1 六种关键矿产：环境影响与地缘政治集中度
+            </a>
+            <a href="minerales_biodiversidad.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.2 案例研究：中国内蒙古包头
+            </a>
+            <a href="minerales_biodiversidad.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.3 生物多样性影响：栖息地、含水层、微气候
+            </a>
+            <a href="minerales_biodiversidad.html" class="toc-sub minerals-sub">
+                <span class="toc-sub-dot"></span>5.4 海底采矿风险（克拉里昂-克利珀顿区）
+            </a>
+        </div>
+
+        <!-- SECCIONES FINALES -->
+        <div class="toc-group-label">讨论、建议与总结</div>
+
+        <a href="discusion.html" class="toc-item discussion">
+            <div class="toc-num"><div class="toc-num-inner">6</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">讨论</div>
+                <div class="toc-desc">发现的解读、与现有文献的比较、对产业的启示以及研究局限性</div>
+                <div class="toc-tags"><span class="toc-tag tag-updated">已更新</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="discusion.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.1 对全球科技产业的启示
+            </a>
+            <a href="discusion.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.2 与现有科学文献的比较
+            </a>
+            <a href="discusion.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.3 监管框架与公共政策
+            </a>
+            <a href="discusion.html" class="toc-sub discussion-sub">
+                <span class="toc-sub-dot"></span>6.4 研究局限性与未来研究方向
+            </a>
+        </div>
+
+        <a href="recomendaciones.html" class="toc-item recommendations">
+            <div class="toc-num"><div class="toc-num-inner">7</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">✅ 建议</div>
+                <div class="toc-desc">面向科技企业、政府、研究人员、用户及发展中国家的可执行指南</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">新增章节</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+        <div class="toc-subsections">
+            <a href="recomendaciones.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.1 面向科技企业与数据中心运营商
+            </a>
+            <a href="recomendaciones.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.2 面向政府与监管机构
+            </a>
+            <a href="recomendaciones.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.3 面向研究人员与学术界
+            </a>
+            <a href="recomendaciones.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.4 面向个人用户与组织
+            </a>
+            <a href="recomendaciones.html" class="toc-sub recommendations-sub">
+                <span class="toc-sub-dot"></span>7.5 面向全球南方与发展中国家
+            </a>
+        </div>
+
+        <a href="conclusiones.html" class="toc-item conclusions">
+            <div class="toc-num"><div class="toc-num-inner">8</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">结论</div>
+                <div class="toc-desc">最终发现、对该领域的原创贡献、论文影响与行动呼吁</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">新增</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+        <a href="referencias.html" class="toc-item references">
+            <div class="toc-num"><div class="toc-num-inner">📚</div></div>
+            <div class="toc-title-area">
+                <div class="toc-title">参考文献</div>
+                <div class="toc-desc">47篇已验证参考文献：同行评审论文、机构出版物、官方企业出版物——涵盖2019至2026年</div>
+                <div class="toc-tags"><span class="toc-tag tag-new">47个来源</span></div>
+            </div>
+            <div class="toc-arrow">›</div>
+        </a>
+
+    </div><!-- /toc-body -->
+
+    <!-- FOOTER -->
+    <div class="toc-footer">
+        <div class="footer-links">
+            <a href="portada.html" class="footer-link">封面</a>
+            <a href="resumen.html" class="footer-link">摘要</a>
+            <a href="introduccion.html" class="footer-link">引言</a>
+            <a href="metodologia.html" class="footer-link">§1 方法论</a>
+            <a href="resultados.html" class="footer-link">§2 结果</a>
+            <a href="impacto_hidrico.html" class="footer-link">§3 水资源</a>
+            <a href="residuos_electronicos.html" class="footer-link">§4 电子废弃物</a>
+            <a href="minerales_biodiversidad.html" class="footer-link">§5 矿产</a>
+            <a href="discusion.html" class="footer-link">§6 讨论</a>
+            <a href="recomendaciones.html" class="footer-link">§7 建议</a>
+            <a href="conclusiones.html" class="footer-link">§8 结论</a>
+            <a href="referencias.html" class="footer-link">参考文献</a>
+            <a href="toc.html" class="footer-link active">↑ 本页</a>
+        </div>
+        <p class="footer-credit">
+            <strong>Elizabeth Díaz Familia</strong> · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · lizzy0981.github.io · CC BY 4.0 · 版本1.0.0，2026年3月
+        </p>
+    </div>
+
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%6*60); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.toc-item').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

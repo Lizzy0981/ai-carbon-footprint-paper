@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§7 권고 — AI 모델의 탄소발자국</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">섹션 7 — 신규</div>
+    <h1>✅ 권고</h1>
+    <p>AI의 환경적 영향을 줄이기 위한, 과학적 증거에 기반한 실행 가능한 가이드 — 주체 유형, 시간 범위, 영향 수준별로 정리</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#3498db;font-style:italic;text-align:center;margin-bottom:24px;">검증된 스페인어/영어 원문의 번역본입니다. 상이한 내용이 있을 경우 원문이 우선합니다.</p>
+
+  <p class="body-text">본 연구의 발견은 구체적인 행동으로 이어지지 않으면 온전한 과학적 가치를 갖지 못합니다. 본 섹션에서는 문헌으로 검증된 구체적인 권고안을, 환경적으로 책임 있는 AI로의 전환을 가속화할 수 있는 다섯 가지 유형의 주체를 위해 제시합니다. 권고안은 시행 시간 범위와 예상되는 영향 수준에 따라 정리되어 있습니다.</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 기술기업</div>
+    <div class="actor-pill ap2">🏛️ 정부와 규제기관</div>
+    <div class="actor-pill ap3">🔬 연구자와 학계</div>
+    <div class="actor-pill ap4">👤 사용자와 조직</div>
+    <div class="actor-pill ap5">🌍 글로벌 사우스</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 21개 권고안의 주체별 분포</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 기술기업과 데이터센터 운영자를 위한 제안</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">표준화된 방법론을 사용한 완전한 환경 보고서 발행</div>
+        <p class="rec-text">AI 시스템에 특화된 GHG Protocol Scope 1-2-3 프로토콜을 채택하여, 학습 및 추론 세션별 탄소 배출량, 물 소비량(직접 및 간접), 발생한 전자폐기물을 보고합니다. 일반적인 기업 환경 보고서로는 충분하지 않습니다: AI 모델은 자체적인 환경 항목을 가져야 합니다.</p>
+        <span class="rec-impact">⚡ 영향: 투명성 + 규제</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">성공 지표로서 규모보다 효율성을 우선시</div>
+        <p class="rec-text">DeepSeek-R1(2025년 1월)은 약 96% 적은 컴퓨팅 자원으로 GPT-4에 필적하는 성능을 달성할 수 있음을 입증했습니다. 기업들은 성공 지표를 매개변수 수("가장 큰 모델")에서 성능/배출량 비율로 전환해야 합니다. 사내 벤치마크에는 환경적 차원이 포함되어야 합니다.</p>
+        <span class="rec-impact">🌫️ 영향: 작업당 -90% CO₂</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">청정에너지와 풍부한 물 자원을 가진 지역으로 데이터센터 이전</div>
+        <p class="rec-text">본 연구의 지리적 분석에 따르면, 동일한 인프라라도 아이슬란드나 노르웨이에서는 폴란드나 인도보다 탄소발자국이 최대 90배까지 낮을 수 있습니다. Microsoft, Google, Meta는 이미 북유럽에 거점을 운영하고 있습니다; 업계는 이 관행을 확대하고 물 스트레스 지역(AQUEDUCT 점수 4 이상)에 데이터센터를 설치하는 것을 피해야 합니다.</p>
+        <span class="rec-impact">⚡ 잠재적 감축: CO₂ 최대 90배</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">무수 또는 폐쇄루프 냉각 기술 도입</div>
+        <p class="rec-text">한랭 기후에서의 직접 공기 냉각(프리쿨링), 폐쇄루프 물 순환 시스템, 액체 유전체를 이용한 침지식 냉각은 물 소비량을 95〜99% 줄일 수 있습니다. Microsoft는 2024년 8월 최초의 "무수" 데이터센터를 가동했습니다. 이 기술은 예외가 아닌 업계 표준이 되어야 합니다.</p>
+        <span class="rec-impact">💧 잠재력: 물 소비량 -95%</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">하드웨어 수명 연장 및 책임 있는 재활용 프로그램 확립</div>
+        <p class="rec-text">AI용 GPU는 기존 서버의 5〜7년에 비해 2〜3년의 교체 주기를 가집니다. 기업들은 수명 연장 프로그램(개조, 소비전력이 낮은 추론 용도로의 전환)을 확립하고, 폐기된 하드웨어가 R2/e-Stewards 인증 하에 재활용되도록 보장해야 합니다 — 적절한 재활용 능력이 없는 제3국으로의 수출은 피해야 합니다.</p>
+        <span class="rec-impact">🗑️ 영향: 유독성 전자폐기물 감소</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">모델 효율화 기법(양자화, 증류, 가지치기) 도입</div>
+        <p class="rec-text">INT8/INT4 양자화, 지식 증류, 비활성 가중치 가지치기는 성능 저하를 최소화하면서 추론의 연산 비용을 50〜80% 줄일 수 있습니다. 추론은 AI 총 연산량의 80〜90%를 차지하며, 이를 최적화하는 것이 학습을 최적화하는 것보다 더 큰 환경적 효과를 가져옵니다.</p>
+        <span class="rec-impact">⚡ 추론: -50〜80% 에너지</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 정부와 규제기관을 위한 제안</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">AI 환경 보고를 자발적이 아닌 의무 사항으로 확립</div>
+        <p class="rec-text">EU는 EU AI Act를 확대하여 의무적인 환경 보고 조항을 포함해야 합니다. 미국은 데이터센터에 대한 환경 심사 완화를 철회해야 합니다. 국제 최소 기준으로 학습 세션별 CO₂ 배출량(스코프 1〜3), Water Usage Effectiveness(WUE), 전자폐기물 관리 계획을 의무화해야 합니다. 의무화가 없다면 자율 보고만으로는 불충분합니다.</p>
+        <span class="rec-impact">⚖️ 시간 범위: 단기(1〜2년)</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">실질적 환경 효율성에 연동된 세제 혜택 마련</div>
+        <p class="rec-text">AI 업계에 대한 보조금과 세제 혜택은 검증 가능한 환경 지표를 조건으로 해야 합니다: PUE≤1.2, 5년 내 재생에너지 100%, WUE≤0.5L/kWh, 인증된 전자폐기물 관리 계획. 환경 조건 없는 데이터센터 세제 면제는 생태학적 비용을 사회화하는 부의 이전입니다.</p>
+        <span class="rec-impact">💰 수단: 녹색 재정 정책</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">AI 공급망 내 핵심 광물 채굴 규제</div>
+        <p class="rec-text">소비국 정부는 EU Corporate Sustainability Due Diligence Directive와 유사한, 핵심 광물(코발트, 리튬, 희토류, 갈륨)에 대한 공급망 실사법을 시행해야 합니다. 칩을 구매하는 기술기업들은 그 광물이 아동 노동, 대수층 파괴, 원주민 공동체 권리 침해가 있는 지역에서 나온 것이 아님을 증명할 수 있어야 합니다.</p>
+        <span class="rec-impact">⛏️ 영향: 공정한 공급망</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">심각한 물 스트레스 지역에서의 데이터센터 설치 금지</div>
+        <p class="rec-text">물 부족 지역(칠레, 스페인 내륙, 인도, 중동, 미국 남서부)의 정부는 순 물 소비량이 없는 냉각 기술을 갖출 때까지 AI 데이터센터 설치에 대한 모라토리엄 또는 금지 조치를 확립해야 합니다. 로스앤젤레스의 사례(2025년 1월) — 활발한 화재 중 수압이 사라진 소화전 — 는 이를 시행하지 않았을 때의 직접적인 인명 피해를 보여줍니다.</p>
+        <span class="rec-impact">💧 긴급 대응 필요: CA, 칠레, 스페인, 인도</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">효율적인 AI와 표준 지표에 관한 공공 연구 지원</div>
+        <p class="rec-text">정부는 본 논문이 발전에 기여하고 있는 AI 환경 영향 표준 방법론, 컴퓨팅 효율화 기술, 제조 영향이 줄어든 차세대 칩 설계 연구 분야에 자금을 지원해야 합니다. "Green AI" 연구는 직접적인 상업적 이해관계를 가진 기업들에만 의존해서는 안 됩니다.</p>
+        <span class="rec-impact">🔬 시간 범위: 중기</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 연구자와 학계를 위한 제안</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">신모델 발표 시 환경 비용의 체계적 보고</div>
+        <p class="rec-text">새로운 AI 모델을 발표하는 모든 과학 논문은 동료평가를 거치는 필수 섹션으로서, 학습의 탄소발자국, 물 소비량, 사용된 하드웨어에 대한 보고를 포함해야 합니다. PNAS, Nature, Science, NeurIPS는 이 정책을 채택해야 합니다. 이러한 기준이 없다면 과학계는 업계에서 비판하는 불투명성을 스스로 지속시키는 셈입니다.</p>
+        <span class="rec-impact">📄 저자들에 대한 즉각적 조치</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">추론의 환경적 영향에 대한 표준 방법론 개발</div>
+        <p class="rec-text">본 연구에서 확인된 가장 큰 과학적 공백은 AI 연산량의 80〜90%를 차지하는 추론(모델의 일상적 사용)의 환경적 영향을 정량화할 검증된 방법론이 없다는 점입니다. <strong>업데이트:</strong> 본 논문에 딸린 공개 계산기는 이미 Jegham 등(arXiv:2505.09598, 2025년)의 실제 측정치에 기반한 추론 모듈을 통합했으며, 이는 이 공백을 메우는 첫걸음입니다. 그러나 더 광범위한 학술적 체계 연구가 필요합니다: 더 큰 규모에서 질의 유형별 에너지, 생성된 토큰당 물 발자국, 분산 추론에 따른 영향의 지리적 차이 등입니다.</p>
+        <span class="rec-impact">🔭 중대한 연구 공백</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">환경 데이터에서 재현성과 오픈 액세스 우선시</div>
+        <p class="rec-text">측정 도구, 모델별 에너지 소비 데이터셋, 계산 프레임워크는 오픈 라이선스(CC BY / Apache 2.0) 하에 공개되어야 합니다. 본 논문과 함께 개발된 탄소발자국 계산기는 오픈 사이언스에 대한 헌신의 한 예입니다. 지속가능한 AI에 관한 공적 자금 지원 연구는 대중에게 접근 가능해야 합니다.</p>
+        <span class="rec-impact">🌐 실천 사례: 본 논문</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">글로벌 사우스에 대한 차별적 영향 연구</div>
+        <p class="rec-text">AI 환경 영향에 관한 현재 연구는 글로벌 노스에 집중되어 있습니다. 콩고, 볼리비아, 칠레의 광산 지역사회; 가나와 방글라데시의 전자폐기물 매립지; 인도와 동남아시아의 데이터센터 영향을 받는 생태계에서의 현장 연구가 필요합니다. 환경 정의는 전 세계 AI의 비용을 짊어지는 사람들을 연구에 포함할 것을 요구합니다.</p>
+        <span class="rec-impact">⚖️ 환경 정의와 학술적 정의</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 개인 사용자와 조직을 위한 제안</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">최대 규모의 모델이 필요하지 않은 작업에는 효율적인 모델 선호</div>
+        <p class="rec-text">간단한 이메일 작성에 GPT-4를 사용하는 것은 복잡한 분석에 사용하는 것과 동일한 환경 비용을 수반하지만, 그 환경 비용을 정당화할 수 있는 것은 복잡한 분석뿐입니다. 사용자들은 모델의 성능을 작업의 복잡성에 맞게 조정해야 합니다: 70억〜130억 매개변수 모델은 일상적 사용 사례의 80%를 환경적 영향의 일부만으로 해결할 수 있습니다.</p>
+        <span class="rec-impact">⚡ 행동: 오늘부터</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">공급업체 선정 기준으로서 환경 투명성 요구</div>
+        <p class="rec-text">AI 서비스(API, 플랫폼, 컨설팅)를 계약하는 조직은 환경 투명성을 평가 기준에 포함해야 합니다: 공급업체가 PUE를 공개하는가? 물 소비량을 보고하는가? 인증된 전자폐기물 관리 계획이 있는가? 특히 ESG 약속을 가진 대기업으로부터의 시장 압력은 규제가 시행하는 데 시간이 걸리는 변화를 가속화할 수 있습니다.</p>
+        <span class="rec-impact">🏢 구매팀 및 ESG 담당자를 위한 제안</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">기업 지속가능성 보고서에서 AI 탄소발자국 계산 및 보고</div>
+        <p class="rec-text">프로덕션 환경에서 AI 모델을 사용하는 기업은 AI 사용으로 인한 스코프 3 배출량을 GHG Protocol 보고서에 포함해야 합니다. 본 논문의 인터랙티브 계산기(lizzy0981.github.io/calculadora-huella-carbono-ia/)가 이 계산의 출발점이 될 수 있습니다. AI 사용을 포함하지 않는 탄소 회계는 불완전하며 실제 영향을 과소평가합니다.</p>
+        <span class="rec-impact">📊 자원: 공개 계산기</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 글로벌 사우스와 개발도상국을 위한 제안</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">핵심 광물 채굴에 관한 주권적 조건 확립</div>
+        <p class="rec-text">코발트(DRC), 리튬(볼리비아, 칠레, 아르헨티나), 희토류(중국, 브라질) 매장지를 보유한 글로벌 사우스 국가들은 기술 이전, 현지 가공(원광 수출이 아닌), 검증된 환경 복원 기금, 채굴 결정에 대한 원주민 공동체의 참여를 포함하는 채굴 협정을 협상해야 합니다.</p>
+        <span class="rec-impact">⛏️ 천연자원 주권</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">AI 전자폐기물을 "기부"나 "기술 지원"으로 거부</div>
+        <p class="rec-text">적절한 재활용 능력이 없는 국가들에게 "기술 기부"의 형태로 노후 AI 하드웨어를 투기하는 것은 유해한 비용을 글로벌 사우스로 전가하는 행위입니다. 수령국은 중고 하드웨어 수입에 대한 인증 요건을 확립하고, 국제 기준 하에서 수출업체가 최종 처리 비용을 부담하지 않는 장비는 거부해야 합니다.</p>
+        <span class="rec-impact">🗑️ 환경 및 건강 보호</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">글로벌 노스의 대규모 모델에 대한 의존이 아닌 효율적인 현지 AI에 투자</div>
+        <p class="rec-text">글로벌 사우스 국가들은 지역 재생에너지로 학습된, 자국 언어와 현실에 맞춘 소규모의 효율적인 AI 모델(SLM)의 개발과 배포를 우선시해야 합니다. 북반구에서 외부화된 대규모 모델의 API에 대한 의존은 현지 역량 개발 없이 지속적인 외화 유출을 의미합니다. AI에 대한 접근은 기술적 의존의 역학을 재현해서는 안 됩니다.</p>
+        <span class="rec-impact">🌐 기술 주권</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">우선순위 매트릭스 — 가장 영향력이 큰 권고안</div>
+    <table class="prio">
+      <thead><tr><th>행동</th><th>주체</th><th>시간 범위</th><th>환경적 영향</th><th>실현 가능성</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — 청정에너지 지역으로 데이터센터 이전</td><td>기업</td><td>중기</td><td><span class="im-high">매우 높음</span></td><td class="p-mid">중간</td></tr>
+        <tr><td>R4 — 무수 냉각 / 폐쇄루프</td><td>기업</td><td>단기</td><td><span class="im-high">매우 높음(물)</span></td><td class="p-hi">높음</td></tr>
+        <tr><td>R2 — 규모보다 효율성을 지표로</td><td>기업</td><td>즉시</td><td><span class="im-high">높음</span></td><td class="p-mid">중간</td></tr>
+        <tr><td>R7 — 의무적 환경 보고(규제)</td><td>정부</td><td>단기</td><td><span class="im-mid">높음(투명성)</span></td><td class="p-mid">중간</td></tr>
+        <tr><td>R10 — 물 스트레스 지역에서 데이터센터 금지</td><td>정부</td><td>즉시</td><td><span class="im-high">매우 높음(물)</span></td><td class="p-hi">높음(기존 규제가 있는 지역)</td></tr>
+        <tr><td>R12 — 과학 논문에서의 환경 보고</td><td>연구자</td><td>즉시</td><td><span class="im-mid">중간(문화)</span></td><td class="p-hi">높음</td></tr>
+        <tr><td>R16 — 단순 작업에 효율적인 모델 선택</td><td>사용자</td><td>즉시</td><td><span class="im-lo">낮음〜중간</span></td><td class="p-hi">매우 높음</td></tr>
+        <tr><td>R6 — 양자화 및 효율적인 추론</td><td>기업</td><td>단기</td><td><span class="im-high">높음(추론 80〜90%)</span></td><td class="p-hi">높음</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">길은 존재한다 — 의지가 변수다</div>
+    <p class="closing-text">본 논문의 어떤 권고안도 AI의 발전을 희생할 것을 요구하지 않습니다. DeepSeek-R1이나 Claude Sonnet과 같은 효율적인 모델이 훨씬 더 큰 시스템의 작업을 환경 비용의 일부만으로 수행할 수 있음을 과학적 증거가 보여줍니다. 과제는 기술적인 것이 아닙니다: 이는 인센티브, 투명성, 정치적 의지의 문제입니다. AI는 21세기 인류 발전의 원동력이 될 수 있습니다 — 그 주요 생태학적 위협 중 하나가 될 필요는 없습니다.</p>
+    <div class="closing-quote">"AI의 지속가능성은 발전에 대한 제약이 아니다 — 그것은 발전이 장기적으로 가능하기 위한 조건이다."</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">표지</a><a href="toc.html" class="nl">목차</a>
+    <a href="resumen.html" class="nl">요약</a><a href="introduccion.html" class="nl">서론</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl active">§7 ✅ 권고</a>
+    <a href="conclusiones.html" class="nl">§8</a><a href="referencias.html" class="nl">참고문헌</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · 버전 1.0.0, 2026년 3월</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 기업(R1-R6)','🏛️ 정부(R7-R11)','🔬 연구자(R12-R15)','👤 사용자(R16-R18)','🌍 글로벌 사우스(R19-R21)'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` 권고 ${c.raw}건`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

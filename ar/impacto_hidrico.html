@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>القسم 3 — الأثر المائي للذكاء الاصطناعي | بحث علمي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #1a6fa8 0%, #0d4f8a 50%, #2980b9 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0 40 Q20 10 40 40 Q60 70 80 40 L80 80 L0 80 Z'/%3E%3C/svg%3E") repeat-x bottom;
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 bottom; }
+            100% { background-position: 160px bottom; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+            animation: droplet 3s ease-in-out infinite;
+        }
+
+        @keyframes droplet {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* INTRO CALLOUT */
+        .crisis-callout {
+            background: linear-gradient(135deg, #ebf5ff 0%, #d6ecff 100%);
+            border-left: 6px solid #1a6fa8;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px; left: 20px;
+            font-size: 24px;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .crisis-callout p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #1a3a5c;
+        }
+
+        .crisis-callout strong { color: #0d4f8a; }
+
+        /* STATS GRID */
+        .water-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .water-stat {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0fa 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .water-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(52,152,219,0.25);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a6fa8;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #5d8aa8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-source {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a6fa8;
+            margin: 45px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* BODY TEXT */
+        .body-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* WATER JOURNEY */
+        .water-journey {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .journey-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.15);
+        }
+
+        .journey-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .journey-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journey-card-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .journey-card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #2980b9;
+            background: #ebf5ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* PER QUERY TABLE */
+        .query-table-wrap {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .query-table-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table.water-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table.water-table thead tr {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+        }
+
+        table.water-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        table.water-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #d6ecff;
+            color: #2c3e50;
+        }
+
+        table.water-table tr:nth-child(even) td { background: rgba(52,152,219,0.05); }
+        table.water-table tr:hover td { background: rgba(52,152,219,0.1); }
+
+        .highlight-red { color: #e74c3c; font-weight: 700; }
+        .highlight-orange { color: #e67e22; font-weight: 700; }
+        .highlight-green { color: #27ae60; font-weight: 700; }
+
+        /* REGIONS BOX */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .region-card {
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .region-card.crisis {
+            background: linear-gradient(135deg, #fdecea 0%, #fbd5d0 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .region-card.warning {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdeabf 100%);
+            border: 2px solid #f39c12;
+        }
+
+        .region-card.monitor {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+        }
+
+        .region-flag { font-size: 28px; margin-bottom: 8px; display: block; }
+
+        .region-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-card.crisis .region-name { color: #c0392b; }
+        .region-card.warning .region-name { color: #d68910; }
+        .region-card.monitor .region-name { color: #1e8449; }
+
+        .region-detail { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea 0%, #fad7d0 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute;
+            top: -18px; left: 30px;
+            font-size: 30px;
+            background: white;
+            padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #c0392b;
+            margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        /* COMPARISON BOX */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 640px) { .comparison-container { grid-template-columns: 1fr; } }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fdecea, #fbd5d0);
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-card.good {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #27ae60;
+        }
+
+        .comparison-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card.bad .comparison-label { color: #c0392b; }
+        .comparison-card.good .comparison-label { color: #1e8449; }
+
+        .comparison-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.bad .comparison-number { color: #e74c3c; }
+        .comparison-card.good .comparison-number { color: #27ae60; }
+
+        .comparison-desc { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(52,152,219,0.15);
+        }
+
+        .solution-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* NOTE */
+        .source-note {
+            background: #f8f9fa;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
+            color: white;
+            padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .footer-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .nav-link.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .author-note {
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+
+        @media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+    
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">القسم 3 — جديد</span>
+            <span class="section-icon">💧</span>
+            <h1 class="section-title">الأثر المائي للذكاء الاصطناعي</h1>
+            <p class="section-subtitle">
+                الأزمة الصامتة: كيف تستهلك نماذج الذكاء الاصطناعي وتُبخِّر وتتنافس
+                على أندر موارد الكوكب
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;margin-bottom:20px;">ترجمة للنص الأصلي الموثّق بالإسبانية/الإنجليزية. في حال وجود أي تباين، يُعتمد النص الأصلي.</p>
+
+        <!-- INTRO CALLOUT -->
+        <div class="crisis-callout">
+            <p>
+                بينما ركّز النقاش العام حول الذكاء الاصطناعي والبيئة بشكل أساسي على انبعاثات CO₂،
+                هناك <strong>أزمة موازية تبقى شبه غير مرئية</strong>: الاستهلاك الهائل
+                للمياه العذبة الصالحة للشرب من قِبل مراكز البيانات.
+                في عام 2023، تبخّر تدريب GPT-3 وحده في مراكز Microsoft بشكل مباشر
+                <strong>700,000 لتر من المياه العذبة</strong> — ما يكفي لتزويد 1,400 شخص
+                بالمياه ليوم كامل. وهذا مجرد نموذج واحد، منذ عامين فقط.
+            </p>
+        </div>
+
+        <!-- KEY STATS -->
+        <div class="water-stats">
+            <div class="water-stat">
+                <span class="stat-number">700,000 لتر</span>
+                <span class="stat-label">تدريب GPT-3</span>
+                <span class="stat-source">Li وزملاؤه، arXiv:2304.03271 (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">312 – 764 مليار لتر</span>
+                <span class="stat-label">البصمة المائية العالمية للذكاء الاصطناعي 2025</span>
+                <span class="stat-source">de Vries-Gao، Cell Reports Sustainability (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1,068 مليار لتر</span>
+                <span class="stat-label">توقع الذكاء الاصطناعي العالمي — 2028</span>
+                <span class="stat-source">Morgan Stanley Research (2024)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">~500 مل</span>
+                <span class="stat-label">لكل 20–50 استعلام لـ ChatGPT</span>
+                <span class="stat-source">Li وزملاؤه / Univ. California Riverside (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">148 مليون لتر/يوم</span>
+                <span class="stat-label">الاستهلاك اليومي المُقدَّر لـ ChatGPT (2025)</span>
+                <span class="stat-source">Business Energy UK (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">0.26 مل</span>
+                <span class="stat-label">لكل استعلام لـ Gemini (Google، 2025)</span>
+                <span class="stat-source">Google Environmental Report (2025)</span>
+            </div>
+        </div>
+
+        <!-- 3.1 CÓMO SE USA EL AGUA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.1</span>
+            كيف تستهلك مراكز البيانات المياه
+        </h2>
+
+        <p class="body-text">
+            المياه ليست مجرد منتج ثانوي عرضي للذكاء الاصطناعي — بل هي مُدخَل تشغيلي
+            حيوي تفشل بدونه أنظمة التبريد خلال دقائق. يولّد الطلب الطاقي للخوادم الحديثة
+            حرارة هائلة: تُبدّد وحدة معالجة رسومية واحدة من طراز NVIDIA H100 ما يصل إلى
+            700 واط من الحرارة الحرارية المستمرة. وعلى نطاق مركز البيانات، مع تشغيل عشرات
+            الآلاف من وحدات المعالجة بالتوازي، يجب إزالة هذه الحرارة باستمرار.
+        </p>
+
+        <div class="water-journey">
+            <div class="journey-card">
+                <span class="journey-card-icon">🌊</span>
+                <div class="journey-card-title">التبريد التبخيري</div>
+                <p class="journey-card-text">
+                    الطريقة الأكثر شيوعاً: تدور المياه العذبة ممتصةً الحرارة، ثم
+                    تتبخّر في أبراج التبريد. المياه <em>لا تعود</em> إلى النظام
+                    المائي المحلي — بل تُفقد في الغلاف الجوي.
+                </p>
+                <span class="journey-card-data">~1.9 لتر مياه لكل كيلوواط ساعة مستهلك (متوسط WUE العالمي)</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">⚡</span>
+                <div class="journey-card-title">المياه غير المباشرة (توليد الكهرباء)</div>
+                <p class="journey-card-text">
+                    تتطلّب محطات الطاقة الحرارية التي تزوّد مراكز البيانات بالكهرباء
+                    مياهاً لإنتاج البخار والتبريد. في الولايات المتحدة، يسحب توليد
+                    الكهرباء 43.8 لتر ويستهلك 3.1 لتر لكل كيلوواط ساعة.
+                </p>
+                <span class="journey-card-data">البصمة غير المباشرة للولايات المتحدة: ~800 مليار لتر/سنة</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏭</span>
+                <div class="journey-card-title">تصنيع الرقائق</div>
+                <p class="journey-card-text">
+                    تتطلّب أشباه الموصلات كميات هائلة من المياه فائقة النقاء أثناء
+                    تصنيعها. تُفيد Apple بأن 99% من إجمالي بصمتها المائية
+                    تأتي من سلسلة التوريد لديها، وليس من عملياتها المباشرة.
+                </p>
+                <span class="journey-card-data">معدل إعادة تدوير منخفض؛ احتمال نفايات سامة</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏗️</span>
+                <div class="journey-card-title">تشييد البنية التحتية</div>
+                <p class="journey-card-text">
+                    يتطلّب كل مركز بيانات جديد مياهاً أثناء تشييده ولأنظمة تنسيق
+                    الحدائق والتحكم بالمناخ. تمتص مشاريع التوسع في فرجينيا
+                    وتكساس ونيفادا موارد المياه من المجتمعات المحلية.
+                </p>
+                <span class="journey-card-data">تكساس: 49 مليار غالون/سنة في 2025 (HARC/Univ. Houston)</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 استهلاك المياه أثناء التدريب — GPT-3 (175 مليار)</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartTrainingWater"></canvas></div>
+        </div>
+
+        <!-- 3.2 CONSUMO POR CONSULTA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.2</span>
+            استهلاك المياه حسب الاستعلام والنموذج
+        </h2>
+
+        <p class="body-text">
+            القياس الدقيق للمياه المستهلكة في استعلام واحد للذكاء الاصطناعي هو مجال
+            بحثي نشط، وتتفاوت القيم حسب المنهجية والنموذج ومركز البيانات المحدد.
+            يجمع الجدول التالي البيانات الأكثر استشهاداً من الأدبيات العلمية
+            والتقارير المؤسسية الموثّقة:
+        </p>
+
+        <div class="query-table-wrap">
+            <div class="query-table-title">استهلاك المياه حسب نوع نشاط الذكاء الاصطناعي</div>
+            <table class="water-table">
+                <thead>
+                    <tr>
+                        <th>النشاط / النموذج</th>
+                        <th>الاستهلاك المُقدَّر</th>
+                        <th>نوع المياه</th>
+                        <th>المصدر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>تدريب GPT-3 (175 مليار معامل)</td>
+                        <td class="highlight-red">700,000 لتر</td>
+                        <td>مياه عذبة صالحة للشرب</td>
+                        <td>Li وزملاؤه (2023) / UC Riverside</td>
+                    </tr>
+                    <tr>
+                        <td>تدريب GPT-3 — التقدير الإجمالي</td>
+                        <td class="highlight-red">5,400,000 لتر</td>
+                        <td>مباشرة + غير مباشرة</td>
+                        <td>Li وزملاؤه، arXiv:2304.03271 (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — لكل استعلام قصير (تشغيلي)</td>
+                        <td class="highlight-orange">~5 مل</td>
+                        <td>تبريد مباشر</td>
+                        <td>Goedecke، تحليل تقني (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — لكل 100 كلمة مُولَّدة</td>
+                        <td class="highlight-orange">~519 مل</td>
+                        <td>دورة حياة كاملة</td>
+                        <td>Li وزملاؤه / EESI (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — لكل 20–50 سؤالاً</td>
+                        <td class="highlight-orange">500 مل (زجاجة واحدة)</td>
+                        <td>تبريد مباشر</td>
+                        <td>Washington Post / Verma (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — الاستهلاك اليومي العالمي (2025)</td>
+                        <td class="highlight-red">148,000,000 لتر</td>
+                        <td>تقدير إجمالي</td>
+                        <td>Business Energy UK (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Gemini — لكل استعلام</td>
+                        <td class="highlight-green">0.26 مل (5 قطرات)</td>
+                        <td>تشغيلي</td>
+                        <td>Google Environmental Report (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>بحث Google (بدون ذكاء اصطناعي)</td>
+                        <td class="highlight-green">0.2–0.5 مل</td>
+                        <td>تشغيلي</td>
+                        <td>مصادر متعددة مُجمَّعة</td>
+                    </tr>
+                    <tr>
+                        <td>توليد صورة بالذكاء الاصطناعي (1024×1024)</td>
+                        <td class="highlight-orange">~15 مل مُقدَّرة</td>
+                        <td>تبريد مكثف لوحدة المعالجة</td>
+                        <td>تقدير مشتق من كيلوواط ساعة لكل صورة</td>
+                    </tr>
+                    <tr>
+                        <td>مركز بيانات Google في سانتياغو، تشيلي</td>
+                        <td class="highlight-red">7,600,000 لتر/يوم</td>
+                        <td>مياه شرب بلدية</td>
+                        <td>مرافعات قضائية في تشيلي (2024)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>ملاحظة منهجية:</strong> تعكس الفروقات في البيانات اختلافات في نطاق القياس
+            (تبريد مباشر فقط مقابل دورة حياة كاملة)، وجيل النموذج، ونوع البنية التحتية،
+            والموقع الجغرافي لمركز البيانات. قيم دورة الحياة الكاملة أعلى بـ30–100 مرة
+            من القيم التشغيلية المباشرة.
+        </div>
+
+        <!-- 3.3 CRISIS GEOGRÁFICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.3</span>
+            الأزمات الجغرافية: مراكز البيانات في مناطق الإجهاد المائي
+        </h2>
+
+        <p class="body-text">
+            من أكثر جوانب الأثر المائي للذكاء الاصطناعي حرجاً أن ما يقارب
+            <strong>نصف مراكز البيانات في العالم البالغ عددها أكثر من 9,000 مركز يقع في
+            مناطق ذات إجهاد مائي مرتفع</strong> (Morgan Stanley Research، 2024).
+            هذا يعني أن هذه الأنظمة تتنافس بشكل مباشر مع المجتمعات البشرية والزراعة
+            والأنظمة البيئية على نفس المورد النادر. توضح الحالات الموثّقة التالية
+            حجم المشكلة:
+        </p>
+
+        <div class="regions-grid">
+            <div class="region-card crisis">
+                <span class="region-flag">🇨🇱</span>
+                <div class="region-name">سانتياغو، تشيلي</div>
+                <p class="region-detail">
+                    يستهلك مركز بيانات Google في Cerrillos ~7.6 مليون لتر من مياه
+                    الشرب يومياً في منطقة تعاني بالفعل من جفاف حاد.
+                    وقد واجه دعاوى قضائية من المجتمعات المحلية.
+                    <br><em><small>المصدر: مرافعات قضائية في تشيلي (2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇪🇸</span>
+                <div class="region-name">أراغون، إسبانيا</div>
+                <p class="region-detail">
+                    طلبت Amazon زيادة 48% في تصاريح المياه لمنشآتها
+                    في أراغون عام 2024. احتجاجات تحت شعار
+                    <em>"سحابتك تُجفِّف نهري"</em>.
+                    <br><em><small>المصدر: IE Insights / وسائل إعلام متعددة (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇺🇸</span>
+                <div class="region-name">تكساس، الولايات المتحدة</div>
+                <p class="region-detail">
+                    ستستهلك مراكز البيانات في تكساس 49 مليار غالون من المياه
+                    عام 2025 وقد تصل إلى 399 مليار عام 2030 — ما يعادل
+                    تجفيف بحيرة Mead بمقدار 16 قدماً في عام واحد.
+                    <br><em><small>المصدر: HARC / جامعة هيوستن (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇬🇧</span>
+                <div class="region-name">المملكة المتحدة</div>
+                <p class="region-detail">
+                    تتوقع الحكومة عجزاً مائياً قدره 5 مليار لتر يومياً
+                    بحلول 2050. خُطِّطت أول "منطقة نمو للذكاء الاصطناعي" لرئيس الوزراء
+                    Starmer في Culham، Oxfordshire، وهي منطقة أعلى إجهاد مائي في إنجلترا.
+                    <br><em><small>المصدر: تقرير حكومة المملكة المتحدة (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇳🇱</span>
+                <div class="region-name">هولندا</div>
+                <p class="region-detail">
+                    احتجاجات في أمستردام وضواحيها ضد بناء مراكز بيانات
+                    ضخمة على أراضٍ زراعية. فرضت الحكومة الهولندية قيوداً
+                    مؤقتة على تصاريح البناء الجديدة.
+                    <br><em><small>المصدر: وسائل إعلام أوروبية متعددة (2023–2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card monitor">
+                <span class="region-flag">🌍</span>
+                <div class="region-name">أمريكا اللاتينية (سياق)</div>
+                <p class="region-detail">
+                    تُعدّ منطقة الكاريبي وأمريكا الوسطى من بين مناطق العالم ذات
+                    التوقعات الأعلى للإجهاد المائي بسبب تغير المناخ بحلول 2030–2050.
+                    قد يعمّق توسع الذكاء الاصطناعي دون تنظيم مائي هذه الأزمة.
+                    <br><em><small>المصدر: IPCC AR6 (2022) / الأمم المتحدة-المياه (2023)</small></em>
+                </p>
+            </div>
+        </div>
+
+        <!-- 3.4 ALERTA -->
+        <div class="alert-box">
+            <div class="alert-box-title">معلومة حاسمة: مياه الذكاء الاصطناعي هي مياه صالحة للشرب</div>
+            <p>
+                على عكس المياه المستخدمة في الزراعة أو الصناعة (والتي يمكن أن تكون معاد تدويرها
+                أو غير صالحة للشرب)، تتطلّب معظم مراكز البيانات <strong>مياه شرب بجودة
+                بلدية</strong> لأنظمة التبريد لديها، لأن الشوائب تُتلف
+                المعدات. هذا يعني أن الذكاء الاصطناعي يتنافس بشكل مباشر على نفس المياه
+                التي يشربها البشر. في المناطق التي تعاني جفافاً نشطاً — مثل جنوب غرب
+                الولايات المتحدة، وشمال تشيلي، ومنطقة البحر الأبيض المتوسط — يتحوّل
+                هذا التنافس إلى حالة طوارئ إنسانية ملموسة.
+            </p>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 المياه حسب الاستعلام — مقارنة بين الأنظمة (مل)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartQueryWater"></canvas></div>
+        </div>
+
+        <!-- 3.5 PROYECCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.4</span>
+            توقعات 2025–2030: اتجاه مقلق
+        </h2>
+
+        <p class="body-text">
+            تتوقع بيانات باحثي جامعة Cornell المنشورة في <em>Nature Sustainability</em>
+            (نوفمبر 2025) أن نشر خوادم الذكاء الاصطناعي في الولايات المتحدة قد يستنزف
+            ما بين 731 و1,125 مليون متر مكعب من المياه سنوياً بين عامي 2024 و2030
+            — ما يعادل الاستهلاك المنزلي السنوي لـ6 إلى 10 ملايين أمريكي.
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-card bad">
+                <div class="comparison-label">سيناريو دون تغيير (2030)</div>
+                <span class="comparison-number">1,125 مليون م³</span>
+                <p class="comparison-desc">
+                    في الولايات المتحدة فقط، إذا استمرت الاتجاهات الحالية دون
+                    تغييرات في البنية التحتية أو التنظيم المائي.
+                    <br><small>المصدر: Xiao وزملاؤه، Nature Sustainability (2025)</small>
+                </p>
+            </div>
+            <div class="comparison-card good">
+                <div class="comparison-label">سيناريو التخفيف (2030)</div>
+                <span class="comparison-number">−86%</span>
+                <p class="comparison-desc">
+                    انخفاض محتمل في استهلاك المياه بدمج التوطين الاستراتيجي
+                    لمراكز البيانات، والتبريد السائل المباشر، والكفاءة التشغيلية.
+                    <br><small>المصدر: You وزملاؤه، Cornell / Nature Sustainability (2025)</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 توقع 2030 للولايات المتحدة — سيناريو دون تغيير مقابل التخفيف</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartProjection"></canvas></div>
+        </div>
+
+        <p class="body-text">
+            تُثبت دراسة de Vries-Gao المنشورة في <em>Cell Reports Sustainability</em>
+            (ديسمبر 2025) أن البصمة المائية العالمية لأنظمة الذكاء الاصطناعي قد تصل
+            إلى ما بين <strong>312.5 و764.6 مليار لتر في عام 2025</strong>،
+            ما يعادل الاستهلاك السنوي العالمي للمياه المعبأة. يمثّل هذا الرقم
+            المياه المستهلكة مباشرة — وليس مجرد المسحوبة — ما يعني أنها
+            لا تعود إلى الدورة المائية المحلية.
+        </p>
+
+        <!-- 3.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.5</span>
+            حلول تقنية وسياسة مائية
+        </h2>
+
+        <p class="body-text">
+            رغم أن المشهد مقلق، توجد حلول تقنية وأدوات سياسية يمكنها تقليل
+            الأثر المائي للذكاء الاصطناعي بشكل كبير. يمكن للتطبيق المشترك
+            تحقيق تخفيضات تصل إلى 86% في استهلاك المياه مع الحفاظ على
+            نفس القدرة المعالجة:
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🧊</span>
+                <div class="solution-title">التبريد السائل المباشر (تبريد الانغماس)</div>
+                <p class="solution-text">
+                    يُغمر المكونات في سائل غير موصل. يزيل عملياً أي حاجة
+                    للمياه التبخيرية. أطلقت Microsoft أول مركز بيانات
+                    "صفر مياه" لها في أغسطس 2024.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📍</span>
+                <div class="solution-title">التوطين الاستراتيجي</div>
+                <p class="solution-text">
+                    يقلّل بناء مراكز البيانات في مناطق المناخ البارد (آيسلندا، النرويج،
+                    شمال كندا) الحاجة إلى التبريد النشط بشكل كبير. تستخدم آيسلندا
+                    الطاقة الحرارية الأرضية والتبريد بالهواء الخارجي.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">المياه المعاد تدويرها وغير الصالحة للشرب</div>
+                <p class="solution-text">
+                    بدأت Amazon وMeta وApple باستخدام المياه البلدية المعالجة
+                    (المياه المستصلحة) بدلاً من المياه العذبة الصالحة للشرب. يمكن
+                    أن يقلل استخدام مياه الشرب بنسبة 50–70% عند دمجه مع تدابير أخرى.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📊</span>
+                <div class="solution-title">الإفصاح والتنظيم</div>
+                <p class="solution-text">
+                    لا يوجد حالياً متطلب قانوني للإبلاغ عن استهلاك المياه
+                    لكل مركز بيانات في معظم الدول. أدرجت UNEA-7 (نيروبي، ديسمبر
+                    2025) شفافية المياه لمراكز البيانات كأولوية على جدول الأعمال.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🌬️</span>
+                <div class="solution-title">التبريد التكيّفي</div>
+                <p class="solution-text">
+                    تستخدم Microsoft التبريد التكيّفي (الهواء الخارجي) عندما تكون
+                    درجات الحرارة أقل من 29.4 درجة مئوية. في المناخات المعتدلة والباردة
+                    يغطي هذا معظم أيام السنة، مما يلغي استخدام المياه.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🤖</span>
+                <div class="solution-title">ذكاء اصطناعي فعّال بالتصميم</div>
+                <p class="solution-text">
+                    تقلل معماريات مثل MoE (خليط الخبراء)، وتقطير النماذج،
+                    والتكميم من الحساب اللازم لكل استدلال. أظهر DeepSeek-R1
+                    في عام 2025 أن النماذج عالية الكفاءة تتطلب 5–10 مرات
+                    موارد أقل من نظيراتها غير المُحسَّنة.
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /content-section -->
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">القسم</div>
+                <div class="footer-value">3 — الأثر المائي (جديد)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">نطاق البيانات</div>
+                <div class="footer-value">2019 – ديسمبر 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">المصادر الأساسية</div>
+                <div class="footer-value">Nature Sustainability، IEA، Cell Reports، UC Riverside</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">القسم التالي</div>
+                <div class="footer-value">القسم 4 → النفايات الإلكترونية</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">الغلاف</a>
+                <a href="toc.html" class="nav-link">الفهرس</a>
+                <a href="resumen.html" class="nav-link">الملخص</a>
+                <a href="introduccion.html" class="nav-link">المقدمة</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link active">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">المراجع</a>
+            </div>
+            <p class="author-note">
+                <strong>المؤلفة:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 دولية
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.water-stat,.journey-card,.region-card,.solution-card,.comparison-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Training water: direct vs total
+  new Chart(document.getElementById('chartTrainingWater'), {
+    type:'bar',
+    data:{
+      labels:['تبخّر مباشر','البصمة الإجمالية (مباشرة+غير مباشرة)'],
+      datasets:[{
+        label:'لتر',
+        data:[700000, 5400000],
+        backgroundColor:['#3498db','#1a6fa8'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} لتر`}} },
+      scales:{ x:{beginAtZero:true, title:{display:true,text:'لتر'}} }
+    }
+  });
+
+  // Chart 2 — Per-query water comparison (mL, log scale due to wide range)
+  new Chart(document.getElementById('chartQueryWater'), {
+    type:'bar',
+    data:{
+      labels:['ChatGPT (استعلام واحد)','ChatGPT (100 كلمة)','بحث Google','Gemini (Google)'],
+      datasets:[{
+        label:'مل من المياه',
+        data:[5, 519, 0.35, 0.26],
+        backgroundColor:['#e67e22','#e74c3c','#27ae60','#1a8449'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} مل`}} },
+      scales:{ y:{type:'logarithmic', title:{display:true,text:'مل (مقياس لوغاريتمي)'}} }
+    }
+  });
+
+  // Chart 3 — 2030 projection scenarios
+  new Chart(document.getElementById('chartProjection'), {
+    type:'bar',
+    data:{
+      labels:['دون تغيير (2030)','مع التخفيف (2030)'],
+      datasets:[{
+        label:'مليون م³',
+        data:[1125, 157.5],
+        backgroundColor:['#e74c3c','#27ae60'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} مليون م³`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'مليون م³'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

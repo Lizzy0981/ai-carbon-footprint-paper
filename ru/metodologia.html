@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§1 Методология — Углеродный след моделей ИИ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#001a3a 0%,#002d5e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+.hdr{background:linear-gradient(135deg,#0a2744 0%,#1a4a7a 50%,#1a6fa8 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);background-size:32px 32px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:34px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:16px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#1a6fa8;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #3498db;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#1a6fa8,#3498db);color:white;font-size:14px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* FORMULA BOX */
+.formula-box{
+  background:linear-gradient(135deg,#0a2744,#1a4a7a);
+  color:white;border-radius:20px;padding:40px;margin:30px 0;text-align:center;
+  box-shadow:0 12px 40px rgba(26,111,168,0.3);
+}
+.formula-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px;}
+.formula-main{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#64d8f0;margin-bottom:24px;line-height:1.5;word-break:break-word;}
+.formula-vars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;text-align:left;}
+.fv{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;}
+.fv-sym{font-family:'JetBrains Mono',monospace;font-size:14px;color:#64d8f0;font-weight:700;margin-bottom:4px;}
+.fv-desc{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.7);}
+
+/* HARDWARE TABLE */
+.table-wrap{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);border:2px solid #3498db;border-radius:16px;padding:28px;margin:28px 0;overflow-x:auto;}
+.tw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#1a6fa8;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.hw{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.hw thead tr{background:linear-gradient(135deg,#1a6fa8,#2980b9);color:white;}
+table.hw th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.5px;}
+table.hw td{padding:11px 14px;font-size:13px;border-bottom:1px solid #bee3f8;color:#2c3e50;}
+table.hw tr:nth-child(even) td{background:rgba(52,152,219,0.05);}
+table.hw tr:hover td{background:rgba(52,152,219,0.1);}
+.val-hi{color:#e74c3c;font-weight:700;} .val-mid{color:#d68910;font-weight:700;} .val-lo{color:#27ae60;font-weight:700;}
+
+/* PUE CARDS */
+.pue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0;}
+.pue-card{background:white;border:2px solid #bee3f8;border-radius:14px;padding:20px;text-align:center;transition:all .3s;}
+.pue-card:hover{border-color:#3498db;transform:translateY(-3px);box-shadow:0 8px 24px rgba(52,152,219,0.15);}
+.pue-val{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:#1a6fa8;display:block;margin-bottom:4px;}
+.pue-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:#5d8aa8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.pue-note{font-size:13px;color:#7f8c8d;}
+
+/* CARBON FACTORS */
+.carbon-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:24px 0;}
+.cf-card{border-radius:12px;padding:18px;text-align:center;}
+.cf-card.low{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border:2px solid #27ae60;}
+.cf-card.mid{background:linear-gradient(135deg,#fef9e7,#fdefc3);border:2px solid #f39c12;}
+.cf-card.hi{background:linear-gradient(135deg,#fdecea,#fbd5d0);border:2px solid #e74c3c;}
+.cf-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;display:block;margin-bottom:4px;}
+.cf-card.low .cf-val{color:#1a8449;} .cf-card.mid .cf-val{color:#d68910;} .cf-card.hi .cf-val{color:#c0392b;}
+.cf-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.cf-card.low .cf-label{color:#1a8449;} .cf-card.mid .cf-label{color:#d68910;} .cf-card.hi .cf-label{color:#c0392b;}
+.cf-sub{font-size:13px;color:#7f8c8d;margin-top:3px;}
+
+/* VALIDATION */
+.validation-box{background:linear-gradient(135deg,#eafaf1,#d5f5e3);border:2px solid #27ae60;border-radius:16px;padding:30px;margin:28px 0;}
+.val-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#1a8449;margin-bottom:16px;}
+.val-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+.val-item{background:white;border-radius:10px;padding:16px;text-align:center;}
+.val-num{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#1a8449;display:block;margin-bottom:4px;}
+.val-lbl{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5d7a67;}
+
+.info-box{background:#f0f8ff;border-left:5px solid #3498db;border-radius:0 12px 12px 0;padding:20px 24px;margin:20px 0;}
+.info-box p{font-size:17px;line-height:1.8;color:#2c3e50;}
+.source-note{background:#f8f9fa;border-left:4px solid #95a5a6;border-radius:0 8px 8px 0;padding:11px 18px;margin:14px 0;font-size:14px;font-style:italic;color:#5d6d7e;}
+
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(52,152,219,0.25);border-color:rgba(52,152,219,0.5);color:#90caf9;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.formula-main{font-size:16px;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:320px;}
+@media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Раздел 1 — Методология</div>
+    <h1>Методология измерения углеродного следа</h1>
+    <p>Проверенная формула, технические характеристики оборудования, коэффициенты углерода по регионам и процесс эмпирической валидации</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;text-align:center;margin-bottom:24px;">Перевод проверенного оригинала ES/EN. В случае расхождений оригинал имеет приоритет.</p>
+
+  <p class="body-text">В этом разделе представлена методологическая основа, разработанная для количественной оценки углеродного следа моделей ИИ. Методология построена на основе работ Strubell et al. (2019) и Patterson et al. (2021), с уточнениями, полученными в результате практики оценки и валидации по официальным данным, опубликованным Google, Microsoft и Meta AI.</p>
+
+  <div class="sh"><span class="sh-num">1.1</span>Основная расчётная формула</div>
+
+  <div class="formula-box">
+    <div class="formula-label">Центральное уравнение модели</div>
+    <div class="formula-main">CO₂(kg) = N_GPUs × P_GPU(kW) × T_h × PUE × C_factor</div>
+    <div class="formula-vars">
+      <div class="fv"><div class="fv-sym">N_GPUs</div><div class="fv-desc">Количество GPU, используемых при обучении</div></div>
+      <div class="fv"><div class="fv-sym">P_GPU (kW)</div><div class="fv-desc">Расчётная тепловая мощность на один GPU (TDP)</div></div>
+      <div class="fv"><div class="fv-sym">T_h</div><div class="fv-desc">Время обучения в часах</div></div>
+      <div class="fv"><div class="fv-sym">PUE</div><div class="fv-desc">Power Usage Effectiveness дата-центра</div></div>
+      <div class="fv"><div class="fv-sym">C_factor</div><div class="fv-desc">Коэффициент углеродной интенсивности (кг CO₂/кВт·ч) в зависимости от географического региона</div></div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <p><strong>Методологическое замечание:</strong> Формула рассчитывает выбросы Scope 2 (потреблённое электричество). Она не включает выбросы Scope 3 от производства оборудования (Scope 1, встроенный углерод). Для полного жизненного цикла умножьте результат на коэффициент 1.4–2.0x в зависимости от используемого оборудования и срока его эксплуатации.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">1.2</span>Характеристики проанализированного оборудования</div>
+
+  <div class="table-wrap">
+    <div class="tw-title">Специализированные GPU для ИИ — расчётные параметры</div>
+    <table class="hw">
+      <thead><tr><th>GPU</th><th>Поколение</th><th>TDP (Вт)</th><th>TFLOPS (FP16)</th><th>Выпуск</th><th>Типичное применение</th></tr></thead>
+      <tbody>
+        <tr><td><strong>NVIDIA V100</strong></td><td>Volta</td><td class="val-lo">300 Вт</td><td>125</td><td>2017</td><td>GPT-2, BERT</td></tr>
+        <tr><td><strong>NVIDIA A100 (40GB)</strong></td><td>Ampere</td><td class="val-mid">400 Вт</td><td>312</td><td>2020</td><td>GPT-3, LLaMA 1</td></tr>
+        <tr><td><strong>NVIDIA A100 (80GB)</strong></td><td>Ampere</td><td class="val-mid">400 Вт</td><td>312</td><td>2021</td><td>PaLM, Chinchilla</td></tr>
+        <tr><td><strong>NVIDIA H100 (SXM)</strong></td><td>Hopper</td><td class="val-hi">700 Вт</td><td>989</td><td>2022</td><td>GPT-4, LLaMA 3, Claude 3</td></tr>
+        <tr><td><strong>NVIDIA H100 (PCIe)</strong></td><td>Hopper</td><td class="val-hi">350 Вт</td><td>800</td><td>2022</td><td>Общий инференс</td></tr>
+        <tr><td><strong>NVIDIA H200</strong></td><td>Hopper+</td><td class="val-hi">700 Вт</td><td>989</td><td>2024</td><td>Gemini Ultra, GPT-4o</td></tr>
+        <tr><td><strong>Google TPU v4</strong></td><td>—</td><td class="val-mid">275 Вт</td><td>275</td><td>2021</td><td>PaLM, Gemini</td></tr>
+        <tr><td><strong>Google TPU v5e</strong></td><td>—</td><td class="val-mid">197 Вт</td><td>197</td><td>2023</td><td>Gemini 1.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Вычислительная мощность (TFLOPS FP16) — проанализированные GPU</div>
+    <div class="chart-canvas-wrap"><canvas id="chartGPU"></canvas></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">1.3</span>Power Usage Effectiveness (PUE) по типу дата-центра</div>
+
+  <p class="body-text">PUE измеряет общую эффективность дата-центра: значение 1.0 было бы идеальным (вся энергия идёт на вычисления). Среднемировое значение — ~1.58, но наиболее эффективные гиперскейлеры достигают значений 1.1–1.2.</p>
+
+  <div class="pue-grid">
+    <div class="pue-card"><span class="pue-val">1.10</span><div class="pue-label">Оптимальный гиперскейлер</div><p class="pue-note">Google, Meta, Microsoft в эффективных центрах (Исландия, Финляндия)</p></div>
+    <div class="pue-card"><span class="pue-val">1.20</span><div class="pue-label">Средний гиперскейлер</div><p class="pue-note">Крупные облачные провайдеры (AWS, Azure, GCP) в современных центрах</p></div>
+    <div class="pue-card"><span class="pue-val">1.50</span><div class="pue-label">Корпоративный дата-центр</div><p class="pue-note">Типичная корпоративная инфраструктура, построенная после 2015 года</p></div>
+    <div class="pue-card"><span class="pue-val">1.67</span><div class="pue-label">Среднемировое значение</div><p class="pue-note">Мировое среднее по данным IEA 2024 / Lawrence Berkeley Lab</p></div>
+    <div class="pue-card"><span class="pue-val">2.0+</span><div class="pue-label">Устаревший дата-центр</div><p class="pue-note">Старая инфраструктура, тёплый климат без эффективного охлаждения</p></div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Эффективность PUE по типу дата-центра</div>
+    <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartPUE"></canvas></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">1.4</span>Коэффициенты углеродной интенсивности по регионам</div>
+
+  <p class="body-text">Географическое расположение дата-центра — это отдельный фактор, оказывающий наибольшее влияние на углеродный след; он может различаться до 90× между самым чистым и самым грязным регионом мира.</p>
+
+  <div class="carbon-row">
+    <div class="cf-card low"><span class="cf-val">0.012</span><div class="cf-label">Исландия</div><div class="cf-sub">кг CO₂/кВт·ч · 100% геотермия</div></div>
+    <div class="cf-card low"><span class="cf-val">0.016</span><div class="cf-label">Норвегия</div><div class="cf-sub">кг CO₂/кВт·ч · 98% гидроэнергетика</div></div>
+    <div class="cf-card low"><span class="cf-val">0.033</span><div class="cf-label">Франция</div><div class="cf-sub">кг CO₂/кВт·ч · 70% атомная энергия</div></div>
+    <div class="cf-card mid"><span class="cf-val">0.233</span><div class="cf-label">Калифорния</div><div class="cf-sub">кг CO₂/кВт·ч · возобновляемый микс</div></div>
+    <div class="cf-card mid"><span class="cf-val">0.386</span><div class="cf-label">Среднее по США</div><div class="cf-sub">кг CO₂/кВт·ч · EPA eGRID 2022</div></div>
+    <div class="cf-card mid"><span class="cf-val">0.421</span><div class="cf-label">Среднее по ЕС</div><div class="cf-sub">кг CO₂/кВт·ч · EEA 2024</div></div>
+    <div class="cf-card hi"><span class="cf-val">0.633</span><div class="cf-label">Индия</div><div class="cf-sub">кг CO₂/кВт·ч · высокая зависимость от угля</div></div>
+    <div class="cf-card hi"><span class="cf-val">0.724</span><div class="cf-label">Среднее по Китаю</div><div class="cf-sub">кг CO₂/кВт·ч · уголь-возобновляемые</div></div>
+    <div class="cf-card hi"><span class="cf-val">1.085</span><div class="cf-label">Польша</div><div class="cf-sub">кг CO₂/кВт·ч · 70% уголь</div></div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Коэффициент углерода по регионам — сравнительная визуализация (кг CO₂/кВт·ч)</div>
+    <div class="chart-canvas-wrap"><canvas id="chartCarbonFactor"></canvas></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">1.5</span>Валидация модели</div>
+
+  <div class="validation-box">
+    <div class="val-title">✅ Результаты перекрёстной валидации</div>
+    <div class="val-grid">
+      <div class="val-item"><span class="val-num">R²=0.89</span><div class="val-lbl">Корреляция параметры→выбросы</div></div>
+      <div class="val-item"><span class="val-num">&lt;6%</span><div class="val-lbl">Средняя погрешность vs официальные данные</div></div>
+      <div class="val-item"><span class="val-num">11.2%</span><div class="val-lbl">Максимальная наблюдаемая погрешность</div></div>
+      <div class="val-item"><span class="val-num">p&lt;0.001</span><div class="val-lbl">Статистическая значимость</div></div>
+      <div class="val-item"><span class="val-num">3</span><div class="val-lbl">Компании с официальными данными (Google, Microsoft, Meta)</div></div>
+      <div class="val-item"><span class="val-num">98%</span><div class="val-lbl">Доверительный интервал</div></div>
+    </div>
+  </div>
+
+  <div class="source-note"><strong>Источники валидации:</strong> Google Environmental Report 2024, Microsoft Sustainability Report 2024, Meta AI Systems Paper 2023. Перекрёстная валидация проводилась путём сравнения оценок формулы с официально опубликованными данными для GPT-4 (OpenAI/Microsoft), PaLM 2 (Google) и LLaMA 2 (Meta).</div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">Обложка</a><a href="toc.html" class="nl">Содержание</a>
+    <a href="resumen.html" class="nl">Резюме</a><a href="introduccion.html" class="nl">Введение</a>
+    <a href="metodologia.html" class="nl active">§1 Методология</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">Ссылки</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Версия 1.0.0, Март 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.pue-card,.cf-card,.fv,.val-item,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Carbon Factor by Region
+  new Chart(document.getElementById('chartCarbonFactor'), {
+    type:'bar',
+    data:{
+      labels:['Исландия','Норвегия','Франция','Калифорния','Среднее по США','Среднее по ЕС','Индия','Среднее по Китаю','Польша'],
+      datasets:[{
+        label:'kg CO₂/kWh',
+        data:[0.012,0.016,0.033,0.233,0.386,0.421,0.633,0.724,1.085],
+        backgroundColor:['#27ae60','#27ae60','#27ae60','#f39c12','#f39c12','#f39c12','#e74c3c','#e74c3c','#e74c3c'],
+        borderRadius:8, borderSkipped:false,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1400, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} kg CO₂/kWh`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'kg CO₂/kWh'}}, x:{ticks:{font:{size:11}}} }
+    }
+  });
+
+  // Chart 2 — PUE by datacenter type
+  new Chart(document.getElementById('chartPUE'), {
+    type:'bar',
+    data:{
+      labels:['Оптимальный гиперскейлер','Средний гиперскейлер','Корпоративный дата-центр','Среднемировое значение','Устаревший дата-центр'],
+      datasets:[{
+        label:'PUE',
+        data:[1.10,1.20,1.50,1.67,2.05],
+        backgroundColor:['#1a6fa8','#3498db','#5dade2','#f39c12','#e74c3c'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1400, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` PUE ${c.raw}`}} },
+      scales:{ x:{beginAtZero:true, min:1, title:{display:true,text:'PUE (1.0 = ideal)'}} }
+    }
+  });
+
+  // Chart 3 — GPU TFLOPS
+  new Chart(document.getElementById('chartGPU'), {
+    type:'bar',
+    data:{
+      labels:['V100','A100 40GB','A100 80GB','H100 SXM','H100 PCIe','H200','TPU v4','TPU v5e'],
+      datasets:[{
+        label:'TFLOPS (FP16)',
+        data:[125,312,312,989,800,989,275,197],
+        backgroundColor:'#1a6fa8',
+        borderRadius:6,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutElastic'},
+      plugins:{ legend:{display:false} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'TFLOPS'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

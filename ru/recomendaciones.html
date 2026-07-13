@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§7 Рекомендации — Углеродный след моделей ИИ</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Раздел 7 — Новый</div>
+    <h1>✅ Рекомендации</h1>
+    <p>Практическое руководство на основе научных доказательств для снижения экологического воздействия ИИ — по типу субъекта, временному горизонту и уровню воздействия</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#3498db;font-style:italic;text-align:center;margin-bottom:24px;">Перевод проверенного оригинала ES/EN. В случае расхождений оригинал имеет приоритет.</p>
+
+  <p class="body-text">Выводы этого исследования не имеют полной научной ценности, если не преобразуются в конкретные действия. Этот раздел представляет конкретные рекомендации, подтверждённые в литературе, для пяти типов субъектов, способных ускорить переход к экологически ответственному ИИ. Рекомендации упорядочены по горизонту внедрения и ожидаемому уровню воздействия.</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 Технологические компании</div>
+    <div class="actor-pill ap2">🏛️ Правительства и регуляторы</div>
+    <div class="actor-pill ap3">🔬 Исследователи и академия</div>
+    <div class="actor-pill ap4">👤 Пользователи и организации</div>
+    <div class="actor-pill ap5">🌍 Глобальный Юг</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Распределение 21 рекомендации по субъектам</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 Для технологических компаний и операторов дата-центров</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">Публиковать полные экологические отчёты по стандартной методологии</div>
+        <p class="rec-text">Принять протокол GHG Protocol Scope 1–2–3 конкретно для систем ИИ, сообщая об углероде за сессию обучения и инференса, потреблении воды (прямом и косвенном) и генерируемых электронных отходах. Недостаточно общего корпоративного экологического отчёта: модели ИИ должны иметь собственную экологическую статью.</p>
+        <span class="rec-impact">⚡ Воздействие: прозрачность + регулирование</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">Приоритизировать эффективность над масштабом как метрику успеха</div>
+        <p class="rec-text">DeepSeek-R1 (январь 2025) продемонстрировал, что можно достичь производительности, сопоставимой с GPT-4, при примерно 96% меньших вычислительных ресурсах. Компании должны переориентировать свои метрики успеха с числа параметров («большая модель») на соотношение производительность/выбросы. Внутренние бенчмарки должны включать экологическое измерение.</p>
+        <span class="rec-impact">🌫️ Воздействие: -90% CO₂ на задачу</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">Перемещать дата-центры в зоны с чистой энергией и обилием воды</div>
+        <p class="rec-text">Географический анализ данного исследования показывает, что одна и та же инфраструктура может иметь углеродный след до 90× меньше в Исландии или Норвегии, чем в Польше или Индии. Microsoft, Google и Meta уже работают в центрах на севере Европы; отрасли следует расширить эту практику и избегать размещения дата-центров в зонах водного стресса (классификация AQUEDUCT score ≥4).</p>
+        <span class="rec-impact">⚡ Потенциальное снижение: до 90× CO₂</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">Внедрять безводные или замкнутые технологии охлаждения</div>
+        <p class="rec-text">Прямое воздушное охлаждение в холодном климате (free-cooling), системы замкнутого водооборота и иммерсионное охлаждение в жидком диэлектрике могут снизить водопотребление на 95–99%. Microsoft запустила свой первый дата-центр «zero water» в августе 2024 года. Эта технология должна стать отраслевым стандартом, а не исключением.</p>
+        <span class="rec-impact">💧 Потенциал: -95% водопотребления</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">Продлевать срок службы оборудования и устанавливать программы ответственной переработки</div>
+        <p class="rec-text">GPU для ИИ имеют циклы замены 2–3 года против 5–7 лет для обычных серверов. Компании должны устанавливать программы продления срока службы (восстановление, понижение до менее энергозатратного инференса) и гарантировать, что устаревшее оборудование перерабатывается по сертификациям R2/e-Stewards — не экспортируется в третьи страны без надлежащей мощности переработки.</p>
+        <span class="rec-impact">🗑️ Воздействие: снижение токсичного e-waste</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">Внедрять техники эффективности моделей: квантование, дистилляция, обрезка</div>
+        <p class="rec-text">Квантование INT8/INT4, дистилляция знаний и обрезка неактивных весов могут снизить вычислительные затраты инференса на 50–80% с минимальной потерей производительности. Инференс составляет 80–90% общих вычислений ИИ; его оптимизация имеет большее экологическое воздействие, чем оптимизация обучения.</p>
+        <span class="rec-impact">⚡ Инференс: -50–80% энергии</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 Для правительств и регулирующих органов</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">Установить экологическую отчётность ИИ как обязательную, а не добровольную</div>
+        <p class="rec-text">ЕС должен расширить EU AI Act, включив раздел обязательной экологической отчётности. США должны отменить ослабление экологических проверок для дата-центров. Минимальный международный стандарт должен требовать: выбросы CO₂ за сессию обучения (Scope 1–3), Water Usage Effectiveness (WUE) и план управления e-waste. Без обязательности самоотчётность недостаточна.</p>
+        <span class="rec-impact">⚖️ Горизонт: краткосрочный (1–2 года)</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">Создавать налоговые стимулы, привязанные к реальной экологической эффективности</div>
+        <p class="rec-text">Субсидии и налоговые льготы для отрасли ИИ должны условно предоставляться при выполнении проверяемых экологических метрик: PUE ≤1,2, 100% возобновляемая энергия за 5 лет, WUE ≤0,5 л/кВт·ч и сертифицированный план управления e-waste. Налоговые льготы дата-центрам без экологических условий представляют собой трансферт богатства, обобществляющий экологические издержки.</p>
+        <span class="rec-impact">💰 Инструмент: зелёная налоговая политика</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">Регулировать добычу критических минералов в цепочке поставок ИИ</div>
+        <p class="rec-text">Правительства стран-потребителей должны внедрить законы должной осмотрительности цепочки поставок для критических минералов (кобальт, литий, редкоземельные металлы, галлий), аналогичные EU Corporate Sustainability Due Diligence Directive. Технологические компании, покупающие чипы, должны иметь возможность подтвердить, что минералы не поступают из зон с детским трудом, разрушением водоносных горизонтов или нарушением прав коренных общин.</p>
+        <span class="rec-impact">⛏️ Воздействие: справедливая цепочка поставок</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">Запретить размещение дата-центров в зонах сильного водного стресса</div>
+        <p class="rec-text">Правительства регионов с дефицитом воды (Чили, внутренняя Испания, Индия, Ближний Восток, юго-запад США) должны установить мораторий или запреты на размещение дата-центров ИИ до появления технологии охлаждения без чистого потребления воды. Инциденты в Лос-Анджелесе (январь 2025) — гидранты без давления во время активных пожаров — иллюстрируют прямые человеческие издержки бездействия.</p>
+        <span class="rec-impact">💧 Срочно в: Калифорнии, Чили, Испании, Индии</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">Финансировать государственные исследования эффективного ИИ и стандартных метрик</div>
+        <p class="rec-text">Правительства должны финансировать исследования стандартных методологий экологического воздействия ИИ (в разработку которых вносит вклад данная работа), техник вычислительной эффективности и дизайна чипов следующего поколения со сниженным воздействием производства. Исследования в области «Green AI» не должны исключительно зависеть от компаний с прямыми коммерческими интересами.</p>
+        <span class="rec-impact">🔬 Горизонт: среднесрочный</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 Для исследователей и научного сообщества</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">Систематически сообщать об экологической цене в публикациях о новых моделях</div>
+        <p class="rec-text">Каждая научная публикация, представляющая новую модель ИИ, должна включать в качестве обязательного рецензируемого раздела отчёт о её углеродном следе обучения, водопотреблении и использованном оборудовании. Журналы PNAS, Nature, Science и NeurIPS должны принять эту политику. Без этой нормы научное сообщество увековечивает непрозрачность, которую критикует в отрасли.</p>
+        <span class="rec-impact">📄 Немедленное действие для авторов</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">Разработать стандартную методологию для экологического воздействия инференса</div>
+        <p class="rec-text">Наибольший научный пробел, выявленный в данном исследовании, — это отсутствие проверенной методологии количественной оценки экологического воздействия инференса (ежедневного использования моделей), который составляет 80–90% вычислений ИИ. <strong>Обновление:</strong> публичный калькулятор, сопровождающий эту работу, уже включает модуль инференса, основанный на реальных измерениях Jegham et al. (arXiv:2505.09598, 2025) — первый шаг к закрытию этого пробела. Однако необходимы более масштабные систематические академические исследования, охватывающие: энергию по типу запроса в большем масштабе, водный след на сгенерированный токен и географическую вариацию воздействия распределённого инференса.</p>
+        <span class="rec-impact">🔭 Критический исследовательский пробел</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">Приоритизировать воспроизводимость и открытый доступ к экологическим данным</div>
+        <p class="rec-text">Инструменты измерения, наборы данных энергопотребления по модели и вычислительные фреймворки должны публиковаться под открытыми лицензиями (CC BY / Apache 2.0). Калькулятор углеродного следа, разработанный вместе с этой работой, является примером приверженности открытой науке. Исследования, финансируемые государственными средствами в области устойчивого ИИ, должны быть публично доступны.</p>
+        <span class="rec-impact">🌐 Обязательство: эта работа</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">Изучать дифференцированное воздействие в Глобальном Юге</div>
+        <p class="rec-text">Текущие исследования экологического воздействия ИИ сосредоточены на Глобальном Севере. Необходимы полевые исследования в горнодобывающих сообществах Конго, Боливии и Чили; на свалках электроники Ганы и Бангладеш; и в экосистемах, затронутых дата-центрами в Индии и Юго-Восточной Азии. Экологическая справедливость требует, чтобы исследования включали тех, кто несёт издержки глобального ИИ.</p>
+        <span class="rec-impact">⚖️ Экологическая и академическая справедливость</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 Для индивидуальных пользователей и организаций</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">Предпочитать эффективные модели для задач, не требующих самой большой модели</div>
+        <p class="rec-text">Использование GPT-4 для составления простого письма имеет ту же экологическую цену, что и для сложного анализа — но именно сложный анализ является единственной задачей, оправдывающей эту цену. Пользователи должны соотносить мощность модели со сложностью задачи: модели с 7–13 млрд параметров решают 80% повседневных случаев использования с малой долей экологического воздействия.</p>
+        <span class="rec-impact">⚡ Действие: уже сегодня</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">Требовать экологической прозрачности как критерия выбора поставщика</div>
+        <p class="rec-text">Организации, заключающие контракты на услуги ИИ (API, платформы, консалтинг), должны включать экологическую прозрачность как критерий оценки: публикует ли поставщик свой PUE? отчитывается ли о водопотреблении? имеет ли сертифицированный план управления e-waste? Давление рынка — особенно от крупных компаний с обязательствами ESG — может ускорить изменения, которые регулирование внедряет медленно.</p>
+        <span class="rec-impact">🏢 Для отделов закупок и ESG</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">Рассчитывать и сообщать углеродный след ИИ в отчётах корпоративной устойчивости</div>
+        <p class="rec-text">Компании, использующие модели ИИ в производстве, должны включать выбросы Scope 3, полученные от использования ИИ, в свои отчёты GHG Protocol. Интерактивный калькулятор данной работы (lizzy0981.github.io/calculadora-huella-carbono-ia/) может стать отправной точкой для этого расчёта. Углеродный учёт без включения использования ИИ неполон и недооценивает реальное воздействие.</p>
+        <span class="rec-impact">📊 Ресурс: публичный калькулятор</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 Для Глобального Юга и развивающихся стран</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">Установить суверенные условия для добычи критических минералов</div>
+        <p class="rec-text">Страны Глобального Юга, обладающие месторождениями кобальта (ДРК), лития (Боливия, Чили, Аргентина) и редкоземельных металлов (Китай, Бразилия), должны заключать соглашения о добыче, включающие: передачу технологий, переработку на месте (не экспорт сырой руды), верифицированные фонды экологического восстановления и участие коренных общин в решениях о разработке.</p>
+        <span class="rec-impact">⛏️ Суверенитет над природными ресурсами</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">Отклонять e-waste ИИ, представляемый как «пожертвование» или «технологическая помощь»</div>
+        <p class="rec-text">Сброс устаревшего оборудования ИИ под видом «технологических пожертвований» в страны без надлежащей мощности переработки переносит токсичные издержки в Глобальный Юг. Страны-получатели должны установить требования сертификации для импорта подержанного оборудования и отклонять технику, чья конечная утилизация не финансируется экспортёром по международным стандартам.</p>
+        <span class="rec-impact">🗑️ Экологическая и медицинская защита</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">Инвестировать в эффективный местный ИИ, а не в зависимость от масштабных моделей Глобального Севера</div>
+        <p class="rec-text">Страны Глобального Юга должны отдавать приоритет разработке и внедрению малых, эффективных моделей ИИ (SLM), адаптированных к их языкам и реалиям, обученных на местной возобновляемой энергии. Зависимость от внешних API масштабных моделей означает постоянный отток валюты без развития местных возможностей. Доступ к ИИ не должен воспроизводить динамику технологической зависимости.</p>
+        <span class="rec-impact">🌐 Технологический суверенитет</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">Матрица приоритетов — рекомендации с наибольшим воздействием</div>
+    <table class="prio">
+      <thead><tr><th>Действие</th><th>Субъект</th><th>Горизонт</th><th>Экологическое воздействие</th><th>Осуществимость</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — Перемещать дата-центры в зоны чистой энергии</td><td>Компании</td><td>Среднесрочный</td><td><span class="im-high">Очень высокое</span></td><td class="p-mid">Средняя</td></tr>
+        <tr><td>R4 — Безводное охлаждение / замкнутый цикл</td><td>Компании</td><td>Краткосрочный</td><td><span class="im-high">Очень высокое (вода)</span></td><td class="p-hi">Высокая</td></tr>
+        <tr><td>R2 — Эффективность над масштабом как метрика</td><td>Компании</td><td>Немедленный</td><td><span class="im-high">Высокое</span></td><td class="p-mid">Средняя</td></tr>
+        <tr><td>R7 — Обязательная экологическая отчётность (регулирование)</td><td>Правительства</td><td>Краткосрочный</td><td><span class="im-mid">Высокое (прозрачность)</span></td><td class="p-mid">Средняя</td></tr>
+        <tr><td>R10 — Запретить дата-центры в зонах водного стресса</td><td>Правительства</td><td>Немедленный</td><td><span class="im-high">Очень высокое (вода)</span></td><td class="p-hi">Высокая (где уже есть регулирование)</td></tr>
+        <tr><td>R12 — Экологическая отчётность в научных публикациях</td><td>Исследователи</td><td>Немедленный</td><td><span class="im-mid">Среднее (культура)</span></td><td class="p-hi">Высокая</td></tr>
+        <tr><td>R16 — Выбирать эффективные модели для простых задач</td><td>Пользователи</td><td>Немедленный</td><td><span class="im-lo">Низкое-Среднее</span></td><td class="p-hi">Очень высокая</td></tr>
+        <tr><td>R6 — Квантование и эффективный инференс</td><td>Компании</td><td>Краткосрочный</td><td><span class="im-high">Высокое (инференс 80–90%)</span></td><td class="p-hi">Высокая</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">Путь существует — воля является переменной</div>
+    <p class="closing-text">Ни одна из рекомендаций этой работы не требует жертвовать прогрессом ИИ. Научные доказательства демонстрируют, что эффективные модели, такие как DeepSeek-R1 или Claude Sonnet, могут выполнять работу гораздо более крупных систем с малой долей экологической цены. Вызов не технологический: он касается стимулов, прозрачности и политической воли. ИИ может стать двигателем человеческого развития XXI века без необходимости становиться одной из его главных экологических угроз.</p>
+    <div class="closing-quote">«Устойчивость ИИ — это не ограничение прогресса, а условие его долгосрочной возможности».</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">Обложка</a><a href="toc.html" class="nl">Содержание</a>
+    <a href="resumen.html" class="nl">Резюме</a><a href="introduccion.html" class="nl">Введение</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl active">§7 ✅ Рекоменд.</a>
+    <a href="conclusiones.html" class="nl">§8</a><a href="referencias.html" class="nl">Ссылки</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Версия 1.0.0, Март 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 Компании (R1-R6)','🏛️ Правительства (R7-R11)','🔬 Исследователи (R12-R15)','👤 Пользователи (R16-R18)','🌍 Глобальный Юг (R19-R21)'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} рекомендаций`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

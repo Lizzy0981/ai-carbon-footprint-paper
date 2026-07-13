@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>القسم 5 — المعادن الحرجة والتنوع البيولوجي | بحث علمي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #0b6b35 0%, #1a8449 50%, #27ae60 100%);
+            color: white; padding: 50px 40px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E") repeat;
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white; font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px; margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: earthPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes earthPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 720px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        .crisis-callout {
+            background: linear-gradient(135deg, #e9f7ef 0%, #d5f5e3 100%);
+            border-left: 6px solid #27ae60;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px; position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '🌍';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #145a32; }
+        .crisis-callout strong { color: #0b6b35; }
+
+        /* MINERALS GRID */
+        .minerals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .mineral-card {
+            background: white; border-radius: 16px;
+            border: 2px solid #a9dfbf;
+            padding: 25px; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .mineral-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+
+        .mineral-card.critical::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+        .mineral-card.high::before { background: linear-gradient(90deg, #d68910, #f39c12); }
+        .mineral-card.medium::before { background: linear-gradient(90deg, #1a8449, #27ae60); }
+
+        .mineral-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(39,174,96,0.2);
+        }
+
+        .mineral-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .mineral-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .mineral-card.critical .mineral-name { color: #c0392b; }
+        .mineral-card.high .mineral-name { color: #d68910; }
+        .mineral-card.medium .mineral-name { color: #1a8449; }
+
+        .mineral-use {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: #7f8c8d; margin-bottom: 10px;
+        }
+
+        .mineral-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .mineral-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; padding: 5px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        .mineral-card.critical .mineral-data { background: #fdecea; color: #c0392b; }
+        .mineral-card.high .mineral-data { background: #fef9e7; color: #d68910; }
+        .mineral-card.medium .mineral-data { background: #eafaf1; color: #1a8449; }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #1a8449;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #27ae60;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a8449, #27ae60);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* BAOTOU CASE */
+        .case-study {
+            background: linear-gradient(135deg, #1c1c1c 0%, #2c2c2c 100%);
+            color: white; border-radius: 16px; padding: 35px;
+            margin: 30px 0; position: relative; overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '📍 CASO DE ESTUDIO';
+            position: absolute; top: 15px; right: 20px;
+            font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; background: #e74c3c; color: white;
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        .case-study-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px; font-weight: 800;
+            color: #f39c12; margin-bottom: 15px;
+        }
+
+        .case-study p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .case-study p:last-child { margin-bottom: 0; }
+        .case-study strong { color: #f39c12; }
+
+        /* BIODIVERSITY */
+        .biodiversity-impacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px; margin: 30px 0;
+        }
+
+        .bio-card {
+            background: white; border: 2px solid #a9dfbf;
+            border-radius: 14px; padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .bio-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 6px 20px rgba(39,174,96,0.15);
+        }
+
+        .bio-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+
+        .bio-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 700;
+            color: #1a8449; margin-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .bio-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* DEEP SEA BOX */
+        .deep-sea-box {
+            background: linear-gradient(135deg, #0a1a2e 0%, #0d2137 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0; border: 2px solid #1a6fa8;
+        }
+
+        .deep-sea-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 800;
+            color: #3498db; margin-bottom: 12px;
+        }
+
+        .deep-sea-box p { font-size: 17px; line-height: 1.8; margin-bottom: 10px; }
+        .deep-sea-box strong { color: #3498db; }
+
+        /* SUPPLY CHAIN */
+        .supply-chain {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .supply-item {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #a9dfbf;
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+
+        .supply-country { font-size: 30px; margin-bottom: 8px; display: block; }
+
+        .supply-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700;
+            color: #1a8449; margin-bottom: 6px;
+        }
+
+        .supply-detail { font-size: 14px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea, #fad7d0);
+            border: 3px solid #e74c3c; border-radius: 16px;
+            padding: 30px; margin: 30px 0; position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute; top: -18px; left: 30px;
+            font-size: 30px; background: white; padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif; font-size: 18px;
+            font-weight: 800; color: #c0392b; margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #0b3d1f 0%, #145a32 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #27ae60; border-color: #27ae60; color: white; }
+
+        .author-note { font-size: 13px; opacity: 0.8; font-style: italic; text-align: center; }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4a373;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#7d3c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">القسم 5 — جديد</span>
+            <span class="section-icon">⛏️</span>
+            <h1 class="section-title">المعادن الحرجة والأنظمة البيئية والتنوع البيولوجي</h1>
+            <p class="section-subtitle">
+                لا يوجد الذكاء الاصطناعي في الهواء — تتطلّب رقاقاته وخوادمه معادن مستخرجة
+                من أعماق الأرض، بتكلفة بيئية وإنسانية نادراً ما تُرى
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a8449;font-style:italic;margin-bottom:20px;">ترجمة للنص الأصلي الموثّق بالإسبانية/الإنجليزية. في حال وجود أي تباين، يُعتمد النص الأصلي.</p>
+
+        <div class="crisis-callout">
+            <p>
+                يتطلّب تصنيع حاسوب وزنه 2 كغ <strong>800 كغ من المواد الخام</strong>.
+                تعتمد الرقائق الدقيقة التي تُحيي نماذج الذكاء الاصطناعي على عناصر
+                أرضية نادرة تُستخرج في ظروف مُدمِّرة بيئياً، غالباً في مناطق
+                ذات تنظيمات بيئية ضعيفة أو منعدمة. <strong>تُسيطر الصين على 60–99%
+                من تكرير أهم المعادن الحرجة للذكاء الاصطناعي</strong>، وقد يُثير توسّع
+                هذا القطاع تصعيداً في التعدين تحت سطح البحر لأنظمة بيئية
+                غير مستكشفة عملياً.
+            </p>
+        </div>
+
+        <!-- 5.1 MINERALES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.1</span>
+            المعادن الحرجة التي يتطلّبها الذكاء الاصطناعي
+        </h2>
+
+        <p class="body-text">
+            تتراوح المعادن اللازمة لبنية الذكاء الاصطناعي التحتية من المعادن الشائعة
+            إلى العناصر الأرضية النادرة ذات الاستخراج المتخصص للغاية. تُركّز كل
+            وحدة معالجة رسوميات وخادم ونظام تبريد عشرات هذه المواد، التي
+            تُولّد سلسلة توريدها آثاراً بيئية من المنجم إلى المكب:
+        </p>
+
+        <div class="minerals-grid">
+            <div class="mineral-card critical">
+                <span class="mineral-icon">⚡</span>
+                <div class="mineral-name">الكوبالت (Co)</div>
+                <div class="mineral-use">بطاريات النسخ الاحتياطي في مراكز البيانات</div>
+                <p class="mineral-text">
+                    يأتي ~70% من الإنتاج العالمي من جمهورية الكونغو
+                    الديمقراطية، حيث ينطوي التعدين الحرفي على عمالة الأطفال ويلوّث
+                    الأنهار المحلية. يُدمّر الاستخراج الغابات المطيرة
+                    ويؤثّر مباشرة على المجتمعات الأصلية.
+                </p>
+                <span class="mineral-data">جمهورية الكونغو الديمقراطية: 70% من الإنتاج العالمي — IEA 2024</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔋</span>
+                <div class="mineral-name">الليثيوم (Li)</div>
+                <div class="mineral-use">البطاريات وأنظمة التخزين</div>
+                <p class="mineral-text">
+                    يستخدم الاستخراج من ملاحة بوليفيا (أكبر رواسب العالم) كميات
+                    هائلة من المياه في مناطق قاحلة بالفعل، مهدداً أنظمة
+                    بيئية فريدة مثل بحيرة Uyuni. تدّعي المجتمعات الأصلية أن
+                    الاستشارات "شكلية فقط".
+                </p>
+                <span class="mineral-data">بوليفيا: أكبر احتياطي عالمي — يؤثر على أنظمة بيئية فريدة</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔲</span>
+                <div class="mineral-name">الغاليوم (Ga)</div>
+                <div class="mineral-use">الرقائق والإلكترونيات القوية لوحدات معالجة الرسوميات</div>
+                <p class="mineral-text">
+                    تُسيطر الصين على 99% من تكرير الغاليوم عالمياً. تُحدّد
+                    دراسة دورة حياة في Shanxi هيدروكسيد الصوديوم المستخدم في
+                    تكريره كسبب رئيسي للسمّية المائية. تتوقع IEA أن يفوق
+                    الطلب 10% من الإمدادات الحالية بحلول 2030.
+                </p>
+                <span class="mineral-data">الصين: 99% من التكرير العالمي — IEA Energy & AI (2025)</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">🧲</span>
+                <div class="mineral-name">النيوديميوم (Nd)</div>
+                <div class="mineral-use">مغناطيسات دائمة في محركات وحدات معالجة الرسوميات والمراوح</div>
+                <p class="mineral-text">
+                    عنصر أرضي نادر أساسي للمغناطيسات القوية لمحركات
+                    أنظمة التبريد. أدّى استخراجه في الصين إلى أضرار
+                    بيئية هائلة، بما في ذلك بحيرة Baotou السامة،
+                    منغوليا الداخلية.
+                </p>
+                <span class="mineral-data">Baotou: بحيرة سامة تحتوي على 180 مليون طن من النفايات</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">💎</span>
+                <div class="mineral-name">النحاس (Cu)</div>
+                <div class="mineral-use">الكابلات، مبدّدات الحرارة، الدوائر المطبوعة</div>
+                <p class="mineral-text">
+                    تستورد الولايات المتحدة ~37% من نحاسها. تتطلّب المناجم
+                    الجديدة 15–20 عاماً من الاكتشاف حتى الإنتاج. يواجه تعدين
+                    النحاس في شمال تشيلي احتجاجات من المجتمعات الأصلية
+                    بسبب استخدام المياه في المناطق القاحلة.
+                </p>
+                <span class="mineral-data">الولايات المتحدة تستورد 37% — FP Analytics (2025)</span>
+            </div>
+            <div class="mineral-card medium">
+                <span class="mineral-icon">🔩</span>
+                <div class="mineral-name">السيليكون فائق النقاء (Si)</div>
+                <div class="mineral-use">الركيزة الأساسية لجميع أشباه الموصلات</div>
+                <p class="mineral-text">
+                    رغم وفرة السيليكون، يتطلّب تنقيته إلى درجة أشباه الموصلات
+                    (نقاء 99.9999999%) عمليات كثيفة الاستهلاك للطاقة
+                    والمياه بشكل هائل. تتركّز مصانع الرقائق في
+                    تايوان وكوريا الجنوبية والولايات المتحدة.
+                </p>
+                <span class="mineral-data">التنقية: العملية الأكثر كثافة في استهلاك المياه في القطاع</span>
+            </div>
+        </div>
+
+        <!-- 5.2 CASO BAOTOU -->
+        <div class="case-study">
+            <div class="case-study-title">🏭 دراسة حالة: Baotou، منغوليا الداخلية، الصين</div>
+            <p>
+                في Baotou، المركز العالمي لتكرير العناصر الأرضية النادرة، خلقت
+                عملية استخراج ومعالجة المعادن <strong>بحيرة سامة تمتد على
+                أكثر من 5 أميال مربعة</strong>، تحتوي على أكثر من
+                <strong>180 مليون طن من غبار مخلّفات معالجة الخام</strong>.
+            </p>
+            <p>
+                تحتوي هذه البحيرة على <strong>الثوريوم المشعّ وحمض الكبريتيك وعشرات
+                الملوّثات الأخرى</strong> التي تتسرّب إلى طبقات المياه الجوفية المحلية
+                وإلى التربة الزراعية المحيطة. تُبلّغ القرى الأقرب عن معدلات
+                مرتفعة من السرطان وهشاشة العظام والتشوّهات الخلقية. تغيّر
+                النظام البيئي في نطاق أميال بشكل لا رجعة فيه.
+            </p>
+            <p>
+                هذه ليست حالة معزولة: بل هي النتيجة الموثّقة للطلب العالمي
+                على معادن الأرض النادرة للتكنولوجيا — بما فيها الذكاء الاصطناعي.
+            </p>
+        </div>
+
+        <!-- 5.3 BIODIVERSIDAD -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.2</span>
+            الأثر على التنوع البيولوجي والأنظمة البيئية
+        </h2>
+
+        <p class="body-text">
+            طوّرت دراسة نُشرت في <em>Carbon Neutral Systems</em> (Springer Nature،
+            ديسمبر 2025) أول إطار متكامل لـ"ترابط الموارد" يُحلّل آثار الذكاء
+            الاصطناعي على الطاقة والمياه والمواد والتربة في آنٍ واحد. تُحدّد
+            الدراسة أن آثار التنوع البيولوجي هي نظامية ومترابطة وغير
+            متكافئة مكانياً، بمنافع متركّزة في الشمال العالمي وتكاليف
+            بيئية مُصدَّرة إلى الجنوب العالمي.
+        </p>
+
+        <div class="biodiversity-impacts">
+            <div class="bio-card">
+                <span class="bio-icon">🌳</span>
+                <div class="bio-title">تدمير الموائل بسبب التعدين</div>
+                <p class="bio-text">
+                    ينطوي تعدين وصهر المعادن الحرجة على تدمير الموائل،
+                    وإدخال أنواع غازية عبر شبكات طرق التعدين، وآثار
+                    سامة طويلة الأمد في الأنظمة البيئية المائية المجاورة.
+                    <br><small><em>المصدر: Springer Nature (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌱</span>
+                <div class="bio-title">تحويل الأراضي لمراكز البيانات</div>
+                <p class="bio-text">
+                    تشغل مجمّعات الخوادم الكبيرة مساحات شاسعة، مُزيحةً النباتات
+                    والحيوانات المحلية. يمتد مركز بيانات في أوريغون على 327
+                    فداناً — أكثر من 250 ملعب كرة قدم. يُغيّر تطويره في
+                    المناطق شبه الحضرية الممرات البيئية ويُسهم في جزر
+                    الحرارة الحضرية.
+                    <br><small><em>المصدر: Medium/Eastgate (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🐟</span>
+                <div class="bio-title">التلوث المائي</div>
+                <p class="bio-text">
+                    تُلوّث الترشيحات من مكبات النفايات الإلكترونية ونفايات
+                    تكرير المعادن الأنهار والبحيرات وطبقات المياه الجوفية.
+                    يتراكم الزئبق أحيائياً في السلسلة الغذائية المائية،
+                    مؤثراً على الأسماك والطيور والثدييات البحرية.
+                    <br><small><em>المصدر: Wang وزملاؤه، Nature Comp. Sci. (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🦜</span>
+                <div class="bio-title">تجزّؤ الموائل</div>
+                <p class="bio-text">
+                    تُجزّئ شبكات الطرق للوصول إلى المناجم الموائل التي كانت
+                    متواصلة سابقاً، مُعطّلةً أنماط هجرة الثدييات والطيور،
+                    ومُسهّلة الصيد الجائر والاستخراج غير القانوني للموارد
+                    الطبيعية.
+                    <br><small><em>المصدر: Springer Nature Carbon Neutral Systems (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">💧</span>
+                <div class="bio-title">التنافس على المياه مع الأنظمة البيئية</div>
+                <p class="bio-text">
+                    تسحب مراكز البيانات في المناطق القاحلة المياه من نفس
+                    طبقات المياه الجوفية التي تُغذّي الأراضي الرطبة والأنهار
+                    الحيوية للطيور المهاجرة والحيوانات المتوطّنة. تُعدّ
+                    جنوب غرب الولايات المتحدة وإسبانيا وشمال تشيلي حالات
+                    موثّقة من الصراع النشط.
+                    <br><small><em>المصدر: Lincoln Institute / IE Insights (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌡️</span>
+                <div class="bio-title">جزر الحرارة والمناخ المحلي</div>
+                <p class="bio-text">
+                    تُصدر مراكز البيانات الضخمة حرارة متبقية تُرفع درجة الحرارة
+                    المحلية عدة درجات، مُغيّرةً المناخات المحلية التي تدعم
+                    أنظمة بيئية حسّاسة. في مناطق كثيفة مثل شمال فرجينيا،
+                    التي تضم أكثر من 300 مركز بيانات، الأثر إقليمي وموثّق.
+                    <br><small><em>المصدر: Lincoln Institute (2025)</em></small>
+                </p>
+            </div>
+        </div>
+
+        <!-- 5.4 MINERÍA SUBMARINA -->
+        <div class="deep-sea-box">
+            <div class="deep-sea-title">⚓ الحدود الأكثر خطورة: التعدين في قاع المحيط</div>
+            <p>
+                يُسرّع الطلب المتفجّر على المعادن للذكاء الاصطناعي مقترحات
+                <strong>التعدين في قاع البحر</strong> — استخراج عُقيدات معدنية من
+                قاع المحيط في مناطق غير مستكشفة عملياً. تُركّز منطقة
+                Clarion-Clipperton، بين المكسيك وهاواي، أكبر اهتمام لشركات
+                التعدين الأمريكية والأوروبية.
+            </p>
+            <p>
+                المشكلة: تستقر هذه العُقيدات في <strong>أنظمة بيئية فريدة في المياه
+                العميقة</strong> تأوي أنواعاً غير مُصنَّفة، للعديد منها أدوار حرجة
+                في الدورات الجيوكيميائية الحيوية للمحيطات. يُدمّر سحب أو شفط
+                قاع البحر لاستعادة هذه العُقيدات <strong>بشكل لا رجعة فيه موائل
+                استغرق تكوينها ملايين السنين</strong>. تقع هذه المنطقة في مياه
+                دولية وتُناقَش تنظيماتها بنشاط في السلطة الدولية لقاع
+                البحار.
+            </p>
+            <p>
+                <strong>لا يوجد بعد إطار تنظيمي كافٍ</strong> لتقييم أو تخفيف
+                هذا الأثر قبل بدء الاستخراج.
+            </p>
+        </div>
+
+        <!-- 5.5 CADENA DE SUMINISTRO -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.3</span>
+            التركز الجيوسياسي لسلسلة التوريد
+        </h2>
+
+        <p class="body-text">
+            يتركّز اعتماد الذكاء الاصطناعي على المعادن الحرجة جغرافياً في
+            حفنة من الدول، مُولّداً هشاشات جيوسياسية ومُديماً نماذج
+            استخراجية تُصدّر التكلفة البيئية إلى مناطق ذات قدرة تفاوضية
+            أقل. تُفيد IEA أن طلب الغاليوم قد يفوق 10% من الإمدادات
+            العالمية الحالية بحلول 2030.
+        </p>
+
+        <div class="supply-chain">
+            <div class="supply-item">
+                <span class="supply-country">🇨🇳</span>
+                <div class="supply-name">الصين</div>
+                <p class="supply-detail">+60% من إنتاج العناصر الأرضية النادرة. 99% من تكرير الغاليوم. احتكار فعلي على REE المُعالَجة.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇨🇩</span>
+                <div class="supply-name">جمهورية الكونغو الديمقراطية</div>
+                <p class="supply-detail">70% من الكوبالت العالمي. ظروف عمل مثيرة للجدل. إزالة غابات نشطة في مناطق التعدين.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇧🇴</span>
+                <div class="supply-name">بوليفيا / تشيلي / الأرجنتين</div>
+                <p class="supply-detail">أكبر احتياطي ليثيوم في العالم ("مثلث الليثيوم"). صراعات موثّقة مع المجتمعات الأصلية.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇲🇲</span>
+                <div class="supply-name">ميانمار</div>
+                <p class="supply-detail">منتج مهم للعناصر الأرضية النادرة والتنغستن. التعدين غير القانوني مرتبط بتمويل النزاع المسلح.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇹🇼</span>
+                <div class="supply-name">تايوان</div>
+                <p class="supply-detail">تُنتج TSMC 92% من أكثر الرقائق تقدماً في العالم. اعتماد كبير على المياه للتصنيع.</p>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-box-title">عدم مساواة عالمي: التكاليف غير مُقتسَمة</div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 التركز السوقي — نسبة السيطرة العالمية حسب الدولة</div>
+            <div class="chart-canvas-wrap"><canvas id="chartSupplyChain"></canvas></div>
+        </div>
+            <p>
+                تُظهر دراسة Springer Nature (2025) أن منافع الذكاء الاصطناعي
+                تتركّز في الشمال العالمي (الولايات المتحدة، أوروبا، الصين)،
+                بينما تُصدَّر التكاليف البيئية — تلوّث التعدين، النفايات
+                الإلكترونية غير الرسمية، تدمير الموائل — نحو الجنوب العالمي:
+                أفريقيا جنوب الصحراء وأمريكا اللاتينية وجنوب شرق آسيا. هذا
+                شكل من <strong>الاستعمار البيئي الرقمي</strong> لم يُعالجه
+                الإطار التنظيمي الدولي بشكل كافٍ.
+            </p>
+        </div>
+
+        <div class="source-note">
+            <strong>المصدر الرئيسي لهذا القسم:</strong> "The ecology of artificial intelligence:
+            energy, water, materials, and land limits of digital systems."
+            <em>Carbon Neutral Systems</em>، Springer Nature (2 ديسمبر 2025).
+            DOI: 10.1007/s44438-025-00018-8. أيضاً: UNEP "AI has an environmental problem" (2024)،
+            FP Analytics "AI and the Critical Minerals Crunch" (2025)، Wang وزملاؤه (2024).
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">القسم</div>
+                <div class="footer-value">5 — المعادن والتنوع البيولوجي (جديد)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">نطاق البيانات</div>
+                <div class="footer-value">2019 – ديسمبر 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">المصادر الأساسية</div>
+                <div class="footer-value">Springer Nature، UNEP، IEA، FP Analytics، Nature Comp. Sci.</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">القسم التالي</div>
+                <div class="footer-value">القسم 6 → المناقشة</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">الغلاف</a>
+                <a href="toc.html" class="nav-link">الفهرس</a>
+                <a href="resumen.html" class="nav-link">الملخص</a>
+                <a href="introduccion.html" class="nav-link">المقدمة</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link active">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">المراجع</a>
+            </div>
+            <p class="author-note">
+                <strong>المؤلفة:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 دولية
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.mineral-card,.supply-item,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartSupplyChain'), {
+    type:'bar',
+    data:{
+      labels:['🇹🇼 تايوان — رقائق متقدمة (TSMC)','🇨🇳 الصين — تكرير الغاليوم','🇨🇩 الكونغو الديمقراطية — الكوبالت العالمي','🇨🇳 الصين — العناصر الأرضية النادرة'],
+      datasets:[{
+        label:'% السيطرة العالمية',
+        data:[92, 99, 70, 60],
+        backgroundColor:['#3498db','#e74c3c','#f39c12','#e67e22'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}% من السوق العالمي`}} },
+      scales:{ x:{beginAtZero:true, max:100, title:{display:true,text:'% السيطرة العالمية'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

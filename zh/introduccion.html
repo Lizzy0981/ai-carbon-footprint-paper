@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>引言 — AI模型的碳足迹</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#4a235a 0%,#6c3483 50%,#8e44ad 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0 0 L30 30 L60 0 L60 60 L0 60 Z'/%3E%3C/svg%3E") repeat;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+/* BODY */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+/* SECTION H */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#6c3483;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #8e44ad;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* PROBLEM CARD */
+.problem-intro{background:linear-gradient(135deg,#f9f3ff,#f0e6ff);border-left:6px solid #8e44ad;border-radius:0 16px 16px 0;padding:30px 34px;margin-bottom:40px;position:relative;}
+.problem-intro::before{content:'🌐';position:absolute;top:-14px;left:18px;font-size:26px;background:white;padding:0 6px;}
+.problem-intro p{font-size:19px;line-height:1.85;color:#2c3e50;}
+.problem-intro strong{color:#6c3483;}
+/* TIMELINE */
+.timeline{margin:30px 0;}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:20px 0;border-bottom:1px dashed #e8d5f5;align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#8e44ad;background:#f5e6ff;padding:6px 12px;border-radius:8px;text-align:center;margin-top:4px;}
+.tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#4a235a;margin-bottom:6px;}
+.tl-text{font-size:16px;line-height:1.7;color:#34495e;}
+.tl-badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f5e6ff;color:#6c3483;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px;}
+/* OBJECTIVES */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0;}
+.obj{background:white;border:2px solid #e8d5f5;border-radius:14px;padding:22px;transition:all .3s;position:relative;overflow:hidden;}
+.obj::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#8e44ad,#1abc9c);}
+.obj:hover{border-color:#8e44ad;transform:translateY(-4px);box-shadow:0 10px 26px rgba(142,68,173,0.15);}
+.obj-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#8e44ad;margin-bottom:8px;display:block;}
+.obj-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#4a235a;margin-bottom:7px;}
+.obj-text{font-size:15px;line-height:1.7;color:#34495e;}
+/* STRUCTURE */
+.structure-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;margin:20px 0;}
+.structure-table thead tr{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;}
+.structure-table th{padding:13px 16px;text-align:left;font-size:13px;font-weight:700;}
+.structure-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid #f0e6ff;color:#2c3e50;vertical-align:top;}
+.structure-table tr:nth-child(even) td{background:#fbf7ff;}
+.structure-table tr:hover td{background:#f5e6ff;}
+.tag-new2{background:#e8fff5;color:#1a8449;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-upd{background:#fef9e7;color:#d68910;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-core2{background:#f0e6ff;color:#6c3483;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(142,68,173,0.3);border-color:rgba(142,68,173,0.5);color:#d7b8f5;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">引言</div>
+    <h1>背景、问题与目标</h1>
+    <p>人工智能作为气候变化行为体：从缺乏指标的热潮到科学严谨性</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#8e44ad;font-style:italic;text-align:center;margin-bottom:24px;">本文为已验证的西班牙语/英语原文译本。如有差异，以原文为准。</p>
+
+  <div class="problem-intro">
+    <p>2023年，训练GPT-4估计消耗了相当于<strong>1,000户美国家庭一年</strong>的能源。2024年，全球数据中心消耗了415太瓦时的电力——超过整个阿根廷的用电量。到2030年，这一数字将达到<strong>945太瓦时，相当于日本全国的电力需求</strong>。尽管有这些数据，在本研究发表之前，尚不存在一个全面、可获取且科学的框架，来测量、比较和传达AI模型的环境影响。</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.1</span>问题背景</div>
+
+  <p class="body-text">
+    自2020年以来，生成式人工智能经历了前所未有的扩张，模型规模每12至18个月翻一番，其全球规模的部署涉及大规模的物理基础设施：数千座数据中心、数千万个专用GPU，以及在能源、水和矿产等资源消耗方面远超公众讨论所认知水平的规模。
+  </p>
+
+  <p class="body-text">
+    Strubell等人的开创性研究（2019年）首次警告，训练大型自然语言处理模型会带来重大的"能源与政策成本"。此后，该领域迅速发展，但呈现出碎片化状态：一些研究测量碳排放，另一些测量水资源，还有一些测量电子废弃物——但缺乏方法论上的整合，也没有公开工具供研究人员、记者、立法者和公民计算和比较他们日常使用的AI系统的真实影响。
+  </p>
+
+  <div class="sh"><span class="sh-num">0.2</span>领域发展：科学年表</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div>
+        <div class="tl-title">Strubell等人 — 最初的警示</div>
+        <p class="tl-text">首次系统量化训练大型NLP模型的能源成本。研究估计，包含超参数搜索的Transformer训练排放约626,000磅CO₂——相当于五辆汽车整个生命周期的排放量。</p>
+        <span class="tl-badge">ACL 2019 · 奠基性研究</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021–22</div>
+      <div>
+        <div class="tl-title">Patterson、Luccioni等人 — 方法论深化</div>
+        <p class="tl-text">Google和Hugging Face完善了相关方法论。Patterson证明数据中心的地理位置可将排放量降低多达40倍。Luccioni对BLOOM（1760亿参数）进行了首次碳审计。</p>
+        <span class="tl-badge">Google / Hugging Face · 方法论</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">Li等人 — 水资源危机浮现</div>
+        <p class="tl-text">加州大学河滨分校发现，训练GPT-3蒸发了70万升饮用水。这是首次对AI模型水足迹的系统量化。</p>
+        <span class="tl-badge">UC河滨分校 · arXiv:2304.03271</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">Wang等人 — 电子废弃物进入议题</div>
+        <p class="tl-text">《自然·计算科学》发表了首次对生成式AI产生的电子废弃物的系统性预测：到2030年将达120万至500万公吨，并附有相关有毒物质清单。</p>
+        <span class="tl-badge">Nature Comp. Sci. · 2024</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div>
+        <div class="tl-title">IEA、Nature Sustainability、Cell Reports — 全球汇聚</div>
+        <p class="tl-text">国际能源署发布了《Energy and AI》（2025年4月），这是迄今为止最权威的分析。与此同时，Xiao等人（康奈尔大学/Nature Sustainability）和de Vries-Gao（Cell Reports Sustainability）发布了关于水资源和碳排放最全面的量化框架。</p>
+        <span class="tl-badge">IEA · 康奈尔大学 · 阿姆斯特丹自由大学 · 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.3</span>研究目标</div>
+  <div class="obj-grid">
+    <div class="obj"><span class="obj-num">O1</span><div class="obj-title">开发可复制的方法论</div><p class="obj-text">基于公开的技术规格，创建一个经过验证、可复制的公式，用于计算任何AI模型的碳足迹。</p></div>
+    <div class="obj"><span class="obj-num">O2</span><div class="obj-title">对30余个模型进行比较分析</div><p class="obj-text">将该方法论应用于市场上最相关的模型，并将结果免费公开发布。</p></div>
+    <div class="obj"><span class="obj-num">O3</span><div class="obj-title">综合环境框架</div><p class="obj-text">将分析范围从碳排放扩展至五个维度：能源、水、废弃物、矿产和生物多样性。</p></div>
+    <div class="obj"><span class="obj-num">O4</span><div class="obj-title">公开的交互式工具</div><p class="obj-text">开发并发布一个包含3个模块的AI碳足迹计算器——训练、推理和绿色投资回报率——供任何研究人员、企业或公民使用。</p></div>
+    <div class="obj"><span class="obj-num">O5</span><div class="obj-title">可执行的建议</div><p class="obj-text">为企业、政府、研究人员和用户制定具体建议框架，以减少AI的环境影响。</p></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.4</span>论文结构</div>
+  <table class="structure-table">
+    <thead><tr><th>章节</th><th>内容</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td><strong>§1 方法论</strong></td><td>CO₂公式、硬件、PUE、碳系数、验证</td><td><span class="tag-core2">原始</span></td></tr>
+      <tr><td><strong>§2 结果</strong></td><td>已分析30余个模型、相关性、比较、验证</td><td><span class="tag-core2">原始</span></td></tr>
+      <tr><td><strong>§3 水影响</strong></td><td>单次查询消耗量、地区危机、2030年预测</td><td><span class="tag-new2">2025年新增</span></td></tr>
+      <tr><td><strong>§4 电子废弃物</strong></td><td>GPU电子废弃物、生命周期、毒素、2030年情景</td><td><span class="tag-new2">2025年新增</span></td></tr>
+      <tr><td><strong>§5 矿产与生物多样性</strong></td><td>供应链、包头、海洋采矿、生态系统</td><td><span class="tag-new2">2025年新增</span></td></tr>
+      <tr><td><strong>§6 讨论</strong></td><td>范式转变、文献比较、监管</td><td><span class="tag-new2">新增</span></td></tr>
+      <tr><td><strong>§7 建议</strong></td><td>各方指南：企业、政府、研究人员、用户</td><td><span class="tag-new2">2025年新增</span></td></tr>
+      <tr><td><strong>§8 结论</strong></td><td>总结、原创贡献、行动呼吁</td><td><span class="tag-new2">2025年新增</span></td></tr>
+      <tr><td><strong>参考文献</strong></td><td>47个已验证来源，2019–2026年</td><td><span class="tag-new2">新增</span></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">封面</a><a href="toc.html" class="nl">目录</a>
+    <a href="resumen.html" class="nl">摘要</a><a href="introduccion.html" class="nl active">引言</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">参考文献</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · 版本1.0.0，2026年3月</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%4*80); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-item,.obj,.structure-table tr').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

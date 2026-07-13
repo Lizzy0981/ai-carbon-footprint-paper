@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§8 결론 — AI 모델의 탄소발자국</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#0d0d2e 0%,#1a1a4e 50%,#0d0d2e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c,#667eea);background-size:200%;animation:slide 4s linear infinite;}
+@keyframes slide{0%{background-position:0%}100%{background-position:200%}}
+
+/* HEADER — gradiente oscuro premium */
+.hdr{
+  background:linear-gradient(135deg,#0d0d2e 0%,#1a1a4e 40%,#2d2d6e 70%,#667eea 100%);
+  padding:60px 48px;color:white;text-align:center;position:relative;overflow:hidden;
+}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(102,126,234,0.15) 1px,transparent 1px);background-size:40px 40px;}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(102,126,234,0.6),transparent);}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(102,126,234,0.2);border:1px solid rgba(102,126,234,0.5);color:#c0c8ff;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:22px;}
+.hdr-icon{font-size:52px;display:block;margin-bottom:16px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:38px;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#c0c8ff,#a8d8ff,#c0ffe8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr-sub{font-size:17px;opacity:.8;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* BODY */
+.body{padding:56px 48px;}
+.body-text{font-size:18.5px;line-height:1.95;color:#2c3e50;margin-bottom:24px;text-align:justify;}
+
+/* CONCLUSIONS NUMBERED */
+.conc-list{list-style:none;margin:0 0 40px;}
+.conc-item{
+  display:grid;grid-template-columns:54px 1fr;gap:0;
+  margin-bottom:16px;border-radius:16px;overflow:hidden;
+  box-shadow:0 3px 16px rgba(102,126,234,0.1);
+  transition:all .3s ease;
+}
+.conc-item:hover{transform:translateX(5px);box-shadow:0 5px 24px rgba(102,126,234,0.2);}
+.conc-num{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;
+  padding:20px 12px;flex-shrink:0;
+}
+.conc-body{background:linear-gradient(135deg,#f4f7ff,#e8edff);padding:22px 24px;}
+.conc-title{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#4a235a;margin-bottom:8px;}
+.conc-text{font-size:17px;line-height:1.8;color:#2c3e50;}
+.conc-data{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(102,126,234,0.12);color:#4a5cbf;padding:4px 10px;border-radius:7px;display:inline-block;margin-top:8px;}
+
+/* CONTRIBUTIONS */
+.contrib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:28px 0;}
+.contrib{background:white;border:2px solid;border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden;}
+.contrib::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.contrib:hover{transform:translateY(-5px);}
+.contrib.c1{border-color:#667eea;} .contrib.c1::before{background:#667eea;} .contrib.c1:hover{box-shadow:0 12px 30px rgba(102,126,234,0.2);}
+.contrib.c2{border-color:#3498db;} .contrib.c2::before{background:#3498db;} .contrib.c2:hover{box-shadow:0 12px 30px rgba(52,152,219,0.2);}
+.contrib.c3{border-color:#1abc9c;} .contrib.c3::before{background:#1abc9c;} .contrib.c3:hover{box-shadow:0 12px 30px rgba(26,188,156,0.2);}
+.contrib.c4{border-color:#27ae60;} .contrib.c4::before{background:#27ae60;} .contrib.c4:hover{box-shadow:0 12px 30px rgba(39,174,96,0.2);}
+.contrib.c5{border-color:#e67e22;} .contrib.c5::before{background:#e67e22;} .contrib.c5:hover{box-shadow:0 12px 30px rgba(230,126,34,0.2);}
+.contrib-icon{font-size:28px;margin-bottom:10px;display:block;}
+.contrib-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;margin-bottom:7px;}
+.contrib.c1 .contrib-title{color:#4a5cbf;} .contrib.c2 .contrib-title{color:#1a6fa8;} .contrib.c3 .contrib-title{color:#0d7a5e;} .contrib.c4 .contrib-title{color:#1a8449;} .contrib.c5 .contrib-title{color:#b7410e;}
+.contrib-text{font-size:15px;line-height:1.7;color:#34495e;}
+
+/* SECTION HEADING */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#4a5cbf;margin:48px 0 20px;padding-bottom:12px;border-bottom:3px solid #667eea;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* IMPACT DASHBOARD */
+.impact-dashboard{
+  background:linear-gradient(135deg,#0d0d2e,#1a1a4e);
+  border-radius:20px;padding:36px;margin:40px 0;color:white;
+}
+.id-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:28px;}
+.id-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.id-cell{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 14px;text-align:center;transition:all .3s;}
+.id-cell:hover{background:rgba(255,255,255,0.1);transform:translateY(-3px);}
+.id-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;display:block;margin-bottom:5px;}
+.id-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:.6;}
+
+/* CALL TO ACTION */
+.cta-section{
+  background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#3498db 100%);
+  color:white;border-radius:22px;padding:48px;margin:40px 0;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:30px 30px;}
+.cta-inner{position:relative;z-index:2;}
+.cta-icon{font-size:48px;display:block;margin-bottom:16px;}
+.cta-title{font-family:'Inter',sans-serif;font-size:28px;font-weight:900;margin-bottom:16px;}
+.cta-text{font-size:18px;opacity:.9;max-width:680px;margin:0 auto 30px;line-height:1.7;}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cta-btn{
+  display:inline-block;padding:12px 24px;border-radius:30px;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:700;
+  text-decoration:none;transition:all .3s ease;
+}
+.cta-btn.primary{background:white;color:#4a5cbf;}
+.cta-btn.primary:hover{background:#f0f0ff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.cta-btn.secondary{background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.3);}
+.cta-btn.secondary:hover{background:rgba(255,255,255,0.22);transform:translateY(-2px);}
+
+/* FINAL QUOTE */
+.final-quote{
+  background:linear-gradient(135deg,#f4f7ff,#e8edff);
+  border-radius:18px;padding:40px;margin:32px 0;
+  border-left:6px solid #667eea;
+  text-align:center;
+}
+.fq-text{font-family:'Crimson Text',serif;font-size:26px;font-style:italic;color:#2c3e50;line-height:1.6;margin-bottom:16px;}
+.fq-author{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#667eea;letter-spacing:2px;text-transform:uppercase;}
+
+/* FOOTER */
+.pg-footer{background:linear-gradient(135deg,#0d0d2e,#1a1a4e);padding:36px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
+.nl{color:rgba(255,255,255,0.4);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.1);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(102,126,234,0.3);border-color:rgba(102,126,234,0.6);color:#c0c8ff;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.25);font-style:italic;margin-top:14px;}
+.final-seal{text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);}
+.seal-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:2px;}
+@media(max-width:700px){.hdr{padding:40px 24px;}.body{padding:32px 20px;}.pg-footer{padding:28px 20px;}.hdr h1{font-size:26px;}.cta-section{padding:32px 24px;}.conc-item{grid-template-columns:44px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #e0e0e0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a1a2e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:320px;}
+@media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">섹션 8 — 결론</div>
+    <span class="hdr-icon">🏁</span>
+    <h1>결론</h1>
+    <p class="hdr-sub">발견의 종합, 과학 분야에 대한 독창적 기여, 환경적으로 책임 있는 AI를 향한 행동 촉구</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#667eea;font-style:italic;text-align:center;margin-bottom:24px;">검증된 스페인어/영어 원문의 번역본입니다. 상이한 내용이 있을 경우 원문이 우선합니다.</p>
+
+  <p class="body-text">
+    본 연구는 두 가지 동시적 목표를 세웠습니다: AI 모델의 탄소발자국을 측정하기 위한 최초의 검증된 방법론적 프레임워크를 구축하는 것, 그리고 그 프레임워크를 CO₂를 넘어선 통합적인 환경 영향의 관점으로 확장하는 것입니다. 두 목표 모두 달성되었습니다. 다음의 결론은 가장 중요한 발견들과 지속가능한 AI의 미래에 대한 시사점을 종합합니다.
+  </p>
+
+  <div class="sh"><span class="sh-num">8.1</span>주요 결론</div>
+
+  <ul class="conc-list">
+    <li class="conc-item">
+      <div class="conc-num">C1</div>
+      <div class="conc-body">
+        <div class="conc-title">모델 규모는 탄소 배출량의 가장 신뢰할 수 있는 예측 지표다</div>
+        <p class="conc-text">30개 이상 모델의 분석은 매개변수 수와 CO₂ 배출량 사이에 통계적으로 유의미한 상관관계를 확인했습니다(R²=0.89, p&lt;0.001). 이는 거듭제곱 법칙의 관계를 따릅니다. 이 발견은 다른 어떤 기술적 요인보다도 모델의 규모가 초기 기후 영향을 결정한다는 사실을 확립합니다.</p>
+        <span class="conc-data">R²=0.89 · p&lt;0.001 · 30개 이상 모델</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C2</div>
+      <div class="conc-body">
+        <div class="conc-title">지리적 조건은 영향을 최대 90배까지 줄일 수 있다 — 입지 규제가 시급하다</div>
+        <p class="conc-text">데이터센터의 입지는 본 연구에서 확인된 환경적 영향에 가장 큰 영향을 미치는 단일 요인입니다. 같은 모델을 아이슬란드와 폴란드에서 학습시키면 탄소 배출량에 90배 차이가 발생하며, 물 이용 가능성과 사용 가능한 냉각 기술에 따라 물 소비량에도 유사한 편차가 나타납니다.</p>
+        <span class="conc-data">아이슬란드 0.012 대 폴란드 1.085 kg CO₂/kWh</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C3</div>
+      <div class="conc-body">
+        <div class="conc-title">효율적인 모델은 영향의 일부만으로 동등한 성능을 달성한다</div>
+        <p class="conc-text">동등한 작업에서 GPT-4(1,820,000kg CO₂)와 Claude Sonnet(18,200kg CO₂)의 탄소발자국 100배 차이는 환경적 효율성이 기술적 타협이 아니라 설계 선택임을 입증합니다. DeepSeek-R1(2025년 1월)은 약 96% 적은 자원으로 GPT-4o에 필적하는 성능을 달성함으로써 이 결론을 뒷받침했습니다.</p>
+        <span class="conc-data">100배 차이 · 동등한 기능</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C4</div>
+      <div class="conc-body">
+        <div class="conc-title">물 영향은 기후 영향만큼 심각하다 — 그리고 덜 알려져 있다</div>
+        <p class="conc-text">물 영향에 관한 데이터의 확장은 기록되어 있지만 과소평가되어 온 위기를 드러냅니다: GPT-3 학습은 70만 리터의 식수를 증발시켰습니다; 2025년 AI의 전 세계 물 발자국은 3,125억〜7,646억 리터에 달했습니다. 칠레, 스페인, 텍사스, 영국에서의 사회적 갈등은 이것이 미래의 전망이 아니라 이미 현재의 현실임을 증명합니다.</p>
+        <span class="conc-data">GPT-3에서 70만 리터 · 전 세계 3,125억〜7,646억 리터(2025년)</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C5</div>
+      <div class="conc-body">
+        <div class="conc-title">AI 전자폐기물은 2030년까지 전례 없는 유독성 위기가 될 수 있다</div>
+        <p class="conc-text">AI용 GPU의 2〜3년이라는 수명과 업계의 확장 속도가 결합되면, 2030년까지 납, 수은, 비소, 카드뮴, 기타 영구적인 오염물질을 포함한 누적 120만〜500만 미터톤의 전자폐기물이 발생할 것으로 전망됩니다. 전 세계 전자폐기물 중 공식적으로 재활용되는 비율은 단 22%에 불과하며, 대응 없는 시나리오는 심각합니다.</p>
+        <span class="conc-data">2030년까지 120만〜500만 톤 · 수명 2〜3년</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C6</div>
+      <div class="conc-body">
+        <div class="conc-title">광물 공급망은 글로벌 사우스에 생태학적 비용을 외부화하고 있다</div>
+        <p class="conc-text">2kg짜리 컴퓨터를 제조하려면 800kg의 원자재가 필요합니다. AI에 필수적인 광물(코발트, 리튬, 희토류, 갈륨)은 주로 글로벌 사우스 국가에서, 아동 노동, 대수층 파괴, 생태계 파괴를 수반하는 조건 하에 채굴됩니다. AI의 편익은 글로벌 노스에 집중되는 반면 생태학적 비용은 글로벌 사우스로 외부화되고 있습니다: 이 비대칭성은 윤리적으로 지속 불가능하며 증가하는 환경적 부채를 기록하고 있습니다.</p>
+        <span class="conc-data">하드웨어 1kg당 원자재 800kg</span>
+      </div>
+    </li>
+    <li class="conc-item">
+      <div class="conc-num">C7</div>
+      <div class="conc-body">
+        <div class="conc-title">추론이 진짜 환경 문제의 80〜90%를 차지한다 — 그리고 여전히 측정이 부족하다</div>
+        <p class="conc-text">본 연구를 포함한 과학 문헌은 가장 측정하기 쉬운 단계라는 이유로 학습에 초점을 맞춰왔습니다. 그러나 추론 — 수백만 명에 의한 모델의 일상적 사용 — 은 최신 데이터(LBNL 2024년, IEA 2025년)에 따르면 AI 총 연산량의 80〜90%를 차지합니다. 추론의 영향을 측정하고 보고하는 것은 이 분야에 남겨진 핵심 과제입니다.</p>
+        <span class="conc-data">총 연산량의 80〜90%가 추론</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- IMPACT DASHBOARD -->
+  <div class="impact-dashboard">
+    <div class="id-title">영향의 정량적 요약 — 본 논문의 핵심 데이터</div>
+    <div class="id-grid">
+      <div class="id-cell"><span class="id-val" style="color:#a8b8f8">30+</span><span class="id-label">분석된 모델</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#86efac">R²=0.89</span><span class="id-label">과학적 상관관계</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#fca5a5">100×</span><span class="id-label">GPT-4 대 Claude 차이</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#67e8f9">70만 L</span><span class="id-label">GPT-3 학습 물 소비</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#fdba74">120만〜500만 톤</span><span class="id-label">2030년 AI 전자폐기물</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#86efac">945 TWh</span><span class="id-label">2030년 데이터센터 에너지</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#c4b5fd">90×</span><span class="id-label">지리적 변동</span></div>
+      <div class="id-cell"><span class="id-val" style="color:#f9a8d4">47</span><span class="id-label">검증된 참고문헌</span></div>
+    </div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 본 연구에서 검증된 두 가지 가장 큰 발견</div>
+    <div class="chart-canvas-wrap"><canvas id="chartFinalSynthesis"></canvas></div>
+  </div>
+
+  <!-- CONTRIBUTIONS -->
+  <div class="sh"><span class="sh-num">8.2</span>과학 분야에 대한 독창적 기여</div>
+
+  <div class="contrib-grid">
+    <div class="contrib c1"><span class="contrib-icon">📐</span><div class="contrib-title">검증된 공개 방법론</div><p class="contrib-text">모든 AI 모델의 탄소발자국을 추정하기 위한 최초의 검증된 공식(R²=0.89, 오차&lt;6%). CC BY 4.0 하에 공개.</p></div>
+    <div class="contrib c2"><span class="contrib-icon">🗄️</span><div class="contrib-title">30개 이상 모델의 데이터셋</div><p class="contrib-text">LLM, 비전 모델, 전문 모델을 포함한, 교차검증을 거친 최초의 AI 모델 탄소발자국 비교 데이터베이스.</p></div>
+    <div class="contrib c3"><span class="contrib-icon">💧</span><div class="contrib-title">물 영향의 통합</div><p class="contrib-text">2023〜2025년의 검증된 데이터를 사용하여, 물 영향을 탄소와 동일한 방법론적 프레임워크에 최초로 통합.</p></div>
+    <div class="contrib c4"><span class="contrib-icon">🔄</span><div class="contrib-title">5차원 프레임워크</div><p class="contrib-text">CO₂, 물, 전자폐기물, 광물, 생물다양성을 각 차원의 실증적 증거와 함께 단일 과학적 프레임워크로 통합한 최초의 논문.</p></div>
+    <div class="contrib c5"><span class="contrib-icon">⚡</span><div class="contrib-title">인터랙티브 공개 계산기 — 3개 모듈</div><p class="contrib-text">https://lizzy0981.github.io/calculadora-huella-carbono-ia/ 에서 접근 가능한 도구. 학습, 추론(Jegham 등 2025년), 그린 ROI 계산기의 각 모듈을 11개 언어로 제공하여 누구나 모든 AI 모델의 환경적·경제적 영향을 추정할 수 있게 함.</p></div>
+  </div>
+
+  <!-- CALL TO ACTION -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <span class="cta-icon">🌱</span>
+      <div class="cta-title">지속가능한 AI는 선택 사항이 아니다</div>
+      <p class="cta-text">2030년까지 AI는 일본의 총 전력 수요에 맞먹는 전력을 소비하고, 전 세계 병입 생수 소비량에 맞먹는 물을 소비하며, 수백만 톤의 유독성 전자폐기물을 발생시킬 것입니다. 본 논문은 이 문제가 정량화 가능하며, 요인들이 식별 가능하고, 해결책이 존재함을 증명합니다. 부족한 것은 투명성, 규제, 행동하려는 의지입니다. 당신이 선택하고, 설계하고, 규제하는 AI에는 실제 환경적 비용이 따릅니다. 이제 그것을 측정하고, 보고하고, 줄여야 할 때입니다.</p>
+      <div class="cta-buttons">
+        <a href="https://lizzy0981.github.io/calculadora-huella-carbono-ia/" class="cta-btn primary">⚡ 계산기 사용하기</a>
+        <a href="referencias.html" class="cta-btn secondary">📚 참고문헌 보기</a>
+        <a href="recomendaciones.html" class="cta-btn secondary">✅ 권고안 보기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-quote">
+    <p class="fq-text">"측정하는 것은 개선을 향한 첫걸음이다. 측정되지 않은 환경적 영향은 사회가 침묵 속에서 떠안고 있는 영향이다. 과학에는 그 침묵을 깨야 할 책임이 있다."</p>
+    <div class="fq-author">Elizabeth Díaz Familia · 지속가능한 AI 과학자</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">표지</a><a href="toc.html" class="nl">목차</a>
+    <a href="resumen.html" class="nl">요약</a><a href="introduccion.html" class="nl">서론</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a>
+    <a href="conclusiones.html" class="nl active">§8 결론</a>
+    <a href="referencias.html" class="nl">참고문헌</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · lizzy0981.github.io · CC BY 4.0 · 버전 1.0.0, 2026년 3월</p>
+  <div class="final-seal">
+    <div class="seal-text">버전 1.0 · 초판 발행 · 2026년 3월 · CC BY 4.0 국제</div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.id-cell,.contrib,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.color = 'rgba(255,255,255,0.7)';
+
+  // Bar chart — verified multiplier findings (only real documented values, no invented scores)
+  new Chart(document.getElementById('chartFinalSynthesis'), {
+    type:'bar',
+    data:{
+      labels:['GPT-4 대 Claude Sonnet 차이(탄소)','지리적 변동(아이슬란드 대 폴란드)'],
+      datasets:[{
+        label:'차이 계수(×)',
+        data:[100, 90],
+        backgroundColor:['#f87171','#c4b5fd'],
+        borderRadius:10,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}배 차이`}} },
+      scales:{
+        x:{beginAtZero:true, ticks:{color:'rgba(255,255,255,0.6)', callback:v=>v+'×'}, grid:{color:'rgba(255,255,255,0.1)'}},
+        y:{ticks:{color:'rgba(255,255,255,0.8)', font:{size:12}}, grid:{display:false}}
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

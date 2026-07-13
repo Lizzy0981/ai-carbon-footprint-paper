@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>서론 — AI 모델의 탄소발자국</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#4a235a 0%,#6c3483 50%,#8e44ad 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0 0 L30 30 L60 0 L60 60 L0 60 Z'/%3E%3C/svg%3E") repeat;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+/* BODY */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+/* SECTION H */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#6c3483;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #8e44ad;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* PROBLEM CARD */
+.problem-intro{background:linear-gradient(135deg,#f9f3ff,#f0e6ff);border-left:6px solid #8e44ad;border-radius:0 16px 16px 0;padding:30px 34px;margin-bottom:40px;position:relative;}
+.problem-intro::before{content:'🌐';position:absolute;top:-14px;left:18px;font-size:26px;background:white;padding:0 6px;}
+.problem-intro p{font-size:19px;line-height:1.85;color:#2c3e50;}
+.problem-intro strong{color:#6c3483;}
+/* TIMELINE */
+.timeline{margin:30px 0;}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:20px 0;border-bottom:1px dashed #e8d5f5;align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#8e44ad;background:#f5e6ff;padding:6px 12px;border-radius:8px;text-align:center;margin-top:4px;}
+.tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#4a235a;margin-bottom:6px;}
+.tl-text{font-size:16px;line-height:1.7;color:#34495e;}
+.tl-badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f5e6ff;color:#6c3483;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px;}
+/* OBJECTIVES */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0;}
+.obj{background:white;border:2px solid #e8d5f5;border-radius:14px;padding:22px;transition:all .3s;position:relative;overflow:hidden;}
+.obj::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#8e44ad,#1abc9c);}
+.obj:hover{border-color:#8e44ad;transform:translateY(-4px);box-shadow:0 10px 26px rgba(142,68,173,0.15);}
+.obj-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#8e44ad;margin-bottom:8px;display:block;}
+.obj-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#4a235a;margin-bottom:7px;}
+.obj-text{font-size:15px;line-height:1.7;color:#34495e;}
+/* STRUCTURE */
+.structure-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;margin:20px 0;}
+.structure-table thead tr{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;}
+.structure-table th{padding:13px 16px;text-align:left;font-size:13px;font-weight:700;}
+.structure-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid #f0e6ff;color:#2c3e50;vertical-align:top;}
+.structure-table tr:nth-child(even) td{background:#fbf7ff;}
+.structure-table tr:hover td{background:#f5e6ff;}
+.tag-new2{background:#e8fff5;color:#1a8449;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-upd{background:#fef9e7;color:#d68910;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-core2{background:#f0e6ff;color:#6c3483;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(142,68,173,0.3);border-color:rgba(142,68,173,0.5);color:#d7b8f5;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">서론</div>
+    <h1>배경, 문제, 목표</h1>
+    <p>기후변화의 행위자로서의 인공지능: 측정 지표 없는 열광에서 과학적 엄밀성으로</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#8e44ad;font-style:italic;text-align:center;margin-bottom:24px;">검증된 스페인어/영어 원문의 번역본입니다. 상이한 내용이 있을 경우 원문이 우선합니다.</p>
+
+  <div class="problem-intro">
+    <p>2023년, GPT-4를 학습시키는 데 <strong>미국 가정 1,000곳이 1년간 사용하는
+    전력량</strong>과 맞먹는 에너지가 소비된 것으로 추정됩니다. 2024년, 전 세계
+    데이터센터는 415TWh의 전력을 소비했습니다 — 아르헨티나 전체보다 많은 양입니다.
+    2030년까지는 <strong>일본 전체 전력 수요와 맞먹는 945TWh</strong>를 소비할
+    것으로 예상됩니다. 이러한 수치에도 불구하고, 본 연구가 발표되기 전까지는
+    AI 모델의 환경적 영향을 측정, 비교, 전달할 수 있는 통합적이고 공개적이며
+    과학적인 프레임워크가 존재하지 않았습니다.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.1</span>문제의 배경</div>
+
+  <p class="body-text">
+    생성형 AI는 2020년 이후 전례 없는 확장을 겪었으며, 모델 규모는 12〜18개월마다
+    배가되고 있습니다. 이러한 전 지구적 규모의 배포에는 수천 개의 데이터센터,
+    수천만 개의 전용 GPU, 그리고 공공 담론에서 인식되어 온 수준을 훨씬 뛰어넘는
+    에너지·물·광물 자원의 소비를 수반하는 대규모 물리적 인프라가 필요합니다.
+  </p>
+
+  <p class="body-text">
+    Strubell 등의 기초 연구(2019년)는 대규모 자연어 처리 모델의 학습에 상당한
+    "에너지 및 정책적 비용"이 수반된다는 사실을 최초로 경고했습니다. 그 이후
+    이 분야는 빠르게 발전했지만 단편적으로 이루어졌습니다: 일부 연구는 탄소를
+    측정하고, 다른 연구는 물을, 또 다른 연구는 전자폐기물을 측정하지만, 방법론적
+    통합이나 연구자, 언론인, 정책입안자, 시민들이 일상적으로 사용하는 AI
+    시스템의 실제 영향을 계산하고 비교할 수 있는 공개 도구는 존재하지 않았습니다.
+  </p>
+
+  <div class="sh"><span class="sh-num">0.2</span>분야의 발전: 과학적 연대표</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div>
+        <div class="tl-title">Strubell 등 — 최초의 경고</div>
+        <p class="tl-text">대규모 NLP 모델 학습의 에너지 비용을 체계적으로 정량화한 최초의 연구입니다. 하이퍼파라미터 탐색을 포함한 트랜스포머 모델 학습이 약 626,000파운드의 CO₂를 배출하는 것으로 추정했습니다 — 자동차 5대의 전체 수명주기 배출량과 맞먹는 수치입니다.</p>
+        <span class="tl-badge">ACL 2019 · 기초 연구</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021–22</div>
+      <div>
+        <div class="tl-title">Patterson, Luccioni 등 — 방법론 심화</div>
+        <p class="tl-text">Google과 Hugging Face가 방법론을 정교화했습니다. Patterson은 데이터센터의 지리적 위치에 따라 배출량을 최대 40배까지 줄일 수 있음을 입증했습니다. Luccioni는 BLOOM(1,760억 개 매개변수)에 대한 최초의 탄소 감사를 수행했습니다.</p>
+        <span class="tl-badge">Google / Hugging Face · 방법론적</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">Li 등 — 물 위기의 대두</div>
+        <p class="tl-text">캘리포니아대학교 리버사이드 캠퍼스는 GPT-3 학습 과정에서 70만 리터의 식수가 증발했다는 사실을 발견했습니다. AI 모델의 물 발자국을 체계적으로 정량화한 최초 사례입니다.</p>
+        <span class="tl-badge">UC Riverside · arXiv:2304.03271</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">Wang 등 — 논의에 진입한 전자폐기물</div>
+        <p class="tl-text">Nature Computational Science는 생성형 AI로 인해 발생하는 전자폐기물에 대한 최초의 체계적 예측을 발표했습니다: 2030년까지 120만〜500만 미터톤이며, 관련 독성물질 목록도 포함되었습니다.</p>
+        <span class="tl-badge">Nature Comp. Sci. · 2024</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div>
+        <div class="tl-title">IEA, Nature Sustainability, Cell Reports — 세계적 수렴</div>
+        <p class="tl-text">국제에너지기구(IEA)는 "Energy and AI"(2025년 4월)를 발표했습니다. 현재까지 가장 권위 있는 분석입니다. 동시에 Xiao 등(코넬대/Nature Sustainability)과 de Vries-Gao(Cell Reports Sustainability)는 물과 탄소에 관한 가장 포괄적인 정량적 프레임워크를 발표했습니다.</p>
+        <span class="tl-badge">IEA · Cornell · VU Amsterdam · 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.3</span>연구 목표</div>
+  <div class="obj-grid">
+    <div class="obj"><span class="obj-num">O1</span><div class="obj-title">재현 가능한 방법론 개발</div><p class="obj-text">공개된 기술 사양으로부터 모든 AI 모델의 탄소발자국을 계산할 수 있는 검증되고 재현 가능한 공식을 만듭니다.</p></div>
+    <div class="obj"><span class="obj-num">O2</span><div class="obj-title">30개 이상 모델의 비교 분석</div><p class="obj-text">시장의 주요 모델에 이 방법론을 적용하고 결과를 무료로 공개합니다.</p></div>
+    <div class="obj"><span class="obj-num">O3</span><div class="obj-title">통합적 환경 프레임워크</div><p class="obj-text">분석 범위를 탄소를 넘어 에너지, 물, 폐기물, 광물, 생물다양성의 다섯 가지 차원으로 확장합니다.</p></div>
+    <div class="obj"><span class="obj-num">O4</span><div class="obj-title">인터랙티브 공개 도구</div><p class="obj-text">학습·추론·그린 ROI 3개 모듈을 갖춘 AI 탄소발자국 계산기를 개발·공개하여 모든 연구자, 기업, 시민이 이용할 수 있도록 합니다.</p></div>
+    <div class="obj"><span class="obj-num">O5</span><div class="obj-title">실행 가능한 권고안</div><p class="obj-text">기업, 정부, 연구자, 사용자를 위해 AI의 환경적 영향을 줄일 수 있는 구체적인 권고안 프레임워크를 마련합니다.</p></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.4</span>논문 구성</div>
+  <table class="structure-table">
+    <thead><tr><th>섹션</th><th>내용</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td><strong>§1 방법론</strong></td><td>CO₂ 공식, 하드웨어, PUE, 탄소계수, 검증</td><td><span class="tag-core2">원본</span></td></tr>
+      <tr><td><strong>§2 결과</strong></td><td>30개 이상 모델 분석, 상관관계, 비교, 검증</td><td><span class="tag-core2">원본</span></td></tr>
+      <tr><td><strong>§3 물 영향</strong></td><td>질의당 소비량, 지역별 위기, 2030년 전망</td><td><span class="tag-new2">2025년 신규</span></td></tr>
+      <tr><td><strong>§4 전자폐기물</strong></td><td>GPU 전자폐기물, 수명주기, 독성물질, 2030년 시나리오</td><td><span class="tag-new2">2025년 신규</span></td></tr>
+      <tr><td><strong>§5 광물과 생물다양성</strong></td><td>공급망, 바오터우, 해저 채굴, 생태계</td><td><span class="tag-new2">2025년 신규</span></td></tr>
+      <tr><td><strong>§6 논의</strong></td><td>패러다임 전환, 문헌 비교, 규제</td><td><span class="tag-new2">신규</span></td></tr>
+      <tr><td><strong>§7 권고</strong></td><td>주체별 가이드: 기업, 정부, 연구자, 사용자</td><td><span class="tag-new2">2025년 신규</span></td></tr>
+      <tr><td><strong>§8 결론</strong></td><td>종합, 독창적 기여, 행동 촉구</td><td><span class="tag-new2">2025년 신규</span></td></tr>
+      <tr><td><strong>참고문헌</strong></td><td>47개 검증된 출처, 2019〜2026년</td><td><span class="tag-new2">신규</span></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">표지</a><a href="toc.html" class="nl">목차</a>
+    <a href="resumen.html" class="nl">요약</a><a href="introduccion.html" class="nl active">서론</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">참고문헌</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · 버전 1.0.0, 2026년 3월</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%4*80); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-item,.obj,.structure-table tr').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

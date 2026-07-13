@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§7 التوصيات — البصمة الكربونية لنماذج الذكاء الاصطناعي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  body { background: white !important; padding: 0; }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; }
+  .pg-footer { background: white !important; border-top: 2px solid #ddd; }
+  .pg-nav { display: none !important; }
+  .author-credit { color: #666 !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">القسم 7 — جديد</div>
+    <h1>✅ التوصيات</h1>
+    <p>دليل قابل للتنفيذ يستند إلى الأدلة العلمية للحد من الأثر البيئي للذكاء الاصطناعي — حسب نوع الجهة والأفق الزمني ومستوى الأثر</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#3498db;font-style:italic;text-align:center;margin-bottom:24px;">ترجمة للنص الأصلي الموثّق بالإسبانية/الإنجليزية. في حال وجود أي تباين، يُعتمد النص الأصلي.</p>
+
+  <p class="body-text">لا تحمل نتائج هذه الدراسة قيمة علمية كاملة ما لم تُترجَم إلى إجراءات ملموسة. يُقدّم هذا القسم توصيات محدّدة، موثّقة في الأدبيات، لخمسة أنواع من الجهات القادرة على تسريع الانتقال نحو ذكاء اصطناعي مسؤول بيئياً. رُتّبت التوصيات حسب أفق التنفيذ ومستوى الأثر المتوقع.</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 شركات التكنولوجيا</div>
+    <div class="actor-pill ap2">🏛️ الحكومات والجهات التنظيمية</div>
+    <div class="actor-pill ap3">🔬 الباحثون والأكاديميا</div>
+    <div class="actor-pill ap4">👤 المستخدمون والمنظمات</div>
+    <div class="actor-pill ap5">🌍 الجنوب العالمي</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 توزيع الـ21 توصية حسب الجهة</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 لشركات التكنولوجيا ومشغّلي مراكز البيانات</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">نشر تقارير بيئية كاملة بمنهجية موحّدة</div>
+        <p class="rec-text">تبنّي بروتوكول GHG Protocol Scope 1–2–3 خصيصاً لأنظمة الذكاء الاصطناعي، والإبلاغ عن الكربون لكل جلسة تدريب واستدلال، واستهلاك المياه (مباشر وغير مباشر)، والنفايات الإلكترونية المُولَّدة. التقرير البيئي المؤسسي العام غير كافٍ: يجب أن يكون لنماذج الذكاء الاصطناعي بند بيئي خاص بها.</p>
+        <span class="rec-impact">⚡ الأثر: الشفافية + التنظيم</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">إعطاء الأولوية للكفاءة على الحجم كمقياس للنجاح</div>
+        <p class="rec-text">أثبت DeepSeek-R1 (يناير 2025) أنه من الممكن تحقيق أداء مماثل لـGPT-4 بموارد حسابية أقل بنسبة ~96%. يجب على الشركات إعادة توجيه مقاييس نجاحها من عدد المعاملات ("النموذج الأكبر") إلى نسبة الأداء/الانبعاثات. يجب أن تشمل المعايير الداخلية بُعداً بيئياً.</p>
+        <span class="rec-impact">🌫️ الأثر: -90% CO₂ لكل مهمة</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">نقل مراكز البيانات إلى مناطق ذات طاقة نظيفة ومياه وفيرة</div>
+        <p class="rec-text">يُظهر التحليل الجغرافي لهذه الدراسة أن البنية التحتية نفسها يمكن أن تُنتج بصمة كربونية أقل بـ90 مرة في آيسلندا أو النرويج مقارنة ببولندا أو الهند. تُشغّل Microsoft وGoogle وMeta بالفعل مراكز في شمال أوروبا؛ يجب على القطاع توسيع هذه الممارسة وتجنّب تركيب مراكز البيانات في مناطق الإجهاد المائي (تصنيف AQUEDUCT ≥4).</p>
+        <span class="rec-impact">⚡ الخفض المحتمل: حتى ×90 من CO₂</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">تطبيق تقنيات تبريد دون مياه أو ذات دورة مغلقة</div>
+        <p class="rec-text">يمكن للتبريد المباشر بالهواء في المناخات الباردة (free-cooling)، وأنظمة الدورة المائية المغلقة، والتبريد بالانغماس في عازل سائل أن تُقلّل استهلاك المياه بنسبة 95–99%. أطلقت Microsoft أول مركز بيانات "صفر مياه" لها في أغسطس 2024. يجب أن تُصبح هذه التقنية معياراً للقطاع، لا استثناءً.</p>
+        <span class="rec-impact">💧 الإمكانية: -95% استهلاك المياه</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">إطالة عمر استخدام العتاد ووضع برامج إعادة تدوير مسؤولة</div>
+        <p class="rec-text">لدى وحدات معالجة الرسوميات للذكاء الاصطناعي دورات استبدال قدرها 2–3 سنوات، مقابل 5–7 سنوات للخوادم التقليدية. يجب على الشركات وضع برامج لإطالة عمر الاستخدام (تجديد، خفض إلى استدلال أقل استهلاكاً)، وضمان إعادة تدوير العتاد المُتوقَّف بموجب شهادات R2/e-Stewards — دون تصديره إلى دول ثالثة دون قدرة إعادة تدوير مناسبة.</p>
+        <span class="rec-impact">🗑️ الأثر: خفض النفايات الإلكترونية السامة</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">تبنّي تقنيات كفاءة النماذج: التكميم، التقطير، التقليم</div>
+        <p class="rec-text">يمكن للتكميم INT8/INT4، وتقطير المعرفة، وتقليم الأوزان غير النشطة أن تُقلّل التكلفة الحسابية للاستدلال بنسبة 50–80% مع خسارة أداء ضئيلة. يُمثّل الاستدلال 80–90% من إجمالي حساب الذكاء الاصطناعي؛ تحسينه له أثر بيئي أكبر من تحسين التدريب.</p>
+        <span class="rec-impact">⚡ الاستدلال: -50–80% طاقة</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 للحكومات والهيئات التنظيمية</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">جعل الإبلاغ البيئي للذكاء الاصطناعي إلزامياً، لا طوعياً</div>
+        <p class="rec-text">يجب على الاتحاد الأوروبي توسيع EU AI Act ليشمل قسماً للإبلاغ البيئي الإلزامي. يجب على الولايات المتحدة عكس إضعاف المراجعات البيئية لمراكز البيانات. يجب أن يفرض معيار دولي أدنى: انبعاثات CO₂ لكل جلسة تدريب (النطاقات 1–3)، وWater Usage Effectiveness (WUE)، وخطة إدارة النفايات الإلكترونية. دون إلزام، الإبلاغ الذاتي غير كافٍ.</p>
+        <span class="rec-impact">⚖️ الأفق: قصير المدى (1–2 سنة)</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">إنشاء حوافز ضريبية مرتبطة بالكفاءة البيئية الحقيقية</div>
+        <p class="rec-text">يجب أن تكون الإعانات والمزايا الضريبية لقطاع الذكاء الاصطناعي مشروطة بمقاييس بيئية قابلة للتحقق: PUE ≤1.2، و100% طاقة متجددة خلال 5 سنوات، وWUE ≤0.5 لتر/كيلوواط ساعة، وخطة معتمدة لإدارة النفايات الإلكترونية. الإعفاءات الضريبية لمراكز البيانات دون شروط بيئية هي تحويلات ثروة تُشرّك التكاليف البيئية اجتماعياً.</p>
+        <span class="rec-impact">💰 الأداة: سياسة ضريبية خضراء</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">تنظيم استخراج المعادن الحرجة في سلسلة توريد الذكاء الاصطناعي</div>
+        <p class="rec-text">يجب على الحكومات المستهلكة تطبيق قوانين العناية الواجبة لسلسلة التوريد للمعادن الحرجة (الكوبالت، الليثيوم، العناصر الأرضية النادرة، الغاليوم) مماثلة لتوجيه EU Corporate Sustainability Due Diligence. يجب أن تكون شركات التكنولوجيا التي تشتري الرقائق قادرة على التصديق بأن المعادن لا تأتي من مناطق تنطوي على عمالة أطفال، أو تدمير طبقات المياه الجوفية، أو انتهاكات حقوق المجتمعات الأصلية.</p>
+        <span class="rec-impact">⛏️ الأثر: سلسلة توريد عادلة</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">حظر تركيب مراكز البيانات في مناطق الإجهاد المائي الشديد</div>
+        <p class="rec-text">يجب على حكومات المناطق ذات الندرة المائية (تشيلي، إسبانيا الداخلية، الهند، الشرق الأوسط، جنوب غرب الولايات المتحدة) فرض حظر أو وقف مؤقت لتركيب مراكز بيانات الذكاء الاصطناعي حتى تمتلك تقنية تبريد دون استهلاك صافٍ للمياه. توضح حوادث لوس أنجلوس (يناير 2025) — صنابير حريق دون ضغط أثناء حرائق نشطة — التكلفة الإنسانية المباشرة لعدم القيام بذلك.</p>
+        <span class="rec-impact">💧 عاجل في: كاليفورنيا، تشيلي، إسبانيا، الهند</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">تمويل البحث العام في الذكاء الاصطناعي الفعّال والمقاييس المعيارية</div>
+        <p class="rec-text">يجب على الحكومات تمويل خطوط بحث في منهجيات معيارية للأثر البيئي للذكاء الاصطناعي (التي تُسهم هذه الورقة في تطويرها)، وتقنيات الكفاءة الحسابية، وتصميم الجيل التالي من الرقائق بأثر تصنيع مُخفَّض. لا ينبغي أن يعتمد بحث "Green AI" حصرياً على شركات ذات مصالح تجارية مباشرة.</p>
+        <span class="rec-impact">🔬 الأفق: متوسط المدى</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 للباحثين والمجتمع العلمي</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">الإبلاغ المنهجي عن التكلفة البيئية في منشورات النماذج الجديدة</div>
+        <p class="rec-text">يجب على كل منشور علمي يُقدّم نموذج ذكاء اصطناعي جديداً أن يشمل، كقسم إلزامي محكَّم، تقريراً عن بصمته الكربونية للتدريب، واستهلاكه المائي، والعتاد المستخدم. يجب على مجلات PNAS وNature وScience وNeurIPS تبنّي هذه السياسة. دون هذا المعيار، يُديم المجتمع العلمي عدم الشفافية التي يُنتقد بها القطاع.</p>
+        <span class="rec-impact">📄 إجراء فوري للمؤلفين</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">تطوير منهجية معيارية للأثر البيئي للاستدلال</div>
+        <p class="rec-text">أكبر فجوة علمية حُدّدت في هذه الدراسة هي غياب منهجية موثّقة لقياس الأثر البيئي للاستدلال (الاستخدام اليومي للنماذج)، الذي يُمثّل 80–90% من حساب الذكاء الاصطناعي. <strong>تحديث:</strong> تُدمج الحاسبة العامة المصاحبة لهذه الورقة بالفعل وحدة استدلال تستند إلى قياسات حقيقية من Jegham وزملائه (arXiv:2505.09598، 2025) — خطوة أولى نحو سدّ هذه الفجوة. لكن هناك حاجة إلى دراسات أكاديمية منهجية أوسع تشمل: الطاقة حسب نوع الاستعلام على نطاق أكبر، والبصمة المائية لكل رمز مُولَّد، والتفاوت الجغرافي لأثر الاستدلال الموزّع.</p>
+        <span class="rec-impact">🔭 فجوة بحثية حرجة</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">إعطاء الأولوية لقابلية التكرار والوصول المفتوح في البيانات البيئية</div>
+        <p class="rec-text">يجب نشر أدوات القياس، ومجموعات بيانات استهلاك الطاقة حسب النموذج، وأطر الحساب بموجب تراخيص مفتوحة (CC BY / Apache 2.0). تُعدّ حاسبة البصمة الكربونية المُطوَّرة مع هذه الورقة مثالاً على الالتزام بالعلم المفتوح. يجب أن يكون البحث المُموَّل من أموال عامة في الذكاء الاصطناعي المستدام متاحاً للجمهور.</p>
+        <span class="rec-impact">🌐 التزام: هذه الورقة</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">دراسة الآثار المتباينة في الجنوب العالمي</div>
+        <p class="rec-text">يتركّز البحث الحالي عن الأثر البيئي للذكاء الاصطناعي في الشمال العالمي. هناك حاجة إلى دراسات ميدانية في المجتمعات التعدينية في الكونغو وبوليفيا وتشيلي؛ وفي مكبات النفايات الإلكترونية في غانا وبنغلاديش؛ وفي الأنظمة البيئية المتأثرة بمراكز البيانات في الهند وجنوب شرق آسيا. تتطلّب العدالة البيئية أن يشمل البحث من يتحمّلون تكاليف الذكاء الاصطناعي العالمي.</p>
+        <span class="rec-impact">⚖️ العدالة البيئية والأكاديمية</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 للمستخدمين الأفراد والمنظمات</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">تفضيل النماذج الفعّالة للمهام التي لا تتطلّب النموذج الأكبر</div>
+        <p class="rec-text">استخدام GPT-4 لكتابة بريد إلكتروني بسيط له نفس التكلفة البيئية لتحليل معقّد — لكن التحليل المعقّد هو المهمة الوحيدة التي تُبرّر هذه التكلفة. يجب على المستخدمين موازنة قدرة النموذج مع تعقيد المهمة: تحلّ النماذج بـ7–13 مليار معامل 80% من حالات الاستخدام اليومية بجزء من الأثر البيئي.</p>
+        <span class="rec-impact">⚡ الإجراء: اليوم</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">المطالبة بالشفافية البيئية كمعيار لاختيار المزوّد</div>
+        <p class="rec-text">يجب على المنظمات التي تتعاقد على خدمات الذكاء الاصطناعي (واجهات برمجة، منصات، استشارات) إدراج الشفافية البيئية كمعيار تقييم: هل يُنشر المزوّد قيمة PUE الخاصة به؟ هل يُبلّغ عن استهلاك المياه؟ هل لديه خطة معتمدة لإدارة النفايات الإلكترونية؟ يمكن لضغط السوق — خاصة من الشركات الكبرى ذات التزامات ESG — أن يُسرّع تغييرات يتأخر التنظيم في تطبيقها.</p>
+        <span class="rec-impact">🏢 لفرق المشتريات وESG</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">حساب والإبلاغ عن البصمة الكربونية للذكاء الاصطناعي في تقارير الاستدامة المؤسسية</div>
+        <p class="rec-text">يجب على الشركات التي تستخدم نماذج ذكاء اصطناعي في الإنتاج تضمين انبعاثات النطاق 3 الناتجة عن استخدام الذكاء الاصطناعي في تقارير GHG Protocol الخاصة بها. يمكن للحاسبة التفاعلية لهذه الورقة (lizzy0981.github.io/calculadora-huella-carbono-ia/) أن تكون نقطة الانطلاق لهذا الحساب. محاسبة الكربون دون تضمين استخدام الذكاء الاصطناعي غير مكتملة وتُقلّل من تقدير الأثر الحقيقي.</p>
+        <span class="rec-impact">📊 مورد: حاسبة عامة</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 لدول الجنوب العالمي والدول النامية</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">وضع شروط سيادية لاستخراج المعادن الحرجة</div>
+        <p class="rec-text">يجب على دول الجنوب العالمي التي تمتلك رواسب الكوبالت (جمهورية الكونغو الديمقراطية)، والليثيوم (بوليفيا، تشيلي، الأرجنتين)، والعناصر الأرضية النادرة (الصين، البرازيل) التفاوض على اتفاقيات استخراج تشمل: نقل التكنولوجيا، والمعالجة في الموقع (دون تصدير الخام الخام)، وصناديق مُوثّقة لإعادة التأهيل البيئي، ومشاركة المجتمعات الأصلية في قرارات الاستغلال.</p>
+        <span class="rec-impact">⛏️ سيادة الموارد الطبيعية</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">رفض النفايات الإلكترونية للذكاء الاصطناعي كـ"تبرّع" أو "مساعدة تقنية"</div>
+        <p class="rec-text">يُنقل إغراق عتاد الذكاء الاصطناعي المُتوقَّف بصفة "تبرّعات تقنية" إلى دول تفتقر إلى قدرة إعادة تدوير مناسبة تكاليف سامة إلى الجنوب العالمي. يجب على الدول المستقبِلة وضع متطلبات شهادات لاستيراد العتاد المستعمل ورفض المعدات التي لا يُموّل المصدّر إدارتها النهائية وفقاً لمعايير دولية.</p>
+        <span class="rec-impact">🗑️ حماية بيئية وصحية</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">الاستثمار في ذكاء اصطناعي محلي فعّال، لا الاعتماد على النماذج الضخمة للشمال العالمي</div>
+        <p class="rec-text">يجب على دول الجنوب العالمي إعطاء الأولوية لتطوير ونشر نماذج ذكاء اصطناعي صغيرة وفعّالة (SLMs) مُكيَّفة مع لغاتها وواقعها، مُدرَّبة بطاقات متجددة محلية. يعني الاعتماد على واجهات برمجة نماذج ضخمة مُدارة خارجياً في الشمال تحويلاً مستمراً للعملة، دون تطوير قدرات محلية. يجب ألّا يُعيد الوصول إلى الذكاء الاصطناعي إنتاج ديناميكيات التبعية التقنية.</p>
+        <span class="rec-impact">🌐 السيادة التقنية</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">مصفوفة الأولوية — التوصيات ذات الأثر الأكبر</div>
+    <table class="prio">
+      <thead><tr><th>الإجراء</th><th>الجهة</th><th>الأفق</th><th>الأثر البيئي</th><th>الجدوى</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — نقل مراكز البيانات إلى مناطق طاقة نظيفة</td><td>الشركات</td><td>متوسط</td><td><span class="im-high">مرتفع جداً</span></td><td class="p-mid">متوسطة</td></tr>
+        <tr><td>R4 — تبريد دون مياه / دورة مغلقة</td><td>الشركات</td><td>قصير</td><td><span class="im-high">مرتفع جداً (المياه)</span></td><td class="p-hi">مرتفعة</td></tr>
+        <tr><td>R2 — الكفاءة على الحجم كمقياس</td><td>الشركات</td><td>فوري</td><td><span class="im-high">مرتفع</span></td><td class="p-mid">متوسطة</td></tr>
+        <tr><td>R7 — إبلاغ بيئي إلزامي (تنظيم)</td><td>الحكومات</td><td>قصير</td><td><span class="im-mid">مرتفع (شفافية)</span></td><td class="p-mid">متوسطة</td></tr>
+        <tr><td>R10 — حظر مراكز البيانات في مناطق الإجهاد المائي</td><td>الحكومات</td><td>فوري</td><td><span class="im-high">مرتفع جداً (المياه)</span></td><td class="p-hi">مرتفعة (حيث يوجد تنظيم بالفعل)</td></tr>
+        <tr><td>R12 — إبلاغ بيئي في المنشورات العلمية</td><td>الباحثون</td><td>فوري</td><td><span class="im-mid">متوسط (ثقافة)</span></td><td class="p-hi">مرتفعة</td></tr>
+        <tr><td>R16 — اختيار نماذج فعّالة للمهام البسيطة</td><td>المستخدمون</td><td>فوري</td><td><span class="im-lo">منخفض-متوسط</span></td><td class="p-hi">مرتفعة جداً</td></tr>
+        <tr><td>R6 — التكميم والاستدلال الفعّال</td><td>الشركات</td><td>قصير</td><td><span class="im-high">مرتفع (الاستدلال 80–90%)</span></td><td class="p-hi">مرتفعة</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">الطريق موجود — الإرادة هي المتغيّر</div>
+    <p class="closing-text">لا تتطلّب أي توصية من هذه الورقة التضحية بتقدم الذكاء الاصطناعي. تُثبت الأدلة العلمية أن النماذج الفعّالة مثل DeepSeek-R1 أو Claude Sonnet يمكنها أداء عمل أنظمة أكبر بكثير بجزء من التكلفة البيئية. التحدي ليس تقنياً: بل هو مسألة حوافز وشفافية وإرادة سياسية. يمكن للذكاء الاصطناعي أن يكون محرّك التنمية البشرية في القرن الحادي والعشرين دون الحاجة لأن يصبح أحد أكبر تهديداته البيئية.</p>
+    <div class="closing-quote">"استدامة الذكاء الاصطناعي ليست قيداً على التقدم — بل شرط إمكانيته على المدى الطويل."</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="portada.html" class="nl">الغلاف</a><a href="toc.html" class="nl">الفهرس</a>
+    <a href="resumen.html" class="nl">الملخص</a><a href="introduccion.html" class="nl">المقدمة</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl active">§7 ✅ التوصيات</a>
+    <a href="conclusiones.html" class="nl">§8</a><a href="referencias.html" class="nl">المراجع</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · الإصدار 1.0.0، مارس 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 الشركات (R1-R6)','🏛️ الحكومات (R7-R11)','🔬 الباحثون (R12-R15)','👤 المستخدمون (R16-R18)','🌍 الجنوب العالمي (R19-R21)'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} توصية`}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

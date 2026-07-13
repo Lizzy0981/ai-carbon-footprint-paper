@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>セクション3 — AIの水への影響 | 科学論文</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #1a6fa8 0%, #0d4f8a 50%, #2980b9 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0 40 Q20 10 40 40 Q60 70 80 40 L80 80 L0 80 Z'/%3E%3C/svg%3E") repeat-x bottom;
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 bottom; }
+            100% { background-position: 160px bottom; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+            animation: droplet 3s ease-in-out infinite;
+        }
+
+        @keyframes droplet {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* INTRO CALLOUT */
+        .crisis-callout {
+            background: linear-gradient(135deg, #ebf5ff 0%, #d6ecff 100%);
+            border-left: 6px solid #1a6fa8;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px; left: 20px;
+            font-size: 24px;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .crisis-callout p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #1a3a5c;
+        }
+
+        .crisis-callout strong { color: #0d4f8a; }
+
+        /* STATS GRID */
+        .water-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .water-stat {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0fa 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .water-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(52,152,219,0.25);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a6fa8;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #5d8aa8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-source {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a6fa8;
+            margin: 45px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* BODY TEXT */
+        .body-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* WATER JOURNEY */
+        .water-journey {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .journey-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.15);
+        }
+
+        .journey-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .journey-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journey-card-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .journey-card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #2980b9;
+            background: #ebf5ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* PER QUERY TABLE */
+        .query-table-wrap {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .query-table-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table.water-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table.water-table thead tr {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+        }
+
+        table.water-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        table.water-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #d6ecff;
+            color: #2c3e50;
+        }
+
+        table.water-table tr:nth-child(even) td { background: rgba(52,152,219,0.05); }
+        table.water-table tr:hover td { background: rgba(52,152,219,0.1); }
+
+        .highlight-red { color: #e74c3c; font-weight: 700; }
+        .highlight-orange { color: #e67e22; font-weight: 700; }
+        .highlight-green { color: #27ae60; font-weight: 700; }
+
+        /* REGIONS BOX */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .region-card {
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .region-card.crisis {
+            background: linear-gradient(135deg, #fdecea 0%, #fbd5d0 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .region-card.warning {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdeabf 100%);
+            border: 2px solid #f39c12;
+        }
+
+        .region-card.monitor {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+        }
+
+        .region-flag { font-size: 28px; margin-bottom: 8px; display: block; }
+
+        .region-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-card.crisis .region-name { color: #c0392b; }
+        .region-card.warning .region-name { color: #d68910; }
+        .region-card.monitor .region-name { color: #1e8449; }
+
+        .region-detail { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea 0%, #fad7d0 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute;
+            top: -18px; left: 30px;
+            font-size: 30px;
+            background: white;
+            padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #c0392b;
+            margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        /* COMPARISON BOX */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 640px) { .comparison-container { grid-template-columns: 1fr; } }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fdecea, #fbd5d0);
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-card.good {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #27ae60;
+        }
+
+        .comparison-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card.bad .comparison-label { color: #c0392b; }
+        .comparison-card.good .comparison-label { color: #1e8449; }
+
+        .comparison-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.bad .comparison-number { color: #e74c3c; }
+        .comparison-card.good .comparison-number { color: #27ae60; }
+
+        .comparison-desc { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(52,152,219,0.15);
+        }
+
+        .solution-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* NOTE */
+        .source-note {
+            background: #f8f9fa;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
+            color: white;
+            padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .footer-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .nav-link.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .author-note {
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+
+        @media print {
+  body { background: white !important; }
+  .container { box-shadow: none; max-width: 100%; }
+  .footer-nav { display: none !important; }
+  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
+  .footer-item { background: white !important; border: 1px solid #ddd; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+    
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">セクション3 — 新規</span>
+            <span class="section-icon">💧</span>
+            <h1 class="section-title">AIの水への影響</h1>
+            <p class="section-subtitle">
+                静かなる危機：AIモデルが地球で最も希少な資源をいかに消費し、
+                蒸発させ、奪い合っているか
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;margin-bottom:20px;">検証済みのスペイン語/英語原文の翻訳です。相違がある場合は原文が優先されます。</p>
+
+        <!-- INTRO CALLOUT -->
+        <div class="crisis-callout">
+            <p>
+                AIと環境に関する公の議論は主にCO₂排出量に焦点を当ててきましたが、
+                <strong>ほとんど可視化されていない並行的な危機</strong>が存在します：
+                データセンターによる淡水・飲用水の大量消費です。
+                2023年、GPT-3の学習だけでMicrosoftのデータセンターにおいて
+                <strong>70万リットルの淡水</strong>が直接蒸発しました — これは
+                1,400人に1日分の水を供給できる量です。そしてこれは2年前の
+                たった1つのモデルの話にすぎません。
+            </p>
+        </div>
+
+        <!-- KEY STATS -->
+        <div class="water-stats">
+            <div class="water-stat">
+                <span class="stat-number">70万リットル</span>
+                <span class="stat-label">GPT-3の学習</span>
+                <span class="stat-source">Liら、arXiv:2304.03271（2023年）</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">3,125億〜7,646億リットル</span>
+                <span class="stat-label">2025年AI世界水フットプリント</span>
+                <span class="stat-source">de Vries-Gao、Cell Reports Sustainability（2025年）</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1兆680億リットル</span>
+                <span class="stat-label">2028年AI世界予測</span>
+                <span class="stat-source">モルガン・スタンレー・リサーチ（2024年）</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">~500mL</span>
+                <span class="stat-label">ChatGPTの20〜50クエリごと</span>
+                <span class="stat-source">Liら／カリフォルニア大学リバーサイド校（2023年）</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1日1.48億リットル</span>
+                <span class="stat-label">ChatGPTの推定日次消費量（2025年）</span>
+                <span class="stat-source">Business Energy UK（2025年）</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">0.26mL</span>
+                <span class="stat-label">Geminiの1クエリあたり（Google、2025年）</span>
+                <span class="stat-source">Google環境報告書（2025年）</span>
+            </div>
+        </div>
+
+        <!-- 3.1 CÓMO SE USA EL AGUA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.1</span>
+            データセンターにおける水消費のメカニズム
+        </h2>
+
+        <p class="body-text">
+            水はAIの偶発的な副産物ではありません — 冷却システムが数分で
+            機能停止に陥らないために不可欠な運用上の投入資源です。
+            現代のサーバーのエネルギー需要は膨大な熱を発生させます：
+            NVIDIA H100 GPU1基だけでも最大700Wの持続的な熱を放散します。
+            データセンターの規模では、数万個のGPUが並列稼働するため、
+            この熱を常時排出する必要があります。
+        </p>
+
+        <div class="water-journey">
+            <div class="journey-card">
+                <span class="journey-card-icon">🌊</span>
+                <div class="journey-card-title">蒸発冷却</div>
+                <p class="journey-card-text">
+                    最も一般的な方法：淡水を循環させて熱を吸収し、その後
+                    冷却塔で蒸発させます。この水は<em>局所水系には戻らず</em>、
+                    大気中に失われます。
+                </p>
+                <span class="journey-card-data">消費電力1kWhあたり水約1.9L（世界平均WUE）</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">⚡</span>
+                <div class="journey-card-title">間接的な水（発電）</div>
+                <p class="journey-card-text">
+                    データセンターに電力を供給する火力発電所は、蒸気の
+                    生成と冷却のために水を必要とします。米国では、
+                    発電は1kWhあたり43.8Lを取水し、3.1Lを消費します。
+                </p>
+                <span class="journey-card-data">米国の間接的フットプリント：年間約8,000億リットル</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏭</span>
+                <div class="journey-card-title">チップ製造</div>
+                <p class="journey-card-text">
+                    半導体の製造には、超純水が大量に必要とされます。
+                    Appleは、水フットプリント全体の99%が直接的な事業活動
+                    ではなく、サプライチェーンに由来すると報告しています。
+                </p>
+                <span class="journey-card-data">リサイクル率が低く、有害廃棄物のリスクがある</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏗️</span>
+                <div class="journey-card-title">インフラ建設</div>
+                <p class="journey-card-text">
+                    新しいデータセンターは、建設時、および造園や
+                    空調システムに水を必要とします。バージニア州、
+                    テキサス州、ネバダ州における拡張プロジェクトは、
+                    地域社会から水資源を奪っています。
+                </p>
+                <span class="journey-card-data">テキサス：2025年に年間490億ガロン（HARC／ヒューストン大学）</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 学習における水消費 — GPT-3（175B）</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartTrainingWater"></canvas></div>
+        </div>
+
+        <!-- 3.2 CONSUMO POR CONSULTA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.2</span>
+            クエリおよびモデル別の水消費量
+        </h2>
+
+        <p class="body-text">
+            AIの1クエリあたりに消費される水の正確な定量化は活発な研究
+            分野であり、方法論、モデル、特定のデータセンターによって
+            値は異なります。以下の表は、科学文献および検証済みの機関
+            報告書から最も引用されているデータをまとめたものです：
+        </p>
+
+        <div class="query-table-wrap">
+            <div class="query-table-title">AI活動種別ごとの水消費量</div>
+            <table class="water-table">
+                <thead>
+                    <tr>
+                        <th>活動／モデル</th>
+                        <th>推定消費量</th>
+                        <th>水の種類</th>
+                        <th>情報源</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GPT-3の学習（175Bパラメータ）</td>
+                        <td class="highlight-red">70万リットル</td>
+                        <td>飲用淡水</td>
+                        <td>Liら（2023年）／UC Riverside</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-3の学習 — 総推定量</td>
+                        <td class="highlight-red">540万リットル</td>
+                        <td>直接＋間接</td>
+                        <td>Liら、arXiv:2304.03271（2023年）</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 短いクエリ1件あたり（運用ベース）</td>
+                        <td class="highlight-orange">~5mL</td>
+                        <td>直接冷却</td>
+                        <td>Goedecke、技術分析（2024年）</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 生成100語あたり</td>
+                        <td class="highlight-orange">~519mL</td>
+                        <td>ライフサイクル全体</td>
+                        <td>Liら／EESI（2023年）</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 20〜50件の質問あたり</td>
+                        <td class="highlight-orange">500mL（ボトル1本分）</td>
+                        <td>直接冷却</td>
+                        <td>ワシントン・ポスト／Verma（2024年）</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — 世界の日次消費量（2025年）</td>
+                        <td class="highlight-red">1億4,800万リットル</td>
+                        <td>総推定量</td>
+                        <td>Business Energy UK（2025年）</td>
+                    </tr>
+                    <tr>
+                        <td>Google Gemini — クエリごと</td>
+                        <td class="highlight-green">0.26mL（雫5滴分）</td>
+                        <td>運用ベース</td>
+                        <td>Google環境報告書（2025年）</td>
+                    </tr>
+                    <tr>
+                        <td>Google検索（AIなし）</td>
+                        <td class="highlight-green">0.2〜0.5mL</td>
+                        <td>運用ベース</td>
+                        <td>複数の情報源を統合</td>
+                    </tr>
+                    <tr>
+                        <td>AI画像生成（1024×1024）</td>
+                        <td class="highlight-orange">~15mL（推定）</td>
+                        <td>集中的なGPU冷却</td>
+                        <td>画像あたりkWhから導出した推定値</td>
+                    </tr>
+                    <tr>
+                        <td>Googleサンティアゴ（チリ）データセンター</td>
+                        <td class="highlight-red">1日760万リットル</td>
+                        <td>市営飲用水</td>
+                        <td>チリの訴訟提出資料（2024年）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>方法論的注記：</strong> データの変動は、測定範囲の違い
+            （直接冷却のみか、ライフサイクル全体か）、モデル世代、
+            データセンターの種類、地理的位置の違いを反映しています。
+            ライフサイクル全体の値は、直接運用値の30〜100倍に達します。
+        </div>
+
+        <!-- 3.3 CRISIS GEOGRÁFICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.3</span>
+            地域的危機：水ストレス地域のデータセンター
+        </h2>
+
+        <p class="body-text">
+            AIの水への影響のうち最も重大な側面の一つは、
+            <strong>世界の9,000以上のデータセンターのほぼ半数が高水ストレス
+            地域に位置している</strong>ことです（モルガン・スタンレー・
+            リサーチ、2024年）。つまり、これらのシステムは人間社会、
+            農業、生態系と同じ希少な資源を直接奪い合っているのです。
+            以下の記録された事例は、問題の規模を示しています：
+        </p>
+
+        <div class="regions-grid">
+            <div class="region-card crisis">
+                <span class="region-flag">🇨🇱</span>
+                <div class="region-name">サンティアゴ、チリ</div>
+                <p class="region-detail">
+                    セリージョスにあるGoogleのデータセンターは、すでに
+                    深刻な干ばつに見舞われている地域で1日あたり約760万
+                    リットルの飲用水を消費しています。地域社会から訴訟
+                    を起こされています。
+                    <br><em><small>情報源：チリの訴訟提出資料（2024年）</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇪🇸</span>
+                <div class="region-name">アラゴン、スペイン</div>
+                <p class="region-detail">
+                    Amazonは2024年、アラゴン州の施設向けに水利許可の
+                    48%増加を申請しました。
+                    <em>「あなたのクラウドが私の川を干上がらせている」</em>
+                    というスローガンのもとで抗議活動が行われました。
+                    <br><em><small>情報源：IE Insights／複数メディア（2025年）</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇺🇸</span>
+                <div class="region-name">テキサス州、米国</div>
+                <p class="region-detail">
+                    テキサス州のデータセンターは2025年に490億ガロンの水を
+                    消費し、2030年には3,990億ガロンに達する可能性があります
+                    — これは1年間でミード湖を16フィート干上がらせるのに
+                    相当します。
+                    <br><em><small>情報源：HARC／ヒューストン大学（2025年）</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇬🇧</span>
+                <div class="region-name">英国</div>
+                <p class="region-detail">
+                    政府は2050年までに1日50億リットルの水不足を見込んで
+                    います。スターマー首相の初の「AI成長ゾーン」は、
+                    イングランドで最も水ストレスの高い地域である
+                    オックスフォードシャー州カルハムに計画されました。
+                    <br><em><small>情報源：英国政府報告書（2025年）</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇳🇱</span>
+                <div class="region-name">オランダ</div>
+                <p class="region-detail">
+                    アムステルダムとその周辺では、農地における
+                    メガデータセンター建設に反対する抗議活動が行われて
+                    います。オランダ政府は新規建設許可に対する一時的な
+                    制限を実施しました。
+                    <br><em><small>情報源：複数の欧州メディア（2023〜2024年）</small></em>
+                </p>
+            </div>
+            <div class="region-card monitor">
+                <span class="region-flag">🌍</span>
+                <div class="region-name">ラテンアメリカ（背景）</div>
+                <p class="region-detail">
+                    カリブ海地域と中央アメリカは、2030〜2050年にかけて
+                    気候変動による水ストレスが最も高まると予測される
+                    世界の地域の一つです。水規制なきAIの拡大は、この
+                    危機をさらに深刻化させる可能性があります。
+                    <br><em><small>情報源：IPCC AR6（2022年）／UN-Water（2023年）</small></em>
+                </p>
+            </div>
+        </div>
+
+        <!-- 3.4 ALERTA -->
+        <div class="alert-box">
+            <div class="alert-box-title">重要事実：AIが使う水は飲用水である</div>
+            <p>
+                農業や工業で使われる水（リサイクル水や非飲用水の場合も
+                ある）とは異なり、ほとんどのデータセンターは冷却システム
+                のために<strong>市営品質の飲用水</strong>を必要とします。
+                不純物が機器を損傷させるためです。これは、AIが人間が
+                飲む水と直接競合していることを意味します。米国南西部、
+                チリ北部、地中海地域など干ばつが進行中の地域では、
+                この競合は具体的な人道的緊急事態となっています。
+            </p>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 クエリごとの水消費量 — システム間比較（mL）</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartQueryWater"></canvas></div>
+        </div>
+
+        <!-- 3.5 PROYECCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.4</span>
+            2025〜2030年の予測：憂慮すべき傾向
+        </h2>
+
+        <p class="body-text">
+            コーネル大学の研究者による<em>Nature Sustainability</em>
+            （2025年11月）に発表されたデータによると、米国におけるAI
+            サーバーの展開により、2024年から2030年の間に年間7億3,100万
+            〜11億2,500万立方メートルの水が消費される可能性があります
+            — これは米国人600万〜1,000万人分の年間家庭用消費量に相当
+            します。
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-card bad">
+                <div class="comparison-label">現状維持シナリオ（2030年）</div>
+                <span class="comparison-number">11億2,500万m³</span>
+                <p class="comparison-desc">
+                    米国のみで、インフラや水規制に変化がなく現在の
+                    傾向が続いた場合。
+                    <br><small>情報源：Xiaoら、Nature Sustainability（2025年）</small>
+                </p>
+            </div>
+            <div class="comparison-card good">
+                <div class="comparison-label">緩和シナリオ（2030年）</div>
+                <span class="comparison-number">−86%</span>
+                <p class="comparison-desc">
+                    データセンターの戦略的立地、直接液体冷却、運用
+                    効率を組み合わせることで達成可能な水消費量の削減。
+                    <br><small>情報源：Youら、コーネル大学／Nature Sustainability（2025年）</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 2030年米国予測 — 現状維持シナリオ対緩和シナリオ</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartProjection"></canvas></div>
+        </div>
+
+        <p class="body-text">
+            de Vries-Gaoによる<em>Cell Reports Sustainability</em>
+            （2025年12月）に発表された研究では、AIシステムの世界水
+            フットプリントは<strong>2025年に3,125億〜7,646億リットルに
+            達する可能性がある</strong>とされ、これは世界のボトル入り
+            飲料水の年間消費量に相当します。この数字は単に取水された
+            量ではなく、直接消費された水を表しており、つまりこの水は
+            地域の水循環に戻らないということです。
+        </p>
+
+        <!-- 3.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.5</span>
+            技術的解決策と水政策
+        </h2>
+
+        <p class="body-text">
+            見通しは懸念されるものですが、AIの水への影響を大幅に
+            削減できる技術的解決策と政策手段の両方が存在します。
+            これらを組み合わせて実施することで、同等の処理能力を
+            維持しながら水消費量を最大86%削減できる可能性があります：
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🧊</span>
+                <div class="solution-title">直接液体冷却（イマージョン冷却）</div>
+                <p class="solution-text">
+                    非導電性液体にコンポーネントを浸漬させます。蒸発
+                    冷却水の必要性をほぼ完全に排除します。Microsoftは
+                    2024年8月に初の「ゼロウォーター」データセンターを
+                    稼働開始しました。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📍</span>
+                <div class="solution-title">戦略的立地</div>
+                <p class="solution-text">
+                    寒冷気候地域（アイスランド、ノルウェー、カナダ北部）
+                    にデータセンターを建設することで、能動的冷却の必要
+                    性が大幅に減少します。アイスランドは地熱と外気冷却
+                    を利用しています。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">リサイクル水・非飲用水</div>
+                <p class="solution-text">
+                    Amazon、Meta、Appleは、新鮮な飲用水の代わりに処理
+                    済み市営水（再生水）の使用を開始しています。他の
+                    対策と組み合わせることで、飲用水使用量を50〜70%
+                    削減できる可能性があります。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📊</span>
+                <div class="solution-title">情報開示と規制</div>
+                <p class="solution-text">
+                    現在、ほとんどの国でデータセンターごとの水消費量
+                    報告に関する法的要件は存在しません。UNEA-7
+                    （ナイロビ、2025年12月）は、データセンターの水
+                    透明性を優先議題として取り上げました。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🌬️</span>
+                <div class="solution-title">断熱冷却</div>
+                <p class="solution-text">
+                    Microsoftは気温が29.4°C未満の場合、断熱冷却
+                    （外気）を使用しています。温暖・寒冷気候では
+                    これが年間のほとんどをカバーし、水の使用を
+                    排除します。
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🤖</span>
+                <div class="solution-title">設計段階からの効率的なAI</div>
+                <p class="solution-text">
+                    MoE（専門家混合）アーキテクチャ、モデル蒸留、
+                    量子化などの手法は、推論に必要な計算量を削減し
+                    ます。DeepSeek-R1は2025年、高度に効率化された
+                    モデルが最適化されていない同等モデルより5〜10倍
+                    少ないリソースで済むことを実証しました。
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /content-section -->
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">セクション</div>
+                <div class="footer-value">3 — 水への影響（新規）</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">対象期間</div>
+                <div class="footer-value">2019年〜2025年12月</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">主要情報源</div>
+                <div class="footer-value">Nature Sustainability, IEA, Cell Reports, UC Riverside</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">次のセクション</div>
+                <div class="footer-value">セクション4 → 電子廃棄物</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="portada.html" class="nav-link">表紙</a>
+                <a href="toc.html" class="nav-link">目次</a>
+                <a href="resumen.html" class="nav-link">要約</a>
+                <a href="introduccion.html" class="nav-link">序論</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link active">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">参考文献</a>
+            </div>
+            <p class="author-note">
+                <strong>著者：</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 国際
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.water-stat,.journey-card,.region-card,.solution-card,.comparison-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Training water: direct vs total
+  new Chart(document.getElementById('chartTrainingWater'), {
+    type:'bar',
+    data:{
+      labels:['直接蒸発','総フットプリント（直接+間接）'],
+      datasets:[{
+        label:'Litros',
+        data:[700000, 5400000],
+        backgroundColor:['#3498db','#1a6fa8'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} litros`}} },
+      scales:{ x:{beginAtZero:true, title:{display:true,text:'Litros'}} }
+    }
+  });
+
+  // Chart 2 — Per-query water comparison (mL, log scale due to wide range)
+  new Chart(document.getElementById('chartQueryWater'), {
+    type:'bar',
+    data:{
+      labels:['ChatGPT（1クエリ）','ChatGPT（100語）','Google検索','Gemini（Google）'],
+      datasets:[{
+        label:'mL de agua',
+        data:[5, 519, 0.35, 0.26],
+        backgroundColor:['#e67e22','#e74c3c','#27ae60','#1a8449'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} mL`}} },
+      scales:{ y:{type:'logarithmic', title:{display:true,text:'mL (escala log)'}} }
+    }
+  });
+
+  // Chart 3 — 2030 projection scenarios
+  new Chart(document.getElementById('chartProjection'), {
+    type:'bar',
+    data:{
+      labels:['現状維持（2030年）','緩和策あり（2030年）'],
+      datasets:[{
+        label:'Millones de m³',
+        data:[1125, 157.5],
+        backgroundColor:['#e74c3c','#27ae60'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} M m³`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de m³'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
