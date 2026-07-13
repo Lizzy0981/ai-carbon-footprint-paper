@@ -8,9 +8,11 @@ abstract: >-
   electronic waste, critical minerals, and biodiversity. The methodology
   introduces a validated formula (R²=0.89, error <6% vs. official data) applied
   to 30+ AI models, alongside a public interactive calculator with three
-  modules — Training, Inference, and Carbon ROI — available in 11 languages.
-  Bilingual edition (Spanish/English), 47 verified references, published under
-  independent research.
+  modules — Training, Inference, and Carbon ROI. Both the paper and the
+  companion calculator are available in 11 languages (Spanish, English,
+  French, Portuguese, Russian, Turkish, Arabic, Hebrew, Japanese, Korean,
+  and Chinese), with Spanish and English as the original validated editions.
+  47 verified references, published under independent research.
 authors:
   - family-names: "Díaz Familia"
     given-names: "Elizabeth"
@@ -25,6 +27,18 @@ date-released: "2026-03-01"
 license: CC-BY-4.0
 repository-code: "https://github.com/Lizzy0981/ai-carbon-footprint-paper"
 url: "https://lizzy0981.github.io/ai-carbon-footprint-paper/"
+languages:
+  - es
+  - en
+  - fr
+  - pt
+  - ru
+  - tr
+  - ar
+  - he
+  - ja
+  - ko
+  - zh
 keywords:
   - artificial intelligence
   - carbon footprint
@@ -38,6 +52,7 @@ keywords:
   - climate change
   - data centers
   - machine learning sustainability
+  - multilingual research
 preferred-citation:
   type: article
   title: "Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models"

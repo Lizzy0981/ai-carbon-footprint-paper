@@ -3,9 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Carbon Footprint Paper — Elizabeth Díaz Familia</title>
-<meta name="description" content="Scientific Methodology for Measuring the Carbon Footprint of AI Models — Elizabeth Díaz Familia, 2026">
+<title>AI Carbon Footprint Paper — Elizabeth Díaz Familia — 11 idiomas / 11 languages</title>
+<meta name="description" content="Scientific Methodology for Measuring the Carbon Footprint of AI Models — Elizabeth Díaz Familia, 2026 — Available in 11 languages">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="alternate" hreflang="es" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/es/">
+<link rel="alternate" hreflang="en" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/en/">
+<link rel="alternate" hreflang="fr" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/fr/">
+<link rel="alternate" hreflang="pt" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/pt/">
+<link rel="alternate" hreflang="ru" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ru/">
+<link rel="alternate" hreflang="tr" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/tr/">
+<link rel="alternate" hreflang="ar" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ar/">
+<link rel="alternate" hreflang="he" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/he/">
+<link rel="alternate" hreflang="ja" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ja/">
+<link rel="alternate" hreflang="ko" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ko/">
+<link rel="alternate" hreflang="zh" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/zh/">
+<link rel="alternate" hreflang="x-default" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/en/">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -14,20 +26,20 @@ body{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   color:white;padding:24px;
 }
-.wrap{max-width:480px;text-align:center;}
+.wrap{max-width:640px;text-align:center;}
 .leaf{font-size:56px;margin-bottom:20px;display:block;}
 h1{font-size:22px;font-weight:800;margin-bottom:10px;line-height:1.35;}
 p{font-size:14px;opacity:.65;margin-bottom:32px;}
-.choices{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.choices{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .choice{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
   background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);
-  border-radius:16px;padding:20px 28px;text-decoration:none;color:white;
-  transition:all .25s;min-width:140px;
+  border-radius:16px;padding:16px 18px;text-decoration:none;color:white;
+  transition:all .25s;min-width:96px;
 }
 .choice:hover{background:rgba(39,174,96,0.18);border-color:#27ae60;transform:translateY(-3px);}
-.flag{font-size:32px;}
-.lang-name{font-size:14px;font-weight:700;}
+.flag{font-size:28px;}
+.lang-name{font-size:13px;font-weight:700;}
 .redirect-note{margin-top:28px;font-size:12px;opacity:.4;}
 </style>
 </head>
@@ -35,29 +47,46 @@ p{font-size:14px;opacity:.65;margin-bottom:32px;}
 <div class="wrap">
   <span class="leaf">🌿</span>
   <h1>Metodología Científica para Medición de Huella de Carbono en Modelos de IA</h1>
-  <p>Scientific Methodology for Measuring the Carbon Footprint of AI Models</p>
+  <p>Scientific Methodology for Measuring the Carbon Footprint of AI Models — 11 idiomas / 11 languages</p>
   <div class="choices">
     <a href="es/" class="choice"><span class="flag">🇪🇸</span><span class="lang-name">Español</span></a>
     <a href="en/" class="choice"><span class="flag">🇺🇸</span><span class="lang-name">English</span></a>
+    <a href="fr/" class="choice"><span class="flag">🇫🇷</span><span class="lang-name">Français</span></a>
+    <a href="pt/" class="choice"><span class="flag">🇵🇹</span><span class="lang-name">Português</span></a>
+    <a href="ru/" class="choice"><span class="flag">🇷🇺</span><span class="lang-name">Русский</span></a>
+    <a href="tr/" class="choice"><span class="flag">🇹🇷</span><span class="lang-name">Türkçe</span></a>
+    <a href="ar/" class="choice"><span class="flag">🇸🇦</span><span class="lang-name">العربية</span></a>
+    <a href="he/" class="choice"><span class="flag">🇮🇱</span><span class="lang-name">עברית</span></a>
+    <a href="ja/" class="choice"><span class="flag">🇯🇵</span><span class="lang-name">日本語</span></a>
+    <a href="ko/" class="choice"><span class="flag">🇰🇷</span><span class="lang-name">한국어</span></a>
+    <a href="zh/" class="choice"><span class="flag">🇨🇳</span><span class="lang-name">中文</span></a>
   </div>
   <p class="redirect-note" id="redirectNote"></p>
 </div>
 
 <script>
 (function(){
-  var browserLang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
-  var target = browserLang.indexOf('es') === 0 ? 'es/' : 'en/';
+  var supported = {
+    es:'es/', en:'en/', fr:'fr/', pt:'pt/', ru:'ru/', tr:'tr/',
+    ar:'ar/', he:'he/', iw:'he/', ja:'ja/', ko:'ko/', zh:'zh/'
+  };
+  var names = {
+    'es/':'Español', 'en/':'English', 'fr/':'Français', 'pt/':'Português',
+    'ru/':'Русский', 'tr/':'Türkçe', 'ar/':'العربية', 'he/':'עברית',
+    'ja/':'日本語', 'ko/':'한국어', 'zh/':'中文'
+  };
+  var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0,2);
+  var target = supported[browserLang] || 'en/';
   var note = document.getElementById('redirectNote');
   var seconds = 3;
-  function label(t){ return t === 'es/' ? 'Español' : 'English'; }
-  note.textContent = 'Redirecting to ' + label(target) + ' in ' + seconds + 's…';
+  note.textContent = 'Redirecting to ' + names[target] + ' in ' + seconds + 's…';
   var timer = setInterval(function(){
     seconds--;
     if(seconds <= 0){
       clearInterval(timer);
       window.location.href = target;
     } else {
-      note.textContent = 'Redirecting to ' + label(target) + ' in ' + seconds + 's…';
+      note.textContent = 'Redirecting to ' + names[target] + ' in ' + seconds + 's…';
     }
   }, 1000);
 })();

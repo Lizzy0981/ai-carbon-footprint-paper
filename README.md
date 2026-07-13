@@ -7,7 +7,7 @@
 [![R² Score](https://img.shields.io/badge/Correlación-R²%3D0.89-blue?style=for-the-badge&logo=chartdotjs)](es/resultados.html)
 [![Models](https://img.shields.io/badge/Modelos_Analizados-30%2B-orange?style=for-the-badge&logo=openai)](es/resultados.html)
 [![References](https://img.shields.io/badge/Referencias-47_verificadas-success?style=for-the-badge&logo=googlescholar)](es/referencias.html)
-[![Languages](https://img.shields.io/badge/Paper-ES%20%7C%20EN-purple?style=for-the-badge&logo=googletranslate)](#-idiomas--languages)
+[![Languages](https://img.shields.io/badge/Paper-11_idiomas-purple?style=for-the-badge&logo=googletranslate)](#-idiomas--languages)
 [![License](https://img.shields.io/badge/Licencia-CC_BY_4.0-yellow?style=for-the-badge&logo=creativecommons)](LICENSE)
 
 Marco científico integral que cuantifica el impacto ambiental de los modelos de inteligencia artificial en **cinco dimensiones**: carbono, agua, residuos electrónicos, minerales críticos y biodiversidad — con **validación empírica** (R²=0.89, error <6% vs. datos oficiales) y una **calculadora pública interactiva** con 3 módulos, disponible en 11 idiomas.
@@ -23,10 +23,10 @@ Marco científico integral que cuantifica el impacto ambiental de los modelos de
 📄 │   METODOLOGÍA CIENTÍFICA — HUELLA DE CARBONO EN MODELOS DE IA       │ 📄
 🔬 │                    Díaz Familia (2026) · v1.0.0                     │ 🔬
 📊 │                                                                      │ 📊
-🌍 │  🇪🇸 Español   ·   🇺🇸 English   ·   13 secciones · 47 referencias  │ 🌍
+🌍 │  🇪🇸🇺🇸🇫🇷🇵🇹🇷🇺🇹🇷🇸🇦🇮🇱🇯🇵🇰🇷🇨🇳  11 idiomas · 13 secciones · 47 referencias  │ 🌍
 💧 │  🌫️ Carbono · 💧 Agua · 🗑️ E-Waste · ⛏️ Minerales · 🌱 Biodiversidad│ 💧
 🧮 │  R²=0.89 · error <6%  ·  Calculadora pública en 11 idiomas          │ 🧮
-📈 │  15 gráficos animados · Chart.js · scroll-reveal en las 26 páginas  │ 📈
+📈 │  15 gráficos animados · Chart.js · scroll-reveal en las 143 páginas │ 📈
 🌈 └──────────────────────────────────────────────────────────────────────┘ 🌈
 ```
 
@@ -37,20 +37,33 @@ Marco científico integral que cuantifica el impacto ambiental de los modelos de
 **[🇪🇸 Versión en Español →](https://lizzy0981.github.io/ai-carbon-footprint-paper/es/)**
 **[🇺🇸 English Version →](https://lizzy0981.github.io/ai-carbon-footprint-paper/en/)**
 
+También disponible en 9 idiomas adicionales — ver la tabla completa en [🌍 Idiomas / Languages](#-idiomas--languages).
+
 ⚡ **Calculadora Pública:** [lizzy0981.github.io/calculadora-huella-carbono-ia/](https://lizzy0981.github.io/calculadora-huella-carbono-ia/)
 
 ---
 
 ## 🌍 Idiomas / Languages
 
-Este paper está disponible en **2 idiomas completos**, con estructura idéntica y navegación cruzada entre ambos:
+Este paper está disponible en **11 idiomas completos**, con estructura idéntica (13 secciones cada uno) y navegación cruzada entre todos ellos. Español e inglés son las **ediciones originales validadas**; las 9 restantes son traducciones con nota de traducción visible en cada página.
 
 | Idioma | Carpeta | Estado |
 |--------|---------|--------|
 | 🇪🇸 Español | [`/es`](es/) | ✅ Original — 13 secciones |
-| 🇺🇸 English | [`/en`](en/) | ✅ Full translation — 13 sections |
+| 🇺🇸 English | [`/en`](en/) | ✅ Original validado — 13 secciones |
+| 🇫🇷 Français | [`/fr`](fr/) | ✅ Traducción — 13 secciones |
+| 🇵🇹 Português | [`/pt`](pt/) | ✅ Traducción — 13 secciones |
+| 🇷🇺 Русский | [`/ru`](ru/) | ✅ Traducción — 13 secciones |
+| 🇹🇷 Türkçe | [`/tr`](tr/) | ✅ Traducción — 13 secciones |
+| 🇸🇦 العربية | [`/ar`](ar/) | ✅ Traducción (RTL) — 13 secciones |
+| 🇮🇱 עברית | [`/he`](he/) | ✅ Traducción (RTL) — 13 secciones |
+| 🇯🇵 日本語 | [`/ja`](ja/) | ✅ Traducción (CJK) — 13 secciones |
+| 🇰🇷 한국어 | [`/ko`](ko/) | ✅ Traducción (CJK) — 13 secciones |
+| 🇨🇳 中文 | [`/zh`](zh/) | ✅ Traducción (CJK) — 13 secciones |
 
-> 💡 La **calculadora pública** que acompaña este paper está disponible en **11 idiomas** (ES, EN, FR, PT, RU, ZH, JA, KO, AR, HE, TR) — ver [repositorio de la calculadora](https://github.com/Lizzy0981/calculadora-huella-carbono-ia).
+> 💡 La **calculadora pública** que acompaña este paper también está disponible en estos mismos **11 idiomas** — ver [repositorio de la calculadora](https://github.com/Lizzy0981/calculadora-huella-carbono-ia).
+>
+> 📖 El glosario técnico ES→idioma para cada traducción está disponible en [`docs/glosarios/`](docs/glosarios/).
 
 ---
 
@@ -72,7 +85,7 @@ Este paper está disponible en **2 idiomas completos**, con estructura idéntica
 - 📚 **Referencias** — 47 fuentes verificadas (peer-reviewed, institucionales, corporativas)
 
 ### 📊 **15 Gráficos Científicos Animados**
-Visualizaciones interactivas con Chart.js y animaciones scroll-reveal en las 26 páginas (13 ES + 13 EN): factor de carbono por región, correlación parámetros-emisiones, escenarios de e-waste, concentración de mercado de minerales, y más.
+Visualizaciones interactivas con Chart.js y animaciones scroll-reveal en las 143 páginas (13 secciones × 11 idiomas): factor de carbono por región, correlación parámetros-emisiones, escenarios de e-waste, concentración de mercado de minerales, y más.
 
 ---
 
@@ -128,9 +141,9 @@ Agua (L)  = Energía (kWh) × 1.8 L/kWh    [Li et al., UC Riverside, 2023]
 ├── 📄 CITATION.cff                   # 🌟 Citación académica (APA/BibTeX vía GitHub)
 ├── 📄 README.md                      # 📖 Este documento
 ├── 📄 LICENSE                        # ⚖️ CC BY 4.0
+├── 📄 index.html                     # 🌍 Selector de idioma con detección automática
 │
-├── 📂 es/                            # 🇪🇸 Paper completo en español
-│   ├── index.html                    # Hub de navegación
+├── 📂 es/                            # 🇪🇸 Paper completo en español — ORIGINAL
 │   ├── portada.html
 │   ├── toc.html
 │   ├── resumen.html
@@ -145,8 +158,30 @@ Agua (L)  = Energía (kWh) × 1.8 L/kWh    [Li et al., UC Riverside, 2023]
 │   ├── conclusiones.html
 │   └── referencias.html
 │
-├── 📂 en/                            # 🇺🇸 Full paper in English
-│   └── (mismas 14 páginas, sufijo _en donde aplica)
+├── 📂 en/                            # 🇺🇸 Full paper in English — ORIGINAL VALIDADO
+├── 📂 fr/                            # 🇫🇷 Paper complet en français
+├── 📂 pt/                            # 🇵🇹 Artigo completo em português
+├── 📂 ru/                            # 🇷🇺 Полная версия на русском
+├── 📂 tr/                            # 🇹🇷 Türkçe tam metin
+├── 📂 ar/                            # 🇸🇦 النسخة الكاملة بالعربية (RTL)
+├── 📂 he/                            # 🇮🇱 הגרסה המלאה בעברית (RTL)
+├── 📂 ja/                            # 🇯🇵 日本語版（完全版）
+├── 📂 ko/                            # 🇰🇷 한국어 전체 버전
+├── 📂 zh/                            # 🇨🇳 中文完整版
+│   └── (mismas 13 páginas por carpeta, con nota de traducción en las 9 no originales)
+│
+├── 📂 docs/
+│   └── 📂 glosarios/                 # 📚 Glosario técnico ES→idioma, uno por idioma traducido
+│       ├── glosario_en.md
+│       ├── glosario_fr.md
+│       ├── glosario_pt.md
+│       ├── glosario_ru.md
+│       ├── glosario_tr.md
+│       ├── glosario_ar.md
+│       ├── glosario_he.md
+│       ├── glosario_ja.md
+│       ├── glosario_ko.md
+│       └── glosario_zh.md
 │
 └── 📂 assets/
     ├── 📄 favicon.svg
@@ -194,12 +229,16 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
 - [x] 🔬 Sección de discusión con comparación de literatura y limitaciones
 - [x] ✅ 21 recomendaciones para 5 tipos de actores
 - [x] 📚 47 referencias verificadas (peer-reviewed, institucionales, corporativas)
-- [x] 🌍 Traducción completa al inglés — 14 páginas, navegación cruzada
+- [x] 🌍 Traducción completa al inglés — 13 páginas, navegación cruzada
+- [x] 🌐 Traducción a 9 idiomas adicionales — FR, PT, RU, TR, AR, HE, JA, KO, ZH (13 páginas cada uno, 143 páginas totales)
+- [x] 🔤 Selector de idioma con detección automática y hreflang tags para SEO en `index.html`
+- [x] 📚 Glosario técnico ES→idioma para cada una de las 9 traducciones (`docs/glosarios/`)
 - [x] 📊 15 gráficos científicos animados con Chart.js
 - [x] 🆔 Registro ORCID — [0009-0009-0274-5624](https://orcid.org/0009-0009-0274-5624)
 - [x] 🌟 Archivo `CITATION.cff` para citación académica automática
 
 ### 🔜 **Próximos Pasos**
+- [ ] 🔗 Corregir el botón "Ver Paper Científico" en la calculadora pública (actualmente apunta a sí mismo)
 - [ ] 📦 Publicación en Zenodo con DOI permanente
 - [ ] 📄 Solicitud de *endorsement* para ArXiv (cs.LG / cs.CY)
 - [ ] 🌐 Indexación en Google Scholar, Semantic Scholar, OpenAlex
@@ -250,7 +289,7 @@ Este trabajo se construye sobre la investigación fundacional de:
 ## 🚀 Call to Action
 
 ```bash
-📖 Lee el paper completo — disponible en español e inglés
+📖 Lee el paper completo — disponible en 11 idiomas (ES, EN, FR, PT, RU, TR, AR, HE, JA, KO, ZH)
 ⚡ Prueba la calculadora — estima cualquier modelo de IA, incluso los que no existen aún
 🌟 Dale Star a este repo si el trabajo te resultó útil para tu investigación
 🔄 Fork y adapta la metodología para tus propios estudios
@@ -270,7 +309,7 @@ Este trabajo se construye sobre la investigación fundacional de:
 ```
 🌿 ┌──────────────────────────────────────────────────────────────────┐ 🌿
 📄 │           🔬 SCIENTIFICALLY VALIDATED — R²=0.89 · <6% ERROR 🔬   │ 📄
-🌍 │              🇪🇸 SPANISH · 🇺🇸 ENGLISH — 13 SECTIONS EACH        │ 🌍
+🌍 │           11 LANGUAGES · ES/EN ORIGINALS — 13 SECTIONS EACH      │ 🌍
 📊 │            30+ MODELS ANALYZED · 47 VERIFIED REFERENCES         │ 📊
 💧 │        5 DIMENSIONS — CARBON · WATER · E-WASTE · MINERALS       │ 💧
 🆔 │             ORCID 0009-0009-0274-5624 · CC BY 4.0               │ 🆔

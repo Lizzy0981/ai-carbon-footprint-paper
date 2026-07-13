@@ -186,7 +186,7 @@ body::after {
     <div class="actions">
       <a href="portada.html" class="btn-p" data-i18n="btn.read">📄 Leer el Paper</a>
       <button class="btn-s" onclick="window.print()" data-i18n="btn.pdf">📥 Descargar PDF</button>
-      <a href="calculadora.html" class="btn-s" data-i18n="btn.calc">⚡ Calculadora</a>
+      <a href="https://lizzy0981.github.io/calculadora-huella-carbono-ia/" class="btn-s" target="_blank" data-i18n="btn.calc">⚡ Calculadora</a>
       <a href="https://lizzy0981.github.io" class="btn-s" target="_blank" data-i18n="btn.portfolio">🌐 Portfolio</a>
     </div>
   </div>
@@ -228,7 +228,7 @@ body::after {
       <div class="lc active" onclick="selectLang('es',this)"><span class="lc-f">🇪🇸</span><div class="lc-n">Español</div></div>
       <div class="lc" onclick="selectLang('en',this)"><span class="lc-f">🇺🇸</span><div class="lc-n">English</div></div>
       <div class="lc" onclick="selectLang('fr',this)"><span class="lc-f">🇫🇷</span><div class="lc-n">Français</div></div>
-      <div class="lc" onclick="selectLang('pt',this)"><span class="lc-f">🇧🇷</span><div class="lc-n">Português</div></div>
+      <div class="lc" onclick="selectLang('pt',this)"><span class="lc-f">🇵🇹</span><div class="lc-n">Português</div></div>
       <div class="lc" onclick="selectLang('ru',this)"><span class="lc-f">🇷🇺</span><div class="lc-n">Русский</div></div>
       <div class="lc" onclick="selectLang('tr',this)"><span class="lc-f">🇹🇷</span><div class="lc-n">Türkçe</div></div>
       <div class="lc" onclick="selectLang('ar',this)"><span class="lc-f">🇸🇦</span><div class="lc-n">العربية</div></div>
@@ -633,7 +633,16 @@ function applyLang(code) {
   );
 }
 
-function selectLang(code, el) { applyLang(code); }
+function selectLang(code, el) {
+  const previousLang = document.documentElement.lang;
+  applyLang(code);
+  if (code !== previousLang) {
+    // Navigate to the corresponding language folder so linked content
+    // (portada.html, toc.html, etc.) matches the displayed language.
+    // Short delay lets the person see the instant translation feedback first.
+    setTimeout(function(){ window.location.href = '../' + code + '/'; }, 450);
+  }
+}
 
 // Apply on load
 applyLang('es'); // Hub en español — siempre inicia en 'es', independiente de localStorage compartido con /en/
