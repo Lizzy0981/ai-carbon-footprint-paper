@@ -213,6 +213,17 @@ body::after{
 }
 .contact-btn:hover{background:rgba(255,255,255,0.15);color:white;transform:translateY(-2px);}
 
+.home-pdf-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.home-pdf-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(39,174,96,0.15);
+  border:1px solid rgba(39,174,96,0.4);
+  color:#6fd89a;cursor:pointer;
+  text-decoration:none;padding:9px 18px;border-radius:30px;
+  font-size:13px;font-weight:700;transition:all 0.3s ease;font-family:inherit;
+}
+.home-pdf-btn:hover{background:rgba(39,174,96,0.28);color:#a4f0c2;transform:translateY(-2px);}
+
 /* NAV */
 .cover-nav{
   display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
@@ -310,16 +321,25 @@ body::after{
 
 
 @media print {
-  body { background: white !important; padding: 0; }
-  .cover { box-shadow: none; border-radius: 0; max-width: 100%; backdrop-filter: none; background: white; border: none; }
+  html, body {
+    background: linear-gradient(135deg,#060612 0%,#0f0c29 40%,#1a0840 70%,#060612 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .cover {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
   .cover-nav { display: none !important; }
   .contact-row { display: none !important; }
   .qr-section { display: none !important; }
-  body::before, body::after { display: none !important; }
-  .paper-title, .author-name { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
-  .author-title { color: #4a235a !important; -webkit-text-fill-color: #4a235a !important; }
+  .home-pdf-row { display: none !important; }
+  body::before, body::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 }
 </style>
+<script src="../assets/print-full-paper.js" defer></script>
 </head>
 <body>
 <div class="cover">
@@ -401,6 +421,11 @@ body::after{
         <div class="qr-card-url">lizzy0981.github.io/<br>calculadora-huella-carbono-ia/</div>
       </div>
     </div>
+  </div>
+
+  <div class="home-pdf-row">
+    <a href="index.html" class="home-pdf-btn">🏠 الرئيسية</a>
+    <button type="button" class="home-pdf-btn" onclick="downloadFullPaper()">⚡ PDF كامل</button>
   </div>
 
   <div class="contact-row">

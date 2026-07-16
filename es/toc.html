@@ -321,6 +321,10 @@
 
         .footer-link:hover { background: rgba(255,255,255,0.05); color: #a0aec0; }
         .footer-link.active { background: rgba(102,126,234,0.15); border-color: rgba(102,126,234,0.3); color: #a8b8f8; }
+        .footer-link.home-btn { background: rgba(39,174,96,0.18); border-color: rgba(39,174,96,0.4); color: #7be2a0; }
+        .footer-link.home-btn:hover { background: rgba(39,174,96,0.3); color: #a4f0c2; }
+        .footer-link.pdf-btn { cursor: pointer; font-family: inherit; background: rgba(52,152,219,0.18); border-color: rgba(52,152,219,0.4); color: #90caf9; }
+        .footer-link.pdf-btn:hover { background: rgba(52,152,219,0.3); color: #c3e2fb; }
 
         .footer-credit {
             text-align: center; font-size: 13px; color: #4a5568;
@@ -339,12 +343,19 @@
         }
 
         @media print {
-            body { background: white; color: black; }
-            .container { background: white; box-shadow: none; max-width: 100%; }
-            .header { background: #f5f5f5; }
+            html, body {
+                background: #0d0d1a !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .container { background: #12121f !important; box-shadow: none; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .header { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .toc-item:hover { background: none; }
             .footer-links { display: none !important; }
-            .toc-footer { background: white !important; border-top: 2px solid #ddd; }
+            .home-pdf-row { display: none !important; }
+            .toc-footer { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             a { color: inherit; text-decoration: none; }
         }
     
@@ -353,6 +364,7 @@
 .tl-item.reveal-on-scroll{transform:translateX(-20px);}
 .tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
 </style>
+<script src="../assets/print-full-paper.js" defer></script>
 </head>
 <body>
 <div class="container">
@@ -644,6 +656,8 @@
     <!-- FOOTER -->
     <div class="toc-footer">
         <div class="footer-links">
+            <a href="index.html" class="footer-link home-btn">🏠 Inicio</a>
+            <button type="button" class="footer-link pdf-btn" onclick="downloadFullPaper()">⚡ PDF completo</button>
             <a href="portada.html" class="footer-link">Portada</a>
             <a href="resumen.html" class="footer-link">Resumen</a>
             <a href="introduccion.html" class="footer-link">Intro</a>

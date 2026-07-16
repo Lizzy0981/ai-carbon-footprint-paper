@@ -339,6 +339,10 @@
 
         .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
         .nav-link.active { background: #27ae60; border-color: #27ae60; color: white; }
+.nav-link.home-btn { background: rgba(39,174,96,0.25); border-color: rgba(39,174,96,0.6); color: #d4f7e0; }
+.nav-link.home-btn:hover { background: rgba(39,174,96,0.4); }
+.nav-link.pdf-btn { cursor: pointer; font-family: inherit; background: rgba(52,152,219,0.25); border-color: rgba(52,152,219,0.6); color: white; }
+.nav-link.pdf-btn:hover { background: rgba(52,152,219,0.45); }
 
         .author-note { font-size: 13px; opacity: 0.8; font-style: italic; text-align: center; }
 
@@ -350,11 +354,17 @@
         }
     
 @media print {
-  body { background: white !important; }
-  .container { box-shadow: none; max-width: 100%; }
+  html, body {
+    background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .container { box-shadow: none; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   .footer-nav { display: none !important; }
-  .footer-grid { background: white !important; border-top: 2px solid #ddd; }
-  .footer-item { background: white !important; border: 1px solid #ddd; }
+  .home-pdf-row { display: none !important; }
+  .footer-grid { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-item { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   table { page-break-inside: avoid; }
   a { color: inherit; text-decoration: none; }
 }
@@ -366,6 +376,7 @@
         .chart-canvas-wrap{position:relative;height:320px;}
         @media(max-width:700px){.chart-canvas-wrap{height:280px;}}
 </style>
+<script src="../assets/print-full-paper.js" defer></script>
 </head>
 <body>
 <div class="container">
@@ -705,6 +716,8 @@
         </div>
         <div class="footer-nav">
             <div class="nav-links">
+                <a href="index.html" class="nav-link home-btn">🏠 Inicio</a>
+                <button type="button" class="nav-link pdf-btn" onclick="downloadFullPaper()">⚡ PDF completo</button>
                 <a href="portada.html" class="nav-link">Portada</a>
                 <a href="toc.html" class="nav-link">Índice</a>
                 <a href="resumen.html" class="nav-link">Resumen</a>
