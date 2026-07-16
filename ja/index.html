@@ -158,7 +158,21 @@ body::after {
 .stat-chip.revealed{opacity:1;transform:translateY(0);}
 .lc{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;}
 .lc.revealed{opacity:1;transform:translateY(0);}
+
+@media print {
+  html, body {
+    background: linear-gradient(135deg, #060612 0%, #0f0c29 40%, #1a0840 70%, #060612 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .hero, .panel, .sc {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
 </style>
+<script src="../assets/print-full-paper.js" defer></script>
 </head>
 <body>
 <div class="hub">
@@ -185,7 +199,7 @@ body::after {
     </div>
     <div class="actions">
       <a href="portada.html" class="btn-p" data-i18n="btn.read">📄 Leer el Paper</a>
-      <button class="btn-s" onclick="window.print()" data-i18n="btn.pdf">📥 Descargar PDF</button>
+      <button class="btn-s" onclick="downloadFullPaper()" data-i18n="btn.pdf">📥 Descargar PDF</button>
       <a href="https://lizzy0981.github.io/calculadora-huella-carbono-ia/" class="btn-s" target="_blank" data-i18n="btn.calc">⚡ Calculadora</a>
       <a href="https://lizzy0981.github.io" class="btn-s" target="_blank" data-i18n="btn.portfolio">🌐 Portfolio</a>
     </div>
@@ -278,9 +292,9 @@ const IDX_T = {
     'tag.main':'Principal','tag.index':'Índice','tag.summary':'Resumen','tag.intro':'Intro',
     'tag.method':'Metodología','tag.results':'Resultados','tag.new':'Nueva','tag.analysis':'Análisis','tag.refs':'47 fuentes',
     'pdf.title':'📥 Cómo Exportar el Paper a PDF',
-    'pdf.s1t':'Desde cualquier página del paper','pdf.s1p':'Haz clic en "📥 Descargar PDF" — CSS @media print optimizado. El selector de idioma y la navegación se ocultan automáticamente.',
+    'pdf.s1t':'Desde cualquier página del paper','pdf.s1p':'Haz clic en "📥 Descargar PDF" — se abre una pestaña con las 13 secciones combinadas y los colores del diseño preservados. Luego confirma la impresión como PDF.',
     'pdf.s2t':'Configuración del diálogo de impresión','pdf.s2p':'Destino: Guardar como PDF · Tamaño: A4 · Márgenes: Predeterminados · ✅ Gráficos de fondo activado',
-    'pdf.s3t':'PDF completo (todas las secciones unificadas)','pdf.s3p':'Herramienta recomendada: Puppeteer (Node.js). Combina las 13 secciones en un PDF con header/footer y tabla de contenidos automática.',
+    'pdf.s3t':'Alternativa avanzada (opcional)','pdf.s3p':'Para un PDF con numeración de páginas y encabezado/pie unificado, puedes usar Puppeteer (Node.js) manualmente: combina las 13 secciones con header/footer y tabla de contenidos automática.',
     'pdf.s4t':'Para envío académico (journals, conferencias)','pdf.s4p':'El formato A4, la estructura IMRD y las 47 referencias cumplen los requisitos de revistas como Nature, PLOS ONE y similares.',
     'lang.title':'🌐 11 Idiomas — Selector Global',
     'lang.desc':'El selector de idioma traduce toda la página al instante.',
@@ -311,9 +325,9 @@ const IDX_T = {
     'tag.main':'Main','tag.index':'Index','tag.summary':'Abstract','tag.intro':'Intro',
     'tag.method':'Method','tag.results':'Results','tag.new':'New','tag.analysis':'Analysis','tag.refs':'47 sources',
     'pdf.title':'📥 How to Export the Paper to PDF',
-    'pdf.s1t':'From any page of the paper','pdf.s1p':'Click "📥 Download PDF" — uses optimized CSS @media print. The language selector and navigation hide automatically.',
+    'pdf.s1t':'From any page of the paper','pdf.s1p':'Click "📥 Download PDF" — opens a new tab with all 13 sections combined, preserving the design colors. Then confirm printing as PDF.',
     'pdf.s2t':'Print dialog settings','pdf.s2p':'Destination: Save as PDF · Size: A4 · Margins: Default · ✅ Background graphics enabled',
-    'pdf.s3t':'Full PDF (all sections unified)','pdf.s3p':'Recommended tool: Puppeteer (Node.js). Merges all 13 sections into one PDF with header/footer and automatic table of contents.',
+    'pdf.s3t':'Advanced alternative (optional)','pdf.s3p':'For a PDF with page numbers and a unified header/footer, you can manually use Puppeteer (Node.js): merges all 13 sections with header/footer and automatic table of contents.',
     'pdf.s4t':'For academic submission (journals, conferences)','pdf.s4p':'A4 format, IMRD structure and 47 references meet the standard requirements of journals like Nature, PLOS ONE and similar.',
     'lang.title':'🌐 11 Languages — Global Selector',
     'lang.desc':'The language selector translates the entire page instantly.',
@@ -344,9 +358,9 @@ const IDX_T = {
     'tag.main':'Principal','tag.index':'Index','tag.summary':'Résumé','tag.intro':'Intro',
     'tag.method':'Méthode','tag.results':'Résultats','tag.new':'Nouveau','tag.analysis':'Analyse','tag.refs':'47 sources',
     'pdf.title':'📥 Comment Exporter en PDF',
-    'pdf.s1t':'Depuis n\'importe quelle page','pdf.s1p':'Cliquez sur "📥 Télécharger PDF" — CSS @media print optimisé. Le sélecteur de langue se cache automatiquement.',
+    'pdf.s1t':'Depuis n\'importe quelle page','pdf.s1p':'Cliquez sur "📥 Télécharger PDF" — un nouvel onglet s\'ouvre avec les 13 sections combinées, en conservant les couleurs du design. Confirmez ensuite l\'impression en PDF.',
     'pdf.s2t':'Paramètres d\'impression','pdf.s2p':'Destination: Enregistrer en PDF · Taille: A4 · Marges: Par défaut · ✅ Graphiques d\'arrière-plan activés',
-    'pdf.s3t':'PDF complet (toutes les sections)','pdf.s3p':'Outil recommandé: Puppeteer (Node.js). Combine les 13 sections en un PDF avec en-tête/pied et table des matières automatique.',
+    'pdf.s3t':'Alternative avancée (optionnelle)','pdf.s3p':'Pour un PDF avec numérotation des pages et en-tête/pied unifié, vous pouvez utiliser Puppeteer (Node.js) manuellement : combine les 13 sections avec en-tête/pied et table des matières automatique.',
     'pdf.s4t':'Pour soumission académique','pdf.s4p':'Le format A4, la structure IMRD et les 47 références répondent aux exigences des revues comme Nature, PLOS ONE et similaires.',
     'lang.title':'🌐 11 Langues — Sélecteur Global',
     'lang.desc':'Le sélecteur de langue traduit toute la page instantanément.',
@@ -377,9 +391,9 @@ const IDX_T = {
     'tag.main':'Principal','tag.index':'Índice','tag.summary':'Resumo','tag.intro':'Intro',
     'tag.method':'Método','tag.results':'Resultados','tag.new':'Novo','tag.analysis':'Análise','tag.refs':'47 fontes',
     'pdf.title':'📥 Como Exportar para PDF',
-    'pdf.s1t':'De qualquer página do artigo','pdf.s1p':'Clique em "📥 Baixar PDF" — CSS @media print otimizado. O seletor de idioma e navegação ocultam automaticamente.',
+    'pdf.s1t':'De qualquer página do artigo','pdf.s1p':'Clique em "📥 Baixar PDF" — abre uma nova aba com as 13 seções combinadas, preservando as cores do design. Depois confirme a impressão como PDF.',
     'pdf.s2t':'Configurações de impressão','pdf.s2p':'Destino: Salvar como PDF · Tamanho: A4 · Margens: Padrão · ✅ Gráficos de fundo ativado',
-    'pdf.s3t':'PDF completo (todas as seções)','pdf.s3p':'Ferramenta recomendada: Puppeteer (Node.js). Combina as 13 seções em um PDF com cabeçalho/rodapé e sumário automático.',
+    'pdf.s3t':'Alternativa avançada (opcional)','pdf.s3p':'Para um PDF com numeração de páginas e cabeçalho/rodapé unificado, você pode usar o Puppeteer (Node.js) manualmente: combina as 13 seções com cabeçalho/rodapé e sumário automático.',
     'pdf.s4t':'Para envio acadêmico','pdf.s4p':'O formato A4, estrutura IMRD e 47 referências atendem os requisitos de revistas como Nature, PLOS ONE e similares.',
     'lang.title':'🌐 11 Idiomas — Seletor Global',
     'lang.desc':'O seletor de idioma traduz toda a página instantaneamente.',
@@ -410,9 +424,9 @@ const IDX_T = {
     'tag.main':'Главная','tag.index':'Индекс','tag.summary':'Аннотация','tag.intro':'Введение',
     'tag.method':'Метод','tag.results':'Результаты','tag.new':'Новое','tag.analysis':'Анализ','tag.refs':'47 источников',
     'pdf.title':'📥 Как экспортировать в PDF',
-    'pdf.s1t':'С любой страницы статьи','pdf.s1p':'Нажмите "📥 Скачать PDF" — оптимизированный CSS @media print. Выбор языка и навигация скрываются автоматически.',
+    'pdf.s1t':'С любой страницы статьи','pdf.s1p':'Нажмите "📥 Скачать PDF" — откроется новая вкладка со всеми 13 разделами, сохраняя цвета дизайна. Затем подтвердите печать в PDF.',
     'pdf.s2t':'Настройки диалога печати','pdf.s2p':'Назначение: Сохранить как PDF · Размер: A4 · Поля: По умолчанию · ✅ Фоновая графика включена',
-    'pdf.s3t':'Полный PDF (все разделы)','pdf.s3p':'Рекомендуемый инструмент: Puppeteer (Node.js). Объединяет 13 разделов в один PDF с заголовком/подвалом и автоматическим оглавлением.',
+    'pdf.s3t':'Продвинутая альтернатива (опционально)','pdf.s3p':'Для PDF с нумерацией страниц и единым заголовком/подвалом можно вручную использовать Puppeteer (Node.js): объединяет 13 разделов с заголовком/подвалом и автоматическим оглавлением.',
     'pdf.s4t':'Для академической подачи','pdf.s4p':'Формат A4, структура IMRD и 47 источников соответствуют стандартам журналов Nature, PLOS ONE и аналогичных.',
     'lang.title':'🌐 11 языков — Глобальный выбор',
     'lang.desc':'Выбор языка переводит всю страницу мгновенно.',
@@ -443,9 +457,9 @@ const IDX_T = {
     'tag.main':'主要','tag.index':'索引','tag.summary':'摘要','tag.intro':'引言',
     'tag.method':'方法','tag.results':'结果','tag.new':'新','tag.analysis':'分析','tag.refs':'47个来源',
     'pdf.title':'📥 如何导出为PDF',
-    'pdf.s1t':'从论文的任意页面','pdf.s1p':'点击"📥 下载PDF" — 使用优化的CSS @media print。语言选择器和导航自动隐藏。',
+    'pdf.s1t':'从论文的任意页面','pdf.s1p':'点击"📥 下载PDF" — 会打开一个新标签页，包含合并的13个章节，并保留设计的颜色。然后确认打印为PDF。',
     'pdf.s2t':'打印对话框设置','pdf.s2p':'目标：另存为PDF · 大小：A4 · 边距：默认 · ✅ 启用背景图形',
-    'pdf.s3t':'完整PDF（所有章节合并）','pdf.s3p':'推荐工具：Puppeteer (Node.js)。将13个章节合并为一个带页眉/页脚和自动目录的PDF。',
+    'pdf.s3t':'高级替代方案（可选）','pdf.s3p':'若需要带页码和统一页眉/页脚的PDF，可以手动使用Puppeteer (Node.js)：将13个章节与页眉/页脚及自动目录合并。',
     'pdf.s4t':'学术投稿（期刊、会议）','pdf.s4p':'A4格式、IMRD结构和47个参考文献符合Nature、PLOS ONE等学术期刊的标准要求。',
     'lang.title':'🌐 11种语言 — 全球选择器',
     'lang.desc':'语言选择器可立即翻译整个页面。',
@@ -476,9 +490,9 @@ const IDX_T = {
     'tag.main':'メイン','tag.index':'索引','tag.summary':'要旨','tag.intro':'序文',
     'tag.method':'方法','tag.results':'結果','tag.new':'新規','tag.analysis':'分析','tag.refs':'47件',
     'pdf.title':'📥 PDFへのエクスポート方法',
-    'pdf.s1t':'論文の任意のページから','pdf.s1p':'"📥 PDFダウンロード"をクリック — 最適化されたCSS @media printを使用。言語セレクターとナビゲーションは自動的に非表示になります。',
+    'pdf.s1t':'論文の任意のページから','pdf.s1p':'"📥 PDFダウンロード"をクリック — デザインの色を保持したまま、13セクションを結合した新しいタブが開きます。その後、PDFとして印刷を確定してください。',
     'pdf.s2t':'印刷ダイアログの設定','pdf.s2p':'宛先：PDFとして保存 · サイズ：A4 · 余白：デフォルト · ✅ 背景グラフィックスを有効',
-    'pdf.s3t':'完全PDF（全セクション統合）','pdf.s3p':'推奨ツール：Puppeteer (Node.js)。13セクションをヘッダー/フッターと自動目次付きの1つのPDFに統合。',
+    'pdf.s3t':'高度な代替方法（オプション）','pdf.s3p':'ページ番号と統一されたヘッダー/フッター付きのPDFが必要な場合は、Puppeteer (Node.js)を手動で使用できます：13セクションをヘッダー/フッターと自動目次とともに統合します。',
     'pdf.s4t':'学術投稿（ジャーナル、学会）','pdf.s4p':'A4形式、IMRD構造と47の参考文献はNature、PLOS ONEなどの学術誌の標準要件を満たします。',
     'lang.title':'🌐 11言語 — グローバルセレクター',
     'lang.desc':'言語セレクターはページ全体を即座に翻訳します。',
@@ -509,9 +523,9 @@ const IDX_T = {
     'tag.main':'주요','tag.index':'색인','tag.summary':'초록','tag.intro':'서론',
     'tag.method':'방법','tag.results':'결과','tag.new':'신규','tag.analysis':'분석','tag.refs':'47개',
     'pdf.title':'📥 PDF로 내보내는 방법',
-    'pdf.s1t':'논문의 아무 페이지에서','pdf.s1p':'"📥 PDF 다운로드"를 클릭 — 최적화된 CSS @media print 사용. 언어 선택기와 탐색이 자동으로 숨겨집니다.',
+    'pdf.s1t':'논문의 아무 페이지에서','pdf.s1p':'"📥 PDF 다운로드"를 클릭 — 디자인 색상을 유지한 채 13개 섹션이 결합된 새 탭이 열립니다. 이후 PDF로 인쇄를 확인하세요.',
     'pdf.s2t':'인쇄 대화상자 설정','pdf.s2p':'대상: PDF로 저장 · 크기: A4 · 여백: 기본값 · ✅ 배경 그래픽 활성화',
-    'pdf.s3t':'완전한 PDF (모든 섹션 통합)','pdf.s3p':'권장 도구: Puppeteer (Node.js). 13개 섹션을 머리글/바닥글과 자동 목차가 있는 하나의 PDF로 결합.',
+    'pdf.s3t':'고급 대안 (선택 사항)','pdf.s3p':'페이지 번호와 통일된 머리글/바닥글이 있는 PDF를 원하면 Puppeteer(Node.js)를 수동으로 사용할 수 있습니다: 13개 섹션을 머리글/바닥글과 자동 목차와 함께 결합합니다.',
     'pdf.s4t':'학술 제출 (저널, 학회)','pdf.s4p':'A4 형식, IMRD 구조 및 47개 참고문헌은 Nature, PLOS ONE 등 학술지의 표준 요건을 충족합니다.',
     'lang.title':'🌐 11개 언어 — 글로벌 선택기',
     'lang.desc':'언어 선택기가 전체 페이지를 즉시 번역합니다.',
@@ -542,9 +556,9 @@ const IDX_T = {
     'tag.main':'رئيسي','tag.index':'فهرس','tag.summary':'ملخص','tag.intro':'مقدمة',
     'tag.method':'منهج','tag.results':'نتائج','tag.new':'جديد','tag.analysis':'تحليل','tag.refs':'47 مصدر',
     'pdf.title':'📥 كيفية التصدير إلى PDF',
-    'pdf.s1t':'من أي صفحة في الورقة','pdf.s1p':'انقر على "📥 تحميل PDF" — يستخدم CSS @media print محسّن. محدد اللغة والتنقل يختفيان تلقائيًا.',
+    'pdf.s1t':'من أي صفحة في الورقة','pdf.s1p':'انقر على "📥 تحميل PDF" — يفتح علامة تبويب جديدة تضم الأقسام الـ13 مجمعة معًا، مع الحفاظ على ألوان التصميم. ثم أكّد الطباعة كملف PDF.',
     'pdf.s2t':'إعدادات مربع حوار الطباعة','pdf.s2p':'الوجهة: حفظ بصيغة PDF · الحجم: A4 · الهوامش: افتراضية · ✅ تفعيل رسومات الخلفية',
-    'pdf.s3t':'PDF كامل (جميع الأقسام موحدة)','pdf.s3p':'الأداة الموصى بها: Puppeteer (Node.js). يدمج 13 قسمًا في PDF واحد مع رأس/تذييل وجدول محتويات تلقائي.',
+    'pdf.s3t':'بديل متقدم (اختياري)','pdf.s3p':'للحصول على PDF يحتوي على ترقيم الصفحات ورأس/تذييل موحّد، يمكنك استخدام Puppeteer (Node.js) يدويًا: يدمج الأقسام الـ13 مع رأس/تذييل وجدول محتويات تلقائي.',
     'pdf.s4t':'للتقديم الأكاديمي (مجلات، مؤتمرات)','pdf.s4p':'تنسيق A4 وهيكل IMRD و47 مرجعًا تستوفي المتطلبات القياسية لمجلات مثل Nature وPLOS ONE وما شابهها.',
     'lang.title':'🌐 11 لغة — محدد عالمي',
     'lang.desc':'محدد اللغة يترجم الصفحة بأكملها فورًا.',
@@ -575,9 +589,9 @@ const IDX_T = {
     'tag.main':'ראשי','tag.index':'אינדקס','tag.summary':'תקציר','tag.intro':'מבוא',
     'tag.method':'שיטה','tag.results':'תוצאות','tag.new':'חדש','tag.analysis':'ניתוח','tag.refs':'47 מקורות',
     'pdf.title':'📥 כיצד לייצא ל-PDF',
-    'pdf.s1t':'מכל עמוד במאמר','pdf.s1p':'לחץ על "📥 הורד PDF" — משתמש ב-CSS @media print מותאם. בורר השפה והניווט מוסתרים אוטומטית.',
+    'pdf.s1t':'מכל עמוד במאמר','pdf.s1p':'לחץ על "📥 הורד PDF" — נפתחת לשונית חדשה עם 13 הסעיפים משולבים תוך שמירה על צבעי העיצוב. לאחר מכן אשר הדפסה כ-PDF.',
     'pdf.s2t':'הגדרות תיבת הדו-שיח להדפסה','pdf.s2p':'יעד: שמור כ-PDF · גודל: A4 · שוליים: ברירת מחדל · ✅ אפשר גרפיקת רקע',
-    'pdf.s3t':'PDF מלא (כל הסעיפים מאוחדים)','pdf.s3p':'כלי מומלץ: Puppeteer (Node.js). משלב 13 סעיפים ל-PDF אחד עם כותרת/כותרת תחתונה ותוכן עניינים אוטומטי.',
+    'pdf.s3t':'חלופה מתקדמת (אופציונלי)','pdf.s3p':'לקבלת PDF עם מספור עמודים וכותרת/כותרת תחתונה אחידה, ניתן להשתמש ב-Puppeteer (Node.js) ידנית: משלב את 13 הסעיפים עם כותרת/כותרת תחתונה ותוכן עניינים אוטומטי.',
     'pdf.s4t':'להגשה אקדמית (כתבי עת, כנסים)','pdf.s4p':'פורמט A4, מבנה IMRD ו-47 מקורות עומדים בדרישות כתבי העת הסטנדרטיים כמו Nature, PLOS ONE ודומים.',
     'lang.title':'🌐 11 שפות — בורר גלובלי',
     'lang.desc':'בורר השפה מתרגם את כל העמוד באופן מיידי.',
@@ -608,9 +622,9 @@ const IDX_T = {
     'tag.main':'Ana','tag.index':'Dizin','tag.summary':'Özet','tag.intro':'Giriş',
     'tag.method':'Yöntem','tag.results':'Sonuçlar','tag.new':'Yeni','tag.analysis':'Analiz','tag.refs':'47 kaynak',
     'pdf.title':'📥 PDF\'e Nasıl Aktarılır',
-    'pdf.s1t':'Makalenin herhangi bir sayfasından','pdf.s1p':'"📥 PDF İndir"e tıklayın — optimize edilmiş CSS @media print kullanır. Dil seçici ve gezinme otomatik gizlenir.',
+    'pdf.s1t':'Makalenin herhangi bir sayfasından','pdf.s1p':'"📥 PDF İndir"e tıklayın — tasarımın renklerini koruyarak 13 bölümün birleştirildiği yeni bir sekme açılır. Ardından PDF olarak yazdırmayı onaylayın.',
     'pdf.s2t':'Yazdırma iletişim kutusu ayarları','pdf.s2p':'Hedef: PDF olarak kaydet · Boyut: A4 · Kenar boşlukları: Varsayılan · ✅ Arka plan grafiklerini etkinleştir',
-    'pdf.s3t':'Tam PDF (tüm bölümler birleşik)','pdf.s3p':'Önerilen araç: Puppeteer (Node.js). 13 bölümü üstbilgi/altbilgi ve otomatik içindekiler tablosuyla tek bir PDF\'e birleştirir.',
+    'pdf.s3t':'Gelişmiş alternatif (isteğe bağlı)','pdf.s3p':'Sayfa numaralandırması ve birleşik üstbilgi/altbilgi içeren bir PDF için Puppeteer (Node.js)\'i manuel olarak kullanabilirsiniz: 13 bölümü üstbilgi/altbilgi ve otomatik içindekiler tablosuyla birleştirir.',
     'pdf.s4t':'Akademik gönderim için (dergiler, konferanslar)','pdf.s4p':'A4 formatı, IMRD yapısı ve 47 referans Nature, PLOS ONE ve benzeri dergilerin standart gereksinimlerini karşılar.',
     'lang.title':'🌐 11 Dil — Küresel Seçici',
     'lang.desc':'Dil seçici tüm sayfayı anında çevirir.',
