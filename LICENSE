@@ -22,8 +22,8 @@ that legally restrict others from doing anything the license permits.
 Attribution requirement (required citation format):
 
   Díaz Familia, E. (2026). Scientific Methodology for Measuring the Carbon
-  Footprint of Artificial Intelligence Models (v1.0.0).
-  11-language edition (ES, EN, FR, PT, RU, TR, AR, HE, JA, KO, ZH) —
+  Footprint of Artificial Intelligence Models (v1.1.0).
+  14-language edition (ES, EN, FR, PT, DE, IT, RU, TR, AR, HE, JA, KO, ZH, ID) —
   13 sections each, 47 verified references.
   Investigación Independiente. Santo Domingo Este, República Dominicana.
   ORCID: https://orcid.org/0009-0009-0274-5624
@@ -41,13 +41,15 @@ Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🌍 Scientific Methodology for Measuring the Carbon Footprint of AI Models — v1.0.0
+🌍 Scientific Methodology for Measuring the Carbon Footprint of AI Models — v1.1.0
 
 Este trabajo representa una contribución científica original al campo de la
 inteligencia artificial sostenible, desarrollada de forma independiente y con
 el objetivo de democratizar el acceso a metodologías de medición ambiental.
 
-Contenido incluido en esta versión (v1.0.0):
+Desarrollado originalmente en marzo de 2026; publicación pública en julio de 2026.
+
+Contenido incluido en esta versión (v1.1.0):
 
   📐 Metodología Validada
      Fórmula CO₂(kg) = N_GPUs × P_GPU(kW) × T_h × PUE × C_factor.
@@ -79,10 +81,11 @@ Contenido incluido en esta versión (v1.0.0):
      reportes corporativos oficiales, rango temporal 2019–2026.
 
   🌍 Edición Multilingüe Completa
-     Español (idioma original) e inglés (traducción validada), más 9 idiomas
-     adicionales — francés, portugués, ruso, turco, árabe, hebreo, japonés,
-     coreano y chino — 13 secciones cada uno, con navegación cruzada,
-     estructura idéntica y nota de traducción en las ediciones no originales.
+     Español (idioma original) e inglés (traducción validada), más 12 idiomas
+     adicionales — francés, portugués, alemán, italiano, ruso, turco, árabe,
+     hebreo, japonés, coreano, chino e indonesio — 13 secciones cada uno, con
+     navegación cruzada, estructura idéntica y nota de traducción en las
+     ediciones no originales.
 
 Desarrollado por Elizabeth Díaz Familia como investigación independiente,
 aplicando metodología científica rigurosa con validación empírica contra

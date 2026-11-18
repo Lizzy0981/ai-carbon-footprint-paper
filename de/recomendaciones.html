@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>§7 Empfehlungen — CO2-Fußabdruck von KI-Modellen</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#003d2e 0%,#00664e 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1100px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#1abc9c,#27ae60,#3498db,#667eea,#f39c12,#e74c3c);}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#0d4f3c 0%,#1a7a5e 50%,#1abc9c 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);background-size:36px 36px;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:680px;margin:0 auto;line-height:1.6;}
+
+/* INTRO */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+
+/* ACTOR SELECTOR NAV */
+.actor-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.actor-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:2px solid;border-radius:30px;padding:8px 18px;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  cursor:default;transition:all .3s ease;
+}
+.actor-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.ap1{background:#e8fff8;border-color:#1abc9c;color:#0d7a5e;}
+.ap2{background:#f0e6ff;border-color:#8e44ad;color:#6c3483;}
+.ap3{background:#e8f4ff;border-color:#3498db;color:#1a6fa8;}
+.ap4{background:#fff5ec;border-color:#e67e22;color:#b7410e;}
+.ap5{background:#fef9e7;border-color:#f39c12;color:#d68910;}
+
+/* SECTION HEADER */
+.sh{font-family:'Inter',sans-serif;font-size:23px;font-weight:800;margin:48px 0 24px;padding:20px 24px;border-radius:14px;display:flex;align-items:center;gap:14px;}
+.sh-icon{font-size:28px;}
+.sh.s1{background:linear-gradient(135deg,#e8fff8,#d0f5ec);color:#0d4f3c;border-left:5px solid #1abc9c;}
+.sh.s2{background:linear-gradient(135deg,#f0e6ff,#e0c8ff);color:#4a235a;border-left:5px solid #8e44ad;}
+.sh.s3{background:linear-gradient(135deg,#e8f4ff,#d0e8f8);color:#0a2744;border-left:5px solid #3498db;}
+.sh.s4{background:linear-gradient(135deg,#fff5ec,#ffe8cc);color:#7d2d00;border-left:5px solid #e67e22;}
+.sh.s5{background:linear-gradient(135deg,#fef9e7,#fdefc3);color:#6b4800;border-left:5px solid #f39c12;}
+
+/* RECOMMENDATIONS LIST */
+.rec-list{list-style:none;margin:0 0 20px;}
+.rec{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  transition:all .3s ease;
+}
+.rec:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.rec-num{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;
+  padding:20px 12px;
+}
+.rec-body{padding:18px 20px;}
+.rec-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:800;margin-bottom:5px;}
+.rec-text{font-size:16px;line-height:1.75;color:#34495e;}
+.rec-impact{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:3px 9px;border-radius:8px;margin-top:8px;
+}
+
+/* Color variants per section */
+.s1 .rec-num{background:linear-gradient(135deg,#1abc9c,#16a085);color:white;}
+.s1 .rec{background:#f5fffd;}
+.s1 .rec-title{color:#0d4f3c;}
+.s1 .rec-impact{background:#d0f5ec;color:#0d7a5e;}
+
+.s2 .rec-num{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}
+.s2 .rec{background:#faf5ff;}
+.s2 .rec-title{color:#4a235a;}
+.s2 .rec-impact{background:#e8d5ff;color:#6c3483;}
+
+.s3 .rec-num{background:linear-gradient(135deg,#3498db,#2980b9);color:white;}
+.s3 .rec{background:#f0f8ff;}
+.s3 .rec-title{color:#0a2744;}
+.s3 .rec-impact{background:#d0e8f8;color:#1a6fa8;}
+
+.s4 .rec-num{background:linear-gradient(135deg,#e67e22,#d35400);color:white;}
+.s4 .rec{background:#fffaf5;}
+.s4 .rec-title{color:#7d2d00;}
+.s4 .rec-impact{background:#ffe8cc;color:#b7410e;}
+
+.s5 .rec-num{background:linear-gradient(135deg,#f39c12,#d68910);color:white;}
+.s5 .rec{background:#fffef5;}
+.s5 .rec-title{color:#6b4800;}
+.s5 .rec-impact{background:#fdefc3;color:#d68910;}
+
+/* PRIORITY TABLE */
+.priority-wrap{background:linear-gradient(135deg,#e8fff8,#d0f5ec);border:2px solid #1abc9c;border-radius:16px;padding:28px;margin:40px 0;overflow-x:auto;}
+.pw-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:800;color:#0d4f3c;margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+table.prio{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;}
+table.prio thead tr{background:linear-gradient(135deg,#0d7a5e,#1abc9c);color:white;}
+table.prio th{padding:12px 14px;text-align:left;font-size:12px;font-weight:700;}
+table.prio td{padding:12px 14px;font-size:14px;border-bottom:1px solid #a9dfcc;color:#2c3e50;vertical-align:middle;}
+table.prio tr:nth-child(even) td{background:rgba(26,188,156,0.05);}
+table.prio tr:hover td{background:rgba(26,188,156,0.1);}
+.p-hi{color:#c0392b;font-weight:800;} .p-mid{color:#d68910;font-weight:700;} .p-lo{color:#1a8449;font-weight:600;}
+.im-high{background:#fbd5d0;color:#c0392b;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-mid{background:#fdefc3;color:#d68910;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+.im-lo{background:#d5f5e3;color:#1a8449;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;}
+
+/* CLOSING BOX */
+.closing-box{background:linear-gradient(135deg,#0d4f3c,#1a7a5e);color:white;border-radius:18px;padding:36px;margin-top:44px;}
+.closing-title{font-family:'Inter',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:#64f0d8;}
+.closing-text{font-size:18px;line-height:1.85;opacity:.9;}
+.closing-quote{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.2);opacity:.85;line-height:1.6;}
+
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(26,188,156,0.25);border-color:rgba(26,188,156,0.5);color:#64f0d8;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+.nl.home-btn{background:rgba(39,174,96,0.2);border-color:rgba(39,174,96,0.4);color:#7be2a0;}
+.nl.home-btn:hover{background:rgba(39,174,96,0.32);color:#a4f0c2;}
+.nl.pdf-btn{cursor:pointer;font-family:inherit;background:rgba(52,152,219,0.2);border-color:rgba(52,152,219,0.4);color:#90caf9;}
+.nl.pdf-btn:hover{background:rgba(52,152,219,0.32);color:#c3e2fb;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:26px;}.rec{grid-template-columns:40px 1fr;}}
+
+@media print {
+  html, body {
+    background: linear-gradient(135deg,#003d2e 0%,#00664e 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .pg-footer { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .pg-nav { display: none !important; }
+  .home-pdf-row { display: none !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.chart-box{background:white;border:2px solid #a3e4d7;border-radius:16px;padding:26px 22px;margin:26px 0;}
+.chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#117a65;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:300px;}
+@media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+<script src="../assets/print-full-paper.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Abschnitt 7 — Neu</div>
+    <h1>✅ Empfehlungen</h1>
+    <p>Umsetzbarer Leitfaden basierend auf wissenschaftlicher Evidenz zur Reduzierung der Umweltauswirkung der KI — nach Akteurstyp, Zeithorizont und erwarteter Wirkung</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#3498db;font-style:italic;text-align:center;margin-bottom:24px;">Übersetzung des geprüften spanischen/englischen Originals. Im Falle von Abweichungen ist das Original maßgeblich.</p>
+
+  <p class="body-text">Die Erkenntnisse dieser Studie haben keinen vollen wissenschaftlichen Wert, wenn sie sich nicht in konkrete Handlungen übersetzen. Dieser Abschnitt präsentiert spezifische, in der Literatur verifizierte Empfehlungen für die fünf Akteurstypen, die den Übergang zu einer ökologisch verantwortungsvollen KI beschleunigen können. Die Empfehlungen sind nach Umsetzungshorizont und erwarteter Wirkung geordnet.</p>
+
+  <div class="actor-nav">
+    <div class="actor-pill ap1">🏢 Technologieunternehmen</div>
+    <div class="actor-pill ap2">🏛️ Regierungen und Regulierer</div>
+    <div class="actor-pill ap3">🔬 Forschende und Wissenschaft</div>
+    <div class="actor-pill ap4">👤 Nutzer und Organisationen</div>
+    <div class="actor-pill ap5">🌍 Globaler Süden</div>
+  </div>
+
+  <div class="chart-box reveal-on-scroll">
+    <div class="chart-box-title">📊 Verteilung der 21 Empfehlungen nach Akteur</div>
+    <div class="chart-canvas-wrap"><canvas id="chartActors"></canvas></div>
+  </div>
+
+  <!-- ========== 7.1 EMPRESAS ========== -->
+  <div class="sh s1"><span class="sh-icon">🏢</span>7.1 Für Technologieunternehmen und Rechenzentrumsbetreiber</div>
+  <ul class="rec-list s1">
+    <li class="rec">
+      <div class="rec-num">R1</div>
+      <div class="rec-body">
+        <div class="rec-title">Vollständige Umweltberichte mit Standardmethodik veröffentlichen</div>
+        <p class="rec-text">Das GHG-Protocol Scope 1–2–3 speziell für KI-Systeme übernehmen, mit Berichterstattung über Kohlenstoff pro Trainings- und Inferenz-Sitzung, Wasserverbrauch (direkt und indirekt) und erzeugten Elektroschrott. Die generische Unternehmens-Umweltberichterstattung reicht nicht aus: KI-Modelle müssen ihren eigenen Umwelt-Posten haben.</p>
+        <span class="rec-impact">⚡ Wirkung: Transparenz + Regulierung</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R2</div>
+      <div class="rec-body">
+        <div class="rec-title">Effizienz statt Skalierung als Erfolgsmetrik priorisieren</div>
+        <p class="rec-text">DeepSeek-R1 (Januar 2025) zeigte, dass eine mit GPT-4 vergleichbare Leistung mit etwa 96% weniger Rechenressourcen möglich ist. Unternehmen müssen ihre Erfolgsmetriken von der Parameteranzahl ("das größte Modell") zum Verhältnis Leistung/Emissionen neu ausrichten. Interne Benchmarks sollten eine ökologische Dimension einschließen.</p>
+        <span class="rec-impact">🌫️ Wirkung: -90% CO₂ pro Aufgabe</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R3</div>
+      <div class="rec-body">
+        <div class="rec-title">Rechenzentren in Zonen mit sauberer Energie und reichlich Wasser verlagern</div>
+        <p class="rec-text">Die geografische Analyse dieser Studie zeigt, dass dieselbe Infrastruktur in Island oder Norwegen einen bis zu 90× geringeren CO2-Fußabdruck haben kann als in Polen oder Indien. Microsoft, Google und Meta betreiben bereits Zentren in Nordeuropa; die Branche muss diese Praxis ausweiten und die Installation von Rechenzentren in Zonen mit Wasserstress (AQUEDUCT-Score ≥4) vermeiden.</p>
+        <span class="rec-impact">⚡ Potenzielle Reduzierung: bis zu 90× CO₂</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R4</div>
+      <div class="rec-body">
+        <div class="rec-title">Wasserfreie oder geschlossene Kühltechnologien implementieren</div>
+        <p class="rec-text">Direkte Luftkühlung in kalten Klimazonen (Free Cooling), geschlossene Wasserkreislaufsysteme und Immersionskühlung in dielektrischer Flüssigkeit können den Wasserverbrauch um 95–99% senken. Microsoft startete im August 2024 sein erstes "Zero-Water"-Rechenzentrum. Diese Technologie muss zum Branchenstandard werden, nicht zur Ausnahme.</p>
+        <span class="rec-impact">💧 Potenzial: -95% Wasserverbrauch</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R5</div>
+      <div class="rec-body">
+        <div class="rec-title">Hardware-Lebensdauer verlängern und verantwortungsvolle Recyclingprogramme etablieren</div>
+        <p class="rec-text">KI-GPUs haben Ersatzzyklen von 2–3 Jahren, gegenüber 5–7 Jahren bei konventionellen Servern. Unternehmen müssen Programme zur Lebensdauerverlängerung etablieren (Aufarbeitung, Downgrade zu weniger anspruchsvoller Inferenz) und sicherstellen, dass ausgemusterte Hardware unter R2/e-Stewards-Zertifizierungen recycelt wird — nicht in Drittländer ohne angemessene Recyclingkapazität exportiert wird.</p>
+        <span class="rec-impact">🗑️ Wirkung: Reduzierung von giftigem Elektroschrott</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R6</div>
+      <div class="rec-body">
+        <div class="rec-title">Modelleffizienztechniken übernehmen: Quantisierung, Destillation, Pruning</div>
+        <p class="rec-text">INT8/INT4-Quantisierung, Wissensdestillation und das Pruning inaktiver Gewichte können die Rechenkosten der Inferenz um 50–80% mit minimalem Leistungsverlust senken. Inferenz macht 80–90% der gesamten KI-Rechenleistung aus; ihre Optimierung hat größere Umweltauswirkung als die Optimierung des Trainings.</p>
+        <span class="rec-impact">⚡ Inferenz: -50–80% Energie</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.2 GOBIERNOS ========== -->
+  <div class="sh s2"><span class="sh-icon">🏛️</span>7.2 Für Regierungen und Regulierungsbehörden</div>
+  <ul class="rec-list s2">
+    <li class="rec">
+      <div class="rec-num">R7</div>
+      <div class="rec-body">
+        <div class="rec-title">KI-Umweltberichterstattung als verpflichtend, nicht freiwillig, etablieren</div>
+        <p class="rec-text">Die EU muss den EU AI Act um einen verpflichtenden Umweltberichtsabschnitt erweitern. Die USA müssen die Aufweichung der Umweltprüfungen für Rechenzentren rückgängig machen. Ein internationaler Mindeststandard muss fordern: CO₂-Emissionen pro Trainingssitzung (Scope 1–3), Water Usage Effectiveness (WUE) und Elektroschrott-Managementplan. Ohne Verpflichtung ist Selbstberichterstattung unzureichend.</p>
+        <span class="rec-impact">⚖️ Horizont: kurzfristig (1–2 Jahre)</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R8</div>
+      <div class="rec-body">
+        <div class="rec-title">Steueranreize schaffen, die an echte ökologische Effizienz gebunden sind</div>
+        <p class="rec-text">Subventionen und Steuervergünstigungen für die KI-Branche müssen an verifizierbare Umweltmetriken geknüpft werden: PUE ≤1,2, 100% erneuerbare Energie in 5 Jahren, WUE ≤0,5 L/kWh und zertifizierter Elektroschrott-Managementplan. Steuerbefreiungen für Rechenzentren ohne Umweltauflagen sind Vermögenstransfers, die ökologische Kosten sozialisieren.</p>
+        <span class="rec-impact">💰 Instrument: grüne Steuerpolitik</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R9</div>
+      <div class="rec-body">
+        <div class="rec-title">Abbau kritischer Mineralien in der KI-Lieferkette regulieren</div>
+        <p class="rec-text">Verbraucherländer müssen Gesetze zur Sorgfaltspflicht in der Lieferkette für kritische Mineralien (Kobalt, Lithium, Seltene Erden, Gallium) ähnlich der EU Corporate Sustainability Due Diligence Directive umsetzen. Technologieunternehmen, die Chips kaufen, müssen zertifizieren können, dass die Mineralien nicht aus Zonen mit Kinderarbeit, Zerstörung von Grundwasserleitern oder Verletzungen der Rechte indigener Gemeinden stammen.</p>
+        <span class="rec-impact">⛏️ Wirkung: gerechte Lieferkette</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R10</div>
+      <div class="rec-body">
+        <div class="rec-title">Installation von Rechenzentren in Zonen mit schwerem Wasserstress verbieten</div>
+        <p class="rec-text">Regierungen von Regionen mit Wasserknappheit (Chile, Binnenspanien, Indien, Naher Osten, Südwesten der USA) müssen Moratorien oder Verbote für die Installation von KI-Rechenzentren etablieren, bis diese über Kühltechnologie ohne Nettowasserverbrauch verfügen. Die Vorfälle in Los Angeles (Januar 2025) — Hydranten ohne Druck während aktiver Brände — veranschaulichen die direkten menschlichen Kosten, dies nicht zu tun.</p>
+        <span class="rec-impact">💧 Dringend in: Kalifornien, Chile, Spanien, Indien</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R11</div>
+      <div class="rec-body">
+        <div class="rec-title">Öffentliche Forschung zu effizienter KI und Standardmetriken finanzieren</div>
+        <p class="rec-text">Regierungen müssen Forschungslinien zu Standardmethodiken der KI-Umweltauswirkung finanzieren (zu deren Entwicklung dieses Paper beiträgt), Techniken zur Recheneffizienz und das Design der nächsten Generation von Chips mit reduzierter Herstellungsauswirkung. "Green AI"-Forschung darf nicht ausschließlich von Unternehmen mit direkten kommerziellen Interessen abhängen.</p>
+        <span class="rec-impact">🔬 Horizont: mittelfristig</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.3 INVESTIGADORES ========== -->
+  <div class="sh s3"><span class="sh-icon">🔬</span>7.3 Für Forschende und die wissenschaftliche Gemeinschaft</div>
+  <ul class="rec-list s3">
+    <li class="rec">
+      <div class="rec-num">R12</div>
+      <div class="rec-body">
+        <div class="rec-title">Umweltkosten in Veröffentlichungen neuer Modelle systematisch berichten</div>
+        <p class="rec-text">Jede wissenschaftliche Veröffentlichung, die ein neues KI-Modell vorstellt, sollte als verpflichtenden, peer-reviewten Abschnitt den Bericht über ihren Trainings-CO2-Fußabdruck, Wasserverbrauch und verwendete Hardware enthalten. Die Zeitschriften PNAS, Nature, Science und NeurIPS müssen diese Politik übernehmen. Ohne diese Norm verewigt die wissenschaftliche Gemeinschaft die Undurchsichtigkeit, die sie in der Branche kritisiert.</p>
+        <span class="rec-impact">📄 Sofortige Handlung für Autoren</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R13</div>
+      <div class="rec-body">
+        <div class="rec-title">Standardmethodik für die Umweltauswirkung der Inferenz entwickeln</div>
+        <p class="rec-text">Die größte in dieser Studie identifizierte wissenschaftliche Lücke ist das Fehlen einer validierten Methodik zur Quantifizierung der Umweltauswirkung der Inferenz (tägliche Nutzung von Modellen), die 80–90% der KI-Rechenleistung ausmacht. <strong>Aktualisierung:</strong> Der öffentliche Rechner, der dieses Paper begleitet, integriert bereits ein Inferenzmodul basierend auf realen Messungen von Jegham et al. (arXiv:2505.09598, 2025) — ein erster Schritt zur Schließung dieser Lücke. Es werden jedoch breitere systematische akademische Studien benötigt, die abdecken: Energie pro Anfragetyp in größerem Maßstab, Wasser-Fußabdruck pro generiertem Token und geografische Variation der Auswirkung durch verteilte Inferenz.</p>
+        <span class="rec-impact">🔭 Kritische Forschungslücke</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R14</div>
+      <div class="rec-body">
+        <div class="rec-title">Reproduzierbarkeit und offenen Zugang bei Umweltdaten priorisieren</div>
+        <p class="rec-text">Messwerkzeuge, Datensätze zum Energieverbrauch pro Modell und Berechnungs-Frameworks sollten unter offenen Lizenzen (CC BY / Apache 2.0) veröffentlicht werden. Der zusammen mit diesem Paper entwickelte CO2-Fußabdruck-Rechner ist ein Beispiel für das Engagement für offene Wissenschaft. Öffentlich finanzierte Forschung zu nachhaltiger KI muss öffentlich zugänglich sein.</p>
+        <span class="rec-impact">🌐 Umgesetzt: dieses Paper</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R15</div>
+      <div class="rec-body">
+        <div class="rec-title">Unterschiedliche Auswirkungen im Globalen Süden untersuchen</div>
+        <p class="rec-text">Die aktuelle Forschung zur Umweltauswirkung der KI konzentriert sich auf den Globalen Norden. Es werden Feldstudien benötigt in den Bergbaugemeinden im Kongo, Bolivien und Chile; in den Elektroschrott-Deponien in Ghana und Bangladesch; und in den von Rechenzentren betroffenen Ökosystemen in Indien und Südostasien. Umweltgerechtigkeit erfordert, dass die Forschung diejenigen einschließt, die die Kosten der globalen KI tragen.</p>
+        <span class="rec-impact">⚖️ Umwelt- und akademische Gerechtigkeit</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.4 USUARIOS ========== -->
+  <div class="sh s4"><span class="sh-icon">👤</span>7.4 Für einzelne Nutzer und Organisationen</div>
+  <ul class="rec-list s4">
+    <li class="rec">
+      <div class="rec-num">R16</div>
+      <div class="rec-body">
+        <div class="rec-title">Effiziente Modelle für Aufgaben bevorzugen, die nicht das größte Modell erfordern</div>
+        <p class="rec-text">Die Verwendung von GPT-4 zum Verfassen einer einfachen E-Mail hat die gleichen Umweltkosten wie für eine komplexe Analyse — aber die komplexe Analyse ist die einzige Aufgabe, die diese Kosten rechtfertigt. Nutzer müssen die Modellleistung an die Aufgabenkomplexität anpassen: Modelle mit 7B–13B Parametern lösen 80% der alltäglichen Anwendungsfälle mit einem Bruchteil der Umweltauswirkung.</p>
+        <span class="rec-impact">⚡ Handlung: noch heute</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R17</div>
+      <div class="rec-body">
+        <div class="rec-title">Umwelttransparenz als Kriterium für die Anbieterauswahl fordern</div>
+        <p class="rec-text">Organisationen, die KI-Dienste beschaffen (APIs, Plattformen, Beratung), sollten Umwelttransparenz als Bewertungskriterium einbeziehen: Veröffentlicht der Anbieter seinen PUE? Berichtet er den Wasserverbrauch? Hat er einen zertifizierten Elektroschrott-Managementplan? Marktdruck — besonders von großen Unternehmen mit ESG-Verpflichtungen — kann Änderungen beschleunigen, die die Regulierung nur langsam umsetzt.</p>
+        <span class="rec-impact">🏢 Für Einkaufs- und ESG-Teams</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R18</div>
+      <div class="rec-body">
+        <div class="rec-title">CO2-Fußabdruck der KI in Unternehmensnachhaltigkeitsberichten berechnen und melden</div>
+        <p class="rec-text">Unternehmen, die KI-Modelle im Produktivbetrieb nutzen, sollten die aus der KI-Nutzung resultierenden Scope-3-Emissionen in ihre GHG-Protocol-Berichte einbeziehen. Der interaktive Rechner dieses Papers (lizzy0981.github.io/calculadora-huella-carbono-ia/) kann der Ausgangspunkt für diese Berechnung sein. Kohlenstoffbilanzierung ohne Einbeziehung der KI-Nutzung ist unvollständig und unterschätzt die tatsächliche Auswirkung.</p>
+        <span class="rec-impact">📊 Ressource: öffentlicher Rechner</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ========== 7.5 SUR GLOBAL ========== -->
+  <div class="sh s5"><span class="sh-icon">🌍</span>7.5 Für den Globalen Süden und Entwicklungsländer</div>
+  <ul class="rec-list s5">
+    <li class="rec">
+      <div class="rec-num">R19</div>
+      <div class="rec-body">
+        <div class="rec-title">Souveräne Bedingungen für den Abbau kritischer Mineralien etablieren</div>
+        <p class="rec-text">Länder des Globalen Südens mit Kobalt- (DR Kongo), Lithium- (Bolivien, Chile, Argentinien) und Seltenerd-Vorkommen (China, Brasilien) müssen Abbauabkommen aushandeln, die einschließen: Technologietransfer, Vor-Ort-Verarbeitung (keine Rohmineralienexporte), verifizierte Umweltwiederherstellungsfonds und Beteiligung indigener Gemeinden an Abbauentscheidungen.</p>
+        <span class="rec-impact">⛏️ Souveränität natürlicher Ressourcen</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R20</div>
+      <div class="rec-body">
+        <div class="rec-title">KI-Elektroschrott als "Spende" oder "technologische Hilfe" ablehnen</div>
+        <p class="rec-text">Das Abladen veralteter KI-Hardware in Form von "technologischen Spenden" an Länder ohne angemessene Recyclingkapazität überträgt toxische Kosten auf den Globalen Süden. Empfängerländer müssen Zertifizierungsanforderungen für den Import gebrauchter Hardware etablieren und Geräte ablehnen, deren Endverwaltung nicht vom Exporteur nach internationalen Standards finanziert wird.</p>
+        <span class="rec-impact">🗑️ Umwelt- und Gesundheitsschutz</span>
+      </div>
+    </li>
+    <li class="rec">
+      <div class="rec-num">R21</div>
+      <div class="rec-body">
+        <div class="rec-title">In effiziente lokale KI investieren, nicht in Abhängigkeit von massiven Modellen des Globalen Nordens</div>
+        <p class="rec-text">Länder des Globalen Südens müssen die Entwicklung und Bereitstellung kleiner, effizienter KI-Modelle (SLMs) priorisieren, angepasst an ihre Sprachen und Realitäten, trainiert mit lokaler erneuerbarer Energie. Die Abhängigkeit von im Norden externalisierten APIs massiver Modelle bedeutet ständigen Devisentransfer ohne Entwicklung lokaler Kapazitäten. Der Zugang zu KI darf keine Dynamiken technologischer Abhängigkeit reproduzieren.</p>
+        <span class="rec-impact">🌐 Technologische Souveränität</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MATRIX -->
+  <div class="priority-wrap">
+    <div class="pw-title">Prioritätsmatrix — Empfehlungen mit der größten Wirkung</div>
+    <table class="prio">
+      <thead><tr><th>Handlung</th><th>Akteur</th><th>Horizont</th><th>Umweltauswirkung</th><th>Umsetzbarkeit</th></tr></thead>
+      <tbody>
+        <tr><td>R3 — Rechenzentren in Zonen mit sauberer Energie verlagern</td><td>Unternehmen</td><td>Mittel</td><td><span class="im-high">Sehr hoch</span></td><td class="p-mid">Mittel</td></tr>
+        <tr><td>R4 — Wasserfreie Kühlung / geschlossener Kreislauf</td><td>Unternehmen</td><td>Kurz</td><td><span class="im-high">Sehr hoch (Wasser)</span></td><td class="p-hi">Hoch</td></tr>
+        <tr><td>R2 — Effizienz statt Skalierung als Metrik</td><td>Unternehmen</td><td>Sofort</td><td><span class="im-high">Hoch</span></td><td class="p-mid">Mittel</td></tr>
+        <tr><td>R7 — Verpflichtende Umweltberichterstattung (Regulierung)</td><td>Regierungen</td><td>Kurz</td><td><span class="im-mid">Hoch (Transparenz)</span></td><td class="p-mid">Mittel</td></tr>
+        <tr><td>R10 — Rechenzentren in Zonen mit Wasserstress verbieten</td><td>Regierungen</td><td>Sofort</td><td><span class="im-high">Sehr hoch (Wasser)</span></td><td class="p-hi">Hoch (wo Regulierung bereits existiert)</td></tr>
+        <tr><td>R12 — Umweltberichterstattung in wissenschaftlichen Publikationen</td><td>Forschende</td><td>Sofort</td><td><span class="im-mid">Mittel (Kultur)</span></td><td class="p-hi">Hoch</td></tr>
+        <tr><td>R16 — Effiziente Modelle für einfache Aufgaben wählen</td><td>Nutzer</td><td>Sofort</td><td><span class="im-lo">Niedrig-Mittel</span></td><td class="p-hi">Sehr hoch</td></tr>
+        <tr><td>R6 — Quantisierung und effiziente Inferenz</td><td>Unternehmen</td><td>Kurz</td><td><span class="im-high">Hoch (Inferenz 80–90%)</span></td><td class="p-hi">Hoch</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing-box">
+    <div class="closing-title">Der Weg existiert — der Wille ist die Variable</div>
+    <p class="closing-text">Keine der Empfehlungen dieses Papers erfordert, den Fortschritt der KI zu opfern. Die wissenschaftliche Evidenz zeigt, dass effiziente Modelle wie DeepSeek-R1 oder Claude Sonnet die Arbeit viel größerer Systeme mit einem Bruchteil der Umweltkosten erledigen können. Die Herausforderung ist nicht technologisch: Sie betrifft Anreize, Transparenz und politischen Willen. KI kann der Motor der menschlichen Entwicklung des 21. Jahrhunderts sein, ohne zu einer ihrer größten ökologischen Bedrohungen zu werden.</p>
+    <div class="closing-quote">"Die Nachhaltigkeit der KI ist keine Einschränkung des Fortschritts — sie ist seine langfristige Möglichkeitsbedingung."</div>
+  </div>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="index.html" class="nl home-btn">🏠 Startseite</a><button type="button" class="nl pdf-btn" onclick="downloadFullPaper()">⚡ Vollständiges PDF</button>
+    <a href="portada.html" class="nl">Titelseite</a><a href="toc.html" class="nl">Inhalt</a>
+    <a href="resumen.html" class="nl">Zusammenfassung</a><a href="introduccion.html" class="nl">Einleitung</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl active">§7 ✅ Empf.</a>
+    <a href="conclusiones.html" class="nl">§8</a><a href="referencias.html" class="nl">Refs</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Version 1.0.0, März 2026</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rec,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartActors'), {
+    type:'doughnut',
+    data:{
+      labels:['🏢 Unternehmen (R1-R6)','🏛️ Regierungen (R7-R11)','🔬 Forschende (R12-R15)','👤 Nutzer (R16-R18)','🌍 Globaler Süden (R19-R21)'],
+      datasets:[{
+        data:[6,5,4,3,3],
+        backgroundColor:['#3498db','#9b59b6','#1abc9c','#f39c12','#e74c3c'],
+        borderWidth:0,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, animateRotate:true, animateScale:true},
+      plugins:{ legend:{position:'bottom', labels:{font:{size:11}, padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.raw} Empfehlungen`}} }
+    }
+  });
+})();
+</script>
+</body>
+</html>

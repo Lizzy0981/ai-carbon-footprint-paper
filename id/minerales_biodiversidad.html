@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Bagian 5 — Mineral Kritis dan Keanekaragaman Hayati | Paper Ilmiah</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #0b6b35 0%, #1a8449 50%, #27ae60 100%);
+            color: white; padding: 50px 40px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E") repeat;
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white; font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            padding: 6px 20px; border-radius: 50px; margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px; margin-bottom: 20px; display: block;
+            animation: earthPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes earthPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px; opacity: 0.9;
+            max-width: 720px; margin: 0 auto; line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        .crisis-callout {
+            background: linear-gradient(135deg, #e9f7ef 0%, #d5f5e3 100%);
+            border-left: 6px solid #27ae60;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px; margin-bottom: 45px; position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '🌍';
+            position: absolute; top: -12px; left: 20px;
+            font-size: 24px; background: white; padding: 0 8px;
+        }
+
+        .crisis-callout p { font-size: 19px; line-height: 1.8; color: #145a32; }
+        .crisis-callout strong { color: #0b6b35; }
+
+        /* MINERALS GRID */
+        .minerals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin: 35px 0;
+        }
+
+        .mineral-card {
+            background: white; border-radius: 16px;
+            border: 2px solid #a9dfbf;
+            padding: 25px; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .mineral-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+
+        .mineral-card.critical::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+        .mineral-card.high::before { background: linear-gradient(90deg, #d68910, #f39c12); }
+        .mineral-card.medium::before { background: linear-gradient(90deg, #1a8449, #27ae60); }
+
+        .mineral-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(39,174,96,0.2);
+        }
+
+        .mineral-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .mineral-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .mineral-card.critical .mineral-name { color: #c0392b; }
+        .mineral-card.high .mineral-name { color: #d68910; }
+        .mineral-card.medium .mineral-name { color: #1a8449; }
+
+        .mineral-use {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: #7f8c8d; margin-bottom: 10px;
+        }
+
+        .mineral-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        .mineral-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px; padding: 5px 10px;
+            border-radius: 6px; margin-top: 10px;
+            display: inline-block;
+        }
+
+        .mineral-card.critical .mineral-data { background: #fdecea; color: #c0392b; }
+        .mineral-card.high .mineral-data { background: #fef9e7; color: #d68910; }
+        .mineral-card.medium .mineral-data { background: #eafaf1; color: #1a8449; }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif; font-size: 24px;
+            font-weight: 800; color: #1a8449;
+            margin: 45px 0 20px; padding-bottom: 12px;
+            border-bottom: 3px solid #27ae60;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a8449, #27ae60);
+            color: white; font-size: 14px; font-weight: 700;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        .body-text {
+            font-size: 18px; line-height: 1.9; color: #2c3e50;
+            margin-bottom: 20px; text-align: justify;
+        }
+
+        /* BAOTOU CASE */
+        .case-study {
+            background: linear-gradient(135deg, #1c1c1c 0%, #2c2c2c 100%);
+            color: white; border-radius: 16px; padding: 35px;
+            margin: 30px 0; position: relative; overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '📍 CASO DE ESTUDIO';
+            position: absolute; top: 15px; right: 20px;
+            font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; background: #e74c3c; color: white;
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        .case-study-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px; font-weight: 800;
+            color: #f39c12; margin-bottom: 15px;
+        }
+
+        .case-study p { font-size: 17px; line-height: 1.8; margin-bottom: 12px; }
+        .case-study p:last-child { margin-bottom: 0; }
+        .case-study strong { color: #f39c12; }
+
+        /* BIODIVERSITY */
+        .biodiversity-impacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px; margin: 30px 0;
+        }
+
+        .bio-card {
+            background: white; border: 2px solid #a9dfbf;
+            border-radius: 14px; padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .bio-card:hover {
+            border-color: #27ae60;
+            box-shadow: 0 6px 20px rgba(39,174,96,0.15);
+        }
+
+        .bio-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+
+        .bio-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 700;
+            color: #1a8449; margin-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .bio-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* DEEP SEA BOX */
+        .deep-sea-box {
+            background: linear-gradient(135deg, #0a1a2e 0%, #0d2137 100%);
+            color: white; border-radius: 16px; padding: 30px;
+            margin: 30px 0; border: 2px solid #1a6fa8;
+        }
+
+        .deep-sea-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 800;
+            color: #3498db; margin-bottom: 12px;
+        }
+
+        .deep-sea-box p { font-size: 17px; line-height: 1.8; margin-bottom: 10px; }
+        .deep-sea-box strong { color: #3498db; }
+
+        /* SUPPLY CHAIN */
+        .supply-chain {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin: 30px 0;
+        }
+
+        .supply-item {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #a9dfbf;
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+
+        .supply-country { font-size: 30px; margin-bottom: 8px; display: block; }
+
+        .supply-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 700;
+            color: #1a8449; margin-bottom: 6px;
+        }
+
+        .supply-detail { font-size: 14px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea, #fad7d0);
+            border: 3px solid #e74c3c; border-radius: 16px;
+            padding: 30px; margin: 30px 0; position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute; top: -18px; left: 30px;
+            font-size: 30px; background: white; padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif; font-size: 18px;
+            font-weight: 800; color: #c0392b; margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        .source-note {
+            background: #f8f9fa; border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0; padding: 12px 20px;
+            margin: 15px 0; font-size: 14px; font-style: italic; color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #0b3d1f 0%, #145a32 100%);
+            color: white; padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif; font-size: 11px;
+            font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;
+        }
+
+        .footer-value { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; }
+
+        .footer-nav { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+            padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px; transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+        .nav-link.active { background: #27ae60; border-color: #27ae60; color: white; }
+.nav-link.home-btn { background: rgba(39,174,96,0.25); border-color: rgba(39,174,96,0.6); color: #d4f7e0; }
+.nav-link.home-btn:hover { background: rgba(39,174,96,0.4); }
+.nav-link.pdf-btn { cursor: pointer; font-family: inherit; background: rgba(52,152,219,0.25); border-color: rgba(52,152,219,0.6); color: white; }
+.nav-link.pdf-btn:hover { background: rgba(52,152,219,0.45); }
+
+        .author-note { font-size: 13px; opacity: 0.8; font-style: italic; text-align: center; }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+    
+@media print {
+  html, body {
+    background: linear-gradient(135deg, #e8f8f0 0%, #d0f0df 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .container { box-shadow: none; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-nav { display: none !important; }
+  .home-pdf-row { display: none !important; }
+  .footer-grid { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-item { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4a373;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#7d3c00;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:280px;}}
+</style>
+<script src="../assets/print-full-paper.js" defer></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Bagian 5 — Baru</span>
+            <span class="section-icon">⛏️</span>
+            <h1 class="section-title">Mineral Kritis, Ekosistem, dan Keanekaragaman Hayati</h1>
+            <p class="section-subtitle">
+                AI tidak ada di udara — chip dan servernya memerlukan logam yang ditambang
+                dari kedalaman bumi, dengan biaya lingkungan dan manusia yang jarang terlihat
+            </p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#7d6608;font-style:italic;margin-bottom:20px;">Terjemahan dari naskah asli berbahasa Spanyol/Inggris yang telah diverifikasi. Jika terdapat perbedaan, naskah asli yang berlaku.</p>
+
+        <div class="crisis-callout">
+            <p>
+                Membuat komputer seberat 2 kg memerlukan <strong>800 kg bahan mentah</strong>.
+                Mikrochip yang menghidupkan model AI bergantung pada elemen tanah jarang
+                yang ditambang dalam kondisi yang merusak lingkungan, sering kali di wilayah
+                dengan regulasi lingkungan yang lemah atau bahkan tidak ada. <strong>Cina menguasai 60–99%
+                pemurnian mineral kritis paling penting untuk AI</strong>, dan ekspansi
+                sektor ini dapat memicu eskalasi penambangan dasar laut pada ekosistem
+                yang nyaris belum terjelajahi.
+            </p>
+        </div>
+
+        <!-- 5.1 MINERALES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.1</span>
+            Mineral Kritis yang Diperlukan AI
+        </h2>
+
+        <p class="body-text">
+            Mineral yang diperlukan untuk infrastruktur AI berkisar dari logam umum
+            hingga elemen tanah jarang yang ekstraksinya sangat khusus. Setiap GPU,
+            server, dan sistem pendingin memusatkan puluhan material ini, yang
+            rantai pasokannya menghasilkan dampak lingkungan dari tambang hingga tempat pembuangan sampah:
+        </p>
+
+        <div class="minerals-grid">
+            <div class="mineral-card critical">
+                <span class="mineral-icon">⚡</span>
+                <div class="mineral-name">Kobalt (Co)</div>
+                <div class="mineral-use">Baterai cadangan di pusat data</div>
+                <p class="mineral-text">
+                    ~70% produksi dunia berasal dari RDK (Republik Demokratik
+                    Kongo), di mana penambangan artisanal melibatkan pekerja anak dan
+                    mencemari sungai lokal. Ekstraksi menghancurkan hutan tropis
+                    dan berdampak langsung pada komunitas adat.
+                </p>
+                <span class="mineral-data">RDK: 70% produksi global — IEA 2024</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔋</span>
+                <div class="mineral-name">Litium (Li)</div>
+                <div class="mineral-use">Baterai dan sistem penyimpanan</div>
+                <p class="mineral-text">
+                    Ekstraksi di Salar Bolivia (cadangan terbesar dunia) menggunakan
+                    volume air yang sangat besar di wilayah yang sudah kering, mengancam ekosistem
+                    unik seperti laguna Uyuni. Komunitas adat mengeluhkan
+                    konsultasi yang "hanya bersifat formalitas."
+                </p>
+                <span class="mineral-data">Bolivia: cadangan global terbesar — memengaruhi ekosistem unik</span>
+            </div>
+            <div class="mineral-card critical">
+                <span class="mineral-icon">🔲</span>
+                <div class="mineral-name">Galium (Ga)</div>
+                <div class="mineral-use">Chip dan elektronika daya untuk GPU</div>
+                <p class="mineral-text">
+                    Cina menguasai 99% pemurnian galium global. Sebuah studi
+                    siklus hidup di Shanxi mengidentifikasi natrium hidroksida yang digunakan dalam
+                    pemurniannya sebagai penyebab utama toksisitas air.
+                    IEA memproyeksikan permintaan akan melampaui 10% pasokan
+                    saat ini pada 2030.
+                </p>
+                <span class="mineral-data">Cina: 99% pemurnian global — IEA Energy &amp; AI (2025)</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">🧲</span>
+                <div class="mineral-name">Neodimium (Nd)</div>
+                <div class="mineral-use">Magnet permanen pada motor GPU dan kipas</div>
+                <p class="mineral-text">
+                    Elemen tanah jarang yang penting untuk magnet kuat pada
+                    motor sistem pendingin. Ekstraksinya di Cina telah
+                    menghasilkan kerusakan lingkungan yang masif, termasuk danau beracun
+                    di Baotou, Mongolia Dalam.
+                </p>
+                <span class="mineral-data">Baotou: danau beracun berisi 180 Mt limbah</span>
+            </div>
+            <div class="mineral-card high">
+                <span class="mineral-icon">💎</span>
+                <div class="mineral-name">Tembaga (Cu)</div>
+                <div class="mineral-use">Kabel, penyerap panas, PCB</div>
+                <p class="mineral-text">
+                    AS mengimpor ~37% tembaganya. Tambang baru memerlukan 15–20 tahun
+                    sejak penemuan hingga produksi. Penambangan tembaga di utara
+                    Cile menghadapi protes dari komunitas adat karena penggunaan
+                    air di wilayah kering.
+                </p>
+                <span class="mineral-data">AS mengimpor 37% — FP Analytics (2025)</span>
+            </div>
+            <div class="mineral-card medium">
+                <span class="mineral-icon">🔩</span>
+                <div class="mineral-name">Silikon ultra-murni (Si)</div>
+                <div class="mineral-use">Substrat dasar semua semikonduktor</div>
+                <p class="mineral-text">
+                    Meskipun silikon melimpah, pemurniannya menjadi grade semikonduktor
+                    (kemurnian 99,9999999%) memerlukan proses yang sangat intensif dalam
+                    energi dan air. Pabrik chip (fab) terkonsentrasi di
+                    Taiwan, Korea Selatan, dan AS.
+                </p>
+                <span class="mineral-data">Pemurnian: proses paling intensif air di industri</span>
+            </div>
+        </div>
+
+        <!-- 5.2 CASO BAOTOU -->
+        <div class="case-study">
+            <div class="case-study-title">🏭 Kasus Baotou, Mongolia Dalam, Cina</div>
+            <p>
+                Di Baotou, pusat dunia pemurnian tanah jarang, proses
+                ekstraksi dan pengolahan mineral telah menciptakan <strong>danau beracun
+                yang mencakup lebih dari 5 mil persegi</strong>, berisi lebih dari
+                <strong>180 juta ton debu residu dari pengolahan mineral</strong>.
+            </p>
+            <p>
+                Danau ini mengandung <strong>torium radioaktif, asam sulfat, dan puluhan
+                kontaminan lainnya</strong> yang merembes ke akuifer lokal dan
+                tanah pertanian sekitarnya. Desa-desa terdekat melaporkan tingginya angka
+                kanker, osteoporosis, dan cacat bawaan lahir. Ekosistem dalam radius
+                beberapa kilometer telah berubah secara tidak dapat dipulihkan.
+            </p>
+            <p>
+                Ini bukan kasus terisolasi: ini adalah konsekuensi terdokumentasi dari permintaan
+                global akan mineral tanah jarang untuk teknologi — termasuk AI.
+            </p>
+        </div>
+
+        <!-- 5.3 BIODIVERSIDAD -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.2</span>
+            Dampak pada Keanekaragaman Hayati dan Ekosistem
+        </h2>
+
+        <p class="body-text">
+            Sebuah studi yang diterbitkan di <em>Carbon Neutral Systems</em> (Springer Nature, Desember 2025)
+            mengembangkan kerangka "nexus sumber daya" terintegrasi pertama yang menganalisis dampak
+            AI terhadap energi, air, material, dan tanah secara bersamaan. Ditemukan bahwa
+            dampak pada keanekaragaman hayati bersifat sistemik, saling terkait, dan secara spasial
+            tidak merata, dengan manfaat terkonsentrasi di Utara Global dan biaya ekologis
+            dieksternalisasi ke Selatan Global.
+        </p>
+
+        <div class="biodiversity-impacts">
+            <div class="bio-card">
+                <span class="bio-icon">🌳</span>
+                <div class="bio-title">Kerusakan Habitat akibat Pertambangan</div>
+                <p class="bio-text">
+                    Pertambangan dan peleburan mineral kritis mengakibatkan kerusakan habitat,
+                    masuknya spesies invasif melalui jaringan jalan tambang,
+                    serta efek toksik jangka panjang pada ekosistem perairan di sekitarnya.
+                    <br><small><em>Sumber: Springer Nature (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌱</span>
+                <div class="bio-title">Alih Fungsi Lahan untuk Pusat Data</div>
+                <p class="bio-text">
+                    Taman server berskala besar menempati area yang luas, menggusur
+                    flora dan fauna lokal. Sebuah pusat data di Oregon mencakup 327 hektar —
+                    lebih dari 250 lapangan sepak bola. Pembangunannya di wilayah pinggiran kota
+                    mengganggu koridor ekologis dan berkontribusi pada pulau panas perkotaan.
+                    <br><small><em>Sumber: Medium/Eastgate (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🐟</span>
+                <div class="bio-title">Pencemaran Air</div>
+                <p class="bio-text">
+                    Air lindi dari tempat pembuangan e-waste dan residu pemurnian
+                    mineral mencemari sungai, danau, dan akuifer. Merkuri
+                    terbioakumulasi dalam rantai makanan perairan, memengaruhi ikan,
+                    burung, dan mamalia laut.
+                    <br><small><em>Sumber: Wang et al., Nature Comp. Sci. (2024)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🦜</span>
+                <div class="bio-title">Fragmentasi Habitat</div>
+                <p class="bio-text">
+                    Jaringan jalan untuk akses tambang memfragmentasi habitat yang sebelumnya
+                    menyatu, mengganggu pola migrasi mamalia dan burung,
+                    serta memudahkan perburuan liar dan ekstraksi ilegal sumber daya alam.
+                    <br><small><em>Sumber: Springer Nature Carbon Neutral Systems (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">💧</span>
+                <div class="bio-title">Persaingan Air dengan Ekosistem</div>
+                <p class="bio-text">
+                    Pusat data di wilayah kering menarik air dari akuifer yang sama
+                    yang memasok lahan basah dan sungai yang penting bagi burung migran dan
+                    fauna endemik. Barat daya AS, Spanyol, dan utara Cile
+                    merupakan kasus konflik aktif yang terdokumentasi.
+                    <br><small><em>Sumber: Lincoln Institute / IE Insights (2025)</em></small>
+                </p>
+            </div>
+            <div class="bio-card">
+                <span class="bio-icon">🌡️</span>
+                <div class="bio-title">Pulau Panas dan Mikroklimat</div>
+                <p class="bio-text">
+                    Megapusat data memancarkan panas sisa yang menaikkan suhu
+                    lokal beberapa derajat, mengubah mikroklimat yang menopang ekosistem
+                    yang sensitif. Di wilayah padat seperti Virginia Utara, dengan 300+
+                    pusat data, efeknya bersifat regional dan terdokumentasi.
+                    <br><small><em>Sumber: Lincoln Institute (2025)</em></small>
+                </p>
+            </div>
+        </div>
+
+        <!-- 5.4 MINERÍA SUBMARINA -->
+        <div class="deep-sea-box">
+            <div class="deep-sea-title">⚓ Batas Terberbahaya: Pertambangan Dasar Laut</div>
+            <p>
+                Permintaan logam yang meledak untuk AI mempercepat usulan
+                <strong>penambangan dasar laut</strong> — mengekstraksi nodul logam dari
+                dasar samudra di wilayah yang nyaris belum terjelajahi. Zona
+                Clarion-Clipperton, antara Meksiko dan Hawaii, memusatkan minat terbesar dari
+                perusahaan tambang Amerika Serikat dan Eropa.
+            </p>
+            <p>
+                Masalahnya: nodul-nodul ini berada pada <strong>ekosistem laut dalam yang
+                unik</strong> yang menampung spesies-spesies yang belum tercatat, banyak dengan peran
+                kritis dalam siklus biogeokimia samudra. Menyeret atau menyedot
+                dasar laut untuk mengambil nodul-nodul ini <strong>menghancurkan secara tidak dapat dipulihkan
+                habitat yang membutuhkan jutaan tahun untuk terbentuk</strong>. Wilayah ini
+                berada di perairan internasional dan regulasinya sedang aktif diperdebatkan
+                di Otoritas Dasar Laut Internasional.
+            </p>
+            <p>
+                <strong>Belum ada kerangka regulasi yang memadai</strong> untuk menilai
+                atau memitigasi dampak ini sebelum penambangan dimulai.
+            </p>
+        </div>
+
+        <!-- 5.5 CADENA DE SUMINISTRO -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">5.3</span>
+            Konsentrasi Geopolitik Rantai Pasokan
+        </h2>
+
+        <p class="body-text">
+            Ketergantungan AI pada mineral kritis terkonsentrasi secara geografis
+            pada segelintir negara, menciptakan kerentanan geopolitik dan melanggengkan
+            model ekstraktif yang mengeksternalisasi biaya lingkungan ke wilayah dengan
+            daya tawar lebih rendah. IEA melaporkan bahwa permintaan galium dapat melampaui
+            10% pasokan global saat ini pada 2030.
+        </p>
+
+        <div class="supply-chain">
+            <div class="supply-item">
+                <span class="supply-country">🇨🇳</span>
+                <div class="supply-name">Cina</div>
+                <p class="supply-detail">60%+ produksi tanah jarang. 99% pemurnian galium. Monopoli de facto pada REE yang diolah.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇨🇩</span>
+                <div class="supply-name">RDK</div>
+                <p class="supply-detail">70% kobalt global. Kondisi kerja yang dipertanyakan. Deforestasi aktif di wilayah tambang.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇧🇴</span>
+                <div class="supply-name">Bolivia / Cile / Argentina</div>
+                <p class="supply-detail">Cadangan litium terbesar dunia ("Segitiga Litium"). Konflik dengan komunitas adat yang terdokumentasi.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇲🇲</span>
+                <div class="supply-name">Myanmar</div>
+                <p class="supply-detail">Produsen penting REE dan tungsten. Penambangan ilegal terkait dengan pendanaan konflik bersenjata.</p>
+            </div>
+            <div class="supply-item">
+                <span class="supply-country">🇹🇼</span>
+                <div class="supply-name">Taiwan</div>
+                <p class="supply-detail">TSMC memproduksi 92% chip paling canggih di dunia. Ketergantungan tinggi pada air untuk produksi.</p>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-box-title">Ketimpangan Global: Biaya Tidak Dibagi Rata</div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Konsentrasi Pasar — % Kendali Global per Negara</div>
+            <div class="chart-canvas-wrap"><canvas id="chartSupplyChain"></canvas></div>
+        </div>
+            <p>
+                Studi Springer Nature (2025) menunjukkan bahwa manfaat AI
+                terkonsentrasi di Utara Global (AS, Eropa, Cina), sementara
+                biaya ekologis — pencemaran tambang, e-waste informal, kerusakan
+                habitat — dieksternalisasi ke Selatan Global: Afrika sub-Sahara, Amerika
+                Latin, dan Asia Tenggara. Ini adalah bentuk <strong>kolonialisme
+                lingkungan digital</strong> yang belum ditangani secara memadai oleh
+                kerangka regulasi internasional.
+            </p>
+        </div>
+
+        <div class="source-note">
+            <strong>Sumber utama bagian ini:</strong> "The ecology of artificial intelligence:
+            energy, water, materials, and land limits of digital systems."
+            <em>Carbon Neutral Systems</em>, Springer Nature (2 Desember 2025).
+            DOI: 10.1007/s44438-025-00018-8. Juga: UNEP "AI has an environmental problem" (2024),
+            FP Analytics "AI and the Critical Minerals Crunch" (2025), Wang et al. (2024).
+        </div>
+
+    </div>
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Sección</div>
+                <div class="footer-value">5 — Mineral dan Keanekaragaman Hayati (Baru)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Cakupan Data</div>
+                <div class="footer-value">2019 – Des. 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Sumber Utama</div>
+                <div class="footer-value">Springer Nature, UNEP, IEA, FP Analytics, Nature Comp. Sci.</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Bagian Berikutnya</div>
+                <div class="footer-value">Bagian 6 → Diskusi</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link home-btn">🏠 Beranda</a>
+                <button type="button" class="nav-link pdf-btn" onclick="downloadFullPaper()">⚡ PDF Lengkap</button>
+                <a href="portada.html" class="nav-link">Sampul</a>
+                <a href="toc.html" class="nav-link">Daftar Isi</a>
+                <a href="resumen.html" class="nav-link">Ringkasan</a>
+                <a href="introduccion.html" class="nav-link">Pendahuluan</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link active">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Refs</a>
+            </div>
+            <p class="author-note">
+                <strong>Penulis:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Internasional
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.mineral-card,.supply-item,.region-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartSupplyChain'), {
+    type:'bar',
+    data:{
+      labels:['🇹🇼 Taiwan — Chip canggih (TSMC)','🇨🇳 Cina — Pemurnian galium','🇨🇩 RDK — Kobalt global','🇨🇳 Cina — Tanah jarang'],
+      datasets:[{
+        label:'% control global',
+        data:[92, 99, 70, 60],
+        backgroundColor:['#3498db','#e74c3c','#f39c12','#e67e22'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1600, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}% del mercado global`}} },
+      scales:{ x:{beginAtZero:true, max:100, title:{display:true,text:'% de control global'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

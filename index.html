@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Carbon Footprint Paper — Elizabeth Díaz Familia — 11 idiomas / 11 languages</title>
-<meta name="description" content="Scientific Methodology for Measuring the Carbon Footprint of AI Models — Elizabeth Díaz Familia, 2026 — Available in 11 languages">
+<title>AI Carbon Footprint Paper — Elizabeth Díaz Familia — 14 idiomas / 14 languages</title>
+<meta name="description" content="Scientific Methodology for Measuring the Carbon Footprint of AI Models — Elizabeth Díaz Familia, 2026 — Available in 14 languages">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="alternate" hreflang="es" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/es/">
 <link rel="alternate" hreflang="en" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/en/">
@@ -17,6 +17,9 @@
 <link rel="alternate" hreflang="ja" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ja/">
 <link rel="alternate" hreflang="ko" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/ko/">
 <link rel="alternate" hreflang="zh" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/zh/">
+<link rel="alternate" hreflang="de" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/de/">
+<link rel="alternate" hreflang="it" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/it/">
+<link rel="alternate" hreflang="id" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/id/">
 <link rel="alternate" hreflang="x-default" href="https://lizzy0981.github.io/ai-carbon-footprint-paper/en/">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -47,12 +50,14 @@ p{font-size:14px;opacity:.65;margin-bottom:32px;}
 <div class="wrap">
   <span class="leaf">🌿</span>
   <h1>Metodología Científica para Medición de Huella de Carbono en Modelos de IA</h1>
-  <p>Scientific Methodology for Measuring the Carbon Footprint of AI Models — 11 idiomas / 11 languages</p>
+  <p>Scientific Methodology for Measuring the Carbon Footprint of AI Models — 14 idiomas / 14 languages</p>
   <div class="choices">
     <a href="es/" class="choice"><span class="flag">🇪🇸</span><span class="lang-name">Español</span></a>
     <a href="en/" class="choice"><span class="flag">🇺🇸</span><span class="lang-name">English</span></a>
     <a href="fr/" class="choice"><span class="flag">🇫🇷</span><span class="lang-name">Français</span></a>
     <a href="pt/" class="choice"><span class="flag">🇵🇹</span><span class="lang-name">Português</span></a>
+    <a href="de/" class="choice"><span class="flag">🇩🇪</span><span class="lang-name">Deutsch</span></a>
+    <a href="it/" class="choice"><span class="flag">🇮🇹</span><span class="lang-name">Italiano</span></a>
     <a href="ru/" class="choice"><span class="flag">🇷🇺</span><span class="lang-name">Русский</span></a>
     <a href="tr/" class="choice"><span class="flag">🇹🇷</span><span class="lang-name">Türkçe</span></a>
     <a href="ar/" class="choice"><span class="flag">🇸🇦</span><span class="lang-name">العربية</span></a>
@@ -60,6 +65,7 @@ p{font-size:14px;opacity:.65;margin-bottom:32px;}
     <a href="ja/" class="choice"><span class="flag">🇯🇵</span><span class="lang-name">日本語</span></a>
     <a href="ko/" class="choice"><span class="flag">🇰🇷</span><span class="lang-name">한국어</span></a>
     <a href="zh/" class="choice"><span class="flag">🇨🇳</span><span class="lang-name">中文</span></a>
+    <a href="id/" class="choice"><span class="flag">🇮🇩</span><span class="lang-name">Bahasa Indonesia</span></a>
   </div>
   <p class="redirect-note" id="redirectNote"></p>
 </div>
@@ -68,12 +74,14 @@ p{font-size:14px;opacity:.65;margin-bottom:32px;}
 (function(){
   var supported = {
     es:'es/', en:'en/', fr:'fr/', pt:'pt/', ru:'ru/', tr:'tr/',
-    ar:'ar/', he:'he/', iw:'he/', ja:'ja/', ko:'ko/', zh:'zh/'
+    ar:'ar/', he:'he/', iw:'he/', ja:'ja/', ko:'ko/', zh:'zh/',
+    de:'de/', it:'it/', id:'id/', 'in':'id/'
   };
   var names = {
     'es/':'Español', 'en/':'English', 'fr/':'Français', 'pt/':'Português',
     'ru/':'Русский', 'tr/':'Türkçe', 'ar/':'العربية', 'he/':'עברית',
-    'ja/':'日本語', 'ko/':'한국어', 'zh/':'中文'
+    'ja/':'日本語', 'ko/':'한국어', 'zh/':'中文',
+    'de/':'Deutsch', 'it/':'Italiano', 'id/':'Bahasa Indonesia'
   };
   var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0,2);
   var target = supported[browserLang] || 'en/';

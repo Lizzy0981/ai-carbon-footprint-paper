@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Bagian 3 — Dampak Air dari AI | Paper Ilmiah</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+        }
+
+        /* HEADER */
+        .header-section {
+            background: linear-gradient(135deg, #1a6fa8 0%, #0d4f8a 50%, #2980b9 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0 40 Q20 10 40 40 Q60 70 80 40 L80 80 L0 80 Z'/%3E%3C/svg%3E") repeat-x bottom;
+            animation: wave 8s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 bottom; }
+            100% { background-position: 160px bottom; }
+        }
+
+        .header-content { position: relative; z-index: 2; }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+            animation: droplet 3s ease-in-out infinite;
+        }
+
+        @keyframes droplet {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* CONTENT */
+        .content-section { padding: 50px 45px; }
+
+        /* INTRO CALLOUT */
+        .crisis-callout {
+            background: linear-gradient(135deg, #ebf5ff 0%, #d6ecff 100%);
+            border-left: 6px solid #1a6fa8;
+            border-radius: 0 16px 16px 0;
+            padding: 30px 35px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .crisis-callout::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px; left: 20px;
+            font-size: 24px;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .crisis-callout p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #1a3a5c;
+        }
+
+        .crisis-callout strong { color: #0d4f8a; }
+
+        /* STATS GRID */
+        .water-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .water-stat {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0fa 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .water-stat:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(52,152,219,0.25);
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a6fa8;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #5d8aa8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .stat-source {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* SECTION HEADINGS */
+        .section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a6fa8;
+            margin: 45px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-num {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* BODY TEXT */
+        .body-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* WATER JOURNEY */
+        .water-journey {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .journey-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.15);
+        }
+
+        .journey-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .journey-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .journey-card-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .journey-card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #2980b9;
+            background: #ebf5ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* PER QUERY TABLE */
+        .query-table-wrap {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e8f4ff 100%);
+            border: 2px solid #3498db;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .query-table-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table.water-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table.water-table thead tr {
+            background: linear-gradient(135deg, #1a6fa8, #2980b9);
+            color: white;
+        }
+
+        table.water-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        table.water-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #d6ecff;
+            color: #2c3e50;
+        }
+
+        table.water-table tr:nth-child(even) td { background: rgba(52,152,219,0.05); }
+        table.water-table tr:hover td { background: rgba(52,152,219,0.1); }
+
+        .highlight-red { color: #e74c3c; font-weight: 700; }
+        .highlight-orange { color: #e67e22; font-weight: 700; }
+        .highlight-green { color: #27ae60; font-weight: 700; }
+
+        /* REGIONS BOX */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .region-card {
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .region-card.crisis {
+            background: linear-gradient(135deg, #fdecea 0%, #fbd5d0 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .region-card.warning {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdeabf 100%);
+            border: 2px solid #f39c12;
+        }
+
+        .region-card.monitor {
+            background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);
+            border: 2px solid #27ae60;
+        }
+
+        .region-flag { font-size: 28px; margin-bottom: 8px; display: block; }
+
+        .region-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .region-card.crisis .region-name { color: #c0392b; }
+        .region-card.warning .region-name { color: #d68910; }
+        .region-card.monitor .region-name { color: #1e8449; }
+
+        .region-detail { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background: linear-gradient(135deg, #fdecea 0%, #fad7d0 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: '🚨';
+            position: absolute;
+            top: -18px; left: 30px;
+            font-size: 30px;
+            background: white;
+            padding: 0 6px;
+        }
+
+        .alert-box-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #c0392b;
+            margin-bottom: 12px;
+        }
+
+        .alert-box p { font-size: 17px; line-height: 1.8; color: #2c3e50; }
+
+        /* COMPARISON BOX */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 640px) { .comparison-container { grid-template-columns: 1fr; } }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fdecea, #fbd5d0);
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-card.good {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border: 2px solid #27ae60;
+        }
+
+        .comparison-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-card.bad .comparison-label { color: #c0392b; }
+        .comparison-card.good .comparison-label { color: #1e8449; }
+
+        .comparison-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.bad .comparison-number { color: #e74c3c; }
+        .comparison-card.good .comparison-number { color: #27ae60; }
+
+        .comparison-desc { font-size: 15px; line-height: 1.6; color: #34495e; }
+
+        /* SOLUTIONS */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid #bee3f8;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(52,152,219,0.15);
+        }
+
+        .solution-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+
+        .solution-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a6fa8;
+            margin-bottom: 10px;
+        }
+
+        .solution-text { font-size: 15px; line-height: 1.7; color: #34495e; }
+
+        /* NOTE */
+        .source-note {
+            background: #f8f9fa;
+            border-left: 4px solid #7f8c8d;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
+            color: white;
+            padding: 35px 45px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .footer-item {
+            background: rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .footer-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 6px;
+        }
+
+        .footer-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .nav-link.active {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .nav-link.home-btn { background: rgba(39,174,96,0.25); border-color: rgba(39,174,96,0.6); color: #d4f7e0; }
+        .nav-link.home-btn:hover { background: rgba(39,174,96,0.4); }
+        .nav-link.pdf-btn { cursor: pointer; font-family: inherit; background: rgba(52,152,219,0.25); border-color: rgba(52,152,219,0.6); color: white; }
+        .nav-link.pdf-btn:hover { background: rgba(52,152,219,0.45); }
+
+        .author-note {
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-section { padding: 30px 20px; }
+            .header-section { padding: 35px 20px; }
+            .section-title { font-size: 28px; }
+            .document-footer { padding: 25px 20px; }
+        }
+
+        @media print {
+  html, body {
+    background: linear-gradient(135deg, #e8f6ff 0%, #d0ecf8 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .container { box-shadow: none; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-nav { display: none !important; }
+  .home-pdf-row { display: none !important; }
+  .footer-grid { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-item { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+    
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #bee3f8;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#1a6fa8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:320px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:260px;}}
+</style>
+<script src="../assets/print-full-paper.js" defer></script>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Bagian 3 — Baru</span>
+            <span class="section-icon">💧</span>
+            <h1 class="section-title">Dampak Air dari AI</h1>
+            <p class="section-subtitle">
+                Krisis yang senyap: bagaimana model kecerdasan buatan mengonsumsi, menguapkan,
+                dan bersaing memperebutkan sumber daya paling langka di planet ini
+            </p>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#1a6fa8;font-style:italic;margin-bottom:20px;">Terjemahan dari naskah asli berbahasa Spanyol/Inggris yang telah diverifikasi. Jika terdapat perbedaan, naskah asli yang berlaku.</p>
+
+        <!-- INTRO CALLOUT -->
+        <div class="crisis-callout">
+            <p>
+                Sementara wacana publik tentang AI dan lingkungan sebagian besar berfokus
+                pada emisi CO₂, terdapat <strong>krisis paralel yang nyaris tak terlihat</strong>:
+                konsumsi masif air bersih dan air minum oleh pusat data.
+                Pada 2023, hanya pelatihan GPT-3 di pusat-pusat Microsoft saja menguapkan langsung
+                <strong>700.000 liter air bersih</strong> — cukup untuk memasok 1.400 orang
+                selama satu hari. Dan itu baru satu model, dua tahun lalu.
+            </p>
+        </div>
+
+        <!-- KEY STATS -->
+        <div class="water-stats">
+            <div class="water-stat">
+                <span class="stat-number">700.000 L</span>
+                <span class="stat-label">Pelatihan GPT-3</span>
+                <span class="stat-source">Li et al., arXiv:2304.03271 (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">312 – 764 M L</span>
+                <span class="stat-label">Jejak air AI global 2025</span>
+                <span class="stat-source">de Vries-Gao, Cell Reports Sustainability (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">1.068 M L</span>
+                <span class="stat-label">Proyeksi global AI — 2028</span>
+                <span class="stat-source">Morgan Stanley Research (2024)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">~500 mL</span>
+                <span class="stat-label">Untuk setiap 20–50 query ke ChatGPT</span>
+                <span class="stat-source">Li et al. / Univ. California Riverside (2023)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">148 Juta L/hari</span>
+                <span class="stat-label">Estimasi konsumsi harian ChatGPT (2025)</span>
+                <span class="stat-source">Business Energy UK (2025)</span>
+            </div>
+            <div class="water-stat">
+                <span class="stat-number">0.26 mL</span>
+                <span class="stat-label">Per query ke Gemini (Google, 2025)</span>
+                <span class="stat-source">Google Environmental Report (2025)</span>
+            </div>
+        </div>
+
+        <!-- 3.1 CÓMO SE USA EL AGUA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.1</span>
+            Bagaimana Pusat Data Mengonsumsi Air
+        </h2>
+
+        <p class="body-text">
+            Air bukan sekadar produk sampingan yang tidak disengaja dari AI — air adalah input operasional
+            yang kritis, tanpanya sistem pendinginan akan gagal dalam hitungan menit. Kebutuhan
+            energi server modern menghasilkan panas yang masif: satu GPU NVIDIA H100
+            membuang hingga 700W panas termal secara terus-menerus. Pada skala pusat data, dengan puluhan
+            ribu GPU yang beroperasi secara paralel, panas ini harus dibuang secara terus-menerus.
+        </p>
+
+        <div class="water-journey">
+            <div class="journey-card">
+                <span class="journey-card-icon">🌊</span>
+                <div class="journey-card-title">Pendinginan Evaporatif</div>
+                <p class="journey-card-text">
+                    Metode paling umum: air bersih bersirkulasi menyerap panas lalu
+                    menguap di menara pendingin. Air tersebut <em>tidak kembali</em> ke sistem
+                    air lokal — hilang ke atmosfer.
+                </p>
+                <span class="journey-card-data">~1,9 L air per kWh yang dikonsumsi (rata-rata WUE global)</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">⚡</span>
+                <div class="journey-card-title">Air Tidak Langsung (Pembangkitan Listrik)</div>
+                <p class="journey-card-text">
+                    Pembangkit termoelektrik yang memasok listrik ke pusat data
+                    memerlukan air untuk produksi uap dan pendinginan. Di AS, pembangkitan
+                    listrik menarik 43,8 L dan mengonsumsi 3,1 L per kWh.
+                </p>
+                <span class="journey-card-data">Jejak tidak langsung AS: ~800 miliar L/tahun</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏭</span>
+                <div class="journey-card-title">Pembuatan Chip</div>
+                <p class="journey-card-text">
+                    Semikonduktor memerlukan air ultra-murni dalam jumlah masif selama
+                    proses pembuatannya. Apple melaporkan bahwa 99% dari total jejak airnya
+                    berasal dari rantai pasokannya, bukan dari operasi langsungnya.
+                </p>
+                <span class="journey-card-data">Tingkat daur ulang rendah; potensi limbah beracun</span>
+            </div>
+            <div class="journey-card">
+                <span class="journey-card-icon">🏗️</span>
+                <div class="journey-card-title">Konstruksi Infrastruktur</div>
+                <p class="journey-card-text">
+                    Setiap pusat data baru memerlukan air selama konstruksinya dan sistem
+                    lansekap serta pendingin ruangannya. Proyek perluasan di Virginia,
+                    Texas, dan Nevada menyerap sumber daya air komunitas lokal.
+                </p>
+                <span class="journey-card-data">Texas: 49 miliar galon/tahun pada 2025 (HARC/Univ. Houston)</span>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Konsumsi Air Selama Pelatihan — GPT-3 (175B)</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartTrainingWater"></canvas></div>
+        </div>
+
+        <!-- 3.2 CONSUMO POR CONSULTA -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.2</span>
+            Konsumsi Air per Query dan Model
+        </h2>
+
+        <p class="body-text">
+            Kuantifikasi yang akurat mengenai air yang dikonsumsi per query AI adalah bidang
+            penelitian yang aktif, dan nilainya bervariasi tergantung metodologi, model, dan
+            pusat data spesifik. Tabel berikut merangkum data yang paling banyak dikutip dalam
+            literatur ilmiah dan laporan institusional yang telah diverifikasi:
+        </p>
+
+        <div class="query-table-wrap">
+            <div class="query-table-title">Konsumsi Air per Jenis Aktivitas AI</div>
+            <table class="water-table">
+                <thead>
+                    <tr>
+                        <th>Aktivitas / Model</th>
+                        <th>Estimasi Konsumsi</th>
+                        <th>Jenis Air</th>
+                        <th>Sumber</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pelatihan GPT-3 (175B parameter)</td>
+                        <td class="highlight-red">700.000 liter</td>
+                        <td>Air bersih minum</td>
+                        <td>Li et al. (2023) / UC Riverside</td>
+                    </tr>
+                    <tr>
+                        <td>Pelatihan GPT-3 — estimasi total</td>
+                        <td class="highlight-red">5.400.000 liter</td>
+                        <td>Langsung + tidak langsung</td>
+                        <td>Li et al., arXiv:2304.03271 (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — per query pendek (operasional)</td>
+                        <td class="highlight-orange">~5 mL</td>
+                        <td>Pendinginan langsung</td>
+                        <td>Goedecke, analisis teknis (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — per 100 kata yang dihasilkan</td>
+                        <td class="highlight-orange">~519 mL</td>
+                        <td>Siklus hidup penuh</td>
+                        <td>Li et al. / EESI (2023)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — per 20–50 pertanyaan</td>
+                        <td class="highlight-orange">500 mL (1 botol)</td>
+                        <td>Pendinginan langsung</td>
+                        <td>Washington Post / Verma (2024)</td>
+                    </tr>
+                    <tr>
+                        <td>ChatGPT — konsumsi harian global (2025)</td>
+                        <td class="highlight-red">148.000.000 liter</td>
+                        <td>Estimasi total</td>
+                        <td>Business Energy UK (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Gemini — per query</td>
+                        <td class="highlight-green">0.26 mL (5 tetes)</td>
+                        <td>Operasional</td>
+                        <td>Google Environmental Report (2025)</td>
+                    </tr>
+                    <tr>
+                        <td>Pencarian Google (tanpa AI)</td>
+                        <td class="highlight-green">0.2–0.5 mL</td>
+                        <td>Operasional</td>
+                        <td>berbagai sumber terkonsolidasi</td>
+                    </tr>
+                    <tr>
+                        <td>Pembuatan gambar AI (1024×1024)</td>
+                        <td class="highlight-orange">~15 mL estimasi</td>
+                        <td>Pendinginan GPU intensif</td>
+                        <td>Estimasi diturunkan dari kWh per gambar</td>
+                    </tr>
+                    <tr>
+                        <td>Google Santiago de Chile — pusat data</td>
+                        <td class="highlight-red">7.600.000 L/hari</td>
+                        <td>Air minum kota</td>
+                        <td>Dokumen pengadilan Cile (2024)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="source-note">
+            <strong>Catatan metodologis:</strong> Variasi dalam data mencerminkan perbedaan cakupan pengukuran
+            (hanya pendinginan langsung vs. siklus hidup penuh), generasi model, jenis infrastruktur,
+            dan lokasi geografis pusat data. Nilai siklus hidup penuh 30–100x lebih tinggi
+            dibandingkan nilai operasional langsung.
+        </div>
+
+        <!-- 3.3 CRISIS GEOGRÁFICAS -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.3</span>
+            Krisis Geografis: Pusat Data di Zona Tekanan Air
+        </h2>
+
+        <p class="body-text">
+            Salah satu aspek paling kritis dari dampak air AI adalah bahwa hampir
+            <strong>separuh dari lebih 9.000 pusat data di dunia berada di
+            wilayah dengan tekanan air yang tinggi</strong> (Morgan Stanley Research, 2024).
+            Ini berarti sistem-sistem ini bersaing langsung dengan komunitas manusia,
+            pertanian, dan ekosistem untuk sumber daya langka yang sama. Situasi-situasi
+            terdokumentasi berikut menggambarkan skala masalah ini:
+        </p>
+
+        <div class="regions-grid">
+            <div class="region-card crisis">
+                <span class="region-flag">🇨🇱</span>
+                <div class="region-name">Santiago, Cile</div>
+                <p class="region-detail">
+                    Pusat data Google di Cerrillos mengonsumsi ~7,6 juta liter
+                    air minum setiap hari di wilayah yang sudah mengalami kekeringan parah.
+                    Telah menghadapi tuntutan hukum dari komunitas lokal.
+                    <br><em><small>Sumber: Dokumen pengadilan Cile (2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇪🇸</span>
+                <div class="region-name">Aragon, Spanyol</div>
+                <p class="region-detail">
+                    Amazon meminta kenaikan 48% pada izin air untuk
+                    fasilitasnya di Aragon pada 2024. Protes dengan slogan
+                    <em>"Awanmu sedang mengeringkan sungaiku"</em>.
+                    <br><em><small>Sumber: IE Insights / berbagai media (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card crisis">
+                <span class="region-flag">🇺🇸</span>
+                <div class="region-name">Texas, AS</div>
+                <p class="region-detail">
+                    Pusat data di Texas akan mengonsumsi 49 miliar galon air
+                    pada 2025 dan dapat mencapai 399 miliar pada 2030 — setara dengan
+                    mengeringkan Danau Mead sedalam 16 kaki dalam setahun.
+                    <br><em><small>Sumber: HARC / Universitas Houston (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇬🇧</span>
+                <div class="region-name">Inggris</div>
+                <p class="region-detail">
+                    Pemerintah memproyeksikan defisit air sebesar 5 miliar liter per hari
+                    pada 2050. "AI Growth Zone" pertama dari PM Starmer direncanakan
+                    di Culham, Oxfordshire, zona dengan tekanan air tertinggi di Inggris.
+                    <br><em><small>Sumber: Laporan pemerintah Inggris (2025)</small></em>
+                </p>
+            </div>
+            <div class="region-card warning">
+                <span class="region-flag">🇳🇱</span>
+                <div class="region-name">Belanda</div>
+                <p class="region-detail">
+                    Protes di Amsterdam dan sekitarnya menentang pembangunan
+                    megapusat data di lahan pertanian. Pemerintah Belanda menerapkan
+                    pembatasan sementara terhadap izin pembangunan baru.
+                    <br><em><small>Sumber: berbagai media Eropa (2023–2024)</small></em>
+                </p>
+            </div>
+            <div class="region-card monitor">
+                <span class="region-flag">🌍</span>
+                <div class="region-name">Amerika Latin (konteks)</div>
+                <p class="region-detail">
+                    Karibia dan Amerika Tengah termasuk di antara wilayah dunia dengan
+                    proyeksi tekanan air tertinggi akibat perubahan iklim hingga 2030–2050.
+                    Ekspansi AI tanpa regulasi air akan memperdalam krisis ini.
+                    <br><em><small>Sumber: IPCC AR6 (2022) / PBB-Air (2023)</small></em>
+                </p>
+            </div>
+        </div>
+
+        <!-- 3.4 ALERTA -->
+        <div class="alert-box">
+            <div class="alert-box-title">Data Kritis: Air AI adalah Air Minum</div>
+            <p>
+                Berbeda dengan air yang digunakan dalam pertanian atau industri (yang bisa berupa air daur ulang
+                atau tidak layak minum), sebagian besar pusat data memerlukan <strong>air minum berkualitas
+                kota</strong> untuk sistem pendinginannya, karena kotoran dapat merusak
+                peralatan. Ini berarti AI bersaing langsung untuk air yang sama
+                yang diminum manusia. Di wilayah dengan kekeringan aktif — seperti barat daya
+                AS, utara Cile, dan Mediterania — persaingan ini menjadi
+                keadaan darurat kemanusiaan yang nyata.
+            </p>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Air per Query — Perbandingan Antar Sistem (mL)</div>
+            <div class="chart-canvas-wrap" style="height:280px"><canvas id="chartQueryWater"></canvas></div>
+        </div>
+
+        <!-- 3.5 PROYECCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.4</span>
+            Proyeksi 2025–2030: Tren yang Mengkhawatirkan
+        </h2>
+
+        <p class="body-text">
+            Data dari peneliti Cornell University yang diterbitkan di
+            <em>Nature Sustainability</em> (November 2025) memproyeksikan bahwa penerapan
+            server AI di AS dapat mengeringkan antara 731 dan 1.125 juta
+            meter kubik air per tahun antara 2024 dan 2030 — setara dengan konsumsi
+            rumah tangga tahunan 6 hingga 10 juta warga Amerika.
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-card bad">
+                <div class="comparison-label">Skenario Tanpa Perubahan (2030)</div>
+                <span class="comparison-number">1.125 J m³</span>
+                <p class="comparison-desc">
+                    Hanya di AS, jika tren saat ini berlanjut tanpa
+                    perubahan infrastruktur maupun regulasi air.
+                    <br><small>Sumber: Xiao et al., Nature Sustainability (2025)</small>
+                </p>
+            </div>
+            <div class="comparison-card good">
+                <div class="comparison-label">Skenario dengan Mitigasi (2030)</div>
+                <span class="comparison-number">−86%</span>
+                <p class="comparison-desc">
+                    Kemungkinan pengurangan konsumsi air dengan menggabungkan lokasi strategis
+                    pusat data, pendinginan cair langsung, dan efisiensi operasional.
+                    <br><small>Sumber: You et al., Cornell / Nature Sustainability (2025)</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Proyeksi 2030 AS — Skenario Tanpa Perubahan vs Mitigasi</div>
+            <div class="chart-canvas-wrap" style="height:260px"><canvas id="chartProjection"></canvas></div>
+        </div>
+
+        <p class="body-text">
+            Studi de Vries-Gao yang diterbitkan di <em>Cell Reports Sustainability</em>
+            (Desember 2025) menetapkan bahwa jejak air global sistem AI
+            dapat mencapai antara <strong>312,5 dan 764,6 miliar liter pada 2025</strong>,
+            setara dengan konsumsi tahunan global air kemasan. Angka ini merepresentasikan
+            air yang dikonsumsi secara langsung — bukan sekadar ditarik — yang berarti
+            tidak kembali ke siklus air lokal.
+        </p>
+
+        <!-- 3.5 SOLUCIONES -->
+        <h2 class="section-heading">
+            <span class="section-heading-num">3.5</span>
+            Solusi Teknologi dan Kebijakan Air
+        </h2>
+
+        <p class="body-text">
+            Meskipun gambarannya mengkhawatirkan, terdapat baik solusi teknologi
+            maupun instrumen kebijakan yang dapat secara signifikan mengurangi dampak
+            air dari AI. Penerapan gabungan dapat mencapai pengurangan hingga
+            86% dalam konsumsi air sambil mempertahankan kapasitas pemrosesan yang sama:
+        </p>
+
+        <div class="solutions-grid">
+            <div class="solution-card">
+                <span class="solution-icon">🧊</span>
+                <div class="solution-title">Pendinginan Cair Langsung (Immersion Cooling)</div>
+                <p class="solution-text">
+                    Merendam komponen dalam cairan non-konduktif. Nyaris menghilangkan
+                    seluruh kebutuhan air evaporatif. Microsoft meluncurkan pusat data
+                    "zero water" pertamanya pada Agustus 2024.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📍</span>
+                <div class="solution-title">Lokasi Strategis</div>
+                <p class="solution-text">
+                    Membangun pusat data di wilayah beriklim dingin (Islandia, Norwegia,
+                    utara Kanada) secara drastis mengurangi kebutuhan pendinginan
+                    aktif. Islandia menggunakan geotermal dan pendinginan udara luar.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">♻️</span>
+                <div class="solution-title">Air Daur Ulang dan Tidak Layak Minum</div>
+                <p class="solution-text">
+                    Amazon, Meta, dan Apple telah mulai menggunakan air kota yang telah diolah
+                    (reclaimed water) alih-alih air minum segar. Dapat mengurangi
+                    penggunaan air minum sebesar 50–70% jika dikombinasikan dengan langkah lain.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">📊</span>
+                <div class="solution-title">Transparansi dan Regulasi</div>
+                <p class="solution-text">
+                    Saat ini belum ada persyaratan hukum untuk melaporkan konsumsi air
+                    per pusat data di sebagian besar negara. UNEA-7 (Nairobi, Des. 2025)
+                    memasukkan transparansi air pusat data sebagai agenda prioritas.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🌬️</span>
+                <div class="solution-title">Pendinginan Adiabatik</div>
+                <p class="solution-text">
+                    Microsoft menggunakan pendinginan adiabatik (udara luar) ketika
+                    suhu berada di bawah 29,4°C. Di iklim sedang dan dingin
+                    hal ini mencakup sebagian besar tahun, menghilangkan penggunaan air.
+                </p>
+            </div>
+            <div class="solution-card">
+                <span class="solution-icon">🤖</span>
+                <div class="solution-title">AI Efisien Sejak Desain</div>
+                <p class="solution-text">
+                    Arsitektur seperti MoE (Mixture of Experts), distilasi model,
+                    dan kuantisasi mengurangi komputasi yang diperlukan per inferensi. DeepSeek-R1
+                    menunjukkan pada 2025 bahwa model yang sangat efisien memerlukan sumber daya
+                    5–10x lebih sedikit dibanding versi setara tanpa optimisasi.
+                </p>
+            </div>
+        </div>
+
+    </div><!-- /content-section -->
+
+    <!-- FOOTER -->
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <div class="footer-label">Bagian</div>
+                <div class="footer-value">3 — Dampak Air (Baru)</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Cakupan Data</div>
+                <div class="footer-value">2019 – Des. 2025</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Sumber Utama</div>
+                <div class="footer-value">Nature Sustainability, IEA, Cell Reports, UC Riverside</div>
+            </div>
+            <div class="footer-item">
+                <div class="footer-label">Bagian Berikutnya</div>
+                <div class="footer-value">Bagian 4 → Limbah Elektronik</div>
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link home-btn">🏠 Beranda</a>
+                <button type="button" class="nav-link pdf-btn" onclick="downloadFullPaper()">⚡ PDF Lengkap</button>
+                <a href="portada.html" class="nav-link">Sampul</a>
+                <a href="toc.html" class="nav-link">Daftar Isi</a>
+                <a href="resumen.html" class="nav-link">Ringkasan</a>
+                <a href="introduccion.html" class="nav-link">Pendahuluan</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link active">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Refs</a>
+            </div>
+            <p class="author-note">
+                <strong>Penulis:</strong> Elizabeth Díaz Familia — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI &nbsp;|&nbsp;
+                CC BY 4.0 Internasional
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.water-stat,.journey-card,.region-card,.solution-card,.comparison-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Chart 1 — Training water: direct vs total
+  new Chart(document.getElementById('chartTrainingWater'), {
+    type:'bar',
+    data:{
+      labels:['Penguapan langsung','Jejak total (langsung+tidak langsung)'],
+      datasets:[{
+        label:'Litros',
+        data:[700000, 5400000],
+        backgroundColor:['#3498db','#1a6fa8'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} litros`}} },
+      scales:{ x:{beginAtZero:true, title:{display:true,text:'Litros'}} }
+    }
+  });
+
+  // Chart 2 — Per-query water comparison (mL, log scale due to wide range)
+  new Chart(document.getElementById('chartQueryWater'), {
+    type:'bar',
+    data:{
+      labels:['ChatGPT (1 query)','ChatGPT (100 kata)','Google Search','Gemini (Google)'],
+      datasets:[{
+        label:'mL de agua',
+        data:[5, 519, 0.35, 0.26],
+        backgroundColor:['#e67e22','#e74c3c','#27ae60','#1a8449'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} mL`}} },
+      scales:{ y:{type:'logarithmic', title:{display:true,text:'mL (escala log)'}} }
+    }
+  });
+
+  // Chart 3 — 2030 projection scenarios
+  new Chart(document.getElementById('chartProjection'), {
+    type:'bar',
+    data:{
+      labels:['Tanpa Perubahan (2030)','Dengan Mitigasi (2030)'],
+      datasets:[{
+        label:'Millones de m³',
+        data:[1125, 157.5],
+        backgroundColor:['#e74c3c','#27ae60'],
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1500, easing:'easeOutQuart'},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw.toLocaleString()} M m³`}} },
+      scales:{ y:{beginAtZero:true, title:{display:true,text:'Millones de m³'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

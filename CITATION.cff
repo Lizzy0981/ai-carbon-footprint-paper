@@ -9,10 +9,12 @@ abstract: >-
   introduces a validated formula (R²=0.89, error <6% vs. official data) applied
   to 30+ AI models, alongside a public interactive calculator with three
   modules — Training, Inference, and Carbon ROI. Both the paper and the
-  companion calculator are available in 11 languages (Spanish, English,
-  French, Portuguese, Russian, Turkish, Arabic, Hebrew, Japanese, Korean,
-  and Chinese), with Spanish and English as the original validated editions.
-  47 verified references, published under independent research.
+  companion calculator are available in 14 languages (Spanish, English,
+  French, Portuguese, German, Italian, Russian, Turkish, Arabic, Hebrew,
+  Japanese, Korean, Chinese, and Indonesian), with Spanish and English as the
+  original validated editions. 47 verified references, published under
+  independent research. Originally developed in March 2026; publicly released
+  in July 2026.
 authors:
   - family-names: "Díaz Familia"
     given-names: "Elizabeth"
@@ -22,8 +24,8 @@ authors:
     email: "lizzyfamilia@gmail.com"
     affiliation: "Independent Research"
     website: "https://lizzy0981.github.io"
-version: 1.0.0
-date-released: "2026-03-01"
+version: 1.1.0
+date-released: "2026-07-01"
 license: CC-BY-4.0
 repository-code: "https://github.com/Lizzy0981/ai-carbon-footprint-paper"
 url: "https://lizzy0981.github.io/ai-carbon-footprint-paper/"
@@ -32,6 +34,8 @@ languages:
   - en
   - fr
   - pt
+  - de
+  - it
   - ru
   - tr
   - ar
@@ -39,6 +43,7 @@ languages:
   - ja
   - ko
   - zh
+  - id
 keywords:
   - artificial intelligence
   - carbon footprint
@@ -61,8 +66,8 @@ preferred-citation:
       given-names: "Elizabeth"
       orcid: "https://orcid.org/0009-0009-0274-5624"
       affiliation: "Independent Research"
-  version: 1.0.0
-  date-released: "2026-03-01"
+  version: 1.1.0
+  date-released: "2026-07-01"
   license: CC-BY-4.0
   url: "https://lizzy0981.github.io/ai-carbon-footprint-paper/"
   abstract: >-

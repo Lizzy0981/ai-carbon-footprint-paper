@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>Introduzione — Impronta di Carbonio nei Modelli di IA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Crimson Text',serif;line-height:1.8;color:#2c3e50;background:linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%);min-height:100vh;padding:40px 20px;}
+.wrap{max-width:1080px;margin:0 auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.5);}
+.wrap::before{content:'';display:block;height:5px;background:linear-gradient(90deg,#667eea,#3498db,#1abc9c,#27ae60,#f39c12,#e74c3c);}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#4a235a 0%,#6c3483 50%,#8e44ad 100%);padding:52px 48px;color:white;text-align:center;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0 0 L30 30 L60 0 L60 60 L0 60 Z'/%3E%3C/svg%3E") repeat;}
+.hdr-inner{position:relative;z-index:2;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:50px;margin-bottom:18px;}
+.hdr h1{font-family:'Inter',sans-serif;font-size:36px;font-weight:800;margin-bottom:10px;}
+.hdr p{font-size:17px;opacity:.85;max-width:640px;margin:0 auto;line-height:1.6;}
+/* BODY */
+.body{padding:52px 48px;}
+.body-text{font-size:18px;line-height:1.9;color:#2c3e50;margin-bottom:22px;text-align:justify;}
+/* SECTION H */
+.sh{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#6c3483;margin:44px 0 18px;padding-bottom:12px;border-bottom:3px solid #8e44ad;display:flex;align-items:center;gap:12px;}
+.sh-num{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;font-size:13px;font-weight:700;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* PROBLEM CARD */
+.problem-intro{background:linear-gradient(135deg,#f9f3ff,#f0e6ff);border-left:6px solid #8e44ad;border-radius:0 16px 16px 0;padding:30px 34px;margin-bottom:40px;position:relative;}
+.problem-intro::before{content:'🌐';position:absolute;top:-14px;left:18px;font-size:26px;background:white;padding:0 6px;}
+.problem-intro p{font-size:19px;line-height:1.85;color:#2c3e50;}
+.problem-intro strong{color:#6c3483;}
+/* TIMELINE */
+.timeline{margin:30px 0;}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:20px 0;border-bottom:1px dashed #e8d5f5;align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-year{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:#8e44ad;background:#f5e6ff;padding:6px 12px;border-radius:8px;text-align:center;margin-top:4px;}
+.tl-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#4a235a;margin-bottom:6px;}
+.tl-text{font-size:16px;line-height:1.7;color:#34495e;}
+.tl-badge{font-family:'JetBrains Mono',monospace;font-size:12px;background:#f5e6ff;color:#6c3483;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px;}
+/* OBJECTIVES */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0;}
+.obj{background:white;border:2px solid #e8d5f5;border-radius:14px;padding:22px;transition:all .3s;position:relative;overflow:hidden;}
+.obj::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#8e44ad,#1abc9c);}
+.obj:hover{border-color:#8e44ad;transform:translateY(-4px);box-shadow:0 10px 26px rgba(142,68,173,0.15);}
+.obj-num{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#8e44ad;margin-bottom:8px;display:block;}
+.obj-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#4a235a;margin-bottom:7px;}
+.obj-text{font-size:15px;line-height:1.7;color:#34495e;}
+/* STRUCTURE */
+.structure-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;margin:20px 0;}
+.structure-table thead tr{background:linear-gradient(135deg,#6c3483,#8e44ad);color:white;}
+.structure-table th{padding:13px 16px;text-align:left;font-size:13px;font-weight:700;}
+.structure-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid #f0e6ff;color:#2c3e50;vertical-align:top;}
+.structure-table tr:nth-child(even) td{background:#fbf7ff;}
+.structure-table tr:hover td{background:#f5e6ff;}
+.tag-new2{background:#e8fff5;color:#1a8449;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-upd{background:#fef9e7;color:#d68910;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+.tag-core2{background:#f0e6ff;color:#6c3483;font-weight:700;font-size:11px;padding:3px 8px;border-radius:8px;white-space:nowrap;}
+/* FOOTER */
+.pg-footer{background:#1a1a2e;padding:28px 48px;}
+.pg-nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.nl{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:5px 13px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;transition:all .25s;text-transform:uppercase;letter-spacing:.5px;}
+.nl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nl.active{background:rgba(142,68,173,0.3);border-color:rgba(142,68,173,0.5);color:#d7b8f5;}
+.author-credit{text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);font-style:italic;}
+.nl.home-btn{background:rgba(39,174,96,0.2);border-color:rgba(39,174,96,0.4);color:#7be2a0;}
+.nl.home-btn:hover{background:rgba(39,174,96,0.32);color:#a4f0c2;}
+.nl.pdf-btn{cursor:pointer;font-family:inherit;background:rgba(52,152,219,0.2);border-color:rgba(52,152,219,0.4);color:#90caf9;}
+.nl.pdf-btn:hover{background:rgba(52,152,219,0.32);color:#c3e2fb;}
+@media(max-width:700px){.hdr{padding:35px 24px;}.body{padding:32px 20px;}.pg-footer{padding:24px 20px;}.hdr h1{font-size:24px;}.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+@media print {
+  html, body {
+    background: linear-gradient(135deg,#200030 0%,#4a0080 50%,#200030 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .wrap { box-shadow: none; border-radius: 0; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .pg-footer { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .pg-nav { display: none !important; }
+  .home-pdf-row { display: none !important; }
+  .obj:hover, .finding:hover, .tl-item:hover { transform: none; box-shadow: none; }
+  table { page-break-inside: avoid; }
+  .sh { page-break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+.reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+.tl-item.reveal-on-scroll{transform:translateX(-20px);}
+.tl-item.reveal-on-scroll.revealed{transform:translateX(0);}
+</style>
+<script src="../assets/print-full-paper.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="badge">Introduzione</div>
+    <h1>Contesto, Problema e Obiettivi</h1>
+    <p>L'intelligenza artificiale come agente di cambiamento climatico: dall'entusiasmo senza metriche al rigore scientifico</p>
+  </div>
+</div>
+
+<div class="body">
+
+  <p style="font-family:'Inter',sans-serif;font-size:12px;color:#8e44ad;font-style:italic;text-align:center;margin-bottom:24px;">Traduzione dell'originale spagnolo/inglese verificato. In caso di discrepanze, prevale l'originale.</p>
+
+  <div class="problem-intro">
+    <p>Nel 2023, addestrare GPT-4 ha consumato stimabilmente la stessa energia di <strong>1.000 famiglie statunitensi per un anno</strong>. Nel 2024, i data center globali hanno consumato 415 TWh di elettricità — più di tutta l'Argentina. Entro il 2030, ne consumeranno <strong>945 TWh, equivalenti all'intera domanda elettrica del Giappone</strong>. Nonostante queste cifre, fino alla pubblicazione di questo lavoro non esisteva un quadro scientifico integrale, accessibile e pubblico per misurare, confrontare e comunicare l'impatto ambientale dei modelli di IA.</p>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.1</span>Contesto del Problema</div>
+
+  <p class="body-text">
+    L'intelligenza artificiale generativa ha vissuto un'espansione senza precedenti dal 2020, con modelli la cui dimensione si moltiplica ogni 12–18 mesi e il cui dispiegamento su scala globale coinvolge un'infrastruttura fisica massiccia: migliaia di data center, decine di milioni di GPU specializzate, e un consumo di risorse — energia, acqua, minerali — che supera di ordini di grandezza ciò che il dibattito pubblico ha riconosciuto.
+  </p>
+
+  <p class="body-text">
+    Il lavoro fondativo di Strubell et al. (2019) ha avvertito per la prima volta che l'addestramento di grandi modelli di elaborazione del linguaggio naturale ha "costi energetici e politici" significativi. Da allora, il campo si è evoluto rapidamente, ma in modo frammentato: alcuni studi misurano il carbonio, altri l'acqua, altri l'e-waste — senza integrazione metodologica né strumenti pubblici che permettano a ricercatori, giornalisti, legislatori e cittadini di calcolare e confrontare l'impatto reale dei sistemi di IA che usano quotidianamente.
+  </p>
+
+  <div class="sh"><span class="sh-num">0.2</span>Evoluzione del Campo: Cronologia Scientifica</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div>
+        <div class="tl-title">Strubell et al. — Il Primo Allarme</div>
+        <p class="tl-text">Prima quantificazione sistematica del costo energetico dell'addestramento di grandi modelli NLP. Stima che addestrare un transformer con ricerca di iperparametri emetta ~626.000 libbre di CO₂ — equivalenti a cinque auto nell'intera vita utile.</p>
+        <span class="tl-badge">ACL 2019 · Fondativo</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021–22</div>
+      <div>
+        <div class="tl-title">Patterson, Luccioni et al. — Approfondimento Metodologico</div>
+        <p class="tl-text">Google e Hugging Face perfezionano le metodologie. Patterson dimostra che l'ubicazione geografica del data center può ridurre le emissioni fino a 40×. Luccioni sviluppa la prima verifica del carbonio per BLOOM (176B parametri).</p>
+        <span class="tl-badge">Google / Hugging Face · Metodologico</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div>
+        <div class="tl-title">Li et al. — Emerge la Crisi dell'Acqua</div>
+        <p class="tl-text">L'Università della California Riverside scopre che GPT-3 ha fatto evaporare 700.000 litri di acqua potabile durante il suo addestramento. Prima quantificazione sistematica dell'impronta idrica dei modelli di IA.</p>
+        <span class="tl-badge">UC Riverside · arXiv:2304.03271</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div>
+        <div class="tl-title">Wang et al. — L'E-Waste Entra nel Dibattito</div>
+        <p class="tl-text">Nature Computational Science pubblica la prima proiezione sistematica dell'e-waste generato dall'IA generativa: tra 1,2 e 5 milioni di tonnellate metriche entro il 2030, con un catalogo delle tossine associate.</p>
+        <span class="tl-badge">Nature Comp. Sci. · 2024</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div>
+        <div class="tl-title">IEA, Nature Sustainability, Cell Reports — Convergenza Globale</div>
+        <p class="tl-text">L'Agenzia Internazionale dell'Energia pubblica "Energy and AI" (aprile 2025), l'analisi più autorevole fino ad oggi. Contemporaneamente, Xiao et al. (Cornell/Nature Sustainability) e de Vries-Gao (Cell Reports Sustainability) pubblicano i quadri quantitativi più completi su acqua e carbonio.</p>
+        <span class="tl-badge">IEA · Cornell · VU Amsterdam · 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.3</span>Obiettivi dello Studio</div>
+  <div class="obj-grid">
+    <div class="obj"><span class="obj-num">O1</span><div class="obj-title">Sviluppare una Metodologia Replicabile</div><p class="obj-text">Creare una formula validata e replicabile per calcolare l'impronta di carbonio di qualsiasi modello di IA a partire da specifiche tecniche pubbliche.</p></div>
+    <div class="obj"><span class="obj-num">O2</span><div class="obj-title">Analisi Comparativa di 30+ Modelli</div><p class="obj-text">Applicare la metodologia ai modelli più rilevanti del mercato e pubblicare i risultati in modo pubblico e gratuito.</p></div>
+    <div class="obj"><span class="obj-num">O3</span><div class="obj-title">Quadro Ambientale Integrale</div><p class="obj-text">Ampliare l'analisi oltre il carbonio verso le cinque dimensioni: energia, acqua, rifiuti, minerali e biodiversità.</p></div>
+    <div class="obj"><span class="obj-num">O4</span><div class="obj-title">Strumento Pubblico Interattivo</div><p class="obj-text">Sviluppare e pubblicare un calcolatore dell'impronta di carbonio dell'IA con 3 moduli — addestramento, inferenza e ROI verde — accessibile a qualsiasi ricercatore, azienda o cittadino.</p></div>
+    <div class="obj"><span class="obj-num">O5</span><div class="obj-title">Raccomandazioni Operative</div><p class="obj-text">Produrre un quadro di raccomandazioni specifiche per aziende, governi, ricercatori e utenti che permettano di ridurre l'impatto ambientale dell'IA.</p></div>
+  </div>
+
+  <div class="sh"><span class="sh-num">0.4</span>Struttura del Paper</div>
+  <table class="structure-table">
+    <thead><tr><th>Sezione</th><th>Contenuto</th><th>Stato</th></tr></thead>
+    <tbody>
+      <tr><td><strong>§1 Metodologia</strong></td><td>Formula CO₂, hardware, PUE, fattori di carbonio, validazione</td><td><span class="tag-core2">Originale</span></td></tr>
+      <tr><td><strong>§2 Risultati</strong></td><td>30+ modelli analizzati, correlazioni, confronti, validazione</td><td><span class="tag-core2">Originale</span></td></tr>
+      <tr><td><strong>§3 Impatto Idrico</strong></td><td>Consumo per query, crisi geografiche, proiezioni 2030</td><td><span class="tag-new2">Nuova 2025</span></td></tr>
+      <tr><td><strong>§4 Rifiuti Elettronici</strong></td><td>E-waste di GPU, ciclo di vita, tossine, scenari 2030</td><td><span class="tag-new2">Nuova 2025</span></td></tr>
+      <tr><td><strong>§5 Minerali e Biodiversità</strong></td><td>Catena di fornitura, Baotou, estrazione mineraria oceanica, ecosistemi</td><td><span class="tag-new2">Nuova 2025</span></td></tr>
+      <tr><td><strong>§6 Discussione</strong></td><td>Cambio di paradigma, confronto letteratura, regolamentazione</td><td><span class="tag-new2">Nuova</span></td></tr>
+      <tr><td><strong>§7 Raccomandazioni</strong></td><td>Guida per attore: aziende, governi, ricercatori, utenti</td><td><span class="tag-new2">Nuova 2025</span></td></tr>
+      <tr><td><strong>§8 Conclusioni</strong></td><td>Sintesi, contributi originali, appello all'azione</td><td><span class="tag-new2">Nuova 2025</span></td></tr>
+      <tr><td><strong>Riferimenti</strong></td><td>47 fonti verificate, 2019–2026</td><td><span class="tag-new2">Nuova</span></td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="pg-footer">
+  <div class="pg-nav">
+    <a href="index.html" class="nl home-btn">🏠 Home</a><button type="button" class="nl pdf-btn" onclick="downloadFullPaper()">⚡ PDF completo</button>
+    <a href="portada.html" class="nl">Copertina</a><a href="toc.html" class="nl">Indice</a>
+    <a href="resumen.html" class="nl">Riassunto</a><a href="introduccion.html" class="nl active">Intro</a>
+    <a href="metodologia.html" class="nl">§1</a><a href="resultados.html" class="nl">§2</a>
+    <a href="impacto_hidrico.html" class="nl">§3 💧</a><a href="residuos_electronicos.html" class="nl">§4 🗑️</a>
+    <a href="minerales_biodiversidad.html" class="nl">§5 ⛏️</a><a href="discusion.html" class="nl">§6</a>
+    <a href="recomendaciones.html" class="nl">§7 ✅</a><a href="conclusiones.html" class="nl">§8</a>
+    <a href="referencias.html" class="nl">Refs</a>
+  </div>
+  <p class="author-credit">Elizabeth Díaz Familia · Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI · CC BY 4.0 · Versione 1.0.0, Marzo 2026</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('revealed'), i%4*80); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-item,.obj,.structure-table tr').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

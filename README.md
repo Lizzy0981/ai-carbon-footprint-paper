@@ -7,12 +7,12 @@
 [![R² Score](https://img.shields.io/badge/Correlación-R²%3D0.89-blue?style=for-the-badge&logo=chartdotjs)](es/resultados.html)
 [![Models](https://img.shields.io/badge/Modelos_Analizados-30%2B-orange?style=for-the-badge&logo=openai)](es/resultados.html)
 [![References](https://img.shields.io/badge/Referencias-47_verificadas-success?style=for-the-badge&logo=googlescholar)](es/referencias.html)
-[![Languages](https://img.shields.io/badge/Paper-11_idiomas-purple?style=for-the-badge&logo=googletranslate)](#-idiomas--languages)
+[![Languages](https://img.shields.io/badge/Paper-14_idiomas-purple?style=for-the-badge&logo=googletranslate)](#-idiomas--languages)
 [![License](https://img.shields.io/badge/Licencia-CC_BY_4.0-yellow?style=for-the-badge&logo=creativecommons)](LICENSE)
 
-Marco científico integral que cuantifica el impacto ambiental de los modelos de inteligencia artificial en **cinco dimensiones**: carbono, agua, residuos electrónicos, minerales críticos y biodiversidad — con **validación empírica** (R²=0.89, error <6% vs. datos oficiales) y una **calculadora pública interactiva** con 3 módulos, disponible en 11 idiomas.
+Marco científico integral que cuantifica el impacto ambiental de los modelos de inteligencia artificial en **cinco dimensiones**: carbono, agua, residuos electrónicos, minerales críticos y biodiversidad — con **validación empírica** (R²=0.89, error <6% vs. datos oficiales) y una **calculadora pública interactiva** con 3 módulos, disponible en 14 idiomas.
 
-*A comprehensive scientific framework quantifying the environmental impact of AI models across five dimensions: carbon, water, e-waste, critical minerals, and biodiversity — with empirical validation and a public interactive calculator available in 11 languages.*
+*A comprehensive scientific framework quantifying the environmental impact of AI models across five dimensions: carbon, water, e-waste, critical minerals, and biodiversity — with empirical validation and a public interactive calculator available in 14 languages.*
 
 ---
 
@@ -23,10 +23,10 @@ Marco científico integral que cuantifica el impacto ambiental de los modelos de
 📄 │   METODOLOGÍA CIENTÍFICA — HUELLA DE CARBONO EN MODELOS DE IA       │ 📄
 🔬 │                    Díaz Familia (2026) · v1.0.0                     │ 🔬
 📊 │                                                                      │ 📊
-🌍 │  🇪🇸🇺🇸🇫🇷🇵🇹🇷🇺🇹🇷🇸🇦🇮🇱🇯🇵🇰🇷🇨🇳  11 idiomas · 13 secciones · 47 referencias  │ 🌍
+🌍 │  🇪🇸🇺🇸🇫🇷🇵🇹🇩🇪🇮🇹🇷🇺🇹🇷🇸🇦🇮🇱🇯🇵🇰🇷🇨🇳🇮🇩  14 idiomas · 13 secciones · 47 referencias  │ 🌍
 💧 │  🌫️ Carbono · 💧 Agua · 🗑️ E-Waste · ⛏️ Minerales · 🌱 Biodiversidad│ 💧
-🧮 │  R²=0.89 · error <6%  ·  Calculadora pública en 11 idiomas          │ 🧮
-📈 │  15 gráficos animados · Chart.js · scroll-reveal en las 143 páginas │ 📈
+🧮 │  R²=0.89 · error <6%  ·  Calculadora pública en 14 idiomas          │ 🧮
+📈 │  15 gráficos animados · Chart.js · scroll-reveal en las 182 páginas │ 📈
 🌈 └──────────────────────────────────────────────────────────────────────┘ 🌈
 ```
 
@@ -37,7 +37,7 @@ Marco científico integral que cuantifica el impacto ambiental de los modelos de
 **[🇪🇸 Versión en Español →](https://lizzy0981.github.io/ai-carbon-footprint-paper/es/)**
 **[🇺🇸 English Version →](https://lizzy0981.github.io/ai-carbon-footprint-paper/en/)**
 
-También disponible en 9 idiomas adicionales — ver la tabla completa en [🌍 Idiomas / Languages](#-idiomas--languages).
+También disponible en 12 idiomas adicionales — ver la tabla completa en [🌍 Idiomas / Languages](#-idiomas--languages).
 
 ⚡ **Calculadora Pública:** [lizzy0981.github.io/calculadora-huella-carbono-ia/](https://lizzy0981.github.io/calculadora-huella-carbono-ia/)
 
@@ -45,7 +45,7 @@ También disponible en 9 idiomas adicionales — ver la tabla completa en [🌍 
 
 ## 🌍 Idiomas / Languages
 
-Este paper está disponible en **11 idiomas completos**, con estructura idéntica (13 secciones cada uno) y navegación cruzada entre todos ellos. Español e inglés son las **ediciones originales validadas**; las 9 restantes son traducciones con nota de traducción visible en cada página.
+Este paper está disponible en **14 idiomas completos**, con estructura idéntica (13 secciones cada uno) y navegación cruzada entre todos ellos. Español e inglés son las **ediciones originales validadas**; las 12 restantes son traducciones con nota de traducción visible en cada página.
 
 | Idioma | Carpeta | Estado |
 |--------|---------|--------|
@@ -53,6 +53,8 @@ Este paper está disponible en **11 idiomas completos**, con estructura idéntic
 | 🇺🇸 English | [`/en`](en/) | ✅ Original validado — 13 secciones |
 | 🇫🇷 Français | [`/fr`](fr/) | ✅ Traducción — 13 secciones |
 | 🇵🇹 Português | [`/pt`](pt/) | ✅ Traducción — 13 secciones |
+| 🇩🇪 Deutsch | [`/de`](de/) | ✅ Traducción — 13 secciones |
+| 🇮🇹 Italiano | [`/it`](it/) | ✅ Traducción — 13 secciones |
 | 🇷🇺 Русский | [`/ru`](ru/) | ✅ Traducción — 13 secciones |
 | 🇹🇷 Türkçe | [`/tr`](tr/) | ✅ Traducción — 13 secciones |
 | 🇸🇦 العربية | [`/ar`](ar/) | ✅ Traducción (RTL) — 13 secciones |
@@ -60,8 +62,9 @@ Este paper está disponible en **11 idiomas completos**, con estructura idéntic
 | 🇯🇵 日本語 | [`/ja`](ja/) | ✅ Traducción (CJK) — 13 secciones |
 | 🇰🇷 한국어 | [`/ko`](ko/) | ✅ Traducción (CJK) — 13 secciones |
 | 🇨🇳 中文 | [`/zh`](zh/) | ✅ Traducción (CJK) — 13 secciones |
+| 🇮🇩 Bahasa Indonesia | [`/id`](id/) | ✅ Traducción — 13 secciones |
 
-> 💡 La **calculadora pública** que acompaña este paper también está disponible en estos mismos **11 idiomas** — ver [repositorio de la calculadora](https://github.com/Lizzy0981/calculadora-huella-carbono-ia).
+> 💡 La **calculadora pública** que acompaña este paper también está disponible en estos mismos **14 idiomas** — ver [repositorio de la calculadora](https://github.com/Lizzy0981/calculadora-huella-carbono-ia).
 >
 > 📖 El glosario técnico ES→idioma para cada traducción está disponible en [`docs/glosarios/`](docs/glosarios/).
 
@@ -85,7 +88,7 @@ Este paper está disponible en **11 idiomas completos**, con estructura idéntic
 - 📚 **Referencias** — 47 fuentes verificadas (peer-reviewed, institucionales, corporativas)
 
 ### 📊 **15 Gráficos Científicos Animados**
-Visualizaciones interactivas con Chart.js y animaciones scroll-reveal en las 143 páginas (13 secciones × 11 idiomas): factor de carbono por región, correlación parámetros-emisiones, escenarios de e-waste, concentración de mercado de minerales, y más.
+Visualizaciones interactivas con Chart.js y animaciones scroll-reveal en las 182 páginas (13 secciones × 14 idiomas): factor de carbono por región, correlación parámetros-emisiones, escenarios de e-waste, concentración de mercado de minerales, y más.
 
 ---
 
@@ -161,6 +164,8 @@ Agua (L)  = Energía (kWh) × 1.8 L/kWh    [Li et al., UC Riverside, 2023]
 ├── 📂 en/                            # 🇺🇸 Full paper in English — ORIGINAL VALIDADO
 ├── 📂 fr/                            # 🇫🇷 Paper complet en français
 ├── 📂 pt/                            # 🇵🇹 Artigo completo em português
+├── 📂 de/                            # 🇩🇪 Vollständiges Paper auf Deutsch
+├── 📂 it/                            # 🇮🇹 Paper completo in italiano
 ├── 📂 ru/                            # 🇷🇺 Полная версия на русском
 ├── 📂 tr/                            # 🇹🇷 Türkçe tam metin
 ├── 📂 ar/                            # 🇸🇦 النسخة الكاملة بالعربية (RTL)
@@ -168,20 +173,24 @@ Agua (L)  = Energía (kWh) × 1.8 L/kWh    [Li et al., UC Riverside, 2023]
 ├── 📂 ja/                            # 🇯🇵 日本語版（完全版）
 ├── 📂 ko/                            # 🇰🇷 한국어 전체 버전
 ├── 📂 zh/                            # 🇨🇳 中文完整版
-│   └── (mismas 13 páginas por carpeta, con nota de traducción en las 9 no originales)
+├── 📂 id/                            # 🇮🇩 Paper lengkap dalam Bahasa Indonesia
+│   └── (mismas 13 páginas por carpeta, con nota de traducción en las 12 no originales)
 │
 ├── 📂 docs/
 │   └── 📂 glosarios/                 # 📚 Glosario técnico ES→idioma, uno por idioma traducido
 │       ├── glosario_en.md
 │       ├── glosario_fr.md
 │       ├── glosario_pt.md
+│       ├── glosario_de.md
+│       ├── glosario_it.md
 │       ├── glosario_ru.md
 │       ├── glosario_tr.md
 │       ├── glosario_ar.md
 │       ├── glosario_he.md
 │       ├── glosario_ja.md
 │       ├── glosario_ko.md
-│       └── glosario_zh.md
+│       ├── glosario_zh.md
+│       └── glosario_id.md
 │
 └── 📂 assets/
     ├── 📄 favicon.svg
@@ -198,7 +207,7 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
 
 **Formato de cita sugerido:**
 
-> Díaz Familia, E. (2026). *Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models* (Versión 1.0.0). Investigación Independiente. Licencia CC BY 4.0.
+> Díaz Familia, E. (2026). *Scientific Methodology for Measuring the Carbon Footprint of Artificial Intelligence Models* (Versión 1.1.0). Investigación Independiente. Licencia CC BY 4.0.
 > ORCID: [0009-0009-0274-5624](https://orcid.org/0009-0009-0274-5624)
 > https://lizzy0981.github.io/ai-carbon-footprint-paper/
 
@@ -209,7 +218,7 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
   title     = {Scientific Methodology for Measuring the Carbon Footprint
                of Artificial Intelligence Models},
   year      = {2026},
-  version   = {1.0.0},
+  version   = {1.1.0},
   publisher = {Independent Research},
   url       = {https://lizzy0981.github.io/ai-carbon-footprint-paper/},
   note      = {ORCID: 0009-0009-0274-5624}
@@ -220,7 +229,7 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
 
 ## 🔮 Roadmap
 
-### ✅ **Completado — v1.0.0 · Marzo 2026**
+### ✅ **Completado — v1.0.0 · Desarrollado en marzo 2026**
 - [x] 📐 Metodología validada con R²=0.89, error <6%
 - [x] 📊 Análisis de 30+ modelos de IA (LLMs, visión, especializados)
 - [x] 💧 Integración del impacto hídrico (nueva dimensión 2025)
@@ -236,6 +245,12 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
 - [x] 📊 15 gráficos científicos animados con Chart.js
 - [x] 🆔 Registro ORCID — [0009-0009-0274-5624](https://orcid.org/0009-0009-0274-5624)
 - [x] 🌟 Archivo `CITATION.cff` para citación académica automática
+
+### ✅ **Completado — v1.1.0 · Publicado en julio 2026**
+- [x] 🌐 Traducción a 3 idiomas adicionales — DE, IT, ID (13 páginas cada uno, 39 páginas adicionales — 182 páginas totales)
+- [x] 📚 Glosario técnico ES→idioma para las 3 nuevas traducciones (`docs/glosarios/`)
+- [x] 🔤 Selector de idioma y hreflang tags actualizados a 14 idiomas en `index.html`
+- [x] 🚀 Publicación pública del paper completo
 
 ### 🔜 **Próximos Pasos**
 - [ ] 🔗 Corregir el botón "Ver Paper Científico" en la calculadora pública (actualmente apunta a sí mismo)
@@ -266,7 +281,7 @@ Este repositorio incluye un archivo [`CITATION.cff`](CITATION.cff) — GitHub ge
 💰 Financial Risk AI       # Modelos de riesgo, predicciones financieras, ROI
 ☁️ Cloud Computing         # OCI (certificada), APIs, deployment automático
 📝 Scientific Research     # Papers científicos, metodología validada, R²=0.89
-🌍 Multilingual Systems    # 11 idiomas, RTL/LTR, CJK
+🌍 Multilingual Systems    # 14 idiomas, RTL/LTR, CJK
 ```
 
 ---
@@ -289,7 +304,7 @@ Este trabajo se construye sobre la investigación fundacional de:
 ## 🚀 Call to Action
 
 ```bash
-📖 Lee el paper completo — disponible en 11 idiomas (ES, EN, FR, PT, RU, TR, AR, HE, JA, KO, ZH)
+📖 Lee el paper completo — disponible en 14 idiomas (ES, EN, FR, PT, DE, IT, RU, TR, AR, HE, JA, KO, ZH, ID)
 ⚡ Prueba la calculadora — estima cualquier modelo de IA, incluso los que no existen aún
 🌟 Dale Star a este repo si el trabajo te resultó útil para tu investigación
 🔄 Fork y adapta la metodología para tus propios estudios
@@ -309,7 +324,7 @@ Este trabajo se construye sobre la investigación fundacional de:
 ```
 🌿 ┌──────────────────────────────────────────────────────────────────┐ 🌿
 📄 │           🔬 SCIENTIFICALLY VALIDATED — R²=0.89 · <6% ERROR 🔬   │ 📄
-🌍 │           11 LANGUAGES · ES/EN ORIGINALS — 13 SECTIONS EACH      │ 🌍
+🌍 │           14 LANGUAGES · ES/EN ORIGINALS — 13 SECTIONS EACH      │ 🌍
 📊 │            30+ MODELS ANALYZED · 47 VERIFIED REFERENCES         │ 📊
 💧 │        5 DIMENSIONS — CARBON · WATER · E-WASTE · MINERALS       │ 💧
 🆔 │             ORCID 0009-0009-0274-5624 · CC BY 4.0               │ 🆔

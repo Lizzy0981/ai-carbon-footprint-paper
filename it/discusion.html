@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>Sezione 6 — Discussione | Paper Scientifico</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Crimson Text',serif; line-height:1.8; color:#2c3e50;
+            background:linear-gradient(135deg,#fdf3e7 0%,#fde8c8 100%);
+            min-height:100vh; padding:40px 20px;
+        }
+        .container {
+            max-width:1100px; margin:0 auto; background:white;
+            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.1);
+            overflow:hidden; position:relative;
+        }
+        .container::before {
+            content:''; position:absolute; top:0; left:0;
+            width:100%; height:6px;
+            background:linear-gradient(90deg,#3498db,#2ecc71,#e74c3c,#f39c12);
+        }
+        /* HEADER */
+        .header-section {
+            background:linear-gradient(135deg,#c0392b 0%,#e67e22 50%,#f39c12 100%);
+            color:white; padding:50px 40px; text-align:center;
+            position:relative; overflow:hidden;
+        }
+        .header-section::before {
+            content:''; position:absolute; inset:0;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1.5'/%3E%3Ccircle cx='40' cy='40' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.5'/%3E%3C/svg%3E") repeat;
+        }
+        .header-content { position:relative; z-index:2; }
+        .section-badge {
+            display:inline-block; background:rgba(255,255,255,0.2);
+            border:1px solid rgba(255,255,255,0.4); color:white;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:700;
+            letter-spacing:3px; text-transform:uppercase;
+            padding:6px 20px; border-radius:50px; margin-bottom:20px;
+        }
+        .section-icon { font-size:52px; margin-bottom:16px; display:block; }
+        .section-title {
+            font-family:'Inter',sans-serif; font-size:36px; font-weight:800;
+            margin-bottom:14px; text-shadow:0 2px 8px rgba(0,0,0,0.3);
+        }
+        .section-subtitle { font-size:18px; opacity:0.9; max-width:680px; margin:0 auto; line-height:1.5; }
+
+        /* CONTENT */
+        .content-section { padding:50px 45px; }
+
+        .section-heading {
+            font-family:'Inter',sans-serif; font-size:23px; font-weight:800;
+            color:#c0392b; margin:45px 0 18px; padding-bottom:12px;
+            border-bottom:3px solid #e67e22;
+            display:flex; align-items:center; gap:12px;
+        }
+        .section-heading-num {
+            background:linear-gradient(135deg,#c0392b,#e67e22);
+            color:white; font-size:14px; font-weight:700;
+            width:32px; height:32px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .body-text {
+            font-size:18px; line-height:1.9; color:#2c3e50;
+            margin-bottom:20px; text-align:justify;
+        }
+
+        /* PARADIGM SHIFTS */
+        .paradigm-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:20px; margin:30px 0;
+        }
+        .paradigm-card {
+            border-radius:16px; overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+        }
+        .paradigm-before {
+            background:linear-gradient(135deg,#fdecea,#fbd5d0);
+            padding:18px 20px;
+            border-left:4px solid #e74c3c;
+        }
+        .paradigm-arrow {
+            background:white; padding:8px 20px;
+            text-align:center; font-size:22px;
+            border-left:4px solid #ccc;
+        }
+        .paradigm-after {
+            background:linear-gradient(135deg,#eafaf1,#d5f5e3);
+            padding:18px 20px;
+            border-left:4px solid #27ae60;
+        }
+        .paradigm-label {
+            font-family:'Inter',sans-serif; font-size:11px;
+            font-weight:700; text-transform:uppercase; letter-spacing:1px;
+            margin-bottom:8px;
+        }
+        .paradigm-before .paradigm-label { color:#c0392b; }
+        .paradigm-after .paradigm-label { color:#1e8449; }
+        .paradigm-text { font-size:15px; line-height:1.6; color:#2c3e50; }
+
+        /* COMPARISON TABLE */
+        .comparison-wrap {
+            background:linear-gradient(135deg,#fff5ec 0%,#fde8cc 100%);
+            border:2px solid #e67e22; border-radius:16px;
+            padding:28px; margin:30px 0; overflow-x:auto;
+        }
+        .comparison-title {
+            font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
+            color:#c0392b; margin-bottom:18px; text-align:center;
+            text-transform:uppercase; letter-spacing:2px;
+        }
+        table.comp-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+        table.comp-table thead tr { background:linear-gradient(135deg,#c0392b,#e67e22); color:white; }
+        table.comp-table th { padding:12px 16px; text-align:left; font-size:13px; font-weight:700; }
+        table.comp-table td { padding:11px 16px; font-size:14px; border-bottom:1px solid #fcd3a1; color:#2c3e50; }
+        table.comp-table tr:nth-child(even) td { background:rgba(230,126,34,0.05); }
+        table.comp-table tr:hover td { background:rgba(230,126,34,0.1); }
+        .align-exceed { color:#e74c3c; font-weight:700; }
+        .align-good { color:#27ae60; font-weight:700; }
+        .align-warn { color:#d68910; font-weight:700; }
+
+        /* CALLOUT BOXES */
+        .insight-box {
+            border-radius:16px; padding:28px; margin:28px 0; position:relative;
+        }
+        .insight-box::before {
+            position:absolute; top:-14px; left:24px;
+            font-size:26px; background:white; padding:0 6px;
+        }
+        .insight-box.discovery { background:linear-gradient(135deg,#e8f6ff,#d0ecf8); border:2px solid #3498db; }
+        .insight-box.discovery::before { content:'🔍'; }
+        .insight-box.warning { background:linear-gradient(135deg,#fdecea,#fbd5d0); border:2px solid #e74c3c; }
+        .insight-box.warning::before { content:'⚠️'; }
+        .insight-box.positive { background:linear-gradient(135deg,#eafaf1,#d5f5e3); border:2px solid #27ae60; }
+        .insight-box.positive::before { content:'✅'; }
+
+        .insight-title {
+            font-family:'Inter',sans-serif; font-size:16px; font-weight:800;
+            margin-bottom:10px;
+        }
+        .insight-box.discovery .insight-title { color:#1a6fa8; }
+        .insight-box.warning .insight-title { color:#c0392b; }
+        .insight-box.positive .insight-title { color:#1a8449; }
+        .insight-box p { font-size:17px; line-height:1.8; color:#2c3e50; }
+
+        /* LIMITATIONS */
+        .limitations-list { list-style:none; margin:20px 0; }
+        .limitation-item {
+            display:grid; grid-template-columns:36px 1fr;
+            gap:14px; padding:16px 0;
+            border-bottom:1px dashed #fde8cc; align-items:start;
+        }
+        .limitation-item:last-child { border-bottom:none; }
+        .limit-num {
+            background:#e67e22; color:white;
+            font-family:'Inter',sans-serif; font-size:13px; font-weight:700;
+            width:30px; height:30px; border-radius:8px;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        }
+        .limit-title { font-family:'Inter',sans-serif; font-size:15px; font-weight:700; color:#c0392b; margin-bottom:5px; }
+        .limit-text { font-size:16px; line-height:1.7; color:#34495e; }
+
+        /* FUTURE RESEARCH */
+        .future-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:16px; margin:24px 0;
+        }
+        .future-card {
+            background:white; border:2px solid #fde8cc; border-radius:14px;
+            padding:22px; transition:all 0.3s ease;
+        }
+        .future-card:hover { border-color:#e67e22; transform:translateY(-4px); box-shadow:0 8px 24px rgba(230,126,34,0.15); }
+        .future-icon { font-size:26px; margin-bottom:10px; display:block; }
+        .future-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#c0392b; margin-bottom:8px; }
+        .future-text { font-size:15px; line-height:1.7; color:#34495e; }
+
+        .source-note {
+            background:#f8f9fa; border-left:4px solid #7f8c8d;
+            border-radius:0 8px 8px 0; padding:12px 20px;
+            margin:15px 0; font-size:14px; font-style:italic; color:#5d6d7e;
+        }
+
+        /* FOOTER */
+        .document-footer {
+            background:linear-gradient(135deg,#4a1500 0%,#7d2d00 100%);
+            color:white; padding:35px 45px;
+        }
+        .footer-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px; margin-bottom:25px;
+        }
+        .footer-item { background:rgba(255,255,255,0.08); padding:18px; border-radius:12px; }
+        .footer-label { font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:6px; }
+        .footer-value { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; }
+        .footer-nav { text-align:center; padding-top:20px; border-top:1px solid rgba(255,255,255,0.2); }
+        .nav-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:15px; }
+        .nav-link {
+            color:rgba(255,255,255,0.7); text-decoration:none;
+            font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+            padding:6px 13px; border:1px solid rgba(255,255,255,0.2); border-radius:20px; transition:all 0.3s;
+        }
+        .nav-link:hover { background:rgba(255,255,255,0.12); color:white; }
+        .nav-link.active { background:#e67e22; border-color:#e67e22; color:white; }
+.nav-link.home-btn { background: rgba(39,174,96,0.25); border-color: rgba(39,174,96,0.6); color: #d4f7e0; }
+.nav-link.home-btn:hover { background: rgba(39,174,96,0.4); }
+.nav-link.pdf-btn { cursor: pointer; font-family: inherit; background: rgba(52,152,219,0.25); border-color: rgba(52,152,219,0.6); color: white; }
+.nav-link.pdf-btn:hover { background: rgba(52,152,219,0.45); }
+        .author-note { font-size:13px; opacity:0.8; font-style:italic; text-align:center; }
+        @media(max-width:768px){ .content-section{padding:30px 20px;} .header-section{padding:35px 20px;} .section-title{font-size:26px;} .document-footer{padding:25px 20px;} }
+    
+@media print {
+  html, body {
+    background: linear-gradient(135deg,#fdf3e7 0%,#fde8c8 100%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .container { box-shadow: none; max-width: 100%; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-nav { display: none !important; }
+  .home-pdf-row { display: none !important; }
+  .footer-grid { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .footer-item { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  table { page-break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+        .reveal-on-scroll{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+        .reveal-on-scroll.revealed{opacity:1;transform:translateY(0);}
+        .chart-box{background:white;border:2px solid #d4c5f0;border-radius:16px;padding:26px 22px;margin:26px 0;}
+        .chart-box-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;color:#5b3a8e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;text-align:center;}
+        .chart-canvas-wrap{position:relative;height:340px;}
+        @media(max-width:700px){.chart-canvas-wrap{height:300px;}}
+</style>
+<script src="../assets/print-full-paper.js" defer></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-section">
+        <div class="header-content">
+            <span class="section-badge">Sezione 6 — Aggiornata</span>
+            <span class="section-icon">🔬</span>
+            <h1 class="section-title">Discussione</h1>
+            <p class="section-subtitle">Interpretazione dei risultati, implicazioni per l'industria e la scienza,
+            confronto con la letteratura esistente e linee di ricerca future</p>
+        </div>
+    </div>
+
+    <div class="content-section">
+
+        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:#2874a6;font-style:italic;margin-bottom:20px;">Traduzione dell'originale spagnolo/inglese verificato. In caso di discrepanze, prevale l'originale.</p>
+
+        <!-- 6.1 PARADIGM SHIFTS -->
+        <h2 class="section-heading"><span class="section-heading-num">6.1</span>L'IA come Problema Ambientale Multidimensionale: Un Cambio di Paradigma</h2>
+
+        <p class="body-text">
+            I risultati di questo studio, integrati con la ricerca più recente (2023–2025),
+            confermano che l'impatto ambientale dell'intelligenza artificiale non può continuare a essere
+            valutato esclusivamente attraverso il prisma del carbonio. Le prove accumulate dal
+            lavoro fondativo di Strubell et al. (2019) fino ai rapporti della IEA (2025) e
+            Nature Sustainability (Xiao et al., 2025) stabiliscono un quadro multidimensionale che
+            richiede una trasformazione nel modo in cui l'industria, i regolatori e la società valutano
+            il costo reale dell'IA.
+        </p>
+
+        <div class="paradigm-grid">
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ Paradigma Precedente</div>
+                    <p class="paradigm-text">L'impatto ambientale dell'IA si misura esclusivamente in emissioni di CO₂ durante l'addestramento</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ Nuovo Quadro Scientifico</div>
+                    <p class="paradigm-text">CO₂ + acqua + e-waste + minerali + biodiversità + inferenza + catena di fornitura completa</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ Visione Precedente</div>
+                    <p class="paradigm-text">I modelli di IA sono "software" — il loro impatto è principalmente energetico e transitorio</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ Realtà Documentata</div>
+                    <p class="paradigm-text">L'IA richiede infrastrutture fisiche massicce con impatti ambientali permanenti su acqua, suolo ed ecosistemi</p>
+                </div>
+            </div>
+            <div class="paradigm-card">
+                <div class="paradigm-before">
+                    <div class="paradigm-label">❌ Presupposto Precedente</div>
+                    <p class="paradigm-text">Una maggiore dimensione del modello implica sempre maggiore valore; la scala è una virtù senza costo</p>
+                </div>
+                <div class="paradigm-arrow">↓</div>
+                <div class="paradigm-after">
+                    <div class="paradigm-label">✅ Prova Scientifica</div>
+                    <p class="paradigm-text">R²=0,89 conferma la correlazione dimensione-emissioni; modelli efficienti come DeepSeek-R1 raggiungono prestazioni simili con 5–10x meno risorse</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 COMPARACIÓN LITERATURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.2</span>Confronto con la Letteratura Esistente e Posizionamento dello Studio</h2>
+
+        <p class="body-text">
+            Questo paper si colloca in una posizione singolare all'interno del corpus accademico: è il primo
+            a integrare la metodologia di misurazione del carbonio (erede di Strubell et al. e Patterson et al.)
+            con i nuovi dati sull'impatto idrico (Li et al., 2023; de Vries-Gao, 2025),
+            i rifiuti elettronici (Wang et al., 2024) e la catena di fornitura minerale
+            (Springer Nature Carbon Neutral Systems, 2025) in un quadro coeso e uno strumento
+            di calcolo interattivo accessibile al pubblico.
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">Posizionamento dello Studio vs Letteratura Scientifica Esistente</div>
+            <table class="comp-table">
+                <thead>
+                    <tr><th>Studio / Fonte</th><th>Anno</th><th>CO₂</th><th>Acqua</th><th>E-Waste</th><th>Minerali</th><th>Strumento Pubblico</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Strubell et al.</strong> (ACL 2019)</td><td>2019</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Patterson et al.</strong> (Google, 2021)</td><td>2021</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Luccioni et al. BLOOM</strong> (2022)</td><td>2022</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Li et al.</strong> Water Footprint (2023)</td><td>2023</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Wang et al.</strong> E-waste Nature (2024)</td><td>2024</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>IEA Energy and AI</strong> (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Xiao et al.</strong> Nature Sustainability (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td><td class="align-warn">—</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong>Springer Nature Carbon Neutral Systems</strong> (2025)</td><td>2025</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-good">✓</td><td class="align-warn">—</td></tr>
+                    <tr><td><strong style="color:#667eea;">Questo Studio (Díaz Familia, 2025–2026)</strong></td><td><strong>2025–26</strong></td><td class="align-good">✓ + calc.</td><td class="align-good">✓ nuovo</td><td class="align-good">✓ nuovo</td><td class="align-good">✓ nuovo</td><td class="align-good">✓ pubblico</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-box reveal-on-scroll">
+            <div class="chart-box-title">📊 Dimensioni Coperte per Studio — Evoluzione del Campo (2019–2026)</div>
+            <div class="chart-canvas-wrap"><canvas id="chartCoverage"></canvas></div>
+        </div>
+
+        <div class="insight-box discovery">
+            <div class="insight-title">Contributo Originale al Campo Scientifico</div>
+            <p>
+                Nessuno studio pubblicato finora combina i cinque pilastri (carbonio, acqua, e-waste,
+                minerali, biodiversità) in un unico quadro metodologico <em>con validazione empirica</em>
+                e uno strumento di calcolo pubblico interattivo. Questa combinazione posiziona il presente
+                lavoro come il quadro più completo disponibile per valutare l'impatto ambientale integrale
+                dei modelli di IA.
+            </p>
+        </div>
+
+        <!-- 6.3 IMPLICACIONES INDUSTRIA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.3</span>Implicazioni per l'Industria Tecnologica Globale</h2>
+
+        <p class="body-text">
+            I risultati di questo studio hanno conseguenze dirette e concrete per le aziende
+            che sviluppano e dispiegano modelli di IA. La differenza di 100x nell'impronta di carbonio
+            tra GPT-4 (1.820.000 kg CO₂) e Claude Sonnet (18.200 kg CO₂) per modelli di
+            prestazioni comparabili dimostra che l'efficienza ambientale non è un obiettivo in contrasto
+            con le prestazioni tecniche — è una scelta di progettazione deliberata. I dati emergenti
+            su acqua e minerali rafforzano questa conclusione.
+        </p>
+
+        <div class="insight-box warning">
+            <div class="insight-title">La Corsa al "Modello Più Grande" è Ambientalmente Insostenibile</div>
+            <p>
+                L'analisi del periodo 2018–2024 mostra che il consumo energetico dell'addestramento
+                è cresciuto approssimativamente 300.000x da AlexNet (2012) a GPT-4 (2023).
+                Senza cambiamenti nell'architettura di progettazione, la proiezione della IEA secondo cui il consumo
+                elettrico dei data center supererà la domanda totale del Giappone entro il 2030 è inevitabilmente
+                conservativa. DeepSeek-R1 (gennaio 2025) ha dimostrato che modelli con prestazioni comparabili
+                a GPT-4o possono essere addestrati con ~96% meno risorse computazionali, il che suggerisce
+                che l'industria ha privilegiato la scala rispetto all'efficienza per ragioni di marketing,
+                non per necessità tecnica.
+            </p>
+        </div>
+
+        <p class="body-text">
+            La rivelazione dell'impatto idrico — 148 milioni di litri giornalieri stimati solo per
+            ChatGPT — cambia fondamentalmente l'argomento aziendale. Le aziende che localizzano
+            data center in zone di stress idrico per sfruttare bassi costi di terreno ed energia
+            stanno esternalizzando un costo che ricade su comunità locali ed ecosistemi che
+            non hanno rappresentanza nelle decisioni aziendali. Questo modello, documentato
+            in Cile, Spagna, India e sud-ovest degli USA, costituisce una nuova forma di
+            passività ambientale che i quadri normativi non hanno ancora affrontato.
+        </p>
+
+        <!-- 6.4 MARCO REGULATORIO -->
+        <h2 class="section-heading"><span class="section-heading-num">6.4</span>Quadro Normativo: Progressi e Lacune Critiche</h2>
+
+        <p class="body-text">
+            Il panorama normativo si sta evolvendo, ma in modo frammentato e a una velocità
+            molto inferiore al ritmo di espansione dell'industria. I seguenti sviluppi rappresentano
+            progressi significativi, ma rivelano anche le lacune che devono essere affrontate:
+        </p>
+
+        <div class="comparison-wrap">
+            <div class="comparison-title">Stato del Quadro Normativo Globale (2024–2025)</div>
+            <table class="comp-table">
+                <thead><tr><th>Strumento / Regolamento</th><th>Giurisdizione</th><th>Ambito</th><th>Lacuna Identificata</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>EU AI Act</strong></td><td>Unione Europea</td>
+                        <td class="align-warn">Rischio, trasparenza</td>
+                        <td>Non include il report ambientale obbligatorio</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EU Data Centre Code of Conduct</strong></td><td>UE</td>
+                        <td class="align-good">PUE volontario</td>
+                        <td>Volontario; non copre acqua né e-waste dell'IA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UNEA-7 Agenda Item</strong></td><td>Globale (ONU)</td>
+                        <td class="align-good">Trasparenza idrica</td>
+                        <td>Solo agenda; non ancora obbligatorio (dic. 2025)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Executive Order on AI (USA, 2025)</strong></td><td>USA</td>
+                        <td class="align-exceed">Deregolamentazione ambientale</td>
+                        <td>Bypassa le revisioni ambientali per i data center</td>
+                    </tr>
+                    <tr>
+                        <td><strong>China AI Governance Guidelines</strong></td><td>Cina</td>
+                        <td class="align-warn">Sicurezza, etica</td>
+                        <td>Non include un report ambientale standard</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GHG Protocol / ISO 14064</strong></td><td>Globale</td>
+                        <td class="align-good">Carbonio Scopes 1-2-3</td>
+                        <td>Nessuno standard specifico per l'IA; acqua ed e-waste assenti</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box positive">
+            <div class="insight-title">Segnali Positivi all'Orizzonte</div>
+            <p>
+                Google ha pubblicato nel 2025 la prima metodologia dettagliata per misurare acqua e carbonio
+                per query di inferenza in Gemini, segnando un precedente di trasparenza.
+                Microsoft ha lanciato il suo primo data center "zero water" operativo nell'agosto 2024.
+                L'UNEA-7 ha incluso la trasparenza ambientale dei data center nella sua agenda di dicembre
+                2025. Cornell e altre università hanno pubblicato "roadmap" dettagliate che dimostrano
+                che riduzioni del 73% nel carbonio e dell'86% nell'acqua sono tecnicamente raggiungibili con
+                strategie combinate di localizzazione, efficienza ed energia pulita.
+            </p>
+        </div>
+
+        <!-- 6.5 LIMITACIONES -->
+        <h2 class="section-heading"><span class="section-heading-num">6.5</span>Limiti dello Studio</h2>
+
+        <p class="body-text">
+            L'integrità scientifica richiede di riconoscere esplicitamente i limiti metodologici
+            che influenzano la precisione dei risultati presentati. Questi limiti non invalidano
+            le conclusioni generali, ma definiscono i margini di incertezza entro i quali
+            devono essere interpretate:
+        </p>
+
+        <ul class="limitations-list">
+            <li class="limitation-item">
+                <div class="limit-num">1</div>
+                <div>
+                    <div class="limit-title">Opacità dell'Industria</div>
+                    <p class="limit-text">
+                        I principali sviluppatori di modelli (OpenAI, Google, Anthropic, Meta) non
+                        pubblicano dati tecnici completi sull'hardware utilizzato, sul numero di GPU,
+                        sulla durata esatta dell'addestramento né sui fattori PUE specifici. Le stime
+                        di questo studio si basano su dati pubblici disponibili, inferenze da
+                        pubblicazioni tecniche e validazione incrociata con report ambientali. Man mano che
+                        migliora la divulgazione, i valori calcolati potranno essere raffinati.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">2</div>
+                <div>
+                    <div class="limit-title">L'Inferenza è l'80–90% del Problema Reale</div>
+                    <p class="limit-text">
+                        Questo studio si concentra principalmente sull'addestramento, che è la fase più
+                        misurabile. Tuttavia, l'inferenza (uso quotidiano dei modelli) rappresenta
+                        l'80–90% del consumo energetico totale dell'IA secondo molteplici fonti.
+                        La metodologia per calcolare l'inferenza è più complessa e i dati disponibili
+                        più scarsi; questo è un limite riconosciuto che definisce l'agenda di
+                        ricerca futura.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">3</div>
+                <div>
+                    <div class="limit-title">Variabilità nei Dati di Impatto Idrico</div>
+                    <p class="limit-text">
+                        I valori del consumo di acqua per query variano fino a 100x tra diverse
+                        fonti e metodologie (5 mL vs 519 mL per query). Queste differenze
+                        riflettono ambiti di misurazione distinti (solo raffreddamento diretto vs. ciclo
+                        di vita completo), generazioni di modelli, tipi di data center e ubicazioni
+                        geografiche. Questo studio riporta intervalli, non valori unici, per riflettere
+                        onestamente questa incertezza.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">4</div>
+                <div>
+                    <div class="limit-title">Velocità di Cambiamento Tecnologico</div>
+                    <p class="limit-text">
+                        I modelli di IA evolvono in cicli di settimane. I dati su hardware
+                        ed efficienza che sono precisi oggi possono essere parzialmente obsoleti tra mesi.
+                        La comparsa di architetture MoE, modelli distillati e chip a efficienza
+                        migliorata (come Blackwell di NVIDIA) altera continuamente il panorama.
+                        Si raccomanda una revisione annuale dei dati del calcolatore interattivo.
+                    </p>
+                </div>
+            </li>
+            <li class="limitation-item">
+                <div class="limit-num">5</div>
+                <div>
+                    <div class="limit-title">Catena di Fornitura: Dati Incompleti</div>
+                    <p class="limit-text">
+                        L'impatto ambientale dell'estrazione e della lavorazione dei minerali critici
+                        manca di dati standardizzati e comparabili. Le aziende minerarie e i
+                        produttori di chip raramente pubblicano dati di ciclo di vita completo con
+                        metodologia trasparente. I dati di Baotou e simili provengono da
+                        ricerche accademiche puntuali, non da report sistematici dell'industria.
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 6.6 INVESTIGACIÓN FUTURA -->
+        <h2 class="section-heading"><span class="section-heading-num">6.6</span>Linee di Ricerca Future</h2>
+
+        <p class="body-text">
+            I limiti identificati definiscono direttamente le priorità della ricerca
+            sull'IA sostenibile per i prossimi anni. Questo campo necessita di:
+        </p>
+
+        <div class="future-grid">
+            <div class="future-card">
+                <span class="future-icon">📐</span>
+                <div class="future-title">Metodologia Standard per l'Inferenza</div>
+                <p class="future-text">Sviluppare e validare una formula analoga a quella dell'addestramento per stimare l'impatto dell'inferenza per tipo di query, modello e fornitore cloud.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">💧</span>
+                <div class="future-title">Audit Idrico per Modello</div>
+                <p class="future-text">Stabilire protocolli affinché i fornitori di IA riportino il consumo idrico per query secondo metodologia standardizzata (diretta + indiretta + fabbricazione).</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🌍</span>
+                <div class="future-title">Impatto sugli Ecosistemi Locali</div>
+                <p class="future-text">Studi sul campo in comunità colpite da data center: Cile, Spagna, India, Paesi Bassi, Virginia. Quantificazione degli impatti su falde acquifere, biodiversità e temperatura locale.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🔄</span>
+                <div class="future-title">Ciclo di Vita Completo dei Chip</div>
+                <p class="future-text">Analisi del ciclo di vita (LCA) standardizzata per GPU IA che includa fabbricazione, funzionamento, riciclo e smaltimento finale, con dati verificati dai produttori.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">🤖</span>
+                <div class="future-title">IA Efficiente: Correlazioni di Architettura</div>
+                <p class="future-text">Espandere l'analisi di correlazione per includere architetture MoE, modelli quantizzati ed edge AI, stabilendo fattori di riduzione delle emissioni per tecnica di ottimizzazione.</p>
+            </div>
+            <div class="future-card">
+                <span class="future-icon">⚖️</span>
+                <div class="future-title">Giustizia Ambientale e IA</div>
+                <p class="future-text">Quantificare la distribuzione diseguale di benefici vs. costi ambientali dell'IA tra il Nord Globale (benefici) e il Sud Globale (costi estrattivi e di e-waste).</p>
+            </div>
+        </div>
+
+        <div class="source-note">
+            <strong>Sintesi della discussione:</strong> Questo paper integra per la prima volta i cinque vettori di impatto ambientale dell'IA (carbonio, acqua, e-waste, minerali, biodiversità) in un unico quadro scientifico con validazione empirica e strumento pubblico. La differenza di 100x tra modelli simili conferma che l'efficienza ambientale è possibile e dipende da decisioni di progettazione. L'assenza di dati completi su inferenza, acqua e catena di fornitura non è un limite scientifico — è un fallimento di trasparenza dell'industria che la ricerca e la regolamentazione devono correggere.
+        </div>
+
+    </div><!-- /content-section -->
+
+    <div class="document-footer">
+        <div class="footer-grid">
+            <div class="footer-item"><div class="footer-label">Sezione</div><div class="footer-value">6 — Discussione (Completa)</div></div>
+            <div class="footer-item"><div class="footer-label">Sottosezioni</div><div class="footer-value">6.1 – 6.6 (Paradigmi, Letteratura, Industria, Regolamentazione, Limiti, Futuro)</div></div>
+            <div class="footer-item"><div class="footer-label">Successiva</div><div class="footer-value">Sezione 7 → Raccomandazioni</div></div>
+            <div class="footer-item"><div class="footer-label">Versione</div><div class="footer-value">1.0.0 — Marzo 2026</div></div>
+        </div>
+        <div class="footer-nav">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link home-btn">🏠 Home</a>
+                <button type="button" class="nav-link pdf-btn" onclick="downloadFullPaper()">⚡ PDF completo</button>
+                <a href="portada.html" class="nav-link">Copertina</a>
+                <a href="toc.html" class="nav-link">Indice</a>
+                <a href="resumen.html" class="nav-link">Riassunto</a>
+                <a href="introduccion.html" class="nav-link">Intro</a>
+                <a href="metodologia.html" class="nav-link">§1</a>
+                <a href="resultados.html" class="nav-link">§2</a>
+                <a href="impacto_hidrico.html" class="nav-link">§3 💧</a>
+                <a href="residuos_electronicos.html" class="nav-link">§4 🗑️</a>
+                <a href="minerales_biodiversidad.html" class="nav-link">§5 ⛏️</a>
+                <a href="discusion.html" class="nav-link active">§6</a>
+                <a href="recomendaciones.html" class="nav-link">§7 ✅</a>
+                <a href="conclusiones.html" class="nav-link">§8</a>
+                <a href="referencias.html" class="nav-link">Refs</a>
+            </div>
+            <p class="author-note"><strong>Elizabeth Díaz Familia</strong> — Sustainable AI Scientist · AI Data Scientist · Sustainable Intelligence & BI | CC BY 4.0 Internazionale</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+(function(){
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.paradigm-card,.limitation-card,.reveal-on-scroll').forEach(el=>{
+    el.classList.add('reveal-on-scroll'); revealObserver.observe(el);
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  new Chart(document.getElementById('chartCoverage'), {
+    type:'bar',
+    data:{
+      labels:['Strubell\n2019','Patterson\n2021','Luccioni\n2022','Li et al.\n2023','Wang et al.\n2024','Xiao et al.\n2025','IEA\n2025','Springer\nNature 2025','Questo Studio\n2025-26'],
+      datasets:[{
+        label:'Dimensioni coperte (su 5)',
+        data:[1,1,1,1,1,2,3,4,5],
+        backgroundColor:(ctx)=>{
+          const i = ctx.dataIndex;
+          return i===8 ? '#667eea' : '#bdc3c7';
+        },
+        borderRadius:8,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:1800, easing:'easeOutQuart', delay:(ctx)=>ctx.dataIndex*100},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw}/5 dimensioni`}} },
+      scales:{ y:{beginAtZero:true, max:5, ticks:{stepSize:1}, title:{display:true,text:'Dimensioni (CO₂, Acqua, E-waste, Minerali, Strumento)'}} }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
